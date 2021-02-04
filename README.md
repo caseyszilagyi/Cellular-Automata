@@ -3,7 +3,7 @@ Cell Society
 
 This project implements a cellular automata simulator.
 
-Names:
+Names: Donghan Park (dp239), George Hong (grh17), Casey Szilagyi (crs79)
 
 ### Timeline
 
