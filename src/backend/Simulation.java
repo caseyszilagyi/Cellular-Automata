@@ -1,5 +1,7 @@
 package backend;
 
+import backend.SimulationInitializer.SimulationInitializer;
+
 /**
  * This class contains the game loop to run the simulation. It initializes the simulation, and
  * contains the loop that runs the simulation. This loop will make a step, check for errors, check
@@ -10,7 +12,9 @@ package backend;
  */
 public class Simulation {
 
-  SimulationInitializer simulationInitializer = new SimulationInitializer();
+  private SimulationInitializer simulationInitializer;
+  private String FILE_NAME = "testingFile.xml";
+
 
   public Simulation(){
     initializeSimulation();
@@ -18,7 +22,8 @@ public class Simulation {
   }
 
   public void initializeSimulation(){
-    simulationInitializer.readXMLFile();
+    simulationInitializer = new SimulationInitializer();
+    simulationInitializer.readXMLFile(FILE_NAME);
   }
 
   public void makeSimulationLoop(){
