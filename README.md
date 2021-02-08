@@ -7,21 +7,27 @@ Names: Donghan Park (dp239), George Hong (grh17), Casey Szilagyi (crs79)
 
 ### Timeline
 
-Start Date: 
+Start Date: 2/8/2020
 
 Finish Date: 
 
 Hours Spent:
 
-### Primary Roles
+- Casey:
+    - 2/8: 2.5
 
+### Primary Roles
+- Casey:
+    - XML
+    - Front/Back end integration
 
 ### Resources Used
 
+For XML file reading: https://docs.oracle.com/javase/tutorial/jaxp/dom/readingXML.html
 
 ### Running the Program
 
-Main class:
+Main class: SimulationDriver
 
 Data files needed: 
 
