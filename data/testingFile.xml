@@ -1,0 +1,31 @@
+<simulation>
+  <simultype type="gof"/>
+  <title>
+    Game of Life
+  </title>
+  <author>
+    Authors...
+  </author>
+
+  <desc>
+    Placeholder description
+  </desc>
+
+  <size>
+    4 4
+  </size>
+
+  <initial>
+    0 0 0 1
+    1 1 1 0
+    0 1 0 1
+    1 1 0 0
+  </initial>
+
+
+  <parameter prob=0.5/>
+  <parameter width=100/>
+  <parameter height=100/>
+
+
+</simulation>
