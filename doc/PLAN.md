@@ -31,7 +31,7 @@ Grid, UserInputHandler, and ErrorHandler all link to both Simulation and Display
 #### Frontend:
 
 
-```java=
+```java
 //The display will have some type of loop that displays the grid (through the grid 
 //display), checks for errors/displays those (gets errors through error handler) and 
 //checks for user input (through the user input handler)
@@ -41,20 +41,20 @@ public class Display{
     public void checkForErrors();
 }
 ```
-```java=
+```java
 // Does this represent the bottom slider and the top controls?
 public class UserInterface{
     public void openFileExplorer/Dropdown()
     public void getUserInput();
 }
 ```
-```java=
+```java
 public class GridDisplay{
     public Grid requestCurrent(Simulation s)
     public void showGrid();
 }
 ```
-```java=
+```java
 //This class deals with transferring any user input data to the simulation so that 
 //the simulation remains separate from the user interface.
 public class UserInputHandler{
@@ -64,7 +64,7 @@ public class UserInputHandler{
     public void switchSimulation()
 }
 ```
-```java=
+```java
 //Deals with transferring error data from the simulation to the display in order 
 //to be displayed. Might need another class to hold the error messages, and this 
 //can just transfer the boolean data of whether an error is present?
@@ -82,7 +82,7 @@ public void (open/close)Simulation()
 
 
 #### Backend:
-```java=
+```java
 // Populates a Grid.  
 public class Cell{
     public Neighbors getNeighbors(CellInitializer cellInit)
@@ -90,7 +90,7 @@ public class Cell{
 }
 ```
 
-```java=
+```java
 // Aggregates cells and allows a "birds-eye" view of layout, allowing for easier access to neighbors.
 public class Grid{
     // useful checker to find vacant spots to move to 
@@ -99,7 +99,7 @@ public class Grid{
 }
 ```
 
-```java=
+```java
 // Holds the Grid and its associated Cells
 public class Simulation{
     // Holds user parameters such as CHANCE_TO_BURN, TIME_TO_REPRODUCE, ...etc
@@ -115,14 +115,14 @@ public class Simulation{
     public Grid send()
 }
 ```
-```java=
+```java
 // Holds the update loop.
 public class SimulationStepper{
     public void step(Grid g)    
 }
 ```
 
-```java=
+```java
 // Holds the neighbors of the cell, hiding implementation details
 public class Neighbors{
     public int size()
@@ -130,7 +130,7 @@ public class Neighbors{
 }
 ```
 
-```java=
+```java
 // Calls on the XML
 public class SimulationInitializer{
 // Reads XML and is then responsible for setting up the correct simulation
@@ -159,7 +159,7 @@ public class SimulationInitializer{
 ## Configuration File Format
 
 (Potential 1: separating width, height, & various parameters in separate tags)
-```xml=
+```xml
 <simulation>
     <simultype type="gof"/>
     <title>
@@ -186,7 +186,7 @@ public class SimulationInitializer{
 ```
 
 (Potential 2: keeping width & height as values in the initial configuration of states)
-```xml=
+```xml
 <simulation>
     <simType type="gof"/>
     <title>
@@ -226,7 +226,7 @@ Another option is to encode each cell as an integer.  When examining the simulat
 
 #### Loop Step
 This code provides a look into how the simulation update step might work;
-```java=
+```java
 // 
 Grid currentStep;
 Grid nextStep = new Grid(...);
@@ -256,7 +256,7 @@ currentStep = nextStep;
 
 ## Use Cases
 #### A cell checks its neighbors and if dissatisfied can choose to move anywhere on the grid
-```java=
+```java
 // Actually a ResidentCell, but loop must be general
 Cell resident;
 
@@ -271,7 +271,7 @@ resident.makeDecisions(nextStep, n);
 ```
 
 #### A fish with maximum energy will split
-```java=
+```java
 Cell fish;
 
 Neighbors n = fish.identifyNeighbors(currentStep);
@@ -290,7 +290,7 @@ fish.makeDecisions(nextStep, n);
 
 #### Apply the rules to a middle cell: set the next state of a cell to dead by counting its number of neighbors using the Game of Life rules for a cell in the middle (i.e., with all its neighbors)
 
-```java=
+```java
 // (r, c) positions are given by the main loop
 // alternatively, we could just choose to represent a dead cell with null.
 Neighbors n = cell.identifyNeighbors(currentStep);
@@ -303,7 +303,7 @@ cell.makeDecisions(nextStep, n);
 
 #### Apply the rules to an edge cell: set the next state of a cell to live by counting its number of neighbors using the Game of Life rules for a cell on the edge (i.e., with some of its neighbors missing)
 
-```java=
+```java
 // (r, c) positions are given by the main loop
 Neighbors n = cell.identifyNeighbors(currentStep);
 cell.makeDecisions(nextStep, n);
@@ -314,7 +314,7 @@ cell.makeDecisions(nextStep, n);
 ```
 
 #### Move to the next generation: update all cells in a simulation from their current state to their next state and display the result graphically
-```java=
+```java
 .step()
 ->  Grid currentGeneration;
     Grid nextGeneration = new Grid(...);
@@ -334,7 +334,7 @@ cell.makeDecisions(nextStep, n);
 ```
 #### Set a simulation parameter: set the value of a global configuration parameter, probCatch, for a simulation, Fire, based on the value given in an XML fire
 
-```java=
+```java
 readXMLFile(String fileName){
     File file = new File(fileName);
     
@@ -352,7 +352,7 @@ readXMLFile(String fileName){
 #### Switch simulations: load a new simulation from an XML file, stopping the current running simulation, Segregation, and starting the newly loaded simulation, Wa-Tor
 
 This would be called by user input, so when the simulation checks for user input, it will make a new simulation initializer that will replace the current simulation
-```java=
+```java
 checkForUserInput(){
     String nextLine = getNextLine();
     if(nextLine != null){
@@ -366,7 +366,7 @@ checkForUserInput(){
 
 
 In the display class, this method will be called on an instance of the userInterface class and will get the input from the user interface.
-```java= 
+```java
 userInterface.getUserInput(){
     // The userData class's implementation will have to change for different 
     // simulation types, becasue the user input data will never be the same
@@ -393,7 +393,7 @@ putUserDataInStructure(){
 
 #### Bad data is given in the XML file, so the simulation intializer tells the error handler
 
-```java=
+```java
 //Method called durnig the initialization
 checkForBadData(){
     //When one of these result in an error, the errorhandler will be notified
@@ -417,7 +417,7 @@ if(errorHandler.getError){
 
 #### A shark eats a fish when they share the same cell
 
-```java=
+```java
 Cell fish;
 
 Neighbors n = fish.identifyNeighbors(currentStep);
@@ -431,7 +431,7 @@ if (overlappingCell.getClass().getName().equals("shark")){
 
 #### Reset simulation: stop and reset the simulation
 
-```java=
+```java
 // resetting a simulation will essentially be the same as switching to the 
 // same simulation, except no new user parameters will have to be taken
 restartSimulation(String simulationName){
@@ -466,6 +466,7 @@ Having the cell logic within each cell as opposed to in a separate class or in t
   **George Hong**
   - Primary: Backend
   - Secondary: XML
+  
 * Team Member #2
   **Casey Szilagyi**
   - Primary: XML (and how it integrates into the back end)
