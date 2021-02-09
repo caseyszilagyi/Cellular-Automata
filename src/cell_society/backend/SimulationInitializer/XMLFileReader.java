@@ -1,13 +1,11 @@
-package backend.SimulationInitializer;
+package cell_society.backend.SimulationInitializer;
 
 import java.io.File;
-import java.io.IOException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.xml.sax.ErrorHandler;
-import org.xml.sax.SAXException;
 
 /** Used to take in an XML file and parse through it in order to get the information needed to
  * begin a simulation

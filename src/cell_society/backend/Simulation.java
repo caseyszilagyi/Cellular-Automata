@@ -1,6 +1,6 @@
-package backend;
+package cell_society.backend;
 
-import backend.SimulationInitializer.SimulationInitializer;
+import cell_society.backend.SimulationInitializer.SimulationInitializer;
 
 /**
  * This class contains the game loop to run the simulation. It initializes the simulation, and
@@ -13,7 +13,7 @@ import backend.SimulationInitializer.SimulationInitializer;
 public class Simulation {
 
   private SimulationInitializer simulationInitializer;
-  private String FILE_NAME = "testingFile.xml";
+  private String FILE_NAME = "config_files/testingFile.xml";
 
 
   public Simulation(){
