@@ -1,4 +1,4 @@
-package cellsociety;
+package cell_society;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

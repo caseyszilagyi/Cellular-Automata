@@ -1,4 +1,4 @@
-package cellsociety.backend.SimulationInitializer;
+package cell_society.backend.SimulationInitializer;
 
 import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
