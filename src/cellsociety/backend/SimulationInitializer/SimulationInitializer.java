@@ -1,4 +1,4 @@
-package backend.SimulationInitializer;
+package cellsociety.backend.SimulationInitializer;
 
 
 /**

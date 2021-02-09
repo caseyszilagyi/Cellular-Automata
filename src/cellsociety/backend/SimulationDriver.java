@@ -1,4 +1,4 @@
-package backend;
+package cellsociety.backend;
 
 /**
  * This is the driver for the simulation. An instance of the simulation is made here, and then the

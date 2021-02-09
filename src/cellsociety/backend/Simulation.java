@@ -1,6 +1,6 @@
-package backend;
+package cellsociety.backend;
 
-import backend.SimulationInitializer.SimulationInitializer;
+import cellsociety.backend.SimulationInitializer.SimulationInitializer;
 
 /**
  * This class contains the game loop to run the simulation. It initializes the simulation, and
