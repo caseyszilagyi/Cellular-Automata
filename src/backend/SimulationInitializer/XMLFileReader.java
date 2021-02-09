@@ -1,11 +1,13 @@
 package backend.SimulationInitializer;
 
 import java.io.File;
+import java.io.IOException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.xml.sax.ErrorHandler;
+import org.xml.sax.SAXException;
 
 /** Used to take in an XML file and parse through it in order to get the information needed to
  * begin a simulation
@@ -15,8 +17,9 @@ import org.xml.sax.ErrorHandler;
  */
 public class XMLFileReader {
 
-  ErrorHandler errorHandler = new XMLErrorHandler();
-  Document doc;
+  private ErrorHandler errorHandler = new XMLErrorHandler();
+  private DocumentBuilder db;
+  private Document doc;
 
   private String fileName;
 
@@ -30,12 +33,23 @@ public class XMLFileReader {
   }
 
 
-  public void makeFactoryAndParse() throws Exception {
-    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-    DocumentBuilder db = dbf.newDocumentBuilder();
-    db.setErrorHandler(errorHandler);
-    //May need to make this namespace aware in the future if it is deemed necessary
+  /**
+   * Parses the file with the established DocumentBuilder
+   * @throws Exception if anything goes wrong while parsing
+   */
+  public void parseFile() throws Exception {
     doc = db.parse(new File(fileName));
+  }
+
+
+  /**
+   * Makes the document builder that will be used to parse through all XML files
+   * @throws ParserConfigurationException
+   */
+  private void makeDocumentBuilder() throws ParserConfigurationException {
+    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    db = dbf.newDocumentBuilder();
+    db.setErrorHandler(errorHandler);
   }
 
 }
