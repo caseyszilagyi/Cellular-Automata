@@ -51,6 +51,10 @@ public class XMLFileReader {
     simulationType = userSimulationType;
   }
 
+  public String getSimulationType(){
+    return simulationType;
+  }
+
 
   /**
    * Get data contained in this XML file as an object
