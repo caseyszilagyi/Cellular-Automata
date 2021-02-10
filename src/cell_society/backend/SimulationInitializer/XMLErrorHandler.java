@@ -1,41 +1,36 @@
 package cell_society.backend.SimulationInitializer;
 
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
+import java.io.Serial;
 
 /**
- * https://docs.oracle.com/javase/tutorial/jaxp/dom/readingXML.html
+ * This class represents what might go wrong when using XML files.
+ *
+ * @author Robert C. Duvall
  */
-public class XMLErrorHandler implements ErrorHandler {
+public class XMLErrorHandler extends RuntimeException {
+  // for serialization
+  @Serial
+  private static final long serialVersionUID = 1L;
 
 
-  XMLErrorHandler() {
+  /**
+   * Create an exception based on an issue in our code.
+   */
+  public XMLErrorHandler (String message, Object ... values) {
+    super(String.format(message, values));
   }
 
-  private String getParseExceptionInfo(SAXParseException spe) {
-    String systemId = spe.getSystemId();
-    if (systemId == null) {
-      systemId = "null";
-    }
-
-    String info = "URI=" + systemId + " Line=" + spe.getLineNumber() +
-        ": " + spe.getMessage();
-    return info;
+  /**
+   * Create an exception based on a caught exception with a different message.
+   */
+  public XMLErrorHandler (Throwable cause, String message, Object ... values) {
+    super(String.format(message, values), cause);
   }
 
-  public void warning(SAXParseException spe) throws SAXException {
-    //This line was changed from a printwriter to the system.
-    System.out.println("Warning: " + getParseExceptionInfo(spe));
-  }
-
-  public void error(SAXParseException spe) throws SAXException {
-    String message = "Error: " + getParseExceptionInfo(spe);
-    throw new SAXException(message);
-  }
-
-  public void fatalError(SAXParseException spe) throws SAXException {
-    String message = "Fatal Error: " + getParseExceptionInfo(spe);
-    throw new SAXException(message);
+  /**
+   * Create an exception based on a caught exception, with no additional message.
+   */
+  public XMLErrorHandler (Throwable cause) {
+    super(cause);
   }
 }
