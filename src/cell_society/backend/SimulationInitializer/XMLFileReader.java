@@ -14,10 +14,12 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 
-/** Used to take in an XML file and parse through it in order to get the information needed to
- * begin a simulation
- *
+/**
+ * Used to take in an XML file and parse through it in order to get the information needed to begin
+ * a simulation
+ * <p>
  * Still need to come back and add an error handling part, but for now, it will assume good data
+ *
  * @author Casey Szliagyii
  */
 public class XMLFileReader {
@@ -40,10 +42,10 @@ public class XMLFileReader {
   );
 
   /**
-   * Constructor only takes a filename, because that is all that is needed. This assumes that all XML
-   * files that are designed for the simulation have the proper tags.
+   * Constructor only takes a filename, because that is all that is needed. This assumes that all
+   * XML files that are designed for the simulation have the proper tags.
    */
-  public XMLFileReader(String simulationType){
+  public XMLFileReader(String simulationType) {
     DOCUMENT_BUILDER = getDocumentBuilder();
     SIMULATION_TYPE = simulationType;
   }
@@ -51,6 +53,7 @@ public class XMLFileReader {
 
   /**
    * Parses the file with the established DocumentBuilder
+   *
    * @throws Exception if anything goes wrong while parsing
    */
   public void parseFile() throws Exception {
@@ -58,14 +61,12 @@ public class XMLFileReader {
   }
 
 
-
-
   /**
    * Get data contained in this XML file as an object
    */
-  public Map getSimulationParameters (File dataFile) throws XMLErrorHandler {
+  public Map getSimulationParameters(File dataFile) throws XMLErrorHandler {
     Element root = getRootElement(dataFile);
-    if (! isValidFile(root, SIMULATION_TYPE)) {
+    if (!isValidFile(root, SIMULATION_TYPE)) {
       throw new XMLErrorHandler(ERROR_MESSAGE, SIMULATION_TYPE);
     }
     // read data associated with the fields given by the object
@@ -77,53 +78,45 @@ public class XMLFileReader {
   }
 
 
-  // returns if this is a valid XML file for the specified object type
-  private boolean isValidFile (Element root, String type) {
+  // returns if this is a valid XML file for the specified object type. The attribute of the first tag needs to be the same as the type of game that is given
+  private boolean isValidFile(Element root, String type) {
     return getAttribute(root, SIMULATION_TYPE).equals(type);
   }
 
   // get value of Element's attribute
-  private String getAttribute (Element e, String attributeName) {
+  private String getAttribute(Element e, String attributeName) {
     return e.getAttribute(attributeName);
   }
 
   // get value of Element's text
-  private String getTextValue (Element e, String tagName) {
+  private String getTextValue(Element e, String tagName) {
     NodeList nodeList = e.getElementsByTagName(tagName);
     if (nodeList != null && nodeList.getLength() > 0) {
       return nodeList.item(0).getTextContent();
-    }
-    else {
+    } else {
       // FIXME: empty string or exception? In some cases it may be an error to not find any text
       return "";
     }
   }
 
 
-
-
   // get root element of an XML file
-  private Element getRootElement (File xmlFile) throws XMLErrorHandler {
+  private Element getRootElement(File xmlFile) throws XMLErrorHandler {
     try {
       DOCUMENT_BUILDER.reset();
       Document xmlDocument = DOCUMENT_BUILDER.parse(xmlFile);
       return xmlDocument.getDocumentElement();
-    }
-    catch (SAXException | IOException e) {
+    } catch (SAXException | IOException e) {
       throw new XMLErrorHandler(e);
     }
   }
 
 
-
-
-
   // boilerplate code needed to make a documentBuilder
-  private DocumentBuilder getDocumentBuilder () throws XMLErrorHandler {
+  private DocumentBuilder getDocumentBuilder() throws XMLErrorHandler {
     try {
       return DocumentBuilderFactory.newInstance().newDocumentBuilder();
-    }
-    catch (ParserConfigurationException e) {
+    } catch (ParserConfigurationException e) {
       throw new XMLErrorHandler(e);
     }
   }
