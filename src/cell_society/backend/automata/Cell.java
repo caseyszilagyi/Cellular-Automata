@@ -1,4 +1,4 @@
-package backend.AutomataModels;
+package cell_society.backend.automata;
 
 public class Cell {
 

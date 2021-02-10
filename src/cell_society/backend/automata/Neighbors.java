@@ -1,4 +1,4 @@
-package backend.AutomataModels;
+package cell_society.backend.automata;
 
 import java.util.ArrayList;
 import java.util.List;

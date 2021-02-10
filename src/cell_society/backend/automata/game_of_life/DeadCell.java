@@ -1,8 +1,9 @@
 package cell_society.backend.automata.game_of_life;
 
-import backend.AutomataModels.Cell;
-import backend.AutomataModels.Grid;
-import backend.AutomataModels.Neighbors;
+
+import cell_society.backend.automata.Cell;
+import cell_society.backend.automata.Grid;
+import cell_society.backend.automata.Neighbors;
 
 /**
  * The DeadCell represents the dead cell in Conway's Game of Life subject to the following rule:
