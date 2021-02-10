@@ -31,7 +31,8 @@ public class SimulationInitializer {
   public Grid makeGrid(){
     gridCreator = new GridCreator(Integer.parseInt(simulationParameters.get("rows")),
         Integer.parseInt(simulationParameters.get("columns")),
-        simulationParameters.get("grid"));
+        simulationParameters.get("grid"),
+        xmlFileReader.getSimulationType());
 
     return gridCreator.getGrid();
   }
