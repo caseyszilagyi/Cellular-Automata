@@ -13,7 +13,7 @@ import cell_society.backend.SimulationInitializer.SimulationInitializer;
 public class Simulation {
 
   private SimulationInitializer simulationInitializer;
-  private String FILE_NAME = "config_files/testingFile.xml";
+  private String FILE_NAME = "testingFile.xml";
 
 
   public Simulation(){
@@ -23,7 +23,6 @@ public class Simulation {
 
   public void initializeSimulation(){
     simulationInitializer = new SimulationInitializer();
-    simulationInitializer.readXMLFile(FILE_NAME);
   }
 
   public void makeSimulationLoop(){
