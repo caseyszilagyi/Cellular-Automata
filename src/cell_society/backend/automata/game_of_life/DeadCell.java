@@ -17,12 +17,23 @@ public class DeadCell extends Cell {
   }
 
   @Override
-  public Neighbors getNeighbors() {
-    return super.getNeighbors();
+  public Neighbors getNeighbors(Grid grid) {
+    int row = this.getRow();
+    int col = this.getCol();
+    return grid.getDirectNeighbors(row, col);
   }
 
   @Override
   public void makeDecisions(Neighbors neighbors, Grid grid) {
-    super.makeDecisions(neighbors, grid);
+    int numLiveNeighbors = neighbors.getTypeCount(this);
+    int row = getRow();
+    int col = getCol();
+    if (numLiveNeighbors == 3) {
+      AliveCell aliveCell = new AliveCell(row, col);
+      grid.placeCell(row, col, aliveCell);
+    } else {
+      DeadCell deadCell = new DeadCell(row, col);
+      grid.placeCell(row, col, deadCell);
+    }
   }
 }

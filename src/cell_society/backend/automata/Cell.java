@@ -18,7 +18,7 @@ public class Cell {
     return col;
   }
 
-  public Neighbors getNeighbors() {
+  public Neighbors getNeighbors(Grid grid) {
     return null;
   }
 

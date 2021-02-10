@@ -6,11 +6,33 @@ public class Grid {
   private final int gridHeight;
   private final int gridWidth;
 
+
   public Grid(int gridHeight, int gridWidth) {
     grid = new Cell[gridHeight][gridWidth];
     this.gridHeight = gridHeight;
     this.gridWidth = gridWidth;
   }
+
+  /**
+   * Returns All cells neighboring the selected position, within one block, on the Grid.  This
+   * produces a maximum of 8 neighbors.
+   *
+   * @param row row index of grid to identify surrounding neighbors
+   * @param col column index of grid to identify surrounding neighbors
+   * @return Neighbors object containing the neighboring objects
+   */
+  public Neighbors getDirectNeighbors(int row, int col) {
+    Neighbors neighbors = new Neighbors();
+    for (Direction d : Direction.values()){
+      int newRow = d.applyToRow(row);
+      int newCol = d.applyToCol(col);
+      if (inBoundaries(newRow, newCol)){
+        neighbors.add(grid[newRow][newCol]);
+      }
+    }
+    return neighbors;
+  }
+
 
   public boolean isEmpty(int row, int col) {
     return grid[row][col] == null;

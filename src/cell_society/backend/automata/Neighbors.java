@@ -24,7 +24,9 @@ public class Neighbors {
   }
 
   public void add(Cell cell) {
-    neighborCells.add(cell);
+    if (cell != null){
+      neighborCells.add(cell);
+    }
   }
 
   public Cell get(int index) {
