@@ -10,6 +10,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
@@ -20,18 +21,15 @@ import org.xml.sax.SAXException;
  * <p>
  * Still need to come back and add an error handling part, but for now, it will assume good data
  *
- * @author Casey Szliagyii
+ * @author Casey Szilagyi
  */
 public class XMLFileReader {
 
   private final DocumentBuilder DOCUMENT_BUILDER;
-  private final String SIMULATION_TYPE;
-  private Document doc;
+  private String simulationType;
 
-  private String fileName;
 
   public static final String ERROR_MESSAGE = "The file presented is not an XML file of the correct game type";
-
   public final List<String> DATA_FIELDS = List.of(
       "title",
       "author",
@@ -45,42 +43,47 @@ public class XMLFileReader {
    * Constructor only takes a filename, because that is all that is needed. This assumes that all
    * XML files that are designed for the simulation have the proper tags.
    */
-  public XMLFileReader(String simulationType) {
+  public XMLFileReader() {
     DOCUMENT_BUILDER = getDocumentBuilder();
-    SIMULATION_TYPE = simulationType;
   }
 
-
-  /**
-   * Parses the file with the established DocumentBuilder
-   *
-   * @throws Exception if anything goes wrong while parsing
-   */
-  public void parseFile() throws Exception {
-    doc = DOCUMENT_BUILDER.parse(new File(fileName));
+  public void setSimulationType(String userSimulationType){
+    simulationType = userSimulationType;
   }
 
 
   /**
    * Get data contained in this XML file as an object
    */
-  public Map getSimulationParameters(File dataFile) throws XMLErrorHandler {
-    Element root = getRootElement(dataFile);
-    if (!isValidFile(root, SIMULATION_TYPE)) {
-      throw new XMLErrorHandler(ERROR_MESSAGE, SIMULATION_TYPE);
+  public Map getSimulationParameters(String dataFile) throws XMLErrorHandler {
+    Element root = getRootElement(new File(dataFile));
+    if (!isValidFile(root, simulationType)) {
+      throw new XMLErrorHandler(ERROR_MESSAGE, simulationType);
     }
     // read data associated with the fields given by the object
     Map<String, String> results = new HashMap<>();
     for (String field : DATA_FIELDS) {
       results.put(field, getTextValue(root, field));
     }
+
+    return results;
+  }
+
+  public Map getCellBehavior(String dataFile) throws XMLErrorHandler {
+    NodeList list = getRootElement(new File(dataFile)).getElementsByTagName("parameters");
+    Map<String, String> results = new HashMap<>();
+    for (int i = 0; i<list.getLength(); i++) {
+      Node curr = list.item(i);
+      results.put(curr.getNodeName(), curr.getNodeValue());
+    }
     return results;
   }
 
 
-  // returns if this is a valid XML file for the specified object type. The attribute of the first tag needs to be the same as the type of game that is given
+  // returns if this is a valid XML file for the specified object type. The attribute of the first
+  // tag needs to be the same as the type of game that is given
   private boolean isValidFile(Element root, String type) {
-    return getAttribute(root, SIMULATION_TYPE).equals(type);
+    return root.getAttribute("type").equals(type);
   }
 
   // get value of Element's attribute

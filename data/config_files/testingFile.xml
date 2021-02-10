@@ -1,31 +1,20 @@
-<simulation>
-  <simultype type="gof"/>
-  <title>
-    Game of Life
-  </title>
-  <author>
-    Authors...
-  </author>
-
-  <desc>
-    Placeholder description
-  </desc>
-
-  <size>
-    4 4
-  </size>
-
-  <initial>
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation type = "gameOfLife">
+  <title>Game of Life</title>
+  <author>Authors...</author>
+  <desc>The Game of Life Simulation</desc>
+  <rows>4</rows>
+  <columns>4</columns>
+  <grid>
     0 0 0 1
     1 1 1 0
     0 1 0 1
     1 1 0 0
-  </initial>
+  </grid>
 
-
-  <parameter prob=0.5/>
-  <parameter width=100/>
-  <parameter height=100/>
-
+  <parameters>
+    <parameter test1='0.5'/>
+    <parameter test2='0.6'/>
+  </parameters>
 
 </simulation>
