@@ -70,11 +70,13 @@ public class XMLFileReader {
   }
 
   public Map getCellBehavior(String dataFile) throws XMLErrorHandler {
-    NodeList list = getRootElement(new File(dataFile)).getElementsByTagName("parameters");
+    NodeList list = getRootElement(new File(dataFile)).getElementsByTagName("parameters").item(0).getChildNodes();
     Map<String, String> results = new HashMap<>();
     for (int i = 0; i<list.getLength(); i++) {
-      Node curr = list.item(i);
-      results.put(curr.getNodeName(), curr.getNodeValue());
+      if(list.item(i) instanceof Element){
+        Node attribute = list.item(i).getAttributes().item(0);
+        results.put(attribute.getNodeName(), attribute.getNodeValue());
+      }
     }
     return results;
   }
