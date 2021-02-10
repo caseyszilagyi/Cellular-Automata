@@ -23,24 +23,26 @@ public class Grid {
    */
   public Neighbors getDirectNeighbors(int row, int col) {
     Neighbors neighbors = new Neighbors();
-    for (Direction d : Direction.values()){
+    for (Direction d : Direction.values()) {
       int newRow = d.applyToRow(row);
       int newCol = d.applyToCol(col);
-      if (inBoundaries(newRow, newCol)){
+      if (inBoundaries(newRow, newCol)) {
         neighbors.add(grid[newRow][newCol]);
       }
     }
     return neighbors;
   }
 
+  public Cell getCell(int row, int col){
+    return grid[row][col];
+  }
 
   public boolean isEmpty(int row, int col) {
     return grid[row][col] == null;
   }
 
   /**
-   * This method provides a quick check that a provided coordinate is within the bounds of the
-   * Grid.
+   * This method provides a quick check that a provided coordinate is within the bounds of the Grid.
    *
    * @param row
    * @param col
@@ -52,5 +54,17 @@ public class Grid {
 
   public void placeCell(int row, int col, Cell cell) {
     grid[row][col] = cell;
+  }
+
+  /**
+   * Used for debugging
+   */
+  public void printCurrentState() {
+    for (int j = 0; j < gridHeight; j++) {
+      for (int k = 0; k < gridWidth; k++) {
+        System.out.print("." + grid[j][k].toString() + ".");
+      }
+      System.out.println();
+    }
   }
 }

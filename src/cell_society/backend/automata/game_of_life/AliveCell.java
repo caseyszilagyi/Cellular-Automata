@@ -8,9 +8,6 @@ import cell_society.backend.automata.Neighbors;
 /**
  * The AliveCell represents the live cell in Conway's Game of Life subject to the following rules:
  * <p>
- * 1. Any live cell with fewer than two live neighbours dies, as if by underpopulation. 2. Any live
- * cell with two or three live neighbours lives on to the next generation. 3. Any live cell with
- * more than three live neighbours dies, as if by overpopulation.
  */
 public class AliveCell extends Cell {
 
@@ -32,6 +29,15 @@ public class AliveCell extends Cell {
     return grid.getDirectNeighbors(row, col);
   }
 
+  /**
+   * Updates the next Grid state according to the rules obeyed by AliveCells: 1. Any live cell with
+   * fewer than two live neighbours dies, as if by underpopulation. 2. Any live cell with two or
+   * three live neighbours lives on to the next generation. 3. Any live cell with more than three
+   * live neighbours dies, as if by overpopulation.
+   *
+   * @param neighbors Cells that this cell uses to make its decision
+   * @param grid      grid to hold the next configuration of cells.
+   */
   @Override
   public void makeDecisions(Neighbors neighbors, Grid grid) {
     int numLiveNeighbors = neighbors.getTypeCount(this);
@@ -44,5 +50,10 @@ public class AliveCell extends Cell {
       AliveCell aliveCell = new AliveCell(row, col);
       grid.placeCell(row, col, aliveCell);
     }
+  }
+
+  @Override
+  public String toString() {
+    return "O";
   }
 }

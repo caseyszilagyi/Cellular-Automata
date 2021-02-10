@@ -24,7 +24,7 @@ public class Neighbors {
   }
 
   public void add(Cell cell) {
-    if (cell != null){
+    if (cell != null) {
       neighborCells.add(cell);
     }
   }
