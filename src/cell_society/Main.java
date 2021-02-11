@@ -1,5 +1,6 @@
 package cell_society;
 
+import cell_society.visualization.DisplayManager;
 import cell_society.visualization.GridDisplay;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -26,8 +27,6 @@ public class Main extends Application {
     stage.setScene(mainScene);
     stage.show();
 
-    GridDisplay grid = new GridDisplay(root, mainScene, 30, 60);
-
     KeyFrame keyframe = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> {
       // step function
     });
@@ -44,6 +43,8 @@ public class Main extends Application {
     int SCREEN_HEIGHT = 800;
 
     Scene scene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+    DisplayManager displayManager = new DisplayManager(root, scene);
 
     // scene.setOnKeyPressed(e -> inputManager.handleKeyInput(e.getCode()));
     // scene.setOnMouseMoved(e -> inputManager.handleMouseMoved(e.getX(), e.getY()));

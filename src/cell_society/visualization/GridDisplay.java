@@ -13,7 +13,7 @@ public class GridDisplay {
   private final Group root;
   private int width, height;
 
-  private double cellWidth;
+  private double cellSideLength;
   private double currentScreenWidth, currentScreenHeight;
 
   public GridDisplay(Group root, Scene scene, int width, int height) {
@@ -25,13 +25,20 @@ public class GridDisplay {
     currentScreenWidth = 800;
     currentScreenHeight = 800;
 
-    cellWidth = Math.min(currentScreenWidth / width, currentScreenHeight / height);
     createGrid();
 
+    startScreenSizeChangedListeners();
+  }
+
+  public void setGridDimensions(int width, int height){
+    this.width = width;
+    this.height = height;
+  }
+
+  private void startScreenSizeChangedListeners(){
     scene.widthProperty().addListener(new ChangeListener<Number>() {
       @Override
-      public void changed(ObservableValue<? extends Number> currentWidth, Number oldWidth,
-          Number newWidth) {
+      public void changed(ObservableValue<? extends Number> currentWidth, Number oldWidth, Number newWidth) {
         currentScreenWidth = newWidth.doubleValue();
         createGrid();
       }
@@ -39,8 +46,7 @@ public class GridDisplay {
 
     scene.heightProperty().addListener(new ChangeListener<Number>() {
       @Override
-      public void changed(ObservableValue<? extends Number> currentHeight, Number oldHeight,
-          Number newHeight) {
+      public void changed(ObservableValue<? extends Number> currentHeight, Number oldHeight, Number newHeight) {
         currentScreenHeight = newHeight.doubleValue();
         createGrid();
       }
@@ -48,19 +54,20 @@ public class GridDisplay {
   }
 
   private void createGrid() {
-
     root.getChildren().clear();
 
-    if((currentScreenHeight / height) >= (currentScreenWidth / width)){
-      cellWidth = currentScreenWidth / width;
-    } else {
-      cellWidth = currentScreenHeight / height;
-    }
+    double maxPossibleCellWidth = currentScreenWidth / width;
+    double maxPossibleCellHeight = currentScreenHeight / height;
 
+    if (maxPossibleCellHeight >= maxPossibleCellWidth) {
+      cellSideLength = maxPossibleCellWidth;
+    } else {
+      cellSideLength = maxPossibleCellHeight;
+    }
 
     for (int row = 0; row < height; row++) {
       for (int col = 0; col < width; col++) {
-        createCell(col * cellWidth, row * cellWidth);
+        createCell(col * cellSideLength, row * cellSideLength);
       }
     }
   }
@@ -69,9 +76,9 @@ public class GridDisplay {
     Polygon cell = new Polygon();
     cell.getPoints().addAll(
         x, y,
-        x + cellWidth, y,
-        x + cellWidth, y + cellWidth,
-        x, y + cellWidth
+        x + cellSideLength, y,
+        x + cellSideLength, y + cellSideLength,
+        x, y + cellSideLength
     );
     cell.setFill(Color.AZURE);
     cell.setStroke(Color.BLACK);
