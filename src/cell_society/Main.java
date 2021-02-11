@@ -11,44 +11,44 @@ import javafx.util.Duration;
 
 public class Main extends Application {
 
-    private Group root;
+  private Group root;
 
-    @Override
-    public void start(Stage stage){
+  @Override
+  public void start(Stage stage) {
 
-        int FPS = 120;
-        double SECOND_DELAY = 1.0 / FPS;
-        String STAGE_TITLE = "Cell Society Simulation";
-        root = new Group();
+    int FPS = 120;
+    double SECOND_DELAY = 1.0 / FPS;
+    String STAGE_TITLE = "Cell Society Simulation";
+    root = new Group();
 
-        Scene mainScene = setupScene();
-        stage.setTitle(STAGE_TITLE);
-        stage.setScene(mainScene);
-        stage.show();
+    Scene mainScene = setupScene();
+    stage.setTitle(STAGE_TITLE);
+    stage.setScene(mainScene);
+    stage.show();
 
-        GridDisplay grid = new GridDisplay(root, mainScene, 20, 20);
+    GridDisplay grid = new GridDisplay(root, mainScene, 30, 60);
 
-        KeyFrame keyframe = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> {
-            // step function
-        });
+    KeyFrame keyframe = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> {
+      // step function
+    });
 
-        Timeline animation = new Timeline();
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.getKeyFrames().add(keyframe);
-        animation.play();
-    }
+    Timeline animation = new Timeline();
+    animation.setCycleCount(Timeline.INDEFINITE);
+    animation.getKeyFrames().add(keyframe);
+    animation.play();
+  }
 
-    private Scene setupScene() {
+  private Scene setupScene() {
 
-        int SCREEN_WIDTH = 800;
-        int SCREEN_HEIGHT = 800;
+    int SCREEN_WIDTH = 800;
+    int SCREEN_HEIGHT = 800;
 
-        Scene scene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
+    Scene scene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-        // scene.setOnKeyPressed(e -> inputManager.handleKeyInput(e.getCode()));
-        // scene.setOnMouseMoved(e -> inputManager.handleMouseMoved(e.getX(), e.getY()));
-        // scene.setOnMouseClicked(e -> inputManager.handleMouseClick(e.getButton()));
+    // scene.setOnKeyPressed(e -> inputManager.handleKeyInput(e.getCode()));
+    // scene.setOnMouseMoved(e -> inputManager.handleMouseMoved(e.getX(), e.getY()));
+    // scene.setOnMouseClicked(e -> inputManager.handleMouseClick(e.getButton()));
 
-        return scene;
-    }
+    return scene;
+  }
 }

@@ -14,7 +14,7 @@ public class GridDisplay {
   private int width, height;
 
   private double cellWidth;
-  private double currentScreenWidth;
+  private double currentScreenWidth, currentScreenHeight;
 
   public GridDisplay(Group root, Scene scene, int width, int height) {
     this.root = root;
@@ -23,7 +23,9 @@ public class GridDisplay {
     this.height = height;
 
     currentScreenWidth = 800;
+    currentScreenHeight = 800;
 
+    cellWidth = Math.min(currentScreenWidth / width, currentScreenHeight / height);
     createGrid();
 
     scene.widthProperty().addListener(new ChangeListener<Number>() {
@@ -34,13 +36,27 @@ public class GridDisplay {
         createGrid();
       }
     });
+
+    scene.heightProperty().addListener(new ChangeListener<Number>() {
+      @Override
+      public void changed(ObservableValue<? extends Number> currentHeight, Number oldHeight,
+          Number newHeight) {
+        currentScreenHeight = newHeight.doubleValue();
+        createGrid();
+      }
+    });
   }
 
   private void createGrid() {
 
     root.getChildren().clear();
 
-    cellWidth = currentScreenWidth / width;
+    if((currentScreenHeight / height) >= (currentScreenWidth / width)){
+      cellWidth = currentScreenWidth / width;
+    } else {
+      cellWidth = currentScreenHeight / height;
+    }
+
 
     for (int row = 0; row < height; row++) {
       for (int col = 0; col < width; col++) {
@@ -57,7 +73,7 @@ public class GridDisplay {
         x + cellWidth, y + cellWidth,
         x, y + cellWidth
     );
-    cell.setFill(Color.RED);
+    cell.setFill(Color.AZURE);
     cell.setStroke(Color.BLACK);
     root.getChildren().add(cell);
   }
