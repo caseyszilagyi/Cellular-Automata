@@ -1,5 +1,6 @@
 package cell_society.visualization;
 
+import java.util.ArrayList;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
@@ -16,16 +17,19 @@ public class GridDisplay {
   private double cellSideLength;
   private double currentScreenWidth, currentScreenHeight;
 
-  public GridDisplay(Group root, Scene scene, int width, int height) {
+  private int[] cellColorSheet;
+
+  public GridDisplay(Group root, Scene scene, int width, int height, int[] cellColorSheet) {
     this.root = root;
     this.scene = scene;
     this.width = width;
     this.height = height;
+    this.cellColorSheet = cellColorSheet;
 
     currentScreenWidth = 800;
     currentScreenHeight = 800;
 
-    createGrid();
+    createGrid(cellColorSheet);
 
     startScreenSizeChangedListeners();
   }
@@ -40,7 +44,7 @@ public class GridDisplay {
       @Override
       public void changed(ObservableValue<? extends Number> currentWidth, Number oldWidth, Number newWidth) {
         currentScreenWidth = newWidth.doubleValue();
-        createGrid();
+        createGrid(cellColorSheet);
       }
     });
 
@@ -48,12 +52,12 @@ public class GridDisplay {
       @Override
       public void changed(ObservableValue<? extends Number> currentHeight, Number oldHeight, Number newHeight) {
         currentScreenHeight = newHeight.doubleValue();
-        createGrid();
+        createGrid(cellColorSheet);
       }
     });
   }
 
-  private void createGrid() {
+  private void createGrid(int[] cellColorSheet) {
     root.getChildren().clear();
 
     double maxPossibleCellWidth = currentScreenWidth / width;
@@ -65,27 +69,40 @@ public class GridDisplay {
       cellSideLength = maxPossibleCellHeight;
     }
 
+    // for centering horizontally
     double whiteSpace = (currentScreenWidth - (width * cellSideLength)) / 2.0;
-    if (whiteSpace <= 0){
-      whiteSpace = 0;
-    }
 
+    int colorSheetIndex = 0;
     for (int row = 0; row < height; row++) {
       for (int col = 0; col < width; col++) {
-        createCell(col * cellSideLength + whiteSpace, row * cellSideLength);
+        createCell(col * cellSideLength + whiteSpace, row * cellSideLength, cellColorSheet[colorSheetIndex]);
+
+        colorSheetIndex++;
       }
     }
   }
 
-  private void createCell(double x, double y) {
+  private void createCell(double x, double y, int colorCode) {
     Polygon cell = new Polygon();
+
     cell.getPoints().addAll(
         x, y,
         x + cellSideLength, y,
         x + cellSideLength, y + cellSideLength,
         x, y + cellSideLength
     );
-    cell.setFill(Color.AZURE);
+
+    Color cellColor = Color.WHITE;
+    switch(colorCode){
+      case 1:
+        cellColor = Color.BROWN;
+        break;
+      case 2:
+        cellColor = Color.CADETBLUE;
+        break;
+    }
+
+    cell.setFill(cellColor);
     cell.setStroke(Color.BLACK);
     root.getChildren().add(cell);
   }
