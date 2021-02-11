@@ -1,5 +1,8 @@
 package cell_society.backend.automata;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Grid {
 
   private final Cell[][] grid;
@@ -33,16 +36,36 @@ public class Grid {
     return neighbors;
   }
 
-  public Cell getCell(int row, int col){
+  public Cell getCell(int row, int col) {
     return grid[row][col];
+  }
+
+  /**
+   * Gets a list of all free spots
+   *
+   * @return
+   */
+  public List<Coordinate> getAllVacantSpots() {
+    List<Coordinate> vacantCoordinates = new LinkedList<>();
+    for (int j = 0; j < gridHeight; j++) {
+      for (int k = 0; k < gridWidth; k++) {
+        if (isEmpty(j, k)) {
+          Coordinate coordinate = new Coordinate(j, k);
+          vacantCoordinates.add(coordinate);
+        }
+      }
+    }
+    return vacantCoordinates;
   }
 
   public boolean isEmpty(int row, int col) {
     return grid[row][col] == null;
   }
 
+
   /**
-   * This method provides a quick check that a provided coordinate is within the bounds of the Grid.
+   * This method provides a quick check that a provided coordinate is within the bounds of the
+   * Grid.
    *
    * @param row
    * @param col
@@ -56,6 +79,7 @@ public class Grid {
     grid[row][col] = cell;
   }
 
+
   /**
    * Used for debugging
    */
@@ -67,4 +91,5 @@ public class Grid {
       System.out.println();
     }
   }
+
 }

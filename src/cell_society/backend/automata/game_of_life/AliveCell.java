@@ -34,21 +34,21 @@ public class AliveCell extends Cell {
    * fewer than two live neighbours dies, as if by underpopulation. 2. Any live cell with two or
    * three live neighbours lives on to the next generation. 3. Any live cell with more than three
    * live neighbours dies, as if by overpopulation.
-   *
-   * @param neighbors Cells that this cell uses to make its decision
-   * @param grid      grid to hold the next configuration of cells.
-   */
+   *  @param neighbors Cells that this cell uses to make its decision
+   * @param nextGrid      grid to hold the next configuration of cells.
+   * @param currentGrid*/
   @Override
-  public void makeDecisions(Neighbors neighbors, Grid grid) {
+  public void makeDecisions(Neighbors neighbors, Grid nextGrid,
+      Grid currentGrid) {
     int numLiveNeighbors = neighbors.getTypeCount(this);
     int row = getRow();
     int col = getCol();
     if (numLiveNeighbors < 2 || numLiveNeighbors > 3) {
       DeadCell deadCell = new DeadCell(row, col);
-      grid.placeCell(row, col, deadCell);
+      nextGrid.placeCell(row, col, deadCell);
     } else {
       AliveCell aliveCell = new AliveCell(row, col);
-      grid.placeCell(row, col, aliveCell);
+      nextGrid.placeCell(row, col, aliveCell);
     }
   }
 

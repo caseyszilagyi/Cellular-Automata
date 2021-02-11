@@ -30,11 +30,11 @@ public class Cell {
 
   /**
    * Updates the next Grid state according to the rules obeyed by the Cell.
-   *
-   * @param neighbors Cells that this cell uses to make its decision
-   * @param grid      grid to hold the next configuration of cells.
-   */
-  public void makeDecisions(Neighbors neighbors, Grid grid) {
+   *  @param neighbors Cells that this cell uses to make its decision
+   * @param nextGrid      grid to hold the next configuration of cells.
+   * @param currentGrid*/
+  public void makeDecisions(Neighbors neighbors, Grid nextGrid,
+      Grid currentGrid) {
 
   }
 }
