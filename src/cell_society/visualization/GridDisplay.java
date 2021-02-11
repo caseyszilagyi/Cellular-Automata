@@ -34,6 +34,10 @@ public class GridDisplay {
     currentScreenHeight = height;
   }
 
+  /**
+   *
+   * @param cellColorSheet Array of integers for the cell colors
+   */
   public void updateGrid(int[] cellColorSheet) {
     root.getChildren().clear();
 
