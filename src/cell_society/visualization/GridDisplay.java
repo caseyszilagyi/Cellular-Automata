@@ -65,9 +65,14 @@ public class GridDisplay {
       cellSideLength = maxPossibleCellHeight;
     }
 
+    double whiteSpace = (currentScreenWidth - (width * cellSideLength)) / 2.0;
+    if (whiteSpace <= 0){
+      whiteSpace = 0;
+    }
+
     for (int row = 0; row < height; row++) {
       for (int col = 0; col < width; col++) {
-        createCell(col * cellSideLength, row * cellSideLength);
+        createCell(col * cellSideLength + whiteSpace, row * cellSideLength);
       }
     }
   }
