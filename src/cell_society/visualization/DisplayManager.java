@@ -1,6 +1,8 @@
 package cell_society.visualization;
 
 import java.util.Random;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 
@@ -28,6 +30,18 @@ public class DisplayManager {
   }
 
   private void createDisplayGrid(int[] cellColorSheet){
-    new GridDisplay(root, scene, gridWidth, gridHeight, cellColorSheet);
+    GridDisplay grid = new GridDisplay(root, scene, gridWidth, gridHeight);
+
+    grid.updateGrid(cellColorSheet);
+
+    scene.widthProperty().addListener((currentWidth, oldWidth, newWidth) -> {
+      grid.setCurrentScreenWidth(newWidth.doubleValue());
+      grid.updateGrid(cellColorSheet);
+    });
+
+    scene.heightProperty().addListener((currentHeight, oldHeight, newHeight) -> {
+      grid.setCurrentScreenHeight(newHeight.doubleValue());
+      grid.updateGrid(cellColorSheet);
+    });
   }
 }
