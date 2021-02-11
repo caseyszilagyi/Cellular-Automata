@@ -6,15 +6,22 @@
   <rows>4</rows>
   <columns>4</columns>
   <grid>
-    0 0 0 1
-    1 1 1 0
-    0 1 0 1
-    1 1 0 0
+    d d d d
+    a d a d
+    d d a d
+    d a d d
   </grid>
+
+  <codes>
+    <key d='deadCell'></key>
+    <key a='aliveCell'></key>
+  </codes>
 
   <parameters>
     <parameter test1='0.5'/>
     <parameter test2='0.6'/>
   </parameters>
+
+
 
 </simulation>

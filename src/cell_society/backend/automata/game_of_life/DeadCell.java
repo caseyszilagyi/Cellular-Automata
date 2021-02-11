@@ -17,12 +17,35 @@ public class DeadCell extends Cell {
   }
 
   @Override
-  public Neighbors getNeighbors() {
-    return super.getNeighbors();
+  public Neighbors getNeighbors(Grid grid) {
+    int row = this.getRow();
+    int col = this.getCol();
+    return grid.getDirectNeighbors(row, col);
+  }
+
+  /**
+   * Updates the next Grid state according to the rules obeyed by DeadCells: Any dead cell with
+   * exactly three live neighbours becomes a live cell, as if by reproduction.
+   *
+   * @param neighbors Cells that this cell uses to make its decision
+   * @param grid      grid to hold the next configuration of cells.
+   */
+  @Override
+  public void makeDecisions(Neighbors neighbors, Grid grid) {
+    int numLiveNeighbors = neighbors.getTypeCount(new AliveCell(-1, -1));
+    int row = getRow();
+    int col = getCol();
+    if (numLiveNeighbors == 3) {
+      AliveCell aliveCell = new AliveCell(row, col);
+      grid.placeCell(row, col, aliveCell);
+    } else {
+      DeadCell deadCell = new DeadCell(row, col);
+      grid.placeCell(row, col, deadCell);
+    }
   }
 
   @Override
-  public void makeDecisions(Neighbors neighbors, Grid grid) {
-    super.makeDecisions(neighbors, grid);
+  public String toString() {
+    return "_";
   }
 }

@@ -1,7 +1,8 @@
 package cell_society;
 
 import cell_society.visualization.DisplayManager;
-import cell_society.visualization.GridDisplay;
+import cell_society.backend.Simulation;
+import cell_society.backend.automata.Grid;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -13,6 +14,12 @@ import javafx.util.Duration;
 public class Main extends Application {
 
   private Group root;
+
+  private String SIMULATION_TYPE = "gameOfLife";
+  private String FILE_NAME = "testingfile.xml";
+
+  //private Simulation simulation = new Simulation(SIMULATION_TYPE, FILE_NAME);  <-- commented out for now since not fully implemented yet
+  private Grid simulationGrid;
 
   @Override
   public void start(Stage stage) {
@@ -28,7 +35,9 @@ public class Main extends Application {
     stage.show();
 
     KeyFrame keyframe = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> {
-      // step function
+        //simulationGrid = simulation.makeStep();
+        //Some step where this grid is passed to the front end for display, these should
+        //be the only 2 steps necessary.
     });
 
     Timeline animation = new Timeline();
