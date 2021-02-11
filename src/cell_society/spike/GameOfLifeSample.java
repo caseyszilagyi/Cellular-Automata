@@ -79,7 +79,7 @@ public class GameOfLifeSample {
       for (int k = 0; k < width; k++) {
         Cell cell = grid.getCell(j, k);
         Neighbors neighbors = cell.getNeighbors(grid);
-        cell.makeDecisions(neighbors, nextGrid);
+        cell.makeDecisions(neighbors, nextGrid, null);
       }
     }
     return nextGrid;
