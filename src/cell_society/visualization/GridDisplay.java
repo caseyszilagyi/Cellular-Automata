@@ -9,9 +9,7 @@ public class GridDisplay {
 
   private final Group root;
   private int width, height;
-
-  private double cellSideLength;
-  private double currentScreenWidth, currentScreenHeight;
+  private double cellSideLength, currentScreenWidth, currentScreenHeight;
 
   public GridDisplay(Group root, Scene scene, int width, int height) {
     this.root = root;
@@ -75,11 +73,11 @@ public class GridDisplay {
     Color cellColor = switch (colorCode) {
       case 1 -> Color.BROWN;
       case 2 -> Color.CADETBLUE;
-      default -> Color.WHITE;
+      default -> Color.IVORY;
     };
 
     cell.setFill(cellColor);
-    cell.setStroke(Color.BLACK);
+    cell.setStroke(Color.GAINSBORO);
     root.getChildren().add(cell);
   }
 
