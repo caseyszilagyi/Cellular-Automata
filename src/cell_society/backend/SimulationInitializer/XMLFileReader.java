@@ -12,14 +12,11 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 
 /**
  * Used to take in an XML file and parse through it in order to get the information needed to begin
  * a simulation
- * <p>
- * Still need to come back and add an error handling part, but for now, it will assume good data
  *
  * @author Casey Szilagyi
  */
@@ -47,17 +44,28 @@ public class XMLFileReader {
     DOCUMENT_BUILDER = getDocumentBuilder();
   }
 
+  /**
+   * Setting the simulation type in order to double check that the proper XML file was read in
+   * @param userSimulationType
+   */
   public void setSimulationType(String userSimulationType){
     simulationType = userSimulationType;
   }
 
+  /**
+   * Gets the simulation type
+   * @return The simulation type
+   */
   public String getSimulationType(){
     return simulationType;
   }
 
 
   /**
-   * Get data contained in this XML file as an object
+   * Getting all the parameters that are needed in a map format to run the simulation
+   * @param dataFile The XML file
+   * @return The map that links the specific parameters to their values
+   * @throws XMLErrorHandler Error that isi thrown if the file is not valid
    */
   public Map getSimulationParameters(String dataFile) throws XMLErrorHandler {
     Element root = getRootElement(new File(dataFile));
@@ -73,7 +81,13 @@ public class XMLFileReader {
     return results;
   }
 
-  public Map getCellBehavior(String dataFile) throws XMLErrorHandler {
+  /**
+   * Gets all of the parameters related to the cell's behavior in map form. Assumes valid file
+   * because this method is called after the previous one
+   * @param dataFile The XML file
+   * @return The map linking all of the behaviors to their values
+   */
+  public Map getCellBehavior(String dataFile){
     NodeList list = getRootElement(new File(dataFile)).getElementsByTagName("parameters").item(0).getChildNodes();
     Map<String, String> results = new HashMap<>();
     for (int i = 0; i<list.getLength(); i++) {
@@ -85,6 +99,17 @@ public class XMLFileReader {
     return results;
   }
 
+  public Map getCellCodes(String dataFile){
+    NodeList list = getRootElement(new File(dataFile)).getElementsByTagName("codes").item(0).getChildNodes();
+    Map<String, String> results = new HashMap<>();
+    for (int i = 0; i<list.getLength(); i++) {
+      if(list.item(i) instanceof Element){
+        Node attribute = list.item(i).getAttributes().item(0);
+        results.put(attribute.getNodeName(), attribute.getNodeValue());
+      }
+    }
+    return results;
+  }
 
   // returns if this is a valid XML file for the specified object type. The attribute of the first
   // tag needs to be the same as the type of game that is given
