@@ -2,13 +2,13 @@ package cell_society.visualization;
 
 public class UserInputManager {
 
-    public UserInputManager(){
+  public UserInputManager() {
 
-    }
+  }
 
-    // pass reference to button
-    public void handleMouseClick(){
+  // pass reference to button
+  public void handleMouseClick() {
 
-    }
+  }
 
 }

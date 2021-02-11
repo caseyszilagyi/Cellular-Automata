@@ -1,5 +1,6 @@
 package cell_society;
 
+import cell_society.visualization.GridDisplay;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -10,17 +11,22 @@ import javafx.util.Duration;
 
 public class Main extends Application {
 
+    private Group root;
+
     @Override
     public void start(Stage stage){
 
         int FPS = 120;
         double SECOND_DELAY = 1.0 / FPS;
         String STAGE_TITLE = "Cell Society Simulation";
+        root = new Group();
 
         Scene mainScene = setupScene();
         stage.setTitle(STAGE_TITLE);
         stage.setScene(mainScene);
         stage.show();
+
+        GridDisplay grid = new GridDisplay(root, mainScene, 20, 20);
 
         KeyFrame keyframe = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> {
             // step function
@@ -34,7 +40,6 @@ public class Main extends Application {
 
     private Scene setupScene() {
 
-        Group root = new Group();
         int SCREEN_WIDTH = 800;
         int SCREEN_HEIGHT = 800;
 
