@@ -25,6 +25,8 @@ Hours Spent:
 
 For XML file reading: https://docs.oracle.com/javase/tutorial/jaxp/dom/readingXML.html
 
+For window resize listeners: https://blog.idrsolutions.com/2012/11/adding-a-window-resize-listener-to-javafx-scene
+
 ### Running the Program
 
 Main class: SimulationDriver
