@@ -2,6 +2,8 @@ package cell_society.backend.SimulationInitializer;
 
 import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.Grid;
+import java.util.Map;
+import java.util.Scanner;
 
 /**
  * Makes the grid that is used to hold the cells
@@ -11,7 +13,8 @@ import cell_society.backend.automata.Grid;
 public class GridCreator {
 
   private Grid gameGrid;
-  private CellInitializer cellInitializer;
+  private Map<String,String> cellBehavior;
+
 
   /**
    * Makes the grid
@@ -25,17 +28,24 @@ public class GridCreator {
   /**
    * Puts all of the cells in the grid
    */
-  public void populateGrid(String grid){
-
+  public void populateGrid(String grid, Map<String,String> cellCodes){
+    //grid = parseGrid(grid);
+    //int i = 0
+    //for(int c = 0; c<cols; c++){
+     // for(int r = 0; r<rows; r++){
+        //String curr = Character.toString(grid.charAt(i++));
+        //Cell currCell = Class.forName(cellCodes.get(curr));
+     // }
+    //}
   }
 
-  /** May not need this. Instead what might be done is a type of key will be added in
-   * the xml file that specifies what numbers in the grid correspond to a specific cell type.
-   * Then, Class.forName can be used to initialize a cell.
-   * @param gameType
-   */
-  public void makeCellInitializer(String gameType){
-    cellInitializer = new CellInitializer();
+  public String parseGrid(String grid){
+    return grid.replace("\n", "").replace(" ", "");
+  }
+
+
+  public void setCellBehavior(Map<String, String> userCellBehavior){
+    cellBehavior = userCellBehavior;
   }
 
   public Grid getGrid(){

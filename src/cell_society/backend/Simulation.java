@@ -23,10 +23,6 @@ public class Simulation {
   private SimulationStepper simulationStepper;
   private Grid simulationGrid;
 
-
-  private final int FPS = 120;
-  private final double SECOND_DELAY = 1.0 / FPS;
-  private final String STAGE_TITLE = "Cell Society Simulation";
   private final String SIMULATION_TYPE;
   private final String FILE_NAME;
 
