@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation type = "gameOfLife">
+  <cellPackage>game_of_life</cellPackage>
   <title>Game of Life</title>
   <author>Authors...</author>
   <desc>The Game of Life Simulation</desc>
