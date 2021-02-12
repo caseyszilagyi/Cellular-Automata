@@ -1,6 +1,7 @@
 package cell_society.backend.automata.game_of_life;
 
 
+import cell_society.backend.SimulationInitializer.CellParameters;
 import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.Grid;
 import cell_society.backend.automata.Neighbors;
@@ -15,6 +16,9 @@ public class AliveCell extends Cell {
     super(row, col);
   }
 
+  public AliveCell() {
+
+  }
 
   /**
    * The AliveCell considers all cells within one block of it to be a neighbor.
@@ -34,9 +38,11 @@ public class AliveCell extends Cell {
    * fewer than two live neighbours dies, as if by underpopulation. 2. Any live cell with two or
    * three live neighbours lives on to the next generation. 3. Any live cell with more than three
    * live neighbours dies, as if by overpopulation.
-   *  @param neighbors Cells that this cell uses to make its decision
-   * @param nextGrid      grid to hold the next configuration of cells.
-   * @param currentGrid*/
+   *
+   * @param neighbors   Cells that this cell uses to make its decision
+   * @param nextGrid    grid to hold the next configuration of cells.
+   * @param currentGrid
+   */
   @Override
   public void makeDecisions(Neighbors neighbors, Grid nextGrid,
       Grid currentGrid) {

@@ -10,6 +10,14 @@ public class Grid {
   private final int gridWidth;
 
 
+  public int getGridHeight(){
+    return gridHeight;
+  }
+
+  public int getGridWidth(){
+    return gridWidth;
+  }
+
   public Grid(int gridHeight, int gridWidth) {
     grid = new Cell[gridHeight][gridWidth];
     this.gridHeight = gridHeight;
