@@ -3,7 +3,6 @@ package cell_society.backend.SimulationInitializer;
 import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.Grid;
 import java.util.Map;
-import java.util.Scanner;
 
 /**
  * Makes the grid that is used to hold the cells
@@ -28,15 +27,22 @@ public class GridCreator {
   /**
    * Puts all of the cells in the grid
    */
-  public void populateGrid(String grid, Map<String,String> cellCodes){
-    //grid = parseGrid(grid);
-    //int i = 0
-    //for(int c = 0; c<cols; c++){
-     // for(int r = 0; r<rows; r++){
-        //String curr = Character.toString(grid.charAt(i++));
-        //Cell currCell = Class.forName(cellCodes.get(curr));
-     // }
-    //}
+  public void populateGrid(String grid, Map<String, String> cellCodes){
+    grid = parseGrid(grid);
+    int i = 0;
+    for(int c = 0; c<4; c++){
+      for(int r = 0; r<4; r++){
+        String curr = Character.toString(grid.charAt(i++));
+        try {
+          Class currCell = Class.forName(cellCodes.get(curr));
+        }  catch (ClassNotFoundException e){
+          System.out.println("Class name does not exist");
+        }
+
+
+
+      }
+    }
   }
 
   public String parseGrid(String grid){
