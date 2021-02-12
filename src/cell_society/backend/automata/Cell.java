@@ -42,7 +42,7 @@ public class Cell {
    * @return Neighbor object of Cells relevant to deciding the cell's next state.
    */
   public Neighbors getNeighbors(Grid grid) {
-    return null;
+    return grid.getDirectNeighbors(row, col);
   }
 
   /**
