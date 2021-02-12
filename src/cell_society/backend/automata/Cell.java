@@ -10,12 +10,17 @@ public class Cell {
   public Cell() {
 
   }
-  public void initializeParams(CellParameters parameters){
-    this.row = parameters.getAsInt("row");
-    this.col = parameters.getAsInt("col");
-  }
 
   public Cell(int row, int col) {
+    this.row = row;
+    this.col = col;
+  }
+
+  public void initializeParams(CellParameters parameters) {
+
+  }
+
+  public void setPosition(int row, int col) {
     this.row = row;
     this.col = col;
   }
