@@ -16,6 +16,10 @@ public class DeadCell extends Cell {
     super(row, col);
   }
 
+  public DeadCell() {
+
+  }
+
   @Override
   public Neighbors getNeighbors(Grid grid) {
     int row = this.getRow();
@@ -26,9 +30,11 @@ public class DeadCell extends Cell {
   /**
    * Updates the next Grid state according to the rules obeyed by DeadCells: Any dead cell with
    * exactly three live neighbours becomes a live cell, as if by reproduction.
-   *  @param neighbors Cells that this cell uses to make its decision
-   * @param nextGrid      grid to hold the next configuration of cells.
-   * @param currentGrid*/
+   *
+   * @param neighbors   Cells that this cell uses to make its decision
+   * @param nextGrid    grid to hold the next configuration of cells.
+   * @param currentGrid
+   */
   @Override
   public void makeDecisions(Neighbors neighbors, Grid nextGrid,
       Grid currentGrid) {
