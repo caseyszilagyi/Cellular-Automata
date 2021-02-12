@@ -26,7 +26,8 @@ public class SimulationInitializer {
   }
 
   /**
-   * Gets all of the parameters contained in the XML file
+   * Gets all of the parameters needed for the simulation that are contained in the XML file, and
+   * makes hashmaps for them using the XMLFileReader class
    * @param simulationType The type of simulation that we have, used to check if the file is correct
    * @param fileName The name of the file with the data for initialization
    */
@@ -44,9 +45,8 @@ public class SimulationInitializer {
   public Grid makeGrid(){
     gridCreator = new GridCreator(Integer.parseInt(simulationParameters.get("rows")),
         Integer.parseInt(simulationParameters.get("columns")));
-
-    gridCreator.makeCellInitializer(xmlFileReader.getSimulationType());
-    gridCreator.populateGrid(simulationParameters.get("grid"));
+    gridCreator.setCellBehavior(cellBehavior);
+    gridCreator.populateGrid(simulationParameters.get("grid"), cellCodes);
 
     return gridCreator.getGrid();
   }
@@ -55,7 +55,7 @@ public class SimulationInitializer {
   public static void main(String[] args){
     SimulationInitializer mySim = new SimulationInitializer();
     mySim.initializeSimulation("gameOfLife", "data/config_files/testingFile.xml");
-
+    mySim.makeGrid();
   }
 
 }
