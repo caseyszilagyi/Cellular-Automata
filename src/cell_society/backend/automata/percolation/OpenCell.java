@@ -50,6 +50,10 @@ public class OpenCell extends Cell {
       OpenCell openCell = new OpenCell(r, c);
       nextGrid.placeCell(r, c, openCell);
     }
+  }
 
+  @Override
+  public String toString() {
+    return "_";
   }
 }

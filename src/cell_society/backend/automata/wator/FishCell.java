@@ -107,4 +107,9 @@ public class FishCell extends Cell {
     }
     return returnCoordinates;
   }
+
+  @Override
+  public String toString() {
+    return "F";
+  }
 }
