@@ -77,4 +77,9 @@ public class AgentCell extends Cell {
     }
     return numSameNeighbors / neighbors.size() >= satisfactionProp;
   }
+
+  @Override
+  public String toString() {
+    return agentType.substring(0, 1);
+  }
 }

@@ -17,4 +17,8 @@ public class FireCell extends Cell {
     super(row, col);
   }
 
+  @Override
+  public String toString() {
+    return "X";
+  }
 }

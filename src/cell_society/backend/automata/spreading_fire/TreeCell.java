@@ -64,4 +64,8 @@ public class TreeCell extends Cell {
       nextGrid.placeCell(row, col, treeCell);
     }
   }
+  @Override
+  public String toString() {
+    return "O";
+  }
 }

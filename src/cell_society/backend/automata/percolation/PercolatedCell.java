@@ -44,4 +44,9 @@ public class PercolatedCell extends Cell {
     PercolatedCell percolatedCell = new PercolatedCell(r, c);
     nextGrid.placeCell(r, c, percolatedCell);
   }
+
+  @Override
+  public String toString() {
+    return "O";
+  }
 }
