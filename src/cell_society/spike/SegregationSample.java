@@ -6,20 +6,29 @@ import cell_society.backend.automata.Grid;
 import cell_society.backend.automata.Neighbors;
 import cell_society.backend.automata.segregation.AgentCell;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class SegregationSample {
 
   public static void main(String[] args) {
     // This is an oscillator.  Comment out the next method to see this one in action.
     // This is a crude substitute for the XML initial configuration
+//    int[][] initial = new int[][]{
+//        {0, 0, 0, 2, 0, 0},
+//        {0, 1, 1, 0, 0, 0},
+//        {0, 1, 1, 0, 0, 0},
+//        {0, 0, 0, 1, 1, 0},
+//        {0, 0, 2, 1, 1, 0},
+//        {0, 0, 0, 0, 0, 0}
+//    };
     int[][] initial = new int[][]{
-        {0, 0, 0, 2, 0, 0},
-        {0, 1, 1, 0, 0, 0},
-        {0, 1, 1, 0, 0, 0},
-        {0, 0, 0, 1, 1, 0},
-        {0, 0, 2, 1, 1, 0},
-        {0, 0, 0, 0, 0, 0}
+        {1, 2, 1, 2},
+        {2, 1, 2, 1},
+        {1, 2, 1, 2},
+        {2, 1, 2, 1}
     };
     int h = initial.length;
     int w = initial[0].length;
@@ -46,18 +55,35 @@ public class SegregationSample {
    */
   public static Grid step(Grid grid, int height, int width) {
     Grid nextGrid = new Grid(height, width);
-    List<Cell> dissatisfiedList = new ArrayList<>();
-    List<Coordinate> vacantCoordiantes = new ArrayList<>();
+    Queue<Cell> dissatisfiedQueue = new LinkedList<>();
+    List<Coordinate> vacantCoordinates = grid.getAllVacantSpots();
 
     for (int j = 0; j < height; j++) {
       for (int k = 0; k < width; k++) {
         Cell cell = grid.getCell(j, k);
+        // Cell is already empty, already factored through grid.getAllVacantSpots method
         if (cell == null) {
           continue;
         }
         Neighbors neighbors = cell.getNeighbors(grid);
         cell.makeDecisions(neighbors, nextGrid, null);
+        // Alright, there's the potential that the agent is unhappy.  In that case, queue up for relocation
+        AgentCell agentCell = (AgentCell) cell;
+        if (!agentCell.isSatisfied(neighbors)){
+          dissatisfiedQueue.add(agentCell);
+          vacantCoordinates.add(new Coordinate(j, k));
+        }
       }
+    }
+    // redistribute dissatisfied individuals.  Note, there's the potential here that a Cell will be placed in its current position.  Within the
+    while (!dissatisfiedQueue.isEmpty()){
+      AgentCell cell = (AgentCell) dissatisfiedQueue.poll();
+      Collections.shuffle(vacantCoordinates);
+      Coordinate newSpot = vacantCoordinates.get(0);
+      vacantCoordinates.remove(0);
+      int r = newSpot.getFirst();
+      int c = newSpot.getSecond();
+      nextGrid.placeCell(r, c, new AgentCell(r, c, cell.getSatisfactionProp(), cell.getAgentType()));
     }
     return nextGrid;
   }

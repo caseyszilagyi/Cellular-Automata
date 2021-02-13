@@ -105,7 +105,7 @@ public class SharkCell extends Cell {
   }
 
   private boolean notShark(int row, int col, Grid grid) {
-    return grid.isEmpty(row, col) || grid.getCell(row, col) instanceof SharkCell;
+    return grid.isEmpty(row, col) || !(grid.getCell(row, col) instanceof SharkCell);
   }
 
   private List<Coordinate> getRandAdjacent(int row, int col) {
