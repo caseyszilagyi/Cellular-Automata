@@ -1,11 +1,11 @@
 package cell_society.backend.automata.wator;
 
-import cell_society.backend.simulation_initializer.CellParameters;
 import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.Coordinate;
 import cell_society.backend.automata.Direction;
 import cell_society.backend.automata.Grid;
 import cell_society.backend.automata.Neighbors;
+import cell_society.backend.simulation_initializer.CellParameters;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,6 +24,14 @@ public class SharkCell extends Cell {
 
   public SharkCell() {
 
+  }
+
+  public int getEnergy() {
+    return energy;
+  }
+
+  public int getReproduceThresh() {
+    return reproduceThresh;
   }
 
   @Override
@@ -61,8 +69,7 @@ public class SharkCell extends Cell {
       int shiftedRow = coords.getFirst();
       int shiftedCol = coords.getSecond();
       // Next state either has empty space, or has a fish that can be consumed.
-      if (currentGrid.isEmpty(shiftedRow, shiftedCol) && notShark(shiftedRow, shiftedCol,
-          nextGrid)) {
+      if (notShark(shiftedRow, shiftedCol, nextGrid) && notShark(shiftedRow, shiftedCol, currentGrid)) {
         Cell cell = nextGrid.getCell(shiftedRow, shiftedCol);
         if (cell instanceof FishCell) {
           energy++;
@@ -98,7 +105,7 @@ public class SharkCell extends Cell {
   }
 
   private boolean notShark(int row, int col, Grid grid) {
-    return grid.isEmpty(row, col) || grid.getCell(row, col) instanceof SharkCell;
+    return grid.isEmpty(row, col) || !(grid.getCell(row, col) instanceof SharkCell);
   }
 
   private List<Coordinate> getRandAdjacent(int row, int col) {
