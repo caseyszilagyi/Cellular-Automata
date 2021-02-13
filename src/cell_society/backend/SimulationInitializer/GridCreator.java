@@ -1,69 +1,99 @@
 package cell_society.backend.SimulationInitializer;
 
-import cell_society.backend.Simulation;
 import cell_society.backend.automata.Cell;
-import cell_society.backend.automata.game_of_life.DeadCell;
 import cell_society.backend.automata.Grid;
 import java.util.Map;
 
 /**
- * Makes the grid that is used to hold the cells
+ * Makes and populates the grid that is used to hold all of the cells present in the simulation.
  *
  * @author Casey Szilagyi
  */
 public class GridCreator {
 
   private Grid gameGrid;
-  private Map<String,String> cellBehavior;
+  private CellParameters cellBehavior;
   private String CELL_LOCATION = "cell_society.backend.automata.";
   private String SIMULATION_TYPE;
 
-  DeadCell deadCell = new DeadCell();
-
   /**
    * Makes the grid
+   *
    * @param row Number of rows
    * @param col Number of columns
    */
-  public GridCreator(int row, int col, String simulationType){
+  public GridCreator(int row, int col, String simulationType) {
     gameGrid = new Grid(row, col);
     SIMULATION_TYPE = simulationType + ".";
   }
 
   /**
-   * Puts all of the cells in the grid
+   * Populates the grid with cell objects
+   *
+   * @param grid      A string of characters that defines which cells will be made
+   * @param cellCodes Links each character to a cell type
    */
-  public void populateGrid(String grid, Map<String, String> cellCodes){
+  public void populateGrid(String grid, Map<String, String> cellCodes) {
     grid = parseGrid(grid);
     int i = 0;
-    for(int c = 0; c< gameGrid.getGridWidth(); c++){
-      for(int r = 0; r< gameGrid.getGridHeight(); r++){
-        String cellType = cellCodes.get(Character.toString(grid.charAt(i)));
-        String curr = CELL_LOCATION + SIMULATION_TYPE + cellType;
-        Class<Cell> currCell = null;
-        try {
-          currCell = (Class<Cell>) Class.forName(curr);
-        }  catch (ClassNotFoundException e){
-          System.out.println("Class name does not exist");
-        }
-
-        //Cell cell = new Cell();
-        //cell = (Cell) currCell;
-
+    for (int r = 0; r < gameGrid.getGridHeight(); r++) {
+      for (int c = 0; c < gameGrid.getGridWidth(); c++) {
+        Cell newCell = makeCell(cellCodes.get(Character.toString(grid.charAt(i))));
+        gameGrid.placeCell(r, c, newCell);
+        i++;
       }
     }
   }
 
-  public String parseGrid(String grid){
+  /**
+   * Makes a single cell with
+   *
+   * @param cellType The type of cell that we want to make
+   * @return The initialized cell
+   */
+  public Cell makeCell(String cellType) {
+    String curr = CELL_LOCATION + SIMULATION_TYPE + cellType;
+    Class classCell = null;
+    try {
+      classCell = Class.forName(curr);
+    } catch (ClassNotFoundException e) {
+      System.out
+          .println("Error: Cell class name does not exist or is placed in the wrong location");
+    }
+
+    //Casting the generic class to a cell object
+    Cell newCell = null;
+    try {
+      newCell = (Cell) classCell.newInstance();
+    } catch (Exception e) {
+      System.out.println("Error: Cell casting ");
+    }
+
+    newCell.initializeParams(cellBehavior);
+
+    return newCell;
+  }
+
+  //Parses the grid to get a string that only has the necessary characters
+  private String parseGrid(String grid) {
     return grid.replace("\n", "").replace(" ", "");
   }
 
-
-  public void setCellBehavior(Map<String, String> userCellBehavior){
-    cellBehavior = userCellBehavior;
+  /**
+   * Sets the behavior that each cell will be initialized with
+   *
+   * @param cellParameters The parameters that define the cell
+   */
+  public void setCellBehavior(CellParameters cellParameters) {
+    cellBehavior = cellParameters;
   }
 
-  public Grid getGrid(){
+  /**
+   * Gets the grid that has been initialized
+   *
+   * @return The grid
+   */
+  public Grid getGrid() {
     return gameGrid;
   }
 
