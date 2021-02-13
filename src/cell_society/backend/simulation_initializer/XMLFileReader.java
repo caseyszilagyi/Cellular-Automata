@@ -1,4 +1,4 @@
-package cell_society.backend.SimulationInitializer;
+package cell_society.backend.simulation_initializer;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,26 +47,29 @@ public class XMLFileReader {
 
   /**
    * Setting the simulation type in order to double check that the proper XML file was read in
+   *
    * @param userSimulationType
    */
-  public void setSimulationType(String userSimulationType){
+  public void setSimulationType(String userSimulationType) {
     simulationType = userSimulationType;
   }
 
   /**
    * Gets the simulation type
+   *
    * @return The simulation type
    */
-  public String getSimulationType(){
+  public String getSimulationType() {
     return simulationType;
   }
 
 
   /**
    * Getting all the parameters that are needed in a map format to run the simulation
+   *
    * @param dataFile The XML file
    * @return The map that links the specific parameters to their values
-   * @throws XMLErrorHandler Error that isi thrown if the file is not valid
+   * @throws XMLErrorHandler Error that is thrown if the file is not valid
    */
   public Map getSimulationParameters(String dataFile) throws XMLErrorHandler {
     Element root = getRootElement(new File(dataFile));
@@ -85,14 +88,16 @@ public class XMLFileReader {
   /**
    * Gets all of the parameters related to the cell's behavior in map form. Assumes valid file
    * because this method is called after the previous one
+   *
    * @param dataFile The XML file
    * @return The map linking all of the behaviors to their values
    */
-  public Map getCellBehavior(String dataFile){
-    NodeList list = getRootElement(new File(dataFile)).getElementsByTagName("parameters").item(0).getChildNodes();
+  public Map getCellBehavior(String dataFile) {
+    NodeList list = getRootElement(new File(dataFile)).getElementsByTagName("parameters").item(0)
+        .getChildNodes();
     Map<String, String> results = new HashMap<>();
-    for (int i = 0; i<list.getLength(); i++) {
-      if(list.item(i) instanceof Element){
+    for (int i = 0; i < list.getLength(); i++) {
+      if (list.item(i) instanceof Element) {
         Node attribute = list.item(i).getAttributes().item(0);
         results.put(attribute.getNodeName(), attribute.getNodeValue());
       }
@@ -100,11 +105,19 @@ public class XMLFileReader {
     return results;
   }
 
-  public Map getCellCodes(String dataFile){
-    NodeList list = getRootElement(new File(dataFile)).getElementsByTagName("codes").item(0).getChildNodes();
+  /**
+   * Gets all of the details as to which character in the grid in the XML file correlates to which
+   * specific cell. This method should be refactored due to duplication.
+   *
+   * @param dataFile The XML file
+   * @return The map that tells which character correlates to which cell
+   */
+  public Map getCellCodes(String dataFile) {
+    NodeList list = getRootElement(new File(dataFile)).getElementsByTagName("codes").item(0)
+        .getChildNodes();
     Map<String, String> results = new HashMap<>();
-    for (int i = 0; i<list.getLength(); i++) {
-      if(list.item(i) instanceof Element){
+    for (int i = 0; i < list.getLength(); i++) {
+      if (list.item(i) instanceof Element) {
         Node attribute = list.item(i).getAttributes().item(0);
         results.put(attribute.getNodeName(), attribute.getNodeValue());
       }

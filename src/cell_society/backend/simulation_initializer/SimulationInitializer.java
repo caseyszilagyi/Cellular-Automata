@@ -1,5 +1,4 @@
-package cell_society.backend.SimulationInitializer;
-
+package cell_society.backend.simulation_initializer;
 
 
 import cell_society.backend.automata.Grid;
@@ -8,14 +7,21 @@ import java.util.Map;
 /**
  * This is where all of the logic to initialize a simulation is contained. The XML file will be read
  * in, cells will be initialized, their neighbors will be determined, and the grid will be made.
+ *
+ * @author Casey Szilagyi
  */
 public class SimulationInitializer {
 
   private XMLFileReader xmlFileReader;
-  private Map<String,String> simulationParameters;
-  private Map<String,String> cellBehavior;
-  private Map<String,String> cellCodes;
+  // All the general things about the simulation (title, author)
+  private Map<String, String> simulationParameters;
+  // What grid character corresponds to what cell
+  private Map<String, String> cellCodes;
+  // the parameters that define a cell's behavior
+  private CellParameters cellParameters;
   private GridCreator gridCreator;
+
+
 
   /**
    * Initializes the file reader.
@@ -28,34 +34,39 @@ public class SimulationInitializer {
   /**
    * Gets all of the parameters needed for the simulation that are contained in the XML file, and
    * makes hashmaps for them using the XMLFileReader class
-   * @param simulationType The type of simulation that we have, used to check if the file is correct
-   * @param fileName The name of the file with the data for initialization
+   *
+   * @param simulationType The type of simulation that we have, used to check if the file is
+   *                       correct
+   * @param fileName       The name of the file with the data for initialization
    */
   public void initializeSimulation(String simulationType, String fileName) {
     xmlFileReader.setSimulationType(simulationType);
     simulationParameters = xmlFileReader.getSimulationParameters(fileName);
-    cellBehavior = xmlFileReader.getCellBehavior(fileName);
+    cellParameters = new CellParameters(xmlFileReader.getCellBehavior(fileName));
     cellCodes = xmlFileReader.getCellCodes(fileName);
   }
 
   /**
    * Makes the grid that all the cells will be contained on
+   *
    * @return The grid
    */
-  public Grid makeGrid(){
+  public Grid makeGrid() {
     gridCreator = new GridCreator(Integer.parseInt(simulationParameters.get("rows")),
-        Integer.parseInt(simulationParameters.get("columns")), simulationParameters.get("cellPackage"));
-    gridCreator.setCellBehavior(cellBehavior);
+        Integer.parseInt(simulationParameters.get("columns")),
+        simulationParameters.get("cellPackage"));
+    gridCreator.setCellBehavior(cellParameters);
     gridCreator.populateGrid(simulationParameters.get("grid"), cellCodes);
 
     return gridCreator.getGrid();
   }
 
-  //For testinig
-  public static void main(String[] args){
+  //For testing
+  public static void main(String[] args) {
     SimulationInitializer mySim = new SimulationInitializer();
-    mySim.initializeSimulation("gameOfLife", "data/config_files/testingFile.xml");
-    mySim.makeGrid();
+    mySim.initializeSimulation("Game of Life", "data/config_files/testingFile.xml");
+    Grid myGrid = mySim.makeGrid();
+    myGrid.printCurrentState();
   }
 
 }

@@ -1,4 +1,4 @@
-package cell_society.backend.SimulationInitializer;
+package cell_society.backend.simulation_initializer;
 
 import java.io.Serial;
 

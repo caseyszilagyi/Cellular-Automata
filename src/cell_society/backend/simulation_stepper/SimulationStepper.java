@@ -1,4 +1,4 @@
-package cell_society.backend;
+package cell_society.backend.simulation_stepper;
 
 import cell_society.backend.automata.Grid;
 
