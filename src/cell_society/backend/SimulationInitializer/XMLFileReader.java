@@ -33,7 +33,8 @@ public class XMLFileReader {
       "description",
       "rows",
       "columns",
-      "grid"
+      "grid",
+      "cellPackage"
   );
 
   /**

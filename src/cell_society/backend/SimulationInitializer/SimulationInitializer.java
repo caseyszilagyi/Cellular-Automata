@@ -44,7 +44,7 @@ public class SimulationInitializer {
    */
   public Grid makeGrid(){
     gridCreator = new GridCreator(Integer.parseInt(simulationParameters.get("rows")),
-        Integer.parseInt(simulationParameters.get("columns")));
+        Integer.parseInt(simulationParameters.get("columns")), simulationParameters.get("cellPackage"));
     gridCreator.setCellBehavior(cellBehavior);
     gridCreator.populateGrid(simulationParameters.get("grid"), cellCodes);
 
