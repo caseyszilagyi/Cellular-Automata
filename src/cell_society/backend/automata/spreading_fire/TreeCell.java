@@ -26,7 +26,7 @@ public class TreeCell extends Cell {
     int row = getRow();
     int col = getCol();
     Neighbors neighbors = grid.getDirectNeighbors(row, col);
-    return ;
+    return null;
   }
 
   @Override
