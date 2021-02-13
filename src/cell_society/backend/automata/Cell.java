@@ -54,6 +54,5 @@ public class Cell {
    */
   public void makeDecisions(Neighbors neighbors, Grid nextGrid,
       Grid currentGrid) {
-
   }
 }

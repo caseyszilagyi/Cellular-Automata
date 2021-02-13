@@ -10,18 +10,28 @@ public class Grid {
   private final int gridWidth;
 
 
-  public int getGridHeight(){
-    return gridHeight;
-  }
-
-  public int getGridWidth(){
-    return gridWidth;
-  }
-
   public Grid(int gridHeight, int gridWidth) {
     grid = new Cell[gridHeight][gridWidth];
     this.gridHeight = gridHeight;
     this.gridWidth = gridWidth;
+  }
+
+  /**
+   * Get the number of rows in the grid
+   *
+   * @return number of rows in the grid
+   */
+  public int getGridHeight() {
+    return gridHeight;
+  }
+
+  /**
+   * Get the number of columns in the grid
+   *
+   * @return number of columns in the grid
+   */
+  public int getGridWidth() {
+    return gridWidth;
   }
 
   /**
@@ -44,12 +54,42 @@ public class Grid {
     return neighbors;
   }
 
+  /**
+   * Returns all cells adjacent to the selected position, within one block, on the Grid.  This has
+   * the potential to result in a cross search pattern, producing a maximum of 4 neighbors.
+   *
+   * @param row row index of grid to identify surrounding neighbors
+   * @param col column index of grid to identify surrounding neighbors
+   * @return Neighbors object containing the neighboring objects.
+   */
+  public Neighbors getAdjacentNeighbors(int row, int col) {
+    Neighbors neighbors = new Neighbors();
+    Direction[] adjacentDirections = new Direction[]{Direction.TOP, Direction.BOTTOM,
+        Direction.LEFT, Direction.RIGHT};
+    for (Direction d : adjacentDirections) {
+      int newRow = d.applyToRow(row);
+      int newCol = d.applyToCol(col);
+      if (inBoundaries(newRow, newCol)) {
+        neighbors.add(grid[newRow][newCol]);
+      }
+    }
+    return neighbors;
+  }
+
+
+  /**
+   * Retrieve the cell object contained at the specified position
+   *
+   * @param row desired row index of grid
+   * @param col desired column index of grid
+   * @return Cell or null object contained at the specified location.
+   */
   public Cell getCell(int row, int col) {
     return grid[row][col];
   }
 
   /**
-   * Gets a list of all free spots
+   * Gets a list of all spots in the grid, unoccupied by other cells
    *
    * @return
    */
@@ -66,10 +106,16 @@ public class Grid {
     return vacantCoordinates;
   }
 
+  /**
+   * Determines whether the specified position contains cell
+   *
+   * @param row row index of the position on the grid to check
+   * @param col column index of the position on the grid to check
+   * @return boolean representing whether the chosen position is occupied.
+   */
   public boolean isEmpty(int row, int col) {
     return grid[row][col] == null;
   }
-
 
   /**
    * This method provides a quick check that a provided coordinate is within the bounds of the
@@ -83,10 +129,17 @@ public class Grid {
     return !(row >= gridHeight || row < 0 || col >= gridWidth || col < 0);
   }
 
+  /**
+   * place a Cell into the desired coordinates.  Indices must be positive and within the bounds of
+   * the grid.
+   *
+   * @param row  row index of where to place the cell
+   * @param col  column index of where to place the cell
+   * @param cell cell object to be placed.
+   */
   public void placeCell(int row, int col, Cell cell) {
     grid[row][col] = cell;
   }
-
 
   /**
    * Used for debugging
