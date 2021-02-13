@@ -14,6 +14,13 @@ public class AgentCell extends Cell {
   //private final AgentType agentType;
   private String agentType;
 
+  public double getSatisfactionProp() {
+    return satisfactionProp;
+  }
+  public String getAgentType(){
+    return agentType;
+  }
+
   public AgentCell(int row, int col, double satisfactionProp, String agentType) {
     super(row, col);
     this.satisfactionProp = satisfactionProp;

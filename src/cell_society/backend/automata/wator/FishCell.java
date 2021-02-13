@@ -16,6 +16,14 @@ public class FishCell extends Cell {
   private int breedTimeCounter;
   private int breedTimeThresh;
 
+  public int getBreedTimeCounter() {
+    return breedTimeCounter;
+  }
+
+  public int getBreedTimeThresh() {
+    return breedTimeThresh;
+  }
+
   public FishCell(int row, int col, int breedTimeCounter, int breedTimeThresh) {
     super(row, col);
     this.breedTimeCounter = breedTimeCounter;
