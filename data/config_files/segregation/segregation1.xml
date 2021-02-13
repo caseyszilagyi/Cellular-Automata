@@ -19,8 +19,8 @@
   </codes>
 
   <parameters>
-    <parameter test1='0.5'/>
-    <parameter test2='0.6'/>
+    <parameter satisfactionprop='0.5'/>
+    <parameter agentprop='?'/>
   </parameters>
 
 </simulation>
