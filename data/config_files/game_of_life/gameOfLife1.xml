@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<simulation type = "Game of Life">
+<simulation type="Game of Life">
   <cellPackage>game_of_life</cellPackage>
   <title>Game of Life</title>
-  <author>Authors...</author>
+  <author>John Horton Conway</author>
   <desc>The Game of Life Simulation</desc>
   <rows>4</rows>
   <columns>4</columns>
@@ -19,10 +19,6 @@
   </codes>
 
   <parameters>
-    <parameter test1='0.5'/>
-    <parameter test2='0.6'/>
   </parameters>
-
-
 
 </simulation>

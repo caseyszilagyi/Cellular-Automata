@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation type="Percolation">
+  <cellPackage>percolation</cellPackage>
+  <title>Percolation</title>
+  <author></author>
+  <desc>Percolation Simulation from CS 201</desc>
+  <rows>4</rows>
+  <columns>4</columns>
+  <grid>
+    b b o p
+    b b b o
+    b o o o
+    b b o b
+  </grid>
+
+  <codes>
+    <key b='BlockedCell'></key>
+    <key o='OpenCell'></key>
+    <key p='PercolatedCell'></key>
+  </codes>
+
+  <parameters>
+  </parameters>
+
+</simulation>
