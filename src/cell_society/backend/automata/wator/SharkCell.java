@@ -114,4 +114,9 @@ public class SharkCell extends Cell {
     }
     return returnCoordinates;
   }
+
+  @Override
+  public String toString() {
+    return "S";
+  }
 }

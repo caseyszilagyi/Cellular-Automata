@@ -44,4 +44,9 @@ public class BlockedCell extends Cell {
     BlockedCell blockedCell = new BlockedCell(r, c);
     nextGrid.placeCell(r, c, blockedCell);
   }
+
+  @Override
+  public String toString() {
+    return "X";
+  }
 }
