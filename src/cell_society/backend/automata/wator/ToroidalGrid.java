@@ -14,7 +14,9 @@ public class ToroidalGrid extends Grid {
   }
 
   /**
-   * Place a cell into the desired coordinates.  This method provides support for wrapping-around indices.
+   * Place a cell into the desired coordinates.  This method provides support for wrapping-around
+   * indices.
+   *
    * @param row  row index of where to place the cell
    * @param col  column index of where to place the cell
    * @param cell cell object to be placed.
@@ -24,11 +26,20 @@ public class ToroidalGrid extends Grid {
     Coordinate newCoordinates = getModifiedCoordinates(row, col);
     int modifiedRow = newCoordinates.getFirst();
     int modifiedCol = newCoordinates.getSecond();
-    placeCell(modifiedRow, modifiedCol, cell);
+    super.placeCell(modifiedRow, modifiedCol, cell);
+  }
+
+  public Cell getCell(int row, int col) {
+    Coordinate newCoordinates = getModifiedCoordinates(row, col);
+    int modifiedRow = newCoordinates.getFirst();
+    int modifiedCol = newCoordinates.getSecond();
+    return super.getCell(modifiedRow, modifiedCol);
   }
 
   /**
-   * Determines whether the specified position is occupied, now with support for negative indices that wrap around.
+   * Determines whether the specified position is occupied, now with support for negative indices
+   * that wrap around.
+   *
    * @param row row index of the position on the grid to check
    * @param col column index of the position on the grid to check
    * @return
@@ -38,7 +49,7 @@ public class ToroidalGrid extends Grid {
     Coordinate newCoordinates = getModifiedCoordinates(row, col);
     int modifiedRow = newCoordinates.getFirst();
     int modifiedCol = newCoordinates.getSecond();
-    return isEmpty(modifiedRow, modifiedCol);
+    return super.isEmpty(modifiedRow, modifiedCol);
   }
 
   /**
