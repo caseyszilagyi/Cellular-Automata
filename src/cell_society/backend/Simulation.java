@@ -50,8 +50,16 @@ public class Simulation {
 
 
   public Grid makeStep() {
-    //simulationGrid = simulationStepper.makeStep(simulationGrid);
+    simulationGrid = simulationStepper.makeStep(simulationGrid);
     return simulationGrid;
+  }
+
+  //For testing
+  public static void main(String[] args) {
+    Simulation mySim = new Simulation("Game of Life", "data/config_files/game_of_life/gameOfLife1.xml");
+    mySim.initializeSimulation();
+    Grid currGrid = mySim.makeStep();
+    currGrid.printCurrentState();
   }
 
 
