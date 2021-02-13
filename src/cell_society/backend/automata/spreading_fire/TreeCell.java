@@ -1,6 +1,6 @@
 package cell_society.backend.automata.spreading_fire;
 
-import cell_society.backend.SimulationInitializer.CellParameters;
+import cell_society.backend.simulation_initializer.CellParameters;
 import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.Grid;
 import cell_society.backend.automata.Neighbors;

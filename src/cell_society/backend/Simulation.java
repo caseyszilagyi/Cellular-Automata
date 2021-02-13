@@ -1,13 +1,8 @@
 package cell_society.backend;
 
-import cell_society.backend.SimulationInitializer.SimulationInitializer;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.util.Duration;
+import cell_society.backend.simulation_initializer.SimulationInitializer;
 import cell_society.backend.automata.Grid;
+import cell_society.backend.simulation_stepper.SimulationStepper;
 
 /**
  * This class contains the game loop to run the simulation. It initializes the simulation, and

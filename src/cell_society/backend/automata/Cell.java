@@ -1,6 +1,6 @@
 package cell_society.backend.automata;
 
-import cell_society.backend.SimulationInitializer.CellParameters;
+import cell_society.backend.simulation_initializer.CellParameters;
 
 public class Cell {
 

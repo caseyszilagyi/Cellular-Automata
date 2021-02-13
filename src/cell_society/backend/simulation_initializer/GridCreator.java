@@ -1,4 +1,4 @@
-package cell_society.backend.SimulationInitializer;
+package cell_society.backend.simulation_initializer;
 
 import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.Grid;
