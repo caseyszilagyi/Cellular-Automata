@@ -62,5 +62,4 @@ public class Simulation {
     currGrid.printCurrentState();
   }
 
-
 }
