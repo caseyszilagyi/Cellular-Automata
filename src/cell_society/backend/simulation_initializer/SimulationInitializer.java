@@ -22,7 +22,6 @@ public class SimulationInitializer {
   private GridCreator gridCreator;
 
 
-
   /**
    * Initializes the file reader.
    */
@@ -59,14 +58,6 @@ public class SimulationInitializer {
     gridCreator.populateGrid(simulationParameters.get("grid"), cellCodes);
 
     return gridCreator.getGrid();
-  }
-
-  //For testing
-  public static void main(String[] args) {
-    SimulationInitializer mySim = new SimulationInitializer();
-    mySim.initializeSimulation("Game of Life", "data/config_files/testingFile.xml");
-    Grid myGrid = mySim.makeGrid();
-    myGrid.printCurrentState();
   }
 
 }

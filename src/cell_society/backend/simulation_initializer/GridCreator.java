@@ -52,6 +52,10 @@ public class GridCreator {
    * @return The initialized cell
    */
   public Cell makeCell(String cellType) {
+    //e is an empty spot on the grid
+    if (cellType.equals("e")) {
+      return null;
+    }
     String curr = CELL_LOCATION + SIMULATION_TYPE + cellType;
     Class classCell = null;
     try {
@@ -66,7 +70,7 @@ public class GridCreator {
     try {
       newCell = (Cell) classCell.newInstance();
     } catch (Exception e) {
-      System.out.println("Error: Cell casting ");
+      System.out.println("Error: Cell casting");
     }
 
     newCell.initializeParams(cellBehavior);

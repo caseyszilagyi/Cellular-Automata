@@ -15,11 +15,11 @@ public class Main extends Application {
 
   private Group root;
 
-  private String SIMULATION_TYPE = "gameOfLife";
+  private String SIMULATION_TYPE = "Game of Life";
   private String FILE_NAME = "testingfile.xml";
 
-  //private Simulation simulation = new Simulation(SIMULATION_TYPE, FILE_NAME);  <-- commented out for now since not fully implemented yet
-  private Grid simulationGrid;
+  //private Simulation simulation = new Simulation(SIMULATION_TYPE, FILE_NAME);
+ // private Grid simulationGrid = simulation.makeStep();
 
   @Override
   public void start(Stage stage) {
