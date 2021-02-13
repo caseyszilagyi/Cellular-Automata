@@ -37,7 +37,7 @@ public class SharkCell extends Cell {
     super.makeDecisions(neighbors, nextGrid, currentGrid);
   }
 
-  public void reproduce(){
+  public void reproduce(Grid nextGrid){
 
   }
 }
