@@ -129,6 +129,14 @@ public class Grid {
     return !(row >= gridHeight || row < 0 || col >= gridWidth || col < 0);
   }
 
+  /**
+   * place a Cell into the desired coordinates.  Indices must be positive and within the bounds of
+   * the grid.
+   *
+   * @param row  row index of where to place the cell
+   * @param col  column index of where to place the cell
+   * @param cell cell object to be placed.
+   */
   public void placeCell(int row, int col, Cell cell) {
     grid[row][col] = cell;
   }

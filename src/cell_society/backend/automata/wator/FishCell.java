@@ -36,4 +36,8 @@ public class FishCell extends Cell {
   public void makeDecisions(Neighbors neighbors, Grid nextGrid, Grid currentGrid) {
     super.makeDecisions(neighbors, nextGrid, currentGrid);
   }
+
+  public void reproduce(){
+
+  }
 }
