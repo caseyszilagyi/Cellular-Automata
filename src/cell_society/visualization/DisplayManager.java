@@ -1,7 +1,11 @@
 package cell_society.visualization;
 
 import cell_society.backend.Simulation;
+import cell_society.backend.automata.Grid;
+
+
 import java.io.File;
+import java.util.HashMap;
 import java.util.Random;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -54,8 +58,17 @@ public class DisplayManager {
       cellColorSheet[i] = new Random().nextInt(3);
     }
 
-    // temporarily create grid within constructor
-    createDisplayGrid(gridWidth, gridHeight, cellColorSheet);
+    // EXAMPLES FOR INPUTS FROM BACK-END:
+    char[] charSheet = {
+        'd', 'd', 'd', 'd',
+        'a', 'd', 'a', 'd',
+        'd', 'd', 'a', 'd',
+        'd', 'a', 'd', 'd'
+    };
+
+    HashMap<Character, String> charToColorMap = new HashMap<Character, String>();
+    charToColorMap.put('a', "FF0000");
+    charToColorMap.put('d', "00FF00");
 
     // temporary test for load configuration file button
     Button button = new Button("BUTTON");
@@ -65,14 +78,32 @@ public class DisplayManager {
     fileChooser.setInitialDirectory(new File("data/config_files"));
     button.setOnMouseClicked(e -> {
       File selectedDirectory = fileChooser.showOpenDialog(stage);
-      System.out.println("File name: " + selectedDirectory.getName());
-      System.out.println("Simulation Type: " + selectedDirectory.getParentFile().getName());
+      String fileName = selectedDirectory.getPath();
+      String simulationType = selectedDirectory.getParentFile().getName();
 
-      //Simulation mySim = new Simulation("Game of Life", selectedDirectory.);
+      Simulation mySim = new Simulation("Game of Life", fileName);
+      mySim.initializeSimulation();
+      Grid currGrid = mySim.getGrid();
+
+      // temporarily create grid within constructor
+      updateDisplayGrid(currGrid.getGridWidth(), currGrid.getGridHeight(), convertCharSheetToColors(charSheet, charToColorMap));
+
+      currGrid.printCurrentState();
+      mySim.makeStep();
+      mySim.getGrid().printCurrentState();
     });
   }
 
-  private void createDisplayGrid(int gridWidth, int gridHeight, int[] cellColorSheet){
+  private String[] convertCharSheetToColors(char[] charSheet, HashMap<Character, String> charToColorMap){
+    String[] colorSheet = new String[charSheet.length];
+    for(int i = 0; i < colorSheet.length; i++){
+      colorSheet[i] = charToColorMap.get(charSheet[i]);
+    }
+
+    return colorSheet;
+  }
+
+  private void updateDisplayGrid(int gridWidth, int gridHeight, String[] cellColorSheet){
     GridDisplay grid = new GridDisplay(root, scene, gridWidth, gridHeight);
 
     grid.updateGrid(cellColorSheet);

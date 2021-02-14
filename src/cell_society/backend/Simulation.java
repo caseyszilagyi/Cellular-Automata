@@ -59,6 +59,7 @@ public class Simulation {
   }
 
   //For testing
+  /*
   public static void main(String[] args) {
     Simulation mySim = new Simulation("Game of Life", "data/config_files/game_of_life/gameOfLife1.xml");
     mySim.initializeSimulation();
@@ -67,5 +68,6 @@ public class Simulation {
     mySim.makeStep();
     mySim.getGrid().printCurrentState();
   }
+   */
 
 }

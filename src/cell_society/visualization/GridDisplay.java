@@ -36,7 +36,7 @@ public class GridDisplay {
    *
    * @param cellColorSheet Array of integers for the cell colors
    */
-  public void updateGrid(int[] cellColorSheet) {
+  public void updateGrid(String[] cellColorSheet) {
     root.getChildren().clear();
 
     double maxPossibleCellWidth = currentScreenWidth / width;
@@ -60,7 +60,7 @@ public class GridDisplay {
     }
   }
 
-  private void createCell(double x, double y, int colorCode) {
+  private void createCell(double x, double y, String colorHex) {
     Polygon cell = new Polygon();
 
     cell.getPoints().addAll(
@@ -70,13 +70,7 @@ public class GridDisplay {
         x, y + cellSideLength
     );
 
-    Color cellColor = switch (colorCode) {
-      case 1 -> Color.BROWN;
-      case 2 -> Color.CADETBLUE;
-      default -> Color.IVORY;
-    };
-
-    cell.setFill(cellColor);
+    cell.setFill(Color.web(colorHex));
     cell.setStroke(Color.GAINSBORO);
     root.getChildren().add(cell);
   }
