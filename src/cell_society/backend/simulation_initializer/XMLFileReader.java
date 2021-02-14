@@ -65,6 +65,10 @@ public class XMLFileReader {
     return simulationType;
   }
 
+  /**
+   * Set the file used to run the simulation
+   * @param fileName The filename
+   */
   public void setFile(String fileName){
     currentFile = new File(fileName);
   }
@@ -102,6 +106,25 @@ public class XMLFileReader {
       if (list.item(i) instanceof Element) {
         Node attribute = list.item(i).getAttributes().item(0);
         results.put(attribute.getNodeName(), attribute.getNodeValue());
+      }
+    }
+    return results;
+  }
+
+  /**
+   * Gets a hashmap of all of the attributes and their assigned values inside a given element,
+   * but reverses the key and the corresponding value
+   *
+   * @param userAttribute the element name
+   */
+  public Map getReverseAttributeMap(String userAttribute) {
+    NodeList list = getRootElement(currentFile).getElementsByTagName(userAttribute).item(0)
+        .getChildNodes();
+    Map<String, String> results = new HashMap<>();
+    for (int i = 0; i < list.getLength(); i++) {
+      if (list.item(i) instanceof Element) {
+        Node attribute = list.item(i).getAttributes().item(0);
+        results.put(attribute.getNodeValue(), attribute.getNodeName());
       }
     }
     return results;

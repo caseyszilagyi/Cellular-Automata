@@ -27,7 +27,7 @@ public class SimulationStepper {
    * This will be the method that loops through the grid to update the cells
    */
   public void makeStep() {
-    Grid nextGrid = new Grid(simulationGrid.getGridHeight(), simulationGrid.getGridWidth());
+    Grid nextGrid = new Grid (simulationGrid);
     for (int row = 0; row < simulationGrid.getGridHeight(); row++) {
       for (int col = 0; col < simulationGrid.getGridWidth(); col++) {
         Cell currCell = simulationGrid.getCell(row, col);

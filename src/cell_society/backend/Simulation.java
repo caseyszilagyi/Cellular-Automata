@@ -105,7 +105,6 @@ public class Simulation {
   public static void main(String[] args) {
     Simulation mySim = new Simulation("game_of_life", "data/config_files/game_of_life/gameOfLife1.xml");
 
-    mySim.initializeSimulation();
     Grid currGrid = mySim.getRealGrid();
     currGrid.printCurrentState();
     mySim.makeStep();

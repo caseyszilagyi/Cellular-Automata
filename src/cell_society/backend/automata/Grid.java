@@ -2,17 +2,30 @@ package cell_society.backend.automata;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class Grid {
 
   private final Cell[][] grid;
   private final int gridHeight;
   private final int gridWidth;
+  private Map<Character, String> colorCodes;
+  private Map<String, String> cellDecoder;
 
   public Grid(int gridHeight, int gridWidth) {
     grid = new Cell[gridHeight][gridWidth];
     this.gridHeight = gridHeight;
     this.gridWidth = gridWidth;
+  }
+
+  /**
+   * Copy constructor for the stepper to use to make a new grid with ease
+   * @param grid The last grid
+   */
+  public Grid(Grid grid){
+    this(grid.gridHeight, grid.gridWidth);
+    this.colorCodes = grid.colorCodes;
+    this.cellDecoder = grid.cellDecoder;
   }
 
   /**
@@ -33,6 +46,13 @@ public class Grid {
     return gridWidth;
   }
 
+  public void setColorCodes(Map<Character, String> userColorCodes){
+    colorCodes = userColorCodes;
+  }
+
+  public void setCellDecoder(Map<String, String> userCellDecoder){
+    cellDecoder = userCellDecoder;
+  }
   /**
    * Returns All cells neighboring the selected position, within one block, on the Grid.  This
    * produces a maximum of 8 neighbors.
@@ -150,7 +170,8 @@ public class Grid {
     for (int j = 0; j < gridHeight; j++) {
       for (int k = 0; k < gridWidth; k++) {
         if(grid[j][k] != null) {
-          display[j][k] = grid[j][k].getCellID().charAt(0);
+          char curr = cellDecoder.get(grid[j][k].toString()).charAt(0);
+          display[j][k] = curr;
         }
       }
     }
