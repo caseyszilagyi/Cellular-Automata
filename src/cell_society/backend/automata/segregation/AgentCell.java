@@ -1,9 +1,9 @@
 package cell_society.backend.automata.segregation;
 
-import cell_society.backend.simulation_initializer.CellParameters;
 import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.Grid;
 import cell_society.backend.automata.Neighbors;
+import cell_society.backend.simulation_initializer.CellParameters;
 
 /**
  * Represents an agent in Schelling's model of segregation as a cell on a grid.
@@ -11,30 +11,28 @@ import cell_society.backend.automata.Neighbors;
 public class AgentCell extends Cell {
 
   private double satisfactionProp;
-  //private final AgentType agentType;
-  private String agentType;
-
-  public double getSatisfactionProp() {
-    return satisfactionProp;
-  }
-  public String getAgentType(){
-    return agentType;
-  }
 
   public AgentCell(int row, int col, double satisfactionProp, String agentType) {
     super(row, col);
     this.satisfactionProp = satisfactionProp;
-    this.agentType = agentType;
+    setCellID(agentType);
   }
 
   public AgentCell() {
 
   }
 
+  public double getSatisfactionProp() {
+    return satisfactionProp;
+  }
+
+  public String getAgentType() {
+    return getCellID();
+  }
+
   @Override
   public void initializeParams(CellParameters parameters) {
     this.satisfactionProp = parameters.getAsDouble("satisfactionprop");
-    this.agentType = parameters.getAsString("agentprop");
   }
 
   /**
@@ -62,7 +60,7 @@ public class AgentCell extends Cell {
   @Override
   public void makeDecisions(Neighbors neighbors, Grid nextGrid, Grid currentGrid) {
     if (isSatisfied(neighbors)) {
-      AgentCell agentCell = new AgentCell(getRow(), getCol(), satisfactionProp, agentType);
+      AgentCell agentCell = new AgentCell(getRow(), getCol(), satisfactionProp, getCellID());
       nextGrid.placeCell(getRow(), getCol(), agentCell);
     }
   }
@@ -78,7 +76,7 @@ public class AgentCell extends Cell {
     for (int k = 0; k < neighbors.size(); k++) {
       // In the segregation simulation, all neighbors are of cell type AgentCell
       AgentCell otherCell = (AgentCell) neighbors.get(k);
-      if (otherCell.agentType.equals(this.agentType)) {
+      if (otherCell.getCellID().equals(this.getCellID())) {
         numSameNeighbors++;
       }
     }
@@ -87,6 +85,6 @@ public class AgentCell extends Cell {
 
   @Override
   public String toString() {
-    return agentType.substring(0, 1);
+    return getCellID().substring(0, 1);
   }
 }
