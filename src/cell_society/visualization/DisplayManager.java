@@ -67,14 +67,15 @@ public class DisplayManager {
       animationManager.pauseSimulation();
 
       File selectedDirectory = fileChooser.showOpenDialog(stage);
-      String fileName = selectedDirectory.getPath();
-      String simulationType = selectedDirectory.getParentFile().getName();
 
-      loadNewSimulation(simulationType, fileName);
+      if (selectedDirectory != null){
+        String fileName = selectedDirectory.getPath();
+        String simulationType = selectedDirectory.getParentFile().getName();
+        loadNewSimulation(simulationType, fileName);
+      }
     });
 
-
-    Button playSimButton = new Button("PLAY");
+    Button playSimButton = new Button("PLAY"); // all these buttons are temporary.. should be placed in separate class
     playSimButton.setLayoutX(100);
     root.getChildren().add(playSimButton);
 
@@ -95,6 +96,7 @@ public class DisplayManager {
     root.getChildren().add(stepSimButton);
 
     stepSimButton.setOnMouseClicked(e -> {
+      animationManager.pauseSimulation();
       animationManager.stepSimulation();
     });
   }
@@ -102,6 +104,7 @@ public class DisplayManager {
   private void loadNewSimulation(String simulationType, String fileName){
 
     // EXAMPLES OF INPUT FROM BACK-END
+    // -------------------------------------------------------------------------------------------------------------------------------------------
     char[] charSheet = {
         'd', 'd', 'd', 'd',
         'a', 'd', 'a', 'd',
@@ -112,8 +115,7 @@ public class DisplayManager {
     Map<Character, String> charToColorMap = new HashMap<>();
     charToColorMap.put('a', "FF0000");
     charToColorMap.put('d', "00FF00");
-
-
+    // -------------------------------------------------------------------------------------------------------------------------------------------
 
     Simulation currentSim = new Simulation(simulationType, fileName);
     currentSim.initializeSimulation();
