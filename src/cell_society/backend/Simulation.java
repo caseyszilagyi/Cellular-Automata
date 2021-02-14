@@ -98,6 +98,7 @@ public class Simulation {
 
 
   //For testing
+  /*
   public static void main(String[] args) {
     Simulation mySim = new Simulation("Segregation", "data/config_files/segregation/segregation1.xml");
 
@@ -111,5 +112,6 @@ public class Simulation {
     mySim.makeStep();
     mySim.getGrid().printCurrentState();
   }
+   */
 
 }
