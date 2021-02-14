@@ -4,12 +4,17 @@
   <title>Percolation</title>
   <author></author>
   <desc>Percolation Simulation from CS 201</desc>
+
+  <cellPackage>percolation</cellPackage>
+  <gridType>Grid</gridType>
+  <stepperType>SimulationStepper</stepperType>
+
   <rows>4</rows>
   <columns>4</columns>
   <grid>
-    b b o p
-    b b b o
-    b o o o
+    b b o o
+    b b b p
+    b o o b
     b b o b
   </grid>
 
@@ -19,7 +24,14 @@
     <key p='PercolatedCell'></key>
   </codes>
 
+  <colors>
+    <key b = 'FFFFFF'></key>
+    <key o = '000000'></key>
+    <key p = '0000CC'></key>
+  </colors>
+
   <parameters>
   </parameters>
+
 
 </simulation>

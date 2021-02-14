@@ -4,13 +4,18 @@
   <title>Spreading Fire</title>
   <author></author>
   <desc>Simulation designed to show the spread of wildfire in a forest</desc>
+
+  <cellPackage>spreading_fire</cellPackage>
+  <gridType>Grid</gridType>
+  <stepperType>SimulationStepper</stepperType>
+
   <rows>4</rows>
   <columns>4</columns>
   <grid>
-    t t t e
-    f t e e
+    t t t t
     f t t t
-    t t t e
+    f t t t
+    t t t t
   </grid>
 
   <codes>
@@ -19,8 +24,15 @@
     <key e ='Empty'></key>
   </codes>
 
+  <colors>
+    <key t = '00AA00'></key>
+    <key f = 'CC3300'></key>
+    <key e = '000000'></key>
+  </colors>
+
   <parameters>
     <parameter probcatch='0.5'/>
   </parameters>
+
 
 </simulation>

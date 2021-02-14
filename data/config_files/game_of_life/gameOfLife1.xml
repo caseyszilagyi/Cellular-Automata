@@ -4,19 +4,30 @@
   <title>Game of Life</title>
   <author>John Horton Conway</author>
   <desc>The Game of Life Simulation</desc>
+
+  <cellPackage>game_of_life</cellPackage>
+  <gridType>Grid</gridType>
+  <stepperType>SimulationStepper</stepperType>
+
   <rows>4</rows>
   <columns>4</columns>
   <grid>
-    d d d d
-    a d a d
-    d d a d
     d a d d
+    d d a d
+    a a a d
+    d d d d
   </grid>
+
 
   <codes>
     <key d='DeadCell'></key>
     <key a='AliveCell'></key>
   </codes>
+
+  <colors>
+    <key d = '000000'></key>
+    <key a = 'FFFFFF'></key>
+  </colors>
 
   <parameters>
   </parameters>
