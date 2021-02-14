@@ -52,7 +52,8 @@ public class SegregationStepper extends SimulationStepper {
       vacantCoordinates.remove(0);
       int r = newSpot.getFirst();
       int c = newSpot.getSecond();
-      nextGrid.placeCell(r, c, new AgentCell(r, c, cell.getSatisfactionProp(), cell.getAgentType()));
+      //nextGrid.placeCell(r, c, new AgentCell(r, c, cell.getSatisfactionProp()));
+      cell.relocate(r, c, nextGrid);
     }
   }
 
