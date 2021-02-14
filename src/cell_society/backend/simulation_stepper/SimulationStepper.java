@@ -11,8 +11,15 @@ public class SimulationStepper {
 
   private Grid simulationGrid;
 
-  public SimulationStepper(Grid userGrid) {
-    simulationGrid = userGrid;
+  public SimulationStepper(){
+  }
+
+  /**
+   * Sets the grid for the stepper to use
+   * @param grid The grid
+   */
+  public void setGrid(Grid grid){
+    simulationGrid = grid;
   }
 
 

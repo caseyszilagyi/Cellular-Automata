@@ -17,11 +17,17 @@ public class SegregationStepper extends SimulationStepper {
   private int gridWidth;
 
 
-  public SegregationStepper(Grid grid){
-    super(grid);
-    simulationGrid = super.getGrid();
+  public SegregationStepper(){
+  }
+
+  public void setGrid(Grid grid){
+    simulationGrid = grid;
     gridHeight = grid.getGridHeight();
     gridWidth = grid.getGridWidth();
+  }
+
+  public Grid getGrid(){
+    return simulationGrid;
   }
 
   @Override
@@ -32,6 +38,7 @@ public class SegregationStepper extends SimulationStepper {
 
     findDissatisfiedNeighbors(nextGrid, dissatisfiedQueue, vacantCoordinates);
     redistributeDissatisfiedIndividuals(nextGrid, dissatisfiedQueue, vacantCoordinates);
+    simulationGrid = nextGrid;
   }
 
   //Redistributes the individuals that aren't satisfied

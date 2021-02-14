@@ -29,7 +29,7 @@ public class Simulation {
     SIMULATION_TYPE = simulationType;
     FILE_NAME = fileName;
     initializeSimulation();
-    STEPPER_PATH = "cell_society.backend.automata." + SIMULATION_TYPE + "." + simulationInitializer.getStepperType();
+    STEPPER_PATH = "cell_society.backend.simulation_stepper." + simulationInitializer.getStepperType();
     initializeStepper();
   }
 
@@ -51,10 +51,6 @@ public class Simulation {
    */
   public void initializeStepper() {
     String stepperType = simulationInitializer.getStepperType();
-    if(stepperType.equals("SimulationStepper")){
-      simulationStepper = new SimulationStepper(simulationGrid);
-      return;
-    }
 
     Class classStepper = null;
     try {
@@ -71,6 +67,8 @@ public class Simulation {
     } catch (Exception e) {
       System.out.println("Error: Stepper casting");
     }
+
+    simulationStepper.setGrid(simulationGrid);
 
   }
 
@@ -98,9 +96,9 @@ public class Simulation {
 
 
   //For testing
-  /*
+
   public static void main(String[] args) {
-    Simulation mySim = new Simulation("Segregation", "data/config_files/segregation/segregation1.xml");
+    Simulation mySim = new Simulation("segregation", "data/config_files/segregation/segregation1.xml");
 
     mySim.initializeSimulation();
     Grid currGrid = mySim.getGrid();
@@ -112,6 +110,6 @@ public class Simulation {
     mySim.makeStep();
     mySim.getGrid().printCurrentState();
   }
-   */
+
 
 }
