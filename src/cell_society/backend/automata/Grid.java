@@ -145,11 +145,11 @@ public class Grid {
    *
    * @return A 2D array of string codes.
    */
-  public String[][] getDisplay() {
-    String[][] display = new String[gridHeight][gridWidth];
+  public char[][] getDisplay() {
+    char[][] display = new char[gridHeight][gridWidth];
     for (int j = 0; j < gridHeight; j++) {
       for (int k = 0; k < gridWidth; k++) {
-        display[j][k] = grid[j][k].getCellID();
+        display[j][k] = grid[j][k].getCellID().charAt(0);
       }
     }
 
