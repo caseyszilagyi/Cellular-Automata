@@ -78,7 +78,12 @@ public class Simulation {
   }
 
 
-  public Grid getGrid(){
+  public char[][] getGrid(){
+    return simulationGrid.getDisplay();
+  }
+
+  //only for testing
+  public Grid getRealGrid(){
     return simulationGrid;
   }
 
@@ -101,14 +106,16 @@ public class Simulation {
     Simulation mySim = new Simulation("game_of_life", "data/config_files/game_of_life/gameOfLife1.xml");
 
     mySim.initializeSimulation();
-    Grid currGrid = mySim.getGrid();
+    Grid currGrid = mySim.getRealGrid();
     currGrid.printCurrentState();
     mySim.makeStep();
-    mySim.getGrid().printCurrentState();
+    mySim.getRealGrid().printCurrentState();
     mySim.makeStep();
-    mySim.getGrid().printCurrentState();
+    mySim.getRealGrid().printCurrentState();
     mySim.makeStep();
-    mySim.getGrid().printCurrentState();
+    mySim.getRealGrid().printCurrentState();
+    char[][] griddy = mySim.getGrid();
+    int i = 0;
   }
 
 
