@@ -30,4 +30,9 @@ public class AgentCellA extends AgentCell {
   public String toString() {
     return "A";
   }
+
+  @Override
+  public String getGridRepresentation() {
+    return "A";
+  }
 }

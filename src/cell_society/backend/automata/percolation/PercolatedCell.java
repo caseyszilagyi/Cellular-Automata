@@ -49,4 +49,9 @@ public class PercolatedCell extends Cell {
   public String toString() {
     return "O";
   }
+
+  @Override
+  public String getGridRepresentation() {
+    return "O";
+  }
 }

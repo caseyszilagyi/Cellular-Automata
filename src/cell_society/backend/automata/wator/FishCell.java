@@ -120,4 +120,9 @@ public class FishCell extends Cell {
   public String toString() {
     return "F";
   }
+
+  @Override
+  public String getGridRepresentation() {
+    return "F";
+  }
 }
