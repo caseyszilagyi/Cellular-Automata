@@ -18,15 +18,20 @@ public class Main extends Application {
   @Override
   public void start(Stage stage) {
 
+    int SCREEN_WIDTH = 800;
+    int SCREEN_HEIGHT = 800;
+
     int FPS = 120;
     double SECOND_DELAY = 1.0 / FPS;
     String STAGE_TITLE = "Cell Society Simulation";
     root = new Group();
 
-    Scene mainScene = setupScene(stage);
+    Scene mainScene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
     stage.setTitle(STAGE_TITLE);
     stage.setScene(mainScene);
     stage.show();
+
+    DisplayManager displayManager = new DisplayManager(stage, root, scene);
 
     KeyFrame keyframe = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> {
         //simulationGrid = simulation.makeStep();
@@ -38,21 +43,5 @@ public class Main extends Application {
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(keyframe);
     animation.play();
-  }
-
-  private Scene setupScene(Stage stage) {
-
-    int SCREEN_WIDTH = 800;
-    int SCREEN_HEIGHT = 800;
-
-    Scene scene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
-
-    DisplayManager displayManager = new DisplayManager(stage, root, scene);
-
-    // scene.setOnKeyPressed(e -> inputManager.handleKeyInput(e.getCode()));
-    // scene.setOnMouseMoved(e -> inputManager.handleMouseMoved(e.getX(), e.getY()));
-    // scene.setOnMouseClicked(e -> inputManager.handleMouseClick(e.getButton()));
-
-    return scene;
   }
 }

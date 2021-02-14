@@ -83,7 +83,7 @@ public class DisplayManager {
       String fileName = selectedDirectory.getPath();
       String simulationType = selectedDirectory.getParentFile().getName();
 
-      Simulation mySim = new Simulation("Game of Life", fileName);
+      Simulation mySim = new Simulation(simulationType, fileName);
       mySim.initializeSimulation();
       Grid currGrid = mySim.getGrid();
 
