@@ -49,4 +49,9 @@ public class BlockedCell extends Cell {
   public String toString() {
     return "X";
   }
+
+  @Override
+  public String getGridRepresentation() {
+    return "X";
+  }
 }

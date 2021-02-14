@@ -56,4 +56,9 @@ public class OpenCell extends Cell {
   public String toString() {
     return "_";
   }
+
+  @Override
+  public String getGridRepresentation() {
+    return "_";
+  }
 }

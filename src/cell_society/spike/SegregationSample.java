@@ -5,7 +5,8 @@ import cell_society.backend.automata.Coordinate;
 import cell_society.backend.automata.Grid;
 import cell_society.backend.automata.Neighbors;
 import cell_society.backend.automata.segregation.AgentCell;
-import java.util.ArrayList;
+import cell_society.backend.automata.segregation.AgentCellA;
+import cell_society.backend.automata.segregation.AgentCellB;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,12 +25,18 @@ public class SegregationSample {
 //        {0, 0, 2, 1, 1, 0},
 //        {0, 0, 0, 0, 0, 0}
 //    };
+//    int[][] initial = new int[][]{
+//        {1, 2, 1, 2},
+//        {2, 1, 2, 1},
+//        {1, 2, 1, 2},
+//        {2, 1, 2, 1}
+//    };
     int[][] initial = new int[][]{
-        {1, 2, 1, 2},
-        {2, 1, 2, 1},
-        {1, 2, 1, 2},
-        {2, 1, 2, 1}
+        {1, 2, 1, 2, 1, 0},
+        {0, 1, 2, 1, 2, 0},
+        {1, 2, 0, 0, 0, 0}
     };
+
     int h = initial.length;
     int w = initial[0].length;
     int iteration = 0;
@@ -76,14 +83,14 @@ public class SegregationSample {
       }
     }
     // redistribute dissatisfied individuals.  Note, there's the potential here that a Cell will be placed in its current position.  Within the
+    Collections.shuffle(vacantCoordinates);
     while (!dissatisfiedQueue.isEmpty()){
       AgentCell cell = (AgentCell) dissatisfiedQueue.poll();
-      Collections.shuffle(vacantCoordinates);
       Coordinate newSpot = vacantCoordinates.get(0);
       vacantCoordinates.remove(0);
       int r = newSpot.getFirst();
       int c = newSpot.getSecond();
-      nextGrid.placeCell(r, c, new AgentCell(r, c, cell.getSatisfactionProp(), cell.getAgentType()));
+      cell.relocate(r, c, nextGrid);
     }
     return nextGrid;
   }
@@ -106,10 +113,10 @@ public class SegregationSample {
           case 0:
             break;
           case 1:
-            grid.placeCell(j, k, new AgentCell(j, k, 0.5, "X"));
+            grid.placeCell(j, k, new AgentCellA(j, k, 0.5));
             break;
           case 2:
-            grid.placeCell(j, k, new AgentCell(j, k, 0.5, "O"));
+            grid.placeCell(j, k, new AgentCellB(j, k, 0.5));
             break;
           default:
             throw new IllegalStateException("Unexpected value: " + configuration[j][k]);
