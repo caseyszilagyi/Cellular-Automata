@@ -107,6 +107,19 @@ public class XMLFileReader {
     return results;
   }
 
+  /**
+   * Converts a map from string string to character string
+   * @param map The map to convert
+   * @return The converted map
+   */
+  public Map charMapConverter(Map<String, String> map){
+    Map<Character, String> newMap = new HashMap<>();
+    for(String key: map.keySet()){
+      newMap.put(key.charAt(0), map.get(key));
+    }
+    return newMap;
+  }
+
   // returns if this is a valid XML file for the specified object type. The attribute of the first
   // tag needs to be the same as the type of game that is given
   private boolean isValidFile(Element root, String type) {
