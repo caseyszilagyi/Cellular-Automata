@@ -142,6 +142,23 @@ public class Grid {
   }
 
   /**
+   * Gets the string code representation of the cells to pass to the display
+   *
+   * @return A 2D array of string codes.
+   */
+  public String[][] getDisplay() {
+    String[][] display = new String[gridHeight][gridWidth];
+    for (int j = 0; j < gridHeight; j++) {
+      for (int k = 0; k < gridWidth; k++) {
+        display[j][k] = grid[j][k].getCellID();
+      }
+    }
+
+    return display;
+
+  }
+
+  /**
    * Used for debugging
    */
   public void printCurrentState() {
