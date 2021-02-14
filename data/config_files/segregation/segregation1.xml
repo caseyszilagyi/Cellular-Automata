@@ -22,8 +22,8 @@
   <stepperType>SimulationStepper</stepperType>
 
   <codes>
-    <key x='X'></key>
-    <key o='O'></key>
+    <key x='AgentCell'></key>
+    <key o='AgentCell'></key>
   </codes>
 
   <colors>
