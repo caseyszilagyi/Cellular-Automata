@@ -9,7 +9,6 @@ public class Grid {
   private final int gridHeight;
   private final int gridWidth;
 
-
   public Grid(int gridHeight, int gridWidth) {
     grid = new Cell[gridHeight][gridWidth];
     this.gridHeight = gridHeight;
