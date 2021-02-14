@@ -54,4 +54,9 @@ public class DeadCell extends Cell {
   public String toString() {
     return "DeadCell";
   }
+
+  @Override
+  public String getGridRepresentation() {
+    return "_";
+  }
 }

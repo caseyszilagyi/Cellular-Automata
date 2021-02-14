@@ -14,9 +14,9 @@ public class WatorSample {
   public static void main(String[] args) {
     // 0: Blocked Cells, 1: Percolated Cells, 2: Open Cells
     int[][] initial = new int[][]{
-        {0, 0, 0, 0, 0, 1},
+        {0, 1, 1, 1, 0, 1},
         {2, 0, 0, 0, 1, 1},
-        {2, 2, 0, 0, 1, 1},
+        {2, 2, 0, 2, 1, 1},
         {2, 0, 0, 0, 0, 0}
     };
 //    int[][] initial = new int[][]{
@@ -112,7 +112,7 @@ public class WatorSample {
             grid.placeCell(j, k, new FishCell(j, k, 0, 3));
             break;
           case 2:
-            grid.placeCell(j, k, new SharkCell(j, k, 100, 5));
+            grid.placeCell(j, k, new SharkCell(j, k, 4, 5));
             break;
         }
       }

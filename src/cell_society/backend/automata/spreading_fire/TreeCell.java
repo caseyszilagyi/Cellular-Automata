@@ -68,4 +68,9 @@ public class TreeCell extends Cell {
   public String toString() {
     return "O";
   }
+
+  @Override
+  public String getGridRepresentation() {
+    return "0";
+  }
 }

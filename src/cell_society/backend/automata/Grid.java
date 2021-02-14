@@ -186,7 +186,7 @@ public class Grid {
   public void printCurrentState() {
     for (int j = 0; j < gridHeight; j++) {
       for (int k = 0; k < gridWidth; k++) {
-        String token = isEmpty(j, k) ? "_" : grid[j][k].toString();
+        String token = isEmpty(j, k) ? "_" : grid[j][k].getGridRepresentation();
         System.out.print("." + token + ".");
       }
       System.out.println();

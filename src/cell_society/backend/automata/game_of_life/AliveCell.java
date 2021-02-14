@@ -61,4 +61,9 @@ public class AliveCell extends Cell {
   public String toString() {
     return "AliveCell";
   }
+
+  @Override
+  public String getGridRepresentation() {
+    return "O";
+  }
 }

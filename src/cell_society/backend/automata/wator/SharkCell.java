@@ -126,4 +126,9 @@ public class SharkCell extends Cell {
   public String toString() {
     return "S";
   }
+
+  @Override
+  public String getGridRepresentation() {
+    return "S";
+  }
 }
