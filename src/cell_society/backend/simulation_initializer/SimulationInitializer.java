@@ -17,6 +17,8 @@ public class SimulationInitializer {
   private Map<String, String> simulationParameters;
   // What grid character corresponds to what cell
   private Map<String, String> cellCodes;
+  // Converting the cell types back to codes (for passing to the display)
+  private Map<String, String> cellDecoder;
   // Linkage between a specific code and its color
   private Map<Character, String> colorCodes;
   // the parameters that define a cell's behavior
@@ -46,10 +48,12 @@ public class SimulationInitializer {
     getMaps();
   }
 
+   // Gets all of the maps that are used for various different purposes
   private void getMaps(){
     simulationParameters = xmlFileReader.getSimulationParameters();
     cellParameters = new CellParameters(xmlFileReader.getAttributeMap("parameters"));
     cellCodes = xmlFileReader.getAttributeMap("codes");
+    cellDecoder = xmlFileReader.getReverseAttributeMap("codes");
     colorCodes = xmlFileReader.charMapConverter(xmlFileReader.getAttributeMap("colors"));
   }
 
@@ -66,14 +70,23 @@ public class SimulationInitializer {
             simulationParameters.get("gridType"));
     gridCreator.setCellBehavior(cellParameters);
     gridCreator.populateGrid(simulationParameters.get("grid"), cellCodes);
-
+    gridCreator.setColorCodes(colorCodes);
+    gridCreator.setCellDecoder(cellDecoder);
     return gridCreator.getGrid();
   }
 
+  /**
+   * Allows the Simulation class to get the color codes representing the cells
+   * @return The color coding map
+   */
   public Map getColorCodes(){
     return colorCodes;
   }
 
+  /**
+   * Allows the Simulation class to get the stepper type in order to initialize the simulation stepper
+   * @return
+   */
   public String getStepperType(){
     return simulationParameters.get("stepperType");
   }
