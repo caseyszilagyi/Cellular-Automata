@@ -149,7 +149,9 @@ public class Grid {
     char[][] display = new char[gridHeight][gridWidth];
     for (int j = 0; j < gridHeight; j++) {
       for (int k = 0; k < gridWidth; k++) {
-        display[j][k] = grid[j][k].getCellID().charAt(0);
+        if(grid[j][k] != null) {
+          display[j][k] = grid[j][k].getCellID().charAt(0);
+        }
       }
     }
 
