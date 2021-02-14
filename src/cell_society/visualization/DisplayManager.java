@@ -58,17 +58,19 @@ public class DisplayManager {
       cellColorSheet[i] = new Random().nextInt(3);
     }
 
-    // EXAMPLES FOR INPUTS FROM BACK-END:
-    char[] charSheet = {
-        'd', 'd', 'd', 'd',
-        'a', 'd', 'a', 'd',
-        'd', 'd', 'a', 'd',
-        'd', 'a', 'd', 'd'
-    };
+                      // EXAMPLES FOR INPUTS FROM BACK-END: VVVVVVVVVVVVVVVV
+                      char[] charSheet = {
+                          'd', 'd', 'd', 'd',
+                          'a', 'd', 'a', 'd',
+                          'd', 'd', 'a', 'd',
+                          'd', 'a', 'd', 'd'
+                      };
 
-    HashMap<Character, String> charToColorMap = new HashMap<Character, String>();
-    charToColorMap.put('a', "FF0000");
-    charToColorMap.put('d', "00FF00");
+                      HashMap<Character, String> charToColorMap = new HashMap<Character, String>();
+                      charToColorMap.put('a', "FF0000");
+                      charToColorMap.put('d', "00FF00");
+
+                      // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     // temporary test for load configuration file button
     Button button = new Button("BUTTON");
