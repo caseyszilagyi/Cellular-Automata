@@ -66,6 +66,7 @@ public class GridCreator {
     for (int r = 0; r < gameGrid.getGridHeight(); r++) {
       for (int c = 0; c < gameGrid.getGridWidth(); c++) {
         Cell newCell = makeCell(cellCodes.get(Character.toString(grid.charAt(i))));
+        newCell.setCellID(Character.toString(grid.charAt(i)));
         newCell.setPosition(r,c);
         gameGrid.placeCell(r, c, newCell);
         i++;
