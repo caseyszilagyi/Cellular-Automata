@@ -12,10 +12,9 @@ public class AgentCell extends Cell {
 
   private double satisfactionProp;
 
-  public AgentCell(int row, int col, double satisfactionProp, String agentType) {
+  public AgentCell(int row, int col, double satisfactionProp) {
     super(row, col);
     this.satisfactionProp = satisfactionProp;
-    setCellID(agentType);
   }
 
   public AgentCell() {
@@ -60,9 +59,19 @@ public class AgentCell extends Cell {
   @Override
   public void makeDecisions(Neighbors neighbors, Grid nextGrid, Grid currentGrid) {
     if (isSatisfied(neighbors)) {
-      AgentCell agentCell = new AgentCell(getRow(), getCol(), satisfactionProp, getCellID());
+      AgentCell agentCell = new AgentCell(getRow(), getCol(), satisfactionProp);
       nextGrid.placeCell(getRow(), getCol(), agentCell);
     }
+  }
+
+  /**
+   * This method helps the stepper place the correct AgentCell type onto the grid.
+   * @param row row index of grid to place cell
+   * @param col row index of grid to place cell
+   * @param grid target grid to hold a new, appropriate Agent Cell.
+   */
+  public void relocate(int row, int col, Grid grid) {
+
   }
 
   /**
@@ -79,6 +88,6 @@ public class AgentCell extends Cell {
 
   @Override
   public String toString() {
-    return getCellID().substring(0, 1);
+    return "+";
   }
 }
