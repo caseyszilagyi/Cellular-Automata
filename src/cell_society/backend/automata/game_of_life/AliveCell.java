@@ -59,6 +59,6 @@ public class AliveCell extends Cell {
 
   @Override
   public String toString() {
-    return "O";
+    return "AliveCell";
   }
 }
