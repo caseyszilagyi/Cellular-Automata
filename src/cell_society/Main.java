@@ -29,7 +29,7 @@ public class Main extends Application {
     String STAGE_TITLE = "Cell Society Simulation";
     root = new Group();
 
-    Scene mainScene = setupScene();
+    Scene mainScene = setupScene(stage);
     stage.setTitle(STAGE_TITLE);
     stage.setScene(mainScene);
     stage.show();
@@ -46,14 +46,14 @@ public class Main extends Application {
     animation.play();
   }
 
-  private Scene setupScene() {
+  private Scene setupScene(Stage stage) {
 
     int SCREEN_WIDTH = 800;
     int SCREEN_HEIGHT = 800;
 
     Scene scene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-    DisplayManager displayManager = new DisplayManager(root, scene);
+    DisplayManager displayManager = new DisplayManager(stage, root, scene);
 
     // scene.setOnKeyPressed(e -> inputManager.handleKeyInput(e.getCode()));
     // scene.setOnMouseMoved(e -> inputManager.handleMouseMoved(e.getX(), e.getY()));
