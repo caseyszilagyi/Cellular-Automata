@@ -117,7 +117,7 @@ public class DisplayManager {
     charToColorMap.put('d', "00FF00");
     // -------------------------------------------------------------------------------------------------------------------------------------------
 
-    Simulation currentSim = new Simulation(simulationType, fileName);
+    Simulation currentSim = new Simulation(simulationType, simulationType + "/" + fileName);
     currentSim.initializeSimulation();
     animationManager.setSimulation(currentSim);
 

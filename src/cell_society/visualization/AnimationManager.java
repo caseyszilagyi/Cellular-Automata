@@ -37,8 +37,8 @@ public class AnimationManager {
   public void stepSimulation(){
     if(currentSim != null){
       currentSim.makeStep();
-      //This get real grid method can be changed to get grid to get the char array for color mapping
-      currentSim.getRealGrid().printCurrentState(); // instead of this, update display grid
+      //This gets the chars that represent the cells
+      currentSim.getGrid();
     }
   }
 

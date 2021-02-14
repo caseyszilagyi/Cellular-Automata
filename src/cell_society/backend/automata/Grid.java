@@ -165,13 +165,15 @@ public class Grid {
    *
    * @return A 2D array of string codes.
    */
-  public char[][] getDisplay() {
-    char[][] display = new char[gridHeight][gridWidth];
+  public char[] getDisplay() {
+    char[] display = new char[gridHeight*gridWidth];
+    int i = 0;
     for (int j = 0; j < gridHeight; j++) {
       for (int k = 0; k < gridWidth; k++) {
         if(grid[j][k] != null) {
           char curr = cellDecoder.get(grid[j][k].toString()).charAt(0);
-          display[j][k] = curr;
+          display[i] = curr;
+          i++;
         }
       }
     }
