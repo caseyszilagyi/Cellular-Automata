@@ -72,15 +72,9 @@ public class AgentCell extends Cell {
    * @return
    */
   public boolean isSatisfied(Neighbors neighbors) {
-    double numSameNeighbors = 0;
-    for (int k = 0; k < neighbors.size(); k++) {
-      // In the segregation simulation, all neighbors are of cell type AgentCell
-      AgentCell otherCell = (AgentCell) neighbors.get(k);
-      if (otherCell.getCellID().equals(this.getCellID())) {
-        numSameNeighbors++;
-      }
-    }
-    return numSameNeighbors / neighbors.size() >= satisfactionProp;
+    double numSameNeighbors = neighbors.getTypeCount(this);
+    double totalNeighbors = neighbors.size();
+    return numSameNeighbors / totalNeighbors >= satisfactionProp;
   }
 
   @Override
