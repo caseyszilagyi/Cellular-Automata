@@ -22,10 +22,37 @@ public class GridCreator {
    * @param row Number of rows
    * @param col Number of columns
    */
-  public GridCreator(int row, int col, String simulationType) {
-    gameGrid = new Grid(row, col);
+  public GridCreator(int row, int col, String simulationType, String gridType) {
+
+    gameGrid = makeGrid(row, col, gridType);
     SIMULATION_TYPE = simulationType + ".";
   }
+
+  public Grid makeGrid(int row, int col, String gridType) {
+    if (gridType.equals("Grid")) {
+      return new Grid(row,col);
+    }
+
+    String gridFileLocation = CELL_LOCATION + SIMULATION_TYPE + gridType;
+    Class classGrid = null;
+    try {
+      classGrid = Class.forName(gridFileLocation);
+    } catch (ClassNotFoundException e) {
+      System.out
+          .println("Error: Grid class name does not exist or is placed in the wrong location");
+    }
+
+    //Casting the generic class to a grid object
+    Grid newGrid = null;
+    try {
+      newGrid = (Grid) classGrid.newInstance();
+    } catch (Exception e) {
+      System.out.println("Error: Grid casting");
+    }
+
+    return newGrid;
+  }
+
 
   /**
    * Populates the grid with cell objects
@@ -57,10 +84,10 @@ public class GridCreator {
     if (cellType.equals("e")) {
       return null;
     }
-    String curr = CELL_LOCATION + SIMULATION_TYPE + cellType;
+    String cellFileLocation = CELL_LOCATION + SIMULATION_TYPE + cellType;
     Class classCell = null;
     try {
-      classCell = Class.forName(curr);
+      classCell = Class.forName(cellFileLocation);
     } catch (ClassNotFoundException e) {
       System.out
           .println("Error: Cell class name does not exist or is placed in the wrong location");
