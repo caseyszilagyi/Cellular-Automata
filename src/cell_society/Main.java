@@ -1,19 +1,12 @@
 package cell_society;
 
 import cell_society.visualization.DisplayManager;
-import cell_society.backend.Simulation;
-import cell_society.backend.automata.Grid;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class Main extends Application {
-
-  private Group root;
 
   @Override
   public void start(Stage stage) {
@@ -21,27 +14,14 @@ public class Main extends Application {
     int SCREEN_WIDTH = 800;
     int SCREEN_HEIGHT = 800;
 
-    int FPS = 120;
-    double SECOND_DELAY = 1.0 / FPS;
     String STAGE_TITLE = "Cell Society Simulation";
-    root = new Group();
+    Group root = new Group();
 
     Scene mainScene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
     stage.setTitle(STAGE_TITLE);
     stage.setScene(mainScene);
     stage.show();
 
-    DisplayManager displayManager = new DisplayManager(stage, root, scene);
-
-    KeyFrame keyframe = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> {
-        //simulationGrid = simulation.makeStep();
-        //Some step where this grid is passed to the front end for display, these should
-        //be the only 2 steps necessary.
-    });
-
-    Timeline animation = new Timeline();
-    animation.setCycleCount(Timeline.INDEFINITE);
-    animation.getKeyFrames().add(keyframe);
-    animation.play();
+    DisplayManager displayManager = new DisplayManager(stage, root, mainScene);
   }
 }

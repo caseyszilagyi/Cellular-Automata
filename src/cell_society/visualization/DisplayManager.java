@@ -1,8 +1,7 @@
 package cell_society.visualization;
 
 import cell_society.backend.Simulation;
-import cell_society.backend.automata.Grid;
-
+import cell_society.backend.automata.Grid; // <-- dependence on Grid class will be removed once back-end methods are implemented
 
 import java.io.File;
 import java.util.HashMap;
@@ -10,6 +9,7 @@ import java.util.Random;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -34,7 +34,8 @@ public class DisplayManager {
 
   private final Group root;
   private final Scene scene;
-  private final Stage stage;
+
+  private final Pane pane;
 
   private int gridWidth, gridHeight;
 
@@ -44,9 +45,10 @@ public class DisplayManager {
    * @param scene The container for the main scene graph
    */
   public DisplayManager(Stage stage, Group root, Scene scene) {
-    this.stage = stage;
     this.root = root;
     this.scene = scene;
+    pane = new Pane();
+    root.getChildren().add(pane);
 
     // temporarily hard-coded size values
     gridWidth = 20;
@@ -106,7 +108,7 @@ public class DisplayManager {
   }
 
   private void updateDisplayGrid(int gridWidth, int gridHeight, String[] cellColorSheet){
-    GridDisplay grid = new GridDisplay(root, scene, gridWidth, gridHeight);
+    GridDisplay grid = new GridDisplay(pane, scene, gridWidth, gridHeight);
 
     grid.updateGrid(cellColorSheet);
 
