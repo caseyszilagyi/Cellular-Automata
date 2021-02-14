@@ -4,6 +4,7 @@ import cell_society.backend.simulation_initializer.CellParameters;
 
 public class Cell {
 
+  private String cellID;
   private int row;
   private int col;
 
@@ -14,6 +15,22 @@ public class Cell {
   public Cell(int row, int col) {
     this.row = row;
     this.col = col;
+  }
+
+  /**
+   * The cellID is a unique String identifier used to help map a Cell to a color.  It can also serve to further distinguish Cells of the same Class.
+   * @param cellID Desired cellID to set this Cell's ID to.
+   */
+  public void setCellID(String cellID) {
+    this.cellID = cellID;
+  }
+
+  /**
+   * Retrieve this Cell's string identifier
+   * @return cellID of this Cell.
+   */
+  public String getCellID(){
+    return cellID;
   }
 
   public void initializeParams(CellParameters parameters) {

@@ -3,6 +3,7 @@ package cell_society.backend;
 import cell_society.backend.simulation_initializer.SimulationInitializer;
 import cell_society.backend.automata.Grid;
 import cell_society.backend.simulation_stepper.SimulationStepper;
+import java.util.Map;
 
 /**
  * This class contains the game loop to run the simulation. It initializes the simulation, and
@@ -17,15 +18,18 @@ public class Simulation {
   private SimulationInitializer simulationInitializer;
   private SimulationStepper simulationStepper;
   private Grid simulationGrid;
+  private Map colorMappings;
 
   private final String SIMULATION_TYPE;
   private final String FILE_NAME;
+  private String STEPPER_PATH;
 
 
   public Simulation(String simulationType, String fileName) {
     SIMULATION_TYPE = simulationType;
     FILE_NAME = fileName;
     initializeSimulation();
+    STEPPER_PATH = "cell_society.backend.automata." + SIMULATION_TYPE + "." + simulationInitializer.getStepperType();
     initializeStepper();
   }
 
@@ -39,32 +43,72 @@ public class Simulation {
     simulationInitializer = new SimulationInitializer();
     simulationInitializer.initializeSimulation(SIMULATION_TYPE, FILE_NAME);
     simulationGrid = simulationInitializer.makeGrid();
+    colorMappings = simulationInitializer.getColorCodes();
   }
 
   /**
    * Initializes the stepper that loops through all the cells;
    */
   public void initializeStepper() {
-    simulationStepper = new SimulationStepper(simulationGrid);
-  }
+    String stepperType = simulationInitializer.getStepperType();
+    if(stepperType.equals("SimulationStepper")){
+      simulationStepper = new SimulationStepper(simulationGrid);
+      return;
+    }
 
+    Class classStepper = null;
+    try {
+      classStepper = Class.forName(STEPPER_PATH);
+    } catch (ClassNotFoundException e) {
+      System.out
+          .println("Error: Stepper class name does not exist or is placed in the wrong location");
+    }
+
+    //Casting the generic class to a stepper object
+    simulationStepper = null;
+    try {
+      simulationStepper = (SimulationStepper) classStepper.newInstance();
+    } catch (Exception e) {
+      System.out.println("Error: Stepper casting");
+    }
+
+  }
 
   public void makeStep() {
     simulationStepper.makeStep();
     simulationGrid = simulationStepper.getGrid();
   }
 
+
   public Grid getGrid(){
     return simulationGrid;
   }
 
+  public int getGridWidth(){
+    return simulationGrid.getGridWidth();
+  }
+
+  public Map getColorMapping(){
+    return colorMappings;
+  }
+
+  public int getGridHeight(){
+    return simulationGrid.getGridHeight();
+  }
+
+
   //For testing
   /*
   public static void main(String[] args) {
-    Simulation mySim = new Simulation("Game of Life", "data/config_files/game_of_life/gameOfLife1.xml");
+    Simulation mySim = new Simulation("Segregation", "data/config_files/segregation/segregation1.xml");
+
     mySim.initializeSimulation();
     Grid currGrid = mySim.getGrid();
     currGrid.printCurrentState();
+    mySim.makeStep();
+    mySim.getGrid().printCurrentState();
+    mySim.makeStep();
+    mySim.getGrid().printCurrentState();
     mySim.makeStep();
     mySim.getGrid().printCurrentState();
   }

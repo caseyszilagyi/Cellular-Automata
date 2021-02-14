@@ -5,16 +5,15 @@ import cell_society.backend.automata.Grid;
 
 /**
  * Deals with each "step" of the simulation, which is done every time the simulation loop makes a
- * pass
+ * pass. This is the most basic form, that just loops through each cell once
  */
 public class SimulationStepper {
 
-  Grid simulationGrid;
+  private Grid simulationGrid;
 
   public SimulationStepper(Grid userGrid) {
     simulationGrid = userGrid;
   }
-
 
 
   /**
@@ -25,7 +24,9 @@ public class SimulationStepper {
     for (int row = 0; row < simulationGrid.getGridHeight(); row++) {
       for (int col = 0; col < simulationGrid.getGridWidth(); col++) {
         Cell currCell = simulationGrid.getCell(row, col);
-        currCell.makeDecisions(currCell.getNeighbors(simulationGrid), nextGrid, simulationGrid);
+        if(currCell != null) {
+          currCell.makeDecisions(currCell.getNeighbors(simulationGrid), nextGrid, simulationGrid);
+        }
       }
     }
     simulationGrid = nextGrid;
