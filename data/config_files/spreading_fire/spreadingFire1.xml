@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<simulation type="Spreading Fire">
+<simulation type="spreading_fire">
   <cellPackage>spreading_fire</cellPackage>
   <title>Spreading Fire</title>
   <author></author>
