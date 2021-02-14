@@ -18,7 +18,7 @@ public class SimulationInitializer {
   // What grid character corresponds to what cell
   private Map<String, String> cellCodes;
   // Linkage between a specific code and its color
-  private Map<String, String> colorCodes;
+  private Map<Character, String> colorCodes;
   // the parameters that define a cell's behavior
   private CellParameters cellParameters;
   private GridCreator gridCreator;
@@ -43,11 +43,16 @@ public class SimulationInitializer {
   public void initializeSimulation(String simulationType, String fileName) {
     xmlFileReader.setSimulationType(simulationType);
     xmlFileReader.setFile(fileName);
+    getMaps();
+  }
+
+  private void getMaps(){
     simulationParameters = xmlFileReader.getSimulationParameters();
     cellParameters = new CellParameters(xmlFileReader.getAttributeMap("parameters"));
     cellCodes = xmlFileReader.getAttributeMap("codes");
-    colorCodes = xmlFileReader.getAttributeMap("colors");
+    colorCodes = xmlFileReader.charMapConverter(xmlFileReader.getAttributeMap("colors"));
   }
+
 
   /**
    * Makes the grid that all the cells will be contained on
