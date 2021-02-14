@@ -49,9 +49,9 @@ public class Simulation {
   }
 
 
-  public Grid makeStep() {
+  public void makeStep() {
     simulationStepper.makeStep();
-    return simulationStepper.getGrid();
+    simulationGrid = simulationStepper.getGrid();
   }
 
   public Grid getGrid(){
