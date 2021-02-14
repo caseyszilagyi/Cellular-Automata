@@ -24,7 +24,7 @@ public class XMLFileReader {
 
   private final DocumentBuilder DOCUMENT_BUILDER;
   private String simulationType;
-
+  private File currentFile;
 
   public static final String ERROR_MESSAGE = "The file presented is not an XML file of the correct game type";
   public final List<String> DATA_FIELDS = List.of(
@@ -34,7 +34,9 @@ public class XMLFileReader {
       "rows",
       "columns",
       "grid",
-      "cellPackage"
+      "cellPackage",
+      "gridType",
+      "stepperType"
   );
 
   /**
@@ -63,16 +65,18 @@ public class XMLFileReader {
     return simulationType;
   }
 
+  public void setFile(String fileName){
+    currentFile = new File(fileName);
+  }
 
   /**
    * Getting all the parameters that are needed in a map format to run the simulation
    *
-   * @param dataFile The XML file
    * @return The map that links the specific parameters to their values
    * @throws XMLErrorHandler Error that is thrown if the file is not valid
    */
-  public Map getSimulationParameters(String dataFile) throws XMLErrorHandler {
-    Element root = getRootElement(new File(dataFile));
+  public Map getSimulationParameters() throws XMLErrorHandler {
+    Element root = getRootElement(currentFile);
     if (!isValidFile(root, simulationType)) {
       throw new XMLErrorHandler(ERROR_MESSAGE, simulationType);
     }
@@ -86,34 +90,12 @@ public class XMLFileReader {
   }
 
   /**
-   * Gets all of the parameters related to the cell's behavior in map form. Assumes valid file
-   * because this method is called after the previous one
+   * Gets a hashmap of all of the attributes and their assigned values inside a given element
    *
-   * @param dataFile The XML file
-   * @return The map linking all of the behaviors to their values
+   * @param userAttribute the element name
    */
-  public Map getCellBehavior(String dataFile) {
-    NodeList list = getRootElement(new File(dataFile)).getElementsByTagName("parameters").item(0)
-        .getChildNodes();
-    Map<String, String> results = new HashMap<>();
-    for (int i = 0; i < list.getLength(); i++) {
-      if (list.item(i) instanceof Element) {
-        Node attribute = list.item(i).getAttributes().item(0);
-        results.put(attribute.getNodeName(), attribute.getNodeValue());
-      }
-    }
-    return results;
-  }
-
-  /**
-   * Gets all of the details as to which character in the grid in the XML file correlates to which
-   * specific cell. This method should be refactored due to duplication.
-   *
-   * @param dataFile The XML file
-   * @return The map that tells which character correlates to which cell
-   */
-  public Map getCellCodes(String dataFile) {
-    NodeList list = getRootElement(new File(dataFile)).getElementsByTagName("codes").item(0)
+  public Map getAttributeMap(String userAttribute) {
+    NodeList list = getRootElement(currentFile).getElementsByTagName(userAttribute).item(0)
         .getChildNodes();
     Map<String, String> results = new HashMap<>();
     for (int i = 0; i < list.getLength(); i++) {
