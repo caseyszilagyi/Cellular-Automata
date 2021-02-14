@@ -9,22 +9,30 @@ import cell_society.backend.automata.Grid;
  */
 public class SimulationStepper {
 
-  public SimulationStepper() {
+  Grid simulationGrid;
+
+  public SimulationStepper(Grid userGrid) {
+    simulationGrid = userGrid;
   }
+
+
 
   /**
    * This will be the method that loops through the grid to update the cells
    */
-  public Grid makeStep(Grid grid) {
-    Grid nextGrid = new Grid(grid.getGridHeight(), grid.getGridWidth());
-    for (int row = 0; row < grid.getGridHeight(); row++) {
-      for (int col = 0; col < grid.getGridWidth(); col++) {
-        Cell currCell = grid.getCell(row, col);
-        currCell.makeDecisions(currCell.getNeighbors(grid), nextGrid, grid);
+  public void makeStep() {
+    Grid nextGrid = new Grid(simulationGrid.getGridHeight(), simulationGrid.getGridWidth());
+    for (int row = 0; row < simulationGrid.getGridHeight(); row++) {
+      for (int col = 0; col < simulationGrid.getGridWidth(); col++) {
+        Cell currCell = simulationGrid.getCell(row, col);
+        currCell.makeDecisions(currCell.getNeighbors(simulationGrid), nextGrid, simulationGrid);
       }
     }
+    simulationGrid = nextGrid;
+  }
 
-    return nextGrid;
+  public Grid getGrid(){
+    return simulationGrid;
   }
 
 }

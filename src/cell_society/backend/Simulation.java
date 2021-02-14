@@ -45,12 +45,16 @@ public class Simulation {
    * Initializes the stepper that loops through all the cells;
    */
   public void initializeStepper() {
-    simulationStepper = new SimulationStepper();
+    simulationStepper = new SimulationStepper(simulationGrid);
   }
 
 
   public Grid makeStep() {
-    simulationGrid = simulationStepper.makeStep(simulationGrid);
+    simulationStepper.makeStep();
+    return simulationStepper.getGrid();
+  }
+
+  public Grid getGrid(){
     return simulationGrid;
   }
 
@@ -58,9 +62,10 @@ public class Simulation {
   public static void main(String[] args) {
     Simulation mySim = new Simulation("Game of Life", "data/config_files/game_of_life/gameOfLife1.xml");
     mySim.initializeSimulation();
-    Grid currGrid = mySim.makeStep();
+    Grid currGrid = mySim.getGrid();
     currGrid.printCurrentState();
+    mySim.makeStep();
+    mySim.getGrid().printCurrentState();
   }
-
 
 }
