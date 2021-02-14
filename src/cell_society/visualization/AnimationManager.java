@@ -1,5 +1,6 @@
 package cell_society.visualization;
 
+import cell_society.backend.Simulation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -8,11 +9,18 @@ public class AnimationManager {
 
   private int fps;
   private double secondDelay;
+  private Simulation currentSim;
+  private Timeline animation;
 
   public AnimationManager(){
-    fps = 120;
+    fps = 1;
     secondDelay = 1.0 / fps;
     setupTimeline();
+  }
+
+  public void setSimulation(Simulation currentSim){
+    this.currentSim = currentSim;
+    playSimulation();
   }
 
   private void setupTimeline(){
@@ -21,26 +29,32 @@ public class AnimationManager {
       stepSimulation();
     });
 
-    Timeline animation = new Timeline();
+    animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(keyframe);
-    animation.play();
   }
 
-  private void playSimulation(Timeline animation){
-    animation.play();
+  public void stepSimulation(){
+    if(currentSim != null){
+      currentSim.makeStep();
+      currentSim.getGrid().printCurrentState(); // instead of this, update display grid
+    }
   }
 
-  private void pauseSimulation(Timeline animation){
-    animation.pause();
+  public void playSimulation(){
+    if(currentSim != null){
+      animation.play();
+    }
+  }
+
+  public void pauseSimulation(){
+    if(currentSim != null){
+      animation.pause();
+    }
   }
 
   public void setFPS(int fps){
     this.fps = fps;
     secondDelay = 1.0 / fps;
-  }
-
-  private void stepSimulation(){
-
   }
 }

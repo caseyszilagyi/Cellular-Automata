@@ -98,7 +98,7 @@ public class Simulation {
   //For testing
 
   public static void main(String[] args) {
-    Simulation mySim = new Simulation("segregation", "data/config_files/segregation/segregation1.xml");
+    Simulation mySim = new Simulation("game_of_life", "data/config_files/game_of_life/gameOfLife1.xml");
 
     mySim.initializeSimulation();
     Grid currGrid = mySim.getGrid();

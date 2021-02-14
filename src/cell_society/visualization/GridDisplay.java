@@ -1,6 +1,5 @@
 package cell_society.visualization;
 
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -9,13 +8,12 @@ import javafx.scene.shape.Polygon;
 public class GridDisplay {
 
   private final Pane root;
-  private int width, height;
   private double cellSideLength, currentScreenWidth, currentScreenHeight;
 
-  public GridDisplay(Pane root, Scene scene, int width, int height) {
+  private int width, height;
+
+  public GridDisplay(Pane root, Scene scene) {
     this.root = root;
-    this.width = width;
-    this.height = height;
     currentScreenWidth = scene.getWidth();
     currentScreenHeight = scene.getHeight();
   }
@@ -26,6 +24,11 @@ public class GridDisplay {
 
   public void setCurrentScreenHeight(double height){
     currentScreenHeight = height;
+  }
+
+  public void setGridDimensions(int width, int height){
+    this.width = width;
+    this.height = height;
   }
 
   /**
