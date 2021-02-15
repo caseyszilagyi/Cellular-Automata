@@ -27,7 +27,7 @@ public class Simulation {
 
   public Simulation(String simulationType, String fileName) {
     SIMULATION_TYPE = simulationType;
-    FILE_NAME = "data/config_files/" + fileName;
+    FILE_NAME = "data/config_files/" + simulationType + "/" + fileName;
     initializeSimulation();
     STEPPER_PATH = "cell_society.backend.simulation_stepper." + simulationInitializer.getStepperType();
     initializeStepper();
@@ -103,7 +103,7 @@ public class Simulation {
   //For testing
 
   public static void main(String[] args) {
-    Simulation mySim = new Simulation("game_of_life", "data/config_files/game_of_life/gameOfLife1.xml");
+    Simulation mySim = new Simulation("game_of_life", "gameOfLife1.xml");
 
     Grid currGrid = mySim.getRealGrid();
     currGrid.printCurrentState();
