@@ -9,13 +9,19 @@
   <gridType>Grid</gridType>
   <stepperType>SimulationStepper</stepperType>
 
-  <rows>4</rows>
-  <columns>4</columns>
+  <rows>10</rows>
+  <columns>10</columns>
   <grid>
-    s f s e
-    f e e f
-    f s e e
-    s f e f
+    eeeeeeeeee
+    eeeeeeefee
+    eeefeeeeee
+    eeeeeeeeee
+    eeeefeeeee
+    feeeeeeefe
+    eeeeeeeeee
+    eeeeefeeee
+    eefeeeeeee
+    eeeeeeefee
   </grid>
 
   <codes>
