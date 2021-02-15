@@ -13,11 +13,13 @@ Finish Date:
 
 Hours Spent:
 - Casey: 25 
-
+- George: 25
 ### Primary Roles
 - Casey:
     - XML
     - Front/Back end integration
+- George:
+    - Backend
 
 ### Resources Used
 
