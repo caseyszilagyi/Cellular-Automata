@@ -21,8 +21,12 @@ public class WatorStepper extends SimulationStepper {
     Grid nextGrid = new ToroidalGrid(simulationGrid);
     // Move Fish first
     selectiveLoop(nextGrid, new FishCell());
+    //System.out.println("S1:");
+    //nextGrid.printCurrentState();
     // Move Sharks
     selectiveLoop(nextGrid, new SharkCell());
+    //System.out.println("S2:");
+    //nextGrid.printCurrentState();
 
     // Reproduction
     applyReproduce(nextGrid);
@@ -30,8 +34,8 @@ public class WatorStepper extends SimulationStepper {
 
   private void applyReproduce(Grid nextGrid) {
     for (int j = 0; j < gridHeight; j++) {
-      for (int k = 0; k < gridHeight; k++) {
-        Cell cell = simulationGrid.getCell(j, k);
+      for (int k = 0; k < gridWidth; k++) {
+        Cell cell = nextGrid.getCell(j, k);
         //if (cell == null) continue;
         if (cell instanceof SharkCell) {
           SharkCell shark = (SharkCell) cell;
@@ -53,7 +57,7 @@ public class WatorStepper extends SimulationStepper {
    */
   private void selectiveLoop(Grid nextGrid, Cell chosenCell) {
     for (int j = 0; j < gridHeight; j++) {
-      for (int k = 0; k < gridHeight; k++) {
+      for (int k = 0; k < gridWidth; k++) {
         Cell cell = simulationGrid.getCell(j, k);
         if (cell == null || !(cell.getClass() == chosenCell.getClass())) {
           continue;
