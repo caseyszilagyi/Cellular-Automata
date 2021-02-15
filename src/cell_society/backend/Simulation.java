@@ -103,7 +103,7 @@ public class Simulation {
   //For testing
 
   public static void main(String[] args) {
-    Simulation mySim = new Simulation("wator", "noSharks.xml");
+    Simulation mySim = new Simulation("wator", "sharkInParadise.xml");
 
     Grid currGrid = mySim.getRealGrid();
     currGrid.printCurrentState();
@@ -116,6 +116,5 @@ public class Simulation {
     char[] griddy = mySim.getGrid();
     int i = 0;
   }
-
 
 }

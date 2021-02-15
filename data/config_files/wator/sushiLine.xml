@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation type="wator">
+  <cellPackage>wator</cellPackage>
+  <title>WA-Tor</title>
+  <author></author>
+  <desc>Simulation designed to show the interaction of species</desc>
+
+  <cellPackage>wator</cellPackage>
+  <gridType>ToroidalGrid</gridType>
+  <stepperType>WatorStepper</stepperType>
+
+  <rows>1</rows>
+  <columns>12</columns>
+  <grid>
+    sfffffffffef
+  </grid>
+
+  <codes>
+    <key f='FishCell'></key>
+    <key s='SharkCell'></key>
+    <key e ='Empty'></key>
+  </codes>
+
+  <colors>
+    <key f = 'CCAA00'></key>
+    <key s = 'AAAAAA'></key>
+    <key e = '0000FF'></key>
+  </colors>
+
+  <parameters>
+    <parameter breedtimecounter='0'/>
+    <parameter breedtimethresh='5'/>
+    <parameter energy='9'/>
+    <parameter energygain = '3'/>
+    <parameter reproducethresh='10'/>
+  </parameters>
+
+</simulation>
