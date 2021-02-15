@@ -99,6 +99,14 @@ public class DisplayManager {
       animationManager.pauseSimulation();
       animationManager.stepSimulation();
     });
+
+    Button changeSpeedButton = new Button("CHANGE SPEED: x1.0");
+    changeSpeedButton.setLayoutX(300);
+    root.getChildren().add(changeSpeedButton);
+
+    changeSpeedButton.setOnMouseClicked(e -> {
+      changeSpeedButton.setText("CHANGE SPEED: x" + animationManager.setNextFPS());
+    });
   }
 
   private void loadNewSimulation(String simulationType, String fileName){
