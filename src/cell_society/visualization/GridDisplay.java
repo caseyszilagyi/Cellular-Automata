@@ -69,7 +69,11 @@ public class GridDisplay {
         x, y + cellSideLength
     );
 
-    cell.setFill(Color.web(colorHex));
+    if(colorHex != null){
+      cell.setFill(Color.web(colorHex));
+    } else {
+      cell.setFill(Color.AZURE);
+    }
     cell.setStroke(Color.GAINSBORO);
     root.getChildren().add(cell);
   }
