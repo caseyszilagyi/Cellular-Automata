@@ -83,6 +83,9 @@ public class AgentCell extends Cell {
   public boolean isSatisfied(Neighbors neighbors) {
     double numSameNeighbors = neighbors.getTypeCount(this);
     double totalNeighbors = neighbors.size();
+    if(totalNeighbors == 0){
+      return true;
+    }
     return numSameNeighbors / totalNeighbors >= satisfactionProp;
   }
 

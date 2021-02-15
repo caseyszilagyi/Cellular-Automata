@@ -118,7 +118,7 @@ public class FishCell extends Cell {
 
   @Override
   public String toString() {
-    return "F";
+    return "FishCell";
   }
 
   @Override

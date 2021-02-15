@@ -124,7 +124,7 @@ public class SharkCell extends Cell {
 
   @Override
   public String toString() {
-    return "S";
+    return "SharkCell";
   }
 
   @Override

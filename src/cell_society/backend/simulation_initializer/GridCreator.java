@@ -79,9 +79,10 @@ public class GridCreator {
     for (int r = 0; r < simulationGrid.getGridHeight(); r++) {
       for (int c = 0; c < simulationGrid.getGridWidth(); c++) {
         Cell newCell = makeCell(cellCodes.get(Character.toString(grid.charAt(i))));
-        newCell.setCellID(Character.toString(grid.charAt(i)));
-        newCell.setPosition(r, c);
-        simulationGrid.placeCell(r, c, newCell);
+        if(newCell != null) {
+          newCell.setPosition(r, c);
+          simulationGrid.placeCell(r, c, newCell);
+        }
         i++;
       }
     }
@@ -95,7 +96,7 @@ public class GridCreator {
    */
   public Cell makeCell(String cellType) {
     //e is an empty spot on the grid
-    if (cellType.equals("e")) {
+    if (cellType.equals("Empty")) {
       return null;
     }
     String cellFileLocation = PACKAGE_LOCATION + SIMULATION_TYPE + cellType;

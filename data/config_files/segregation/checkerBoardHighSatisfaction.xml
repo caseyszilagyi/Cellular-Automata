@@ -41,7 +41,7 @@
   <codes>
     <key x='AgentCellA'></key>
     <key o='AgentCellB'></key>
-    <key e='empty'></key>
+    <key e='Empty'></key>
   </codes>
 
   <colors>
@@ -51,7 +51,7 @@
   </colors>
 
   <parameters>
-    <parameter satisfactionprop='0.7'/>
+    <parameter satisfactionprop='0.42'/>
     <parameter agentprop='?'/>
   </parameters>
 

@@ -54,7 +54,7 @@ public class OpenCell extends Cell {
 
   @Override
   public String toString() {
-    return "_";
+    return "OpenCell";
   }
 
   @Override

@@ -32,7 +32,7 @@ public class SegregationStepper extends SimulationStepper {
 
   @Override
   public void makeStep() {
-    Grid nextGrid = new Grid(gridHeight, gridWidth);
+    Grid nextGrid = new Grid(simulationGrid);
     Queue<Cell> dissatisfiedQueue = new LinkedList<>();
     List<Coordinate> vacantCoordinates = simulationGrid.getAllVacantSpots();
 

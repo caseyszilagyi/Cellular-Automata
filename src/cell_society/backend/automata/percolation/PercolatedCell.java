@@ -47,7 +47,7 @@ public class PercolatedCell extends Cell {
 
   @Override
   public String toString() {
-    return "O";
+    return "PercolatedCell";
   }
 
   @Override

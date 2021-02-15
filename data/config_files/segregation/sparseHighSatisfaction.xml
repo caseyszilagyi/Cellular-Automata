@@ -11,7 +11,7 @@
   <rows>20</rows>
   <columns>20</columns>
   <grid>
-    eeeeeeeeeeeeeeeeeeee
+    xxxxxeeeeexeeeeeeeeo
     eeeeeeeeeeeeeeeeeeee
     eeeeeeeeeeeeeeeeeeee
     eeeeeeeeeeeeeeeeeeee
@@ -41,7 +41,7 @@
   <codes>
     <key x='AgentCellA'></key>
     <key o='AgentCellB'></key>
-    <key e='empty'></key>
+    <key e='Empty'></key>
   </codes>
 
   <colors>

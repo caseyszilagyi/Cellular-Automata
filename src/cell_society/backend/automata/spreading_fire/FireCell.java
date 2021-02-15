@@ -19,7 +19,7 @@ public class FireCell extends Cell {
 
   @Override
   public String toString() {
-    return "X";
+    return "FireCell";
   }
 
   @Override

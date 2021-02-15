@@ -22,13 +22,15 @@
   <stepperType>SimulationStepper</stepperType>
 
   <codes>
-    <key X='AgentCell'></key>
-    <key O='AgentCell'></key>
+    <key x='AgentCellA'></key>
+    <key o='AgentCellB'></key>
+    <key e='Empty'></key>
   </codes>
 
   <colors>
-    <key X = 'FF0000'></key>
-    <key O = '00FF00'></key>
+    <key x = 'FF0000'></key>
+    <key o = '00FF00'></key>
+    <key e='FFFFFF'></key>
   </colors>
 
   <parameters>
