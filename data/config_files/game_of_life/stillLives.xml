@@ -9,13 +9,19 @@
   <gridType>Grid</gridType>
   <stepperType>SimulationStepper</stepperType>
 
-  <rows>4</rows>
-  <columns>4</columns>
+  <rows>10</rows>
+  <columns>10</columns>
   <grid>
-    d a d d
-    d d a d
-    a a a d
-    d d d d
+    d d d d d d d d d d
+    d a a d d d d a a d
+    d a a d d d a d d a
+    d d d d d d d a a d
+    d d d d d d d d d d
+    d a a d d d d d d d
+    a d d a d d a a d d
+    d a d a d d a d a d
+    d d a d d d d a d d
+    d d d d d d d d d d
   </grid>
 
 
@@ -25,8 +31,8 @@
   </codes>
 
   <colors>
-    <key d= 'FFFFFF'></key>
-    <key a= '000000'></key>
+    <key d = 'FFFFFF'></key>
+    <key a = '000000'></key>
   </colors>
 
   <parameters>

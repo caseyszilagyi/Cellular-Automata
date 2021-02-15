@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation type="segregation">
+  <title>Segregation</title>
+  <author>Thomas Schelling</author>
+  <desc>Segregation simulation that is inspired by the Schelling model of segregation</desc>
+
+  <cellPackage>segregation</cellPackage>
+  <gridType>Grid</gridType>
+  <stepperType>SegregationStepper</stepperType>
+
+  <rows>4</rows>
+  <columns>4</columns>
+  <grid>
+    oxoxoxoxoxoxoxoxoxox
+    xoxoxoxoxoxoxoxoxoxo
+    oxoxoxoxoxoxoxoxoxox
+    xoxoxoxoxoxoxoxoxoxo
+    oxoxoxoxoxoxoxoxoxox
+    xoxoxoxoxoxoxoxoxoxo
+    oxoxoxoxoxoxoxoxoxox
+    xoxoxoxoxoxoxoxoxoxo
+    oxoxoxoxoxoxoxoxoxox
+    eeeeeeeeeeeeeeeeeeee
+    eeeeeeeeeeeeeeeeeeee
+    xoxoxoxoxoxoxoxoxoxo
+    oxoxoxoxoxoxoxoxoxox
+    xoxoxoxoxoxoxoxoxoxo
+    oxoxoxoxoxoxoxoxoxox
+    xoxoxoxoxoxoxoxoxoxo
+    oxoxoxoxoxoxoxoxoxox
+    xoxoxoxoxoxoxoxoxoxo
+    oxoxoxoxoxoxoxoxoxox
+    xoxoxoxoxoxoxoxoxoxo
+
+  </grid>
+
+  <cellPackage>segregation</cellPackage>
+  <gridType>Grid</gridType>
+  <stepperType>SimulationStepper</stepperType>
+
+  <codes>
+    <key x='AgentCellA'></key>
+    <key o='AgentCellB'></key>
+    <key e='empty'></key>
+  </codes>
+
+  <colors>
+    <key x = 'FF0000'></key>
+    <key o = '00FF00'></key>
+    <key e = 'FFFFFF'></key>
+  </colors>
+
+  <parameters>
+    <parameter satisfactionprop='0.7'/>
+    <parameter agentprop='?'/>
+  </parameters>
+
+
+</simulation>

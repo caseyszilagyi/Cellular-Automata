@@ -27,7 +27,7 @@ public class Simulation {
 
   public Simulation(String simulationType, String fileName) {
     SIMULATION_TYPE = simulationType;
-    FILE_NAME = fileName;
+    FILE_NAME = "data/config_files/" + fileName;
     initializeSimulation();
     STEPPER_PATH = "cell_society.backend.simulation_stepper." + simulationInitializer.getStepperType();
     initializeStepper();
@@ -78,7 +78,7 @@ public class Simulation {
   }
 
 
-  public char[][] getGrid(){
+  public char[] getGrid(){
     return simulationGrid.getDisplay();
   }
 
@@ -113,7 +113,7 @@ public class Simulation {
     mySim.getRealGrid().printCurrentState();
     mySim.makeStep();
     mySim.getRealGrid().printCurrentState();
-    char[][] griddy = mySim.getGrid();
+    char[] griddy = mySim.getGrid();
     int i = 0;
   }
 
