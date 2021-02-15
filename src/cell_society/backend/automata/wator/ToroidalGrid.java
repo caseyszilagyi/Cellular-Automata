@@ -9,8 +9,31 @@ import cell_society.backend.automata.Grid;
  */
 public class ToroidalGrid extends Grid {
 
+  /**
+   * Makes a grid with the given width/height
+   * @param gridHeight
+   * @param gridWidth
+   */
   public ToroidalGrid(int gridHeight, int gridWidth) {
     super(gridHeight, gridWidth);
+  }
+
+  /**
+   * Empty constructor for newInstance method usage
+   */
+  public ToroidalGrid(){
+  }
+
+  public ToroidalGrid(Grid grid){
+    super(grid);
+  }
+  /**
+   * Used to make the grid and establish width/height
+   * @param width The grid width
+   * @param height The grid height
+   */
+  public void makeGrid(int width, int height){
+    super.makeGrid(width, height);
   }
 
   /**

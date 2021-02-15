@@ -6,16 +6,23 @@
   <desc>Simulation designed to show the interaction of species</desc>
 
   <cellPackage>wator</cellPackage>
-  <gridType>Grid</gridType>
-  <stepperType>SimulationStepper</stepperType>
+  <gridType>ToroidalGrid</gridType>
+  <stepperType>WatorStepper</stepperType>
 
-  <rows>4</rows>
-  <columns>4</columns>
+  <rows>10</rows>
+  <columns>10</columns>
   <grid>
-    s f s e
-    f e e f
-    f s e e
-    s f e f
+    seeeeeeeee
+    eeeseeeeee
+    eeeeeeeeee
+    eeeeeeeeee
+    eeeeeeeeee
+    eeeeeeeese
+    eeeseeeeee
+    eeeeeeeeee
+    eeseeeeeee
+    eeeeeeeeee
+    eeeeeeeeee
   </grid>
 
   <codes>
@@ -34,7 +41,7 @@
     <parameter breedtimecounter='5'/>
     <parameter breedtimethresh='0'/>
     <parameter energy='10'/>
-    <parameter energyGain = '10'/>
+    <parameter energygain = '10'/>
     <parameter reproducethresh='15'/>
   </parameters>
 
