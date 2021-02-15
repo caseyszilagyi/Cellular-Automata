@@ -11,21 +11,21 @@
   <rows>20</rows>
   <columns>20</columns>
   <grid>
-    oxoxoxoxoxoxoxoxoxox
-    xoxoxoxoxoxoxoxoxoxo
-    oxoxoxoxoxoxoxoxoxox
-    xoxoxoxoxoxoxoxoxoxo
-    oxoxoxoxoxoxoxoxoxox
-    xoxoxoxoxoxoxoxoxoxo
-    oxoxoxoxoxoxoxoxoxox
-    xoxoxoxoxoxoxoxoxoxo
-    oxoxoxoxoxoxoxoxoxox
     eeeeeeeeeeeeeeeeeeee
     eeeeeeeeeeeeeeeeeeee
-    xoxoxoxoxoxoxoxoxoxo
-    oxoxoxoxoxoxoxoxoxox
-    xoxoxoxoxoxoxoxoxoxo
-    oxoxoxoxoxoxoxoxoxox
+    eeeeeeeeeeeeeeeeeeee
+    eeeeeeeeeeeeeeeeeeee
+    eeeeeeeeeeeeeeeeeeee
+    eeeeeeeeeeeeeeeeeeee
+    eeeeeeeeeeeeeeeeeeee
+    eeeeeeeeeeeeeeeeeeee
+    eeeeeeeeeeeeeeeeeeee
+    eeeeeeeeeeeeeeeeeeee
+    eeeeeeeeeeeeeeeeeeee
+    eeeeeeeeeeeeeeeeeeee
+    eeeeeeeeeeeeeeeeeeee
+    eeeeeeeeeeeeeeeeeeee
+    eeeeeeeeeeeeeeeeeeee
     xoxoxoxoxoxoxoxoxoxo
     oxoxoxoxoxoxoxoxoxox
     xoxoxoxoxoxoxoxoxoxo
@@ -51,8 +51,7 @@
   </colors>
 
   <parameters>
-    <parameter satisfactionprop='0.7'/>
-    <parameter agentprop='?'/>
+    <parameter satisfactionprop='0.91'/>
   </parameters>
 
 
