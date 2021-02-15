@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation type="spreading_fire">
+  <cellPackage>spreading_fire</cellPackage>
+  <title>Spreading Fire</title>
+  <author></author>
+  <desc>Simulation designed to show the spread of wildfire in a forest</desc>
+
+  <cellPackage>spreading_fire</cellPackage>
+  <gridType>Grid</gridType>
+  <stepperType>SimulationStepper</stepperType>
+
+  <rows>40</rows>
+  <columns>40</columns>
+  <grid>
+    teteetteetettettttttttttteettetettteteee
+    ttteetttttttetttteteteeeetettttetetettte
+    tttetttetetttttetttttetetetettttettttttt
+    tttttttetettttttteetettttttttteteettteet
+    ttttttettttttetttteetettettttetettettttt
+    tetettteetttettteteteeetteetttttetteettt
+    teteetttteetttttteteteetttteeeteteteeett
+    tttettttttettttetetetttttttettttetttttte
+    etettttttttttettttttttteeteteeettteeettt
+    ttteteteeettttetttttettttttttttettetteet
+    teteetttettttetteetteeetetetteettttttttt
+    ettttteeetteetetttetteteetttttttttetttet
+    ttteteeettttteeteteeeteetetetetttetttttt
+    tttttttetttttttttttttttttttetettttttttet
+    fttttteettettttetetttteeetttetetetttttte
+    fttttttttettttettettetetttettttttttttttt
+    fettettettettttteettttteetteeeetttettttt
+    fettttttteettttttttetetteteteteeteeetttt
+    fttettttteeteeeeetetttttttteettttteeeete
+    fetettteeetettettetttttttettetttteettttt
+    fttttttttttttttttetettettttttttttttetett
+    ftttttetttttetetetteteteeeeetteettetttet
+    ttttttttttttetttettttttettetettttetteeet
+    ttttteetetetettttettttetttetettttttettet
+    ttttetttettttttttteetttttetteettttttttte
+    eteteetttettteetttetttttttteetttttttettt
+    tttteetetttttetttettttetetttetttttttttte
+    etteettetttttettttettetteeeeeetettteettt
+    ttttettetttetttttttttttttetttteteettttte
+    tttttttetetttttttteetttttteeeetetttttett
+    ettttttttteeeteteteeeeeeeteetttttttetttt
+    tettetettetettttettttettttttteetettettet
+    tetetttettteteteteetttettteetttettteteet
+    tttttttettttettetteettteetttttteteteette
+    tetttetteettetttetttettttttttetettteeett
+    teeeeettttttetettttettttettteteteetttett
+    ttttetttttttttetetetteetetttettetttetett
+    ettttttttttttttteeettetteteetttttttettee
+    teettttetteettetttttetetetttttteeettteee
+    ttttttetetttttttttteetetttettetetettttte
+  </grid>
+
+  <codes>
+    <key t='TreeCell'></key>
+    <key f='FireCell'></key>
+    <key e ='Empty'></key>
+  </codes>
+
+  <colors>
+    <key t = '00AA00'></key>
+    <key f = 'CC3300'></key>
+    <key e = '000000'></key>
+  </colors>
+
+  <parameters>
+    <parameter probcatch='0.5'/>
+  </parameters>
+
+
+</simulation>

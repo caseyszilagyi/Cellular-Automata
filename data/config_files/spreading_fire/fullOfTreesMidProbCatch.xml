@@ -67,7 +67,7 @@
   </colors>
 
   <parameters>
-    <parameter probcatch='0.8'/>
+    <parameter probcatch='0.5'/>
   </parameters>
 
 

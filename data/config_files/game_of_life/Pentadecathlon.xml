@@ -1,0 +1,44 @@
+
+
+  <?xml version="1.0" encoding="UTF-8" ?>
+<simulation type="game_of_life">
+  <cellPackage>game_of_life</cellPackage>
+  <title>Game of Life</title>
+  <author>John Horton Conway</author>
+  <desc>The Game of Life Simulation</desc>
+
+  <cellPackage>game_of_life</cellPackage>
+  <gridType>Grid</gridType>
+  <stepperType>SimulationStepper</stepperType>
+
+  <rows>11</rows>
+  <columns>18</columns>
+  <grid>
+    xxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxx
+    xxxxxxoxxxxoxxxxxx
+    xxxxooxooooxooxxxx
+    xxxxxxoxxxxoxxxxxx
+    xxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxx
+  </grid>
+
+
+  <codes>
+    <key x='DeadCell'></key>
+    <key o='AliveCell'></key>
+  </codes>
+
+  <colors>
+    <key x= 'FFFFFF'></key>
+    <key o= '000000'></key>
+  </colors>
+
+  <parameters>
+  </parameters>
+
+</simulation>

@@ -8,30 +8,10 @@
   <gridType>Grid</gridType>
   <stepperType>SegregationStepper</stepperType>
 
-  <rows>20</rows>
+  <rows>1</rows>
   <columns>20</columns>
   <grid>
-    eeexeeeeeeeeeeeeeeee
-    eeeeeeeeeeexeeoeeeex
-    eeexeoeeeeeeoeeoxeee
-    eeeoxeeeeeeoxeeeeeee
-    eeeeeeeeeeeeoeeeeeee
-    eeexexxeeeeeeeeeexee
-    eeeeeeeoeeeeeeexeeee
-    eeeeeeeeoeeeeeeeeeeo
-    eoeeeeeexeeeeeeeeexe
-    exxeeexeeeeeeeeexeee
-    eeeeeeeeeeeeeeeeeeex
-    oeeeeeeeeeeeeeeoeoex
-    xxeeeeeeeoxeeexexeee
-    eexeeexoeeeeeeeeeeee
-    eeeeeeeeeeeeeoeeexee
-    eeeoeeeeeexeeeoeeeee
-    oeeeeeeeeeeexxeeeeee
-    eeeeeeeeoxoeoxeeooee
-    oeeeeeeeeeeeeeeeeeee
-    eeeeeexeeeeoeeoxeeee
-
+    eeeeexoxoxoxoxoxoxoxoxoxo
   </grid>
 
   <cellPackage>segregation</cellPackage>
@@ -51,7 +31,7 @@
   </colors>
 
   <parameters>
-    <parameter satisfactionprop='0.91'/>
+    <parameter satisfactionprop='0.67'/>
   </parameters>
 
 
