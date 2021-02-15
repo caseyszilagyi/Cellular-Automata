@@ -11,27 +11,26 @@
   <rows>20</rows>
   <columns>20</columns>
   <grid>
-    eeexeeeeeeeeeeeeeeee
-    eeeeeeeeeeexeeoeeeex
-    eeexeoeeeeeeoeeoxeee
-    eeeoxeeeeeeoxeeeeeee
-    eeeeeeeeeeeeoeeeeeee
-    eeexexxeeeeeeeeeexee
-    eeeeeeeoeeeeeeexeeee
-    eeeeeeeeoeeeeeeeeeeo
-    eoeeeeeexeeeeeeeeexe
-    exxeeexeeeeeeeeexeee
-    eeeeeeeeeeeeeeeeeeex
-    oeeeeeeeeeeeeeeoeoex
-    xxeeeeeeeoxeeexexeee
-    eexeeexoeeeeeeeeeeee
-    eeeeeeeeeeeeeoeeexee
-    eeeoeeeeeexeeeoeeeee
-    oeeeeeeeeeeexxeeeeee
-    eeeeeeeeoxoeoxeeooee
-    oeeeeeeeeeeeeeeeeeee
-    eeeeeexeeeeoeeoxeeee
-
+    xeoxxxexxxoeoxeexoxo
+    xoeeooxxoxxeooeeoxox
+    eoxxexxoxooxxxxexxxo
+    xxxoeeoxeoexxxxeoooe
+    exexxooxxoooxxeeooee
+    exexoxxxoxoexxooooxx
+    ooxxexoxooooooxeoxoo
+    oooxeoxoooxoxxoooxxo
+    xxoexexoxxeooxoooxxe
+    ooxooooxxooexxexooox
+    exoxexooxxeoxexxoexx
+    xxxoxoxxexxxooxoeoex
+    xoeeexxoxoxxoooexxxo
+    oooxoooxoexxoxxoxxeo
+    xxxooxxxxooxeooxxxox
+    oeooxoxoxoxxxexxoxox
+    exoxexoooxxoxoeooexe
+    eexxoxxxoxoxoxxoxeoo
+    oooxeeooxoxxxooxeeoo
+    xexxoxoxxexooxxoxeeo
   </grid>
 
   <cellPackage>segregation</cellPackage>
@@ -51,7 +50,7 @@
   </colors>
 
   <parameters>
-    <parameter satisfactionprop='0.91'/>
+    <parameter satisfactionprop='0.67'/>
   </parameters>
 
 

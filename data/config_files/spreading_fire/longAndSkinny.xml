@@ -9,13 +9,19 @@
   <gridType>Grid</gridType>
   <stepperType>SimulationStepper</stepperType>
 
-  <rows>4</rows>
-  <columns>4</columns>
+  <rows>10</rows>
+  <columns>40</columns>
   <grid>
-    t t t t
-    f t t t
-    f t t t
-    t t t t
+    tttttttttttettttettettteteeettttetttttee
+    tetttttteetteetetttttttttttetttettttttet
+    ttttttttttttttttttttettetteteteteteeettt
+    ftetttttttttetttetetttetttttetttteettett
+    fttttttetttetetttetttetettettettttttttet
+    ftttttttttttttttttetttttttttttttettetett
+    fttettttttttttetttetttttttttttttttetettt
+    ettttetttttttttetettetttttetttttetttteet
+    tttetettttttettettttetttettttttttttttttt
+    tttttttetettetttttttttteeteetettteettttt
   </grid>
 
   <codes>
@@ -31,7 +37,7 @@
   </colors>
 
   <parameters>
-    <parameter probcatch='0.5'/>
+    <parameter probcatch='0.7'/>
   </parameters>
 
 

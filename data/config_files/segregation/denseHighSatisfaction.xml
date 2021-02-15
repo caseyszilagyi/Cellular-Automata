@@ -11,27 +11,26 @@
   <rows>20</rows>
   <columns>20</columns>
   <grid>
-    oxoxoxoxoxoxoxoxoxox
-    xoxoxoxoxoxoxoxoxoxo
-    oxoxoxoxoxoxoxoxoxox
-    xoxoxoxoxoxoxoxoxoxo
-    oxoxoxoxoxoxoxoxoxox
-    xoxoxoxoxoxoxoxoxoxo
-    oxoxoxoxoxoxoxoxoxox
-    xoxoxoxoxoxoxoxoxoxo
-    oxoxoxoxoxoxoxoxoxox
-    eeeeeeeeeeeeeeeeeeee
-    eeeeeeeeeeeeeeeeeeee
-    xoxoxoxoxoxoxoxoxoxo
-    oxoxoxoxoxoxoxoxoxox
-    xoxoxoxoxoxoxoxoxoxo
-    oxoxoxoxoxoxoxoxoxox
-    xoxoxoxoxoxoxoxoxoxo
-    oxoxoxoxoxoxoxoxoxox
-    xoxoxoxoxoxoxoxoxoxo
-    oxoxoxoxoxoxoxoxoxox
-    xoxoxoxoxoxoxoxoxoxo
-
+    xeoxxxexxxoeoxeexoxo
+    xoeeooxxoxxeooeeoxox
+    eoxxexxoxooxxxxexxxo
+    xxxoeeoxeoexxxxeoooe
+    exexxooxxoooxxeeooee
+    exexoxxxoxoexxooooxx
+    ooxxexoxooooooxeoxoo
+    oooxeoxoooxoxxoooxxo
+    xxoexexoxxeooxoooxxe
+    ooxooooxxooexxexooox
+    exoxexooxxeoxexxoexx
+    xxxoxoxxexxxooxoeoex
+    xoeeexxoxoxxoooexxxo
+    oooxoooxoexxoxxoxxeo
+    xxxooxxxxooxeooxxxox
+    oeooxoxoxoxxxexxoxox
+    exoxexoooxxoxoeooexe
+    eexxoxxxoxoxoxxoxeoo
+    oooxeeooxoxxxooxeeoo
+    xexxoxoxxexooxxoxeeo
   </grid>
 
   <cellPackage>segregation</cellPackage>
@@ -51,8 +50,7 @@
   </colors>
 
   <parameters>
-    <parameter satisfactionprop='0.42'/>
-    <parameter agentprop='?'/>
+    <parameter satisfactionprop='0.85'/>
   </parameters>
 
 

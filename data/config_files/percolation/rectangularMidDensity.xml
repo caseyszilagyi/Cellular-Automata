@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation type="percolation">
+  <cellPackage>percolation</cellPackage>
+  <title>Percolation</title>
+  <author></author>
+  <desc>Percolation Simulation from CS 201</desc>
+
+  <cellPackage>percolation</cellPackage>
+  <gridType>Grid</gridType>
+  <stepperType>SimulationStepper</stepperType>
+
+  <rows>50</rows>
+  <columns>10</columns>
+  <grid>
+    bbbopobobb
+    bbooobbbob
+    booobbobbo
+    bbooboobbb
+    bbooobbbbb
+    ooboooboob
+    bbbooooooo
+    oobobobobo
+    obobbobbob
+    bbbobobobb
+    bbobbbboob
+    ooooobbbob
+    obobbooobb
+    oooobobbbo
+    boooobobob
+    obobbbobob
+    bbbooobobo
+    boooobbobb
+    oobbbbbobo
+    bbbobbbobo
+    booooobbbo
+    bobobbobob
+    booooobooo
+    bobooooboo
+    boboobbboo
+    obbbbooooo
+    oboooboboo
+    obbobobboo
+    obobobboob
+    bbooobobbo
+    bbbboboooo
+    obbbbooobb
+    oobobbbbob
+    oobbbooobo
+    bobbbobooo
+    bbobbobobb
+    oobobboboo
+    bbbobbbbbb
+    ooobboboob
+    bbobbobbob
+    ooboooooob
+    bbboooooob
+    bbobooooob
+    ooobboboob
+    ooobobbobo
+    bbbooobbbb
+    obbobobbbb
+    obboobbbob
+    booboobooo
+    bobbbobobb
+  </grid>
+
+  <codes>
+    <key b='BlockedCell'></key>
+    <key o='OpenCell'></key>
+    <key p='PercolatedCell'></key>
+  </codes>
+
+  <colors>
+    <key b = 'FFFFFF'></key>
+    <key o = '000000'></key>
+    <key p = '0000CC'></key>
+  </colors>
+
+  <parameters>
+  </parameters>
+
+
+</simulation>
