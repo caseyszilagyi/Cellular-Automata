@@ -114,7 +114,7 @@ public class DisplayManager {
     String[] colorSheet = new String[charSheet.length];
 
     for(int i = 0; i < colorSheet.length; i++){
-      colorSheet[i] = charToColorMap.get(charSheet[i]);
+        colorSheet[i] = charToColorMap.get(charSheet[i]);
     }
 
     return colorSheet;
