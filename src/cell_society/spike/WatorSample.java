@@ -3,9 +3,6 @@ package cell_society.spike;
 import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.Grid;
 import cell_society.backend.automata.Neighbors;
-import cell_society.backend.automata.percolation.BlockedCell;
-import cell_society.backend.automata.percolation.OpenCell;
-import cell_society.backend.automata.percolation.PercolatedCell;
 import cell_society.backend.automata.wator.FishCell;
 import cell_society.backend.automata.wator.SharkCell;
 import cell_society.backend.automata.wator.ToroidalGrid;
@@ -112,7 +109,7 @@ public class WatorSample {
             grid.placeCell(j, k, new FishCell(j, k, 0, 3));
             break;
           case 2:
-            grid.placeCell(j, k, new SharkCell(j, k, 4, 5));
+            grid.placeCell(j, k, new SharkCell(j, k, 4, 5, 5));
             break;
         }
       }
