@@ -15,11 +15,13 @@ public class SharkCell extends Cell {
 
   private int energy;
   private int reproduceThresh;
+  private int energyGain;
 
-  public SharkCell(int row, int col, int energy, int reproduceThresh) {
+  public SharkCell(int row, int col, int energy, int reproduceThresh, int energyGain) {
     super(row, col);
     this.energy = energy;
     this.reproduceThresh = reproduceThresh;
+    this.energyGain = energyGain;
   }
 
   public SharkCell() {
@@ -30,6 +32,10 @@ public class SharkCell extends Cell {
     return energy;
   }
 
+  public int getEnergyGain() {
+    return energyGain;
+  }
+
   public int getReproduceThresh() {
     return reproduceThresh;
   }
@@ -38,7 +44,8 @@ public class SharkCell extends Cell {
   public void initializeParams(CellParameters parameters) {
     super.initializeParams(parameters);
     energy = parameters.getAsInt("energy");
-    reproduceThresh = parameters.getAsInt("reproduceThresh");
+    reproduceThresh = parameters.getAsInt("reproducethresh");
+    energyGain = parameters.getAsInt("energygain");
   }
 
   @Override
@@ -69,17 +76,18 @@ public class SharkCell extends Cell {
       int shiftedRow = coords.getFirst();
       int shiftedCol = coords.getSecond();
       // Next state either has empty space, or has a fish that can be consumed.
-      if (notShark(shiftedRow, shiftedCol, nextGrid) && notShark(shiftedRow, shiftedCol, currentGrid)) {
+      if (notShark(shiftedRow, shiftedCol, nextGrid) && notShark(shiftedRow, shiftedCol,
+          currentGrid)) {
         Cell cell = nextGrid.getCell(shiftedRow, shiftedCol);
         if (cell instanceof FishCell) {
           energy++;
         }
-        SharkCell sharkCell = new SharkCell(shiftedRow, shiftedCol, energy, reproduceThresh);
+        SharkCell sharkCell = new SharkCell(shiftedRow, shiftedCol, energy, reproduceThresh,energyGain);
         nextGrid.placeCell(shiftedRow, shiftedCol, sharkCell);
         return;
       }
     }
-    SharkCell sharkCell = new SharkCell(row, col, energy, reproduceThresh);
+    SharkCell sharkCell = new SharkCell(row, col, energy, reproduceThresh, energyGain);
     nextGrid.placeCell(row, col, sharkCell);
   }
 
@@ -95,7 +103,7 @@ public class SharkCell extends Cell {
         int row = coords.getFirst();
         int col = coords.getSecond();
         if (grid.isEmpty(row, col)) {
-          SharkCell offspring = new SharkCell(row, col, energy / 2, reproduceThresh);
+          SharkCell offspring = new SharkCell(row, col, energy / 2, reproduceThresh, energyGain);
           energy /= 2;
           grid.placeCell(row, col, offspring);
           return;
