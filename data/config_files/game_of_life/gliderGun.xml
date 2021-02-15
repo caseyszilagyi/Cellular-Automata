@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation type="game_of_life">
+  <cellPackage>game_of_life</cellPackage>
+  <title>Game of Life</title>
+  <author>John Horton Conway</author>
+  <desc>The Game of Life Simulation</desc>
+
+  <cellPackage>game_of_life</cellPackage>
+  <gridType>Grid</gridType>
+  <stepperType>SimulationStepper</stepperType>
+
+  <rows>40</rows>
+  <columns>40</columns>
+  <grid>
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxOxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxOxOxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxOOxxxxxxOOxxxxxxxxxxxxOOxxx
+    xxxxxxxxxxxxOxxxOxxxxOOxxxxxxxxxxxxOOxxx
+    xOOxxxxxxxxOxxxxxOxxxOOxxxxxxxxxxxxxxxxx
+    xOOxxxxxxxxOxxxOxOOxxxxOxOxxxxxxxxxxxxxx
+    xxxxxxxxxxxOxxxxxOxxxxxxxOxxxxxxxxxxxxxx
+    xxxxxxxxxxxxOxxxOxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxOOxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  </grid>
+
+
+  <codes>
+    <key x='DeadCell'></key>
+    <key O='AliveCell'></key>
+  </codes>
+
+  <colors>
+    <key x= 'FFFFFF'></key>
+    <key O= '000000'></key>
+  </colors>
+
+  <parameters>
+  </parameters>
+
+</simulation>

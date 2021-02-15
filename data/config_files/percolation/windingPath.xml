@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation type="percolation">
+  <cellPackage>percolation</cellPackage>
+  <title>Percolation</title>
+  <author></author>
+  <desc>Percolation Simulation from CS 201</desc>
+
+  <cellPackage>percolation</cellPackage>
+  <gridType>Grid</gridType>
+  <stepperType>SimulationStepper</stepperType>
+
+  <rows>20</rows>
+  <columns>20</columns>
+  <grid>
+    pooooooooooooooooooo
+    bbbbbbbbbbbbbbbbbbbo
+    oooooooooooooooooooo
+    obbbbbbbbbbbbbbbbbbb
+    oooooooooooooooooooo
+    bbbbbbbbbbbbbbbbbbbo
+    oooooooooooooobooobo
+    oooooooooooooobobobo
+    oooooooooooooobobobo
+    oooooooooooooobobobo
+    bbbbbbbbbooooobobobo
+    bbbbbbbbbbbooobobooo
+    oooooooooooooobobbbb
+    oooooooooooooobooooo
+    oooooooooooooobbbbbo
+    oooooooooooooooooobo
+    oobbbbbbbbbbbbbbbobo
+    oooooooooooooooobobo
+    oooooooooooooooobobo
+    oooooooooooooooobooo
+
+  </grid>
+
+  <codes>
+    <key b='BlockedCell'></key>
+    <key o='OpenCell'></key>
+    <key p='PercolatedCell'></key>
+  </codes>
+
+  <colors>
+    <key b = 'FFFFFF'></key>
+    <key o = '000000'></key>
+    <key p = '0000CC'></key>
+  </colors>
+
+  <parameters>
+  </parameters>
+
+
+</simulation>
