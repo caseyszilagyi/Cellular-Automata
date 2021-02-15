@@ -80,7 +80,7 @@ public class SharkCell extends Cell {
           currentGrid)) {
         Cell cell = nextGrid.getCell(shiftedRow, shiftedCol);
         if (cell instanceof FishCell) {
-          energy++;
+          energy+=energyGain;
         }
         SharkCell sharkCell = new SharkCell(shiftedRow, shiftedCol, energy, reproduceThresh,energyGain);
         nextGrid.placeCell(shiftedRow, shiftedCol, sharkCell);

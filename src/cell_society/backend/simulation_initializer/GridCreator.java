@@ -27,9 +27,8 @@ public class GridCreator {
    * @param gridType       A string representing the grid used to make the game
    */
   public GridCreator(int row, int col, String simulationType, String gridType) {
-
-    simulationGrid = makeGrid(row, col, gridType);
     SIMULATION_TYPE = simulationType + ".";
+    simulationGrid = makeGrid(row, col, gridType);
   }
 
   /**
@@ -62,6 +61,8 @@ public class GridCreator {
     } catch (Exception e) {
       System.out.println("Error: Grid casting");
     }
+
+    newGrid.makeGrid(col, row);
 
     return newGrid;
   }

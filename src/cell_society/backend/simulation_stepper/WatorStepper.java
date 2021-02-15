@@ -18,7 +18,7 @@ public class WatorStepper extends SimulationStepper {
   }
 
   public void makeStep() {
-    Grid nextGrid = new ToroidalGrid(gridHeight, gridHeight);
+    Grid nextGrid = new ToroidalGrid(simulationGrid);
     // Move Fish first
     selectiveLoop(nextGrid, new FishCell());
     // Move Sharks
@@ -68,6 +68,10 @@ public class WatorStepper extends SimulationStepper {
     simulationGrid = grid;
     gridHeight = grid.getGridHeight();
     gridWidth = grid.getGridWidth();
+  }
+
+  public Grid getGrid(){
+    return simulationGrid;
   }
 
 }

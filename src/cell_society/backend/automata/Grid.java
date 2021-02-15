@@ -6,9 +6,9 @@ import java.util.Map;
 
 public class Grid {
 
-  private final Cell[][] grid;
-  private final int gridHeight;
-  private final int gridWidth;
+  private Cell[][] grid;
+  private int gridHeight;
+  private int gridWidth;
   private Map<Character, String> colorCodes;
   private Map<String, String> cellDecoder;
 
@@ -26,6 +26,23 @@ public class Grid {
     this(grid.gridHeight, grid.gridWidth);
     this.colorCodes = grid.colorCodes;
     this.cellDecoder = grid.cellDecoder;
+  }
+
+  /**
+   * Empty constructor for newInstance method use
+   */
+  public Grid(){
+  }
+
+  /**
+   * Used to make the grid and establish width/height
+   * @param width The grid width
+   * @param height The grid height
+   */
+  public void makeGrid(int width, int height){
+    grid = new Cell[height][width];
+    gridWidth = width;
+    gridHeight = height;
   }
 
   /**
@@ -193,6 +210,7 @@ public class Grid {
       }
       System.out.println();
     }
+    System.out.println();
   }
 
 }
