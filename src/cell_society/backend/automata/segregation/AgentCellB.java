@@ -28,7 +28,7 @@ public class AgentCellB extends AgentCell {
 
   @Override
   public String toString() {
-    return "B";
+    return "AgentCellB";
   }
 
   @Override

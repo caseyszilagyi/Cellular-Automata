@@ -47,7 +47,7 @@ public class BlockedCell extends Cell {
 
   @Override
   public String toString() {
-    return "X";
+    return "BlockedCell";
   }
 
   @Override
