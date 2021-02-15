@@ -12,9 +12,7 @@ Start Date: 2/8/2020
 Finish Date: 
 
 Hours Spent:
-
-- Casey:
-    - 2/8: 2.5
+- Casey: 25 
 
 ### Primary Roles
 - Casey:
@@ -29,12 +27,11 @@ For window resize listeners: https://blog.idrsolutions.com/2012/11/adding-a-wind
 
 ### Running the Program
 
-Main class: SimulationDriver
+Main class: Main
 
 Data files needed: 
 
 Features implemented:
-
 
 
 ### Notes/Assumptions
@@ -46,7 +43,6 @@ Interesting data files:
 Known Bugs:
 
 Extra credit:
-
 
 ### Impressions
 
