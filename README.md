@@ -14,12 +14,16 @@ Finish Date:
 Hours Spent:
 - Casey: 25 
 - George: 25
+- Donghan: 10
+
 ### Primary Roles
 - Casey:
     - XML
     - Front/Back end integration
 - George:
     - Backend
+- Donghan:
+    - Frontend
 
 ### Resources Used
 

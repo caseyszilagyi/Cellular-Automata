@@ -190,8 +190,8 @@ public class Grid {
         if(grid[j][k] != null) {
           char curr = cellDecoder.get(grid[j][k].toString()).charAt(0);
           display[i] = curr;
-          i++;
         }
+        i++;
       }
     }
 
