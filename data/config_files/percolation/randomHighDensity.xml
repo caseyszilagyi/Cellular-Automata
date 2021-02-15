@@ -71,8 +71,8 @@
   </codes>
 
   <colors>
-    <key b = 'FFFFFF'></key>
-    <key o = '000000'></key>
+    <key b = '000000'></key>
+    <key o = 'FFFFFF'></key>
     <key p = '0000CC'></key>
   </colors>
 

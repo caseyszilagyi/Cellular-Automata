@@ -53,12 +53,11 @@ public class DisplayManager {
     root.getChildren().add(pane);
 
     gridDisplay = new GridDisplay(pane, scene);
-    addResizeWindowEventListeners();
 
-    animationManager = new AnimationManager();
+    animationManager = new AnimationManager(this);
 
     // temporary test for load configuration file button
-    Button loadSimButton = new Button("BUTTON");
+    Button loadSimButton = new Button("LOAD NEW FILE");
     root.getChildren().add(loadSimButton);
 
     FileChooser fileChooser = new FileChooser();
@@ -69,14 +68,14 @@ public class DisplayManager {
       File selectedDirectory = fileChooser.showOpenDialog(stage);
 
       if (selectedDirectory != null){
-        String fileName = selectedDirectory.getPath();
+        String fileName = selectedDirectory.getName();
         String simulationType = selectedDirectory.getParentFile().getName();
         loadNewSimulation(simulationType, fileName);
       }
     });
 
     Button playSimButton = new Button("PLAY"); // all these buttons are temporary.. should be placed in separate class
-    playSimButton.setLayoutX(100);
+    playSimButton.setLayoutX(150);
     root.getChildren().add(playSimButton);
 
     playSimButton.setOnMouseClicked(e -> {
@@ -92,68 +91,61 @@ public class DisplayManager {
     });
 
     Button stepSimButton = new Button("STEP");
-    stepSimButton.setLayoutX(300);
+    stepSimButton.setLayoutX(250);
     root.getChildren().add(stepSimButton);
 
     stepSimButton.setOnMouseClicked(e -> {
       animationManager.pauseSimulation();
       animationManager.stepSimulation();
     });
+
+    Button changeSpeedButton = new Button("CHANGE SPEED: x1.0");
+    changeSpeedButton.setLayoutX(300);
+    root.getChildren().add(changeSpeedButton);
+
+    changeSpeedButton.setOnMouseClicked(e -> {
+      changeSpeedButton.setText("CHANGE SPEED: x" + animationManager.setNextFPS());
+    });
   }
 
   private void loadNewSimulation(String simulationType, String fileName){
 
-    // EXAMPLES OF INPUT FROM BACK-END
-    // -------------------------------------------------------------------------------------------------------------------------------------------
-    char[] charSheet = {
-        'd', 'd', 'd', 'd',
-        'a', 'd', 'a', 'd',
-        'd', 'd', 'a', 'd',
-        'd', 'a', 'd', 'd'
-    };
-
-    Map<Character, String> charToColorMap = new HashMap<>();
-    charToColorMap.put('a', "FF0000");
-    charToColorMap.put('d', "00FF00");
-    // -------------------------------------------------------------------------------------------------------------------------------------------
-
-    Simulation currentSim = new Simulation(simulationType, simulationType + "/" + fileName);
+    Simulation currentSim = new Simulation(simulationType, fileName);
     currentSim.initializeSimulation();
     animationManager.setSimulation(currentSim);
 
-    int simGridWidth = currentSim.getGridWidth();
-    int simGridHeight = currentSim.getGridHeight();
-    String[] cellColorSheet = convertCharSheetToColors(charSheet, charToColorMap);
-
-    updateDisplayGrid(simGridWidth, simGridHeight, cellColorSheet);
+    updateDisplayGrid(currentSim);
   }
 
   private String[] convertCharSheetToColors(char[] charSheet, Map<Character, String> charToColorMap){
     String[] colorSheet = new String[charSheet.length];
 
     for(int i = 0; i < colorSheet.length; i++){
-      colorSheet[i] = charToColorMap.get(charSheet[i]);
+        colorSheet[i] = charToColorMap.get(charSheet[i]);
     }
 
     return colorSheet;
   }
 
-  private void updateDisplayGrid(int gridWidth, int gridHeight, String[] cellColorSheet){
-    gridDisplay.setGridDimensions(gridWidth, gridHeight);
+  public void updateDisplayGrid(Simulation currentSim){
+    gridDisplay.setGridDimensions(currentSim.getGridWidth(), currentSim.getGridHeight());
+    String[] cellColorSheet = convertCharSheetToColors(currentSim.getGrid(), currentSim.getColorMapping());
     gridDisplay.updateGrid(cellColorSheet);
+
+    addResizeWindowEventListeners(cellColorSheet);
   }
 
-  private void addResizeWindowEventListeners(){
+  private void addResizeWindowEventListeners(String[] cellColorSheet){
     // update grid every time window WIDTH is resized
     scene.widthProperty().addListener((currentWidth, oldWidth, newWidth) -> {
       gridDisplay.setCurrentScreenWidth(newWidth.doubleValue());
-      //gridDisplay.updateGrid(cellColorSheet);
+      gridDisplay.updateGrid(cellColorSheet);
     });
 
     // update grid every time window HEIGHT is resized
     scene.heightProperty().addListener((currentHeight, oldHeight, newHeight) -> {
       gridDisplay.setCurrentScreenHeight(newHeight.doubleValue());
-      //gridDisplay.updateGrid(cellColorSheet);
+      gridDisplay.updateGrid(cellColorSheet);
     });
   }
 }

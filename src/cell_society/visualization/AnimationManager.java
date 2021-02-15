@@ -12,9 +12,12 @@ public class AnimationManager {
   private Simulation currentSim;
   private Timeline animation;
 
-  public AnimationManager(){
-    fps = 1;
+  private DisplayManager displayManager;
+
+  public AnimationManager(DisplayManager displayManager){
+    fps = 10;
     secondDelay = 1.0 / fps;
+    this.displayManager = displayManager;
     setupTimeline();
   }
 
@@ -38,7 +41,7 @@ public class AnimationManager {
     if(currentSim != null){
       currentSim.makeStep();
       //This gets the chars that represent the cells
-      currentSim.getGrid();
+      displayManager.updateDisplayGrid(currentSim);
     }
   }
 
@@ -54,8 +57,24 @@ public class AnimationManager {
     }
   }
 
-  public void setFPS(int fps){
-    this.fps = fps;
-    secondDelay = 1.0 / fps;
+  public double setNextFPS(){
+    if(animation.getRate() == 2.0){
+      animation.setRate(1.75);
+    } else if(animation.getRate() == 1.75){
+      animation.setRate(1.5);
+    } else if (animation.getRate() == 1.5){
+      animation.setRate(1.25);
+    } else if(animation.getRate() == 1.25){
+    animation.setRate(1.0);
+    } else if (animation.getRate() == 1.0){
+      animation.setRate(0.75);
+    } else if (animation.getRate() == 0.75) {
+      animation.setRate(0.5);
+    } else if (animation.getRate() == 0.5) {
+      animation.setRate(0.25);
+    } else {
+      animation.setRate(2.0);
+    }
+    return animation.getRate();
   }
 }
