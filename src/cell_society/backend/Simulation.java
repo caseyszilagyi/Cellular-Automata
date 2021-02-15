@@ -99,23 +99,4 @@ public class Simulation {
     return simulationGrid.getGridHeight();
   }
 
-
-  //For testing
-
-  public static void main(String[] args) {
-    Simulation mySim = new Simulation("game_of_life", "spaceships.xml");
-
-    Grid currGrid = mySim.getRealGrid();
-    currGrid.printCurrentState();
-    mySim.makeStep();
-    mySim.getRealGrid().printCurrentState();
-    mySim.makeStep();
-    mySim.getRealGrid().printCurrentState();
-    mySim.makeStep();
-    mySim.getRealGrid().printCurrentState();
-    Map<Character, String> colorMap = mySim.getColorMapping();
-    char[] griddy = mySim.getGrid();
-    int i = 0;
-  }
-
 }
