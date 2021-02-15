@@ -12,9 +12,12 @@ public class AnimationManager {
   private Simulation currentSim;
   private Timeline animation;
 
-  public AnimationManager(){
-    fps = 1;
+  private DisplayManager displayManager;
+
+  public AnimationManager(DisplayManager displayManager){
+    fps = 10;
     secondDelay = 1.0 / fps;
+    this.displayManager = displayManager;
     setupTimeline();
   }
 
@@ -38,7 +41,7 @@ public class AnimationManager {
     if(currentSim != null){
       currentSim.makeStep();
       //This gets the chars that represent the cells
-      currentSim.getGrid();
+      displayManager.updateDisplayGrid(currentSim);
     }
   }
 
