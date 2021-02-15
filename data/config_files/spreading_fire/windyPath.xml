@@ -9,8 +9,8 @@
   <gridType>Grid</gridType>
   <stepperType>SimulationStepper</stepperType>
 
-  <rows>40</rows>
-  <columns>40</columns>
+  <rows>15</rows>
+  <columns>10</columns>
   <grid>
     fttttttttt
     eeeeeeeeet
