@@ -191,6 +191,9 @@ public class Grid {
           char curr = cellDecoder.get(grid[j][k].toString()).charAt(0);
           display[i] = curr;
         }
+        else{
+          display[i] = 'e';
+        }
         i++;
       }
     }
