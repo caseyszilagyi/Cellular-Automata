@@ -53,7 +53,6 @@ public class DisplayManager {
     root.getChildren().add(pane);
 
     gridDisplay = new GridDisplay(pane, scene);
-    addResizeWindowEventListeners();
 
     animationManager = new AnimationManager(this);
 
@@ -132,19 +131,21 @@ public class DisplayManager {
     gridDisplay.setGridDimensions(currentSim.getGridWidth(), currentSim.getGridHeight());
     String[] cellColorSheet = convertCharSheetToColors(currentSim.getGrid(), currentSim.getColorMapping());
     gridDisplay.updateGrid(cellColorSheet);
+
+    addResizeWindowEventListeners(cellColorSheet);
   }
 
-  private void addResizeWindowEventListeners(){
+  private void addResizeWindowEventListeners(String[] cellColorSheet){
     // update grid every time window WIDTH is resized
     scene.widthProperty().addListener((currentWidth, oldWidth, newWidth) -> {
       gridDisplay.setCurrentScreenWidth(newWidth.doubleValue());
-      //gridDisplay.updateGrid(cellColorSheet);
+      gridDisplay.updateGrid(cellColorSheet);
     });
 
     // update grid every time window HEIGHT is resized
     scene.heightProperty().addListener((currentHeight, oldHeight, newHeight) -> {
       gridDisplay.setCurrentScreenHeight(newHeight.doubleValue());
-      //gridDisplay.updateGrid(cellColorSheet);
+      gridDisplay.updateGrid(cellColorSheet);
     });
   }
 }
