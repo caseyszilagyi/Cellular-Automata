@@ -54,10 +54,16 @@ public class GridDisplay {
     double whiteSpaceY = (currentScreenHeight - (height * cellSideLength)) / 2.0 + BORDER_LENGTH;
 
     int colorSheetIndex = 0;
+    double hexagonWidth = 0;
     for (int row = 0; row < height; row++) {
       for (int col = 0; col < width; col++) {
-        createCell(col * cellSideLength + whiteSpaceX, row * cellSideLength + whiteSpaceY, cellColorSheet[colorSheetIndex]);
+        createCell(col * cellSideLength + whiteSpaceX + hexagonWidth, row * cellSideLength * (2.0 / 3) + whiteSpaceY, cellColorSheet[colorSheetIndex]);
         colorSheetIndex++;
+      }
+      if (hexagonWidth == 0){
+        hexagonWidth = cellSideLength / 2;
+      } else {
+        hexagonWidth = 0;
       }
     }
   }
@@ -65,11 +71,22 @@ public class GridDisplay {
   private void createCell(double x, double y, String colorHex) {
     Polygon cell = new Polygon();
 
+    /*
     cell.getPoints().addAll(
-        x, y,
-        x + cellSideLength, y,
-        x + cellSideLength, y + cellSideLength,
-        x, y + cellSideLength
+      x, y,
+      x + cellSideLength, y,
+      x + cellSideLength, y + cellSideLength,
+      x, y + cellSideLength
+    );
+     */
+    cell.getPoints().addAll(
+        x + cellSideLength * 0.5, y,
+        x + cellSideLength, y + cellSideLength / 3.0,
+        x + cellSideLength, y + cellSideLength * (2.0 / 3.0),
+        x + cellSideLength * 0.5, y + cellSideLength,
+        x, y + cellSideLength * (2.0 / 3.0),
+        x, y + cellSideLength / 3.0
+
     );
 
     if(colorHex != null){

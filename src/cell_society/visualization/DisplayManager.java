@@ -31,8 +31,8 @@ public class DisplayManager {
   private final String[] colorModes = {"LightMode.css", "Colorful.css", "DarkMode.css"};
   private int currentColorMode = 0;
 
-  public static final String VISUALIZATION_RESOURCE_PACKAGE = "cell_society/visualization/resources/";
-  public static final String VISUALIZATION_RESOURCE_FOLDER = "/" + VISUALIZATION_RESOURCE_PACKAGE;
+  private final String VISUALIZATION_RESOURCE_PACKAGE = "cell_society/visualization/resources/";
+  private final String VISUALIZATION_RESOURCE_FOLDER = "/" + VISUALIZATION_RESOURCE_PACKAGE;
 
   /**
    * Constructor that creates an instance of the DisplayManager
