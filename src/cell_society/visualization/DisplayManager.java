@@ -70,7 +70,7 @@ public class DisplayManager {
 
     makeAllButtons();
 
-    //scene.getStylesheets().add(getClass().getResource(VISUALIZATION_RESOURCE_FOLDER + "default.css").toExternalForm());
+    scene.getStylesheets().add(getClass().getResource(VISUALIZATION_RESOURCE_FOLDER + "default.css").toExternalForm());
   }
 
   private void loadNewSimulation(String simulationType, String fileName){
@@ -83,11 +83,11 @@ public class DisplayManager {
   }
 
   private void makeAllButtons(){
-    Button loadSimButton = makeButton("LoadSimulationButton", 10, 0);
-    Button startButton = makeButton("StartButton", 10, 30);
-    Button pauseButton = makeButton("PauseButton", 10, 60);
-    Button stepButton = makeButton("StepButton", 10, 90);
-    Button speedButton = makeButton("SpeedButton", 10, 120);
+    Button loadSimButton = makeButton("LoadSimulationButton", 10, 10);
+    Button startButton = makeButton("StartButton", 10, 40);
+    Button pauseButton = makeButton("PauseButton", 10, 70);
+    Button stepButton = makeButton("StepButton", 10, 100);
+    Button speedButton = makeButton("SpeedButton", 10, 130);
 
     FileChooser fileChooser = new FileChooser();
     fileChooser.setInitialDirectory(new File("data/config_files"));
