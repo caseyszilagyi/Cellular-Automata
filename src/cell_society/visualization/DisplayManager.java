@@ -77,6 +77,7 @@ public class DisplayManager {
     animationManager.setSimulation(currentSim);
 
     updateDisplayGrid(currentSim);
+    addResizeWindowEventListeners(getCellColorSheet(currentSim));
   }
 
   private void makeAllButtons(){
@@ -121,6 +122,7 @@ public class DisplayManager {
     });
 
     colorModeButton.setOnMouseClicked(e -> {
+      animationManager.pauseSimulation();
       toggleNextStylesheet();
     });
   }
@@ -146,10 +148,11 @@ public class DisplayManager {
 
   public void updateDisplayGrid(Simulation currentSim){
     gridDisplay.setGridDimensions(currentSim.getGridWidth(), currentSim.getGridHeight());
-    String[] cellColorSheet = convertCharSheetToColors(currentSim.getGrid(), currentSim.getColorMapping());
-    gridDisplay.updateGrid(cellColorSheet);
+    gridDisplay.updateGrid(getCellColorSheet(currentSim));
+  }
 
-    addResizeWindowEventListeners(cellColorSheet);
+  private String[] getCellColorSheet(Simulation currentSim){
+    return convertCharSheetToColors(currentSim.getGrid(), currentSim.getColorMapping());
   }
 
   private void addResizeWindowEventListeners(String[] cellColorSheet){
