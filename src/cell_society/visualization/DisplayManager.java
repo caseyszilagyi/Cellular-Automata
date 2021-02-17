@@ -76,7 +76,7 @@ public class DisplayManager {
     animationManager.setSimulation(currentSim);
 
     updateDisplayGrid(currentSim);
-    addResizeWindowEventListeners(getCellColorSheet(currentSim));
+    addResizeWindowEventListeners(currentSim);
   }
 
   private void makeAllButtons(){
@@ -154,19 +154,19 @@ public class DisplayManager {
     return convertCharSheetToColors(currentSim.getGrid(), currentSim.getColorMapping());
   }
 
-  private void addResizeWindowEventListeners(String[] cellColorSheet){
+  private void addResizeWindowEventListeners(Simulation currentSim){
     // update grid every time window WIDTH is resized
     scene.widthProperty().addListener((currentWidth, oldWidth, newWidth) -> {
       animationManager.pauseSimulation();
       gridDisplay.setCurrentScreenWidth(newWidth.doubleValue());
-      gridDisplay.updateGrid(cellColorSheet);
+      gridDisplay.updateGrid(getCellColorSheet(currentSim));
     });
 
     // update grid every time window HEIGHT is resized
     scene.heightProperty().addListener((currentHeight, oldHeight, newHeight) -> {
       animationManager.pauseSimulation();
       gridDisplay.setCurrentScreenHeight(newHeight.doubleValue());
-      gridDisplay.updateGrid(cellColorSheet);
+      gridDisplay.updateGrid(getCellColorSheet(currentSim));
     });
   }
 }
