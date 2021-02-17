@@ -4,7 +4,6 @@ import cell_society.backend.Simulation;
 import java.io.File;
 import java.util.Map;
 import java.util.ResourceBundle;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
