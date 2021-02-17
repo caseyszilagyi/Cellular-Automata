@@ -130,6 +130,7 @@ public class DisplayManager {
     Button button = new Button(resourceBundle.getString(property));
     button.setLayoutX(x);
     button.setLayoutY(y);
+    button.setPrefWidth(120);
     root.getChildren().add(button);
     return button;
   }
