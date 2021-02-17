@@ -12,18 +12,20 @@ public class GridDisplay {
 
   private int width, height;
 
+  private final int BORDER_LENGTH = 50;
+
   public GridDisplay(Pane root, Scene scene) {
     this.root = root;
-    currentScreenWidth = scene.getWidth();
-    currentScreenHeight = scene.getHeight();
+    currentScreenWidth = scene.getWidth() - BORDER_LENGTH * 2;
+    currentScreenHeight = scene.getHeight() - BORDER_LENGTH * 2;
   }
 
   public void setCurrentScreenWidth(double width){
-    currentScreenWidth = width;
+    currentScreenWidth = width - BORDER_LENGTH * 2;
   }
 
   public void setCurrentScreenHeight(double height){
-    currentScreenHeight = height;
+    currentScreenHeight = height - BORDER_LENGTH * 2;
   }
 
   public void setGridDimensions(int width, int height){
@@ -48,12 +50,13 @@ public class GridDisplay {
     }
 
     // for centering horizontally
-    double whiteSpace = (currentScreenWidth - (width * cellSideLength)) / 2.0;
+    double whiteSpaceX = (currentScreenWidth - (width * cellSideLength)) / 2.0 + BORDER_LENGTH;
+    double whiteSpaceY = (currentScreenHeight - (height * cellSideLength)) / 2.0 + BORDER_LENGTH;
 
     int colorSheetIndex = 0;
     for (int row = 0; row < height; row++) {
       for (int col = 0; col < width; col++) {
-        createCell(col * cellSideLength + whiteSpace, row * cellSideLength, cellColorSheet[colorSheetIndex]);
+        createCell(col * cellSideLength + whiteSpaceX, row * cellSideLength + whiteSpaceY, cellColorSheet[colorSheetIndex]);
         colorSheetIndex++;
       }
     }
