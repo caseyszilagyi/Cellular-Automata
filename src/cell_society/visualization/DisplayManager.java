@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.ResourceBundle;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -33,6 +34,7 @@ initialize the simulation: see simulation class example
  */
 public class DisplayManager {
 
+  private final Stage stage;
   private final Group root;
   private final Scene scene;
 
@@ -41,12 +43,22 @@ public class DisplayManager {
 
   private final Pane pane;
 
+
+  public static final String VISUALIZATION_RESOURCE_PACKAGE = "cell_society.visualization.resources.";
+  public static final String VISUALIZATION_RESOURCE_FOLDER = "/" + VISUALIZATION_RESOURCE_PACKAGE.replace(".", "/");
+
+  private ResourceBundle resourceBundle;
+
+
   /**
    * Constructor that creates an instance of the DisplayManager
    * @param root The root node of the main scene graph
    * @param scene The container for the main scene graph
    */
   public DisplayManager(Stage stage, Group root, Scene scene) {
+    resourceBundle = ResourceBundle.getBundle(VISUALIZATION_RESOURCE_PACKAGE + "English");
+    System.out.println(resourceBundle.getString("LoadSimulationButton"));
+    this.stage = stage;
     this.root = root;
     this.scene = scene;
     pane = new Pane();
@@ -56,12 +68,30 @@ public class DisplayManager {
 
     animationManager = new AnimationManager(this);
 
-    // temporary test for load configuration file button
-    Button loadSimButton = new Button("LOAD NEW FILE");
-    root.getChildren().add(loadSimButton);
+    makeAllButtons();
+
+    //scene.getStylesheets().add(getClass().getResource(VISUALIZATION_RESOURCE_FOLDER + "default.css").toExternalForm());
+  }
+
+  private void loadNewSimulation(String simulationType, String fileName){
+
+    Simulation currentSim = new Simulation(simulationType, fileName);
+    currentSim.initializeSimulation();
+    animationManager.setSimulation(currentSim);
+
+    updateDisplayGrid(currentSim);
+  }
+
+  private void makeAllButtons(){
+    Button loadSimButton = makeButton("LoadSimulationButton", 10, 0);
+    Button startButton = makeButton("StartButton", 10, 30);
+    Button pauseButton = makeButton("PauseButton", 10, 60);
+    Button stepButton = makeButton("StepButton", 10, 90);
+    Button speedButton = makeButton("SpeedButton", 10, 120);
 
     FileChooser fileChooser = new FileChooser();
     fileChooser.setInitialDirectory(new File("data/config_files"));
+
     loadSimButton.setOnMouseClicked(e -> {
       animationManager.pauseSimulation();
 
@@ -74,47 +104,34 @@ public class DisplayManager {
       }
     });
 
-    Button playSimButton = new Button("PLAY"); // all these buttons are temporary.. should be placed in separate class
-    playSimButton.setLayoutX(150);
-    root.getChildren().add(playSimButton);
 
-    playSimButton.setOnMouseClicked(e -> {
+    startButton.setOnMouseClicked(e -> {
       animationManager.playSimulation();
     });
 
-    Button pauseSimButton = new Button("PAUSE");
-    pauseSimButton.setLayoutX(200);
-    root.getChildren().add(pauseSimButton);
 
-    pauseSimButton.setOnMouseClicked(e -> {
+    pauseButton.setOnMouseClicked(e -> {
       animationManager.pauseSimulation();
     });
 
-    Button stepSimButton = new Button("STEP");
-    stepSimButton.setLayoutX(250);
-    root.getChildren().add(stepSimButton);
 
-    stepSimButton.setOnMouseClicked(e -> {
+    stepButton.setOnMouseClicked(e -> {
       animationManager.pauseSimulation();
       animationManager.stepSimulation();
     });
 
-    Button changeSpeedButton = new Button("CHANGE SPEED: x1.0");
-    changeSpeedButton.setLayoutX(300);
-    root.getChildren().add(changeSpeedButton);
 
-    changeSpeedButton.setOnMouseClicked(e -> {
-      changeSpeedButton.setText("CHANGE SPEED: x" + animationManager.setNextFPS());
+    speedButton.setOnMouseClicked(e -> {
+      speedButton.setText(resourceBundle.getString("SpeedButton") + ": x" + animationManager.setNextFPS());
     });
   }
 
-  private void loadNewSimulation(String simulationType, String fileName){
-
-    Simulation currentSim = new Simulation(simulationType, fileName);
-    currentSim.initializeSimulation();
-    animationManager.setSimulation(currentSim);
-
-    updateDisplayGrid(currentSim);
+  private Button makeButton(String property, double x, double y){
+    Button button = new Button(resourceBundle.getString(property));
+    button.setLayoutX(x);
+    button.setLayoutY(y);
+    root.getChildren().add(button);
+    return button;
   }
 
   private String[] convertCharSheetToColors(char[] charSheet, Map<Character, String> charToColorMap){
