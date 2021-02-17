@@ -1,0 +1,17 @@
+.button {
+  -fx-border-radius: 40px;
+  -fx-background-radius: 40px;
+  -fx-background-color: #f8bdb7;
+  -fx-border-color: black;
+  -fx-font-family: "Arial Black";
+  -fx-font-size: 10;
+  -fx-text-fill: black;
+}
+
+.button:hover {
+  -fx-background-color: #ffa89c;
+}
+
+.button:pressed {
+  -fx-background-color: #d46855;
+}
