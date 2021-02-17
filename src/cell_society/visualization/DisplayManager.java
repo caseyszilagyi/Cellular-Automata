@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 public class DisplayManager {
 
   private final Stage stage;
-  private final Group root;
+  private final Pane root;
   private final Scene scene;
 
   private final ResourceBundle resourceBundle;
@@ -28,6 +28,9 @@ public class DisplayManager {
   private final GridDisplay gridDisplay;
   private final AnimationManager animationManager;
   private final Pane pane;
+
+  private final String[] colorModes = {"LightMode.css", "Colorful.css", "DarkMode.css"};
+  private int currentColorMode = 0;
 
   public static final String VISUALIZATION_RESOURCE_PACKAGE = "cell_society/visualization/resources/";
   public static final String VISUALIZATION_RESOURCE_FOLDER = "/" + VISUALIZATION_RESOURCE_PACKAGE;
@@ -37,8 +40,8 @@ public class DisplayManager {
    * @param root The root node of the main scene graph
    * @param scene The container for the main scene graph
    */
-  public DisplayManager(Stage stage, Group root, Scene scene) {
-    resourceBundle = ResourceBundle.getBundle(VISUALIZATION_RESOURCE_PACKAGE + "properties/Spanish");
+  public DisplayManager(Stage stage, Pane root, Scene scene) {
+    resourceBundle = ResourceBundle.getBundle(VISUALIZATION_RESOURCE_PACKAGE + "properties/English");
     this.stage = stage;
     this.root = root;
     this.scene = scene;
@@ -51,13 +54,20 @@ public class DisplayManager {
 
     makeAllButtons();
 
-    changeStylesheet("LightMode.css");
-    changeStylesheet("DarkMode.css");
+    changeStylesheet(colorModes[currentColorMode]);
   }
 
   private void changeStylesheet(String fileName){
     scene.getStylesheets().clear();
     scene.getStylesheets().add(getClass().getResource(VISUALIZATION_RESOURCE_FOLDER + "stylesheets/" + fileName).toExternalForm());
+  }
+
+  private void toggleNextStylesheet(){
+    currentColorMode++;
+    if(currentColorMode > colorModes.length - 1){
+      currentColorMode = 0;
+    }
+    changeStylesheet(colorModes[currentColorMode]);
   }
 
   private void loadNewSimulation(String simulationType, String fileName){
@@ -76,6 +86,8 @@ public class DisplayManager {
     Button stepButton = makeButton("StepButton", 10, 100);
     Button speedButton = makeButton("SpeedButton", 10, 130);
 
+    Button colorModeButton = makeButton("ColorModeButton", 10, 180);
+
     FileChooser fileChooser = new FileChooser();
     fileChooser.setInitialDirectory(new File("data/config_files"));
 
@@ -91,25 +103,25 @@ public class DisplayManager {
       }
     });
 
-
     startButton.setOnMouseClicked(e -> {
       animationManager.playSimulation();
     });
 
-
     pauseButton.setOnMouseClicked(e -> {
       animationManager.pauseSimulation();
     });
-
 
     stepButton.setOnMouseClicked(e -> {
       animationManager.pauseSimulation();
       animationManager.stepSimulation();
     });
 
-
     speedButton.setOnMouseClicked(e -> {
       speedButton.setText(resourceBundle.getString("SpeedButton") + ": x" + animationManager.setNextFPS());
+    });
+
+    colorModeButton.setOnMouseClicked(e -> {
+      toggleNextStylesheet();
     });
   }
 

@@ -1,5 +1,5 @@
 .root {
-  -fx-background-color: #2b2b2b;
+  -fx-background-color: #f8bdb7;
   -fx-font-family: "Roboto Black";
   -fx-font-weight: bold;
 }
@@ -9,16 +9,16 @@
   -fx-background-radius: 10px;
   -fx-border-width: 0px;
 
-  -fx-background-color: #1c1c1c;
-  -fx-text-fill: #d6d6d6;
+  -fx-background-color: #e3887f;
+  -fx-text-fill: #3b3b3b;
 
   -fx-font-size: 10;
 }
 
 .button:hover {
-  -fx-background-color: #4d4d4d;
+  -fx-background-color: #f0aea8;
 }
 
 .button:pressed {
-  -fx-background-color: #171717;
+  -fx-background-color: #e86d61;
 }
