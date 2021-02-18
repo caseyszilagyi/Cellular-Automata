@@ -19,13 +19,7 @@ public class SquareStructure extends CellStructure {
   @Override
   public List<Coordinate> getAllAdjacentCoordinates(int row, int col) {
     List<Coordinate> allAdjacentCoordinates = new ArrayList<>();
-    SquareDirection[] adjacentDirections = {
-        SquareDirection.TOP,
-        SquareDirection.LEFT,
-        SquareDirection.RIGHT,
-        SquareDirection.BOTTOM
-    };
-    for (Direction d : adjacentDirections) {
+    for (Direction d : SquareDirection.TOP.getAdjacentDirections(row, col)) {
       allAdjacentCoordinates.add(d.getResultingCoordinate(row, col));
     }
     return allAdjacentCoordinates;

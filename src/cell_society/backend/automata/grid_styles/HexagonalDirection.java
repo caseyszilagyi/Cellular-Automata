@@ -1,6 +1,7 @@
 package cell_society.backend.automata.grid_styles;
 
 import cell_society.backend.automata.Coordinate;
+import java.util.ArrayList;
 import java.util.List;
 
 public enum HexagonalDirection implements Direction {
@@ -34,8 +35,12 @@ public enum HexagonalDirection implements Direction {
   }
 
   @Override
-  public List<Direction> getAdjacentCoordinates(int row, int col) {
-    return null;
+  public List<Direction> getAdjacentDirections(int row, int col) {
+    List<Direction> allAdjacentDirections = new ArrayList<>();
+    for (HexagonalDirection d : HexagonalDirection.values()) {
+      allAdjacentDirections.add(d);
+    }
+    return allAdjacentDirections;
   }
 
   @Override

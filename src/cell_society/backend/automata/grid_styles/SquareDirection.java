@@ -29,15 +29,15 @@ public enum SquareDirection implements Direction {
   }
 
   @Override
-  public List<Direction> getAdjacentCoordinates(int row, int col) {
-    Direction[] adjacentCoordinatesArray = {
+  public List<Direction> getAdjacentDirections(int row, int col) {
+    Direction[] adjacentDirectionsArray = {
         SquareDirection.TOP,
         SquareDirection.LEFT,
         SquareDirection.RIGHT,
         SquareDirection.BOTTOM
     };
-    List<Direction> adjacentCoordinates = Arrays.asList(adjacentCoordinatesArray);
-    return adjacentCoordinates;
+    List<Direction> adjacentDirections = Arrays.asList(adjacentDirectionsArray);
+    return adjacentDirections;
   }
 
   @Override

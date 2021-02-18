@@ -19,8 +19,7 @@ public class HexagonStructure extends CellStructure {
   @Override
   public List<Coordinate> getAllAdjacentCoordinates(int row, int col) {
     List<Coordinate> allAdjacentCoordinates = new ArrayList<>();
-    // Assume all neighbors are directly adjacent neighbors to the hexagon.
-    for (Direction d : HexagonalDirection.values()) {
+    for (Direction d : HexagonalDirection.TOP_LEFT.getAdjacentDirections(row, col)) {
       allAdjacentCoordinates.add(d.getResultingCoordinate(row, col));
     }
     return allAdjacentCoordinates;

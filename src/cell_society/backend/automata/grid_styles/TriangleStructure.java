@@ -24,12 +24,10 @@ public class TriangleStructure extends CellStructure {
 
   @Override
   public List<Coordinate> getAllAdjacentCoordinates(int row, int col) {
-    TriangularDirection[] directions;
-    if ((row + col) % 2 == 0) {
-
-    } else {
+    List<Coordinate> allAdjacentCoordinates = new ArrayList<>();
+    for (Direction d : TriangularDirection.ODD_1.getAdjacentDirections(row, col)) {
+      allAdjacentCoordinates.add(d.getResultingCoordinate(row, col));
     }
-
-    return null;
+    return allAdjacentCoordinates;
   }
 }

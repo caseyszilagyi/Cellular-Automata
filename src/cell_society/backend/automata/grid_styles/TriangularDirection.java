@@ -70,23 +70,23 @@ public enum TriangularDirection implements Direction {
   }
 
   @Override
-  public List<Direction> getAdjacentCoordinates(int row, int col) {
-    Direction[] adjacentCoordinatesArray;
+  public List<Direction> getAdjacentDirections(int row, int col) {
+    Direction[] adjacentDirectionsArray;
     if ((row + col) % 2 == 0) {
-      adjacentCoordinatesArray = new Direction[]{
+      adjacentDirectionsArray = new Direction[]{
           TriangularDirection.EVEN_1,
           TriangularDirection.EVEN_5,
           TriangularDirection.EVEN_9
       };
     } else {
-      adjacentCoordinatesArray = new Direction[]{
+      adjacentDirectionsArray = new Direction[]{
           TriangularDirection.ODD_3,
           TriangularDirection.ODD_7,
           TriangularDirection.ODD_11
       };
     }
-    List<Direction> adjacentCoordinates = Arrays.asList(adjacentCoordinatesArray);
-    return adjacentCoordinates;
+    List<Direction> adjacentDirections = Arrays.asList(adjacentDirectionsArray);
+    return adjacentDirections;
   }
 
   @Override

@@ -8,6 +8,8 @@ public class Grid {
 
   private Cell[][] grid;
   private Patch[][] gridStates;
+  private CellStructure gridCellStructure;
+
   private int gridHeight;
   private int gridWidth;
   private Map<Character, String> colorCodes;
