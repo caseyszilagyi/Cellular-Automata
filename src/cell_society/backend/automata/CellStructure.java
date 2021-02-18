@@ -8,4 +8,5 @@ public abstract class CellStructure {
 
   public abstract List<Coordinate> getAllAdjacentCoordinates(int row, int col);
 
+
 }

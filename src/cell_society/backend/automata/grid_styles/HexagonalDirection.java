@@ -1,6 +1,7 @@
 package cell_society.backend.automata.grid_styles;
 
 import cell_society.backend.automata.Coordinate;
+import java.util.List;
 
 public enum HexagonalDirection implements Direction {
 
@@ -30,6 +31,11 @@ public enum HexagonalDirection implements Direction {
     int colChange = col % 2 == 0 ? colDelta : colDeltaShift;
     Coordinate coordinate = new Coordinate(row + rowChange, col + colChange);
     return coordinate;
+  }
+
+  @Override
+  public List<Direction> getAdjacentCoordinates(int row, int col) {
+    return null;
   }
 
   @Override
