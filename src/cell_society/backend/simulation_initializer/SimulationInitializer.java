@@ -1,7 +1,9 @@
 package cell_society.backend.simulation_initializer;
 
 
+import cell_society.backend.Simulation;
 import cell_society.backend.automata.Grid;
+import cell_society.backend.simulation_stepper.SimulationStepper;
 import java.util.Map;
 
 /**
@@ -11,6 +13,8 @@ import java.util.Map;
  * @author Casey Szilagyi
  */
 public class SimulationInitializer {
+
+  private final String STEPPER_PATH = "cell_society.backend.simulation_stepper.";
 
   private XMLFileReader xmlFileReader;
   // All the general things about the simulation (title, author)
@@ -29,6 +33,8 @@ public class SimulationInitializer {
   private CellCreator cellCreator;
 
   private String simulationType;
+  private Grid simulationGrid;
+
 
 
   /**
@@ -79,7 +85,36 @@ public class SimulationInitializer {
     gridCreator.populateGrid(simulationParameters.get("grid"), cellCodes);
     gridCreator.setColorCodes(colorCodes);
     gridCreator.setCellDecoder(cellDecoder);
-    return gridCreator.getGrid();
+    simulationGrid = gridCreator.getGrid();
+    return simulationGrid;
+  }
+
+
+  /**
+   * Initializes the stepper that loops through all the cells;
+   */
+  public SimulationStepper makeStepper() {
+    String stepperType = simulationParameters.get("stepperType");
+
+    Class classStepper = null;
+    try {
+      classStepper = Class.forName(STEPPER_PATH + stepperType);
+    } catch (ClassNotFoundException e) {
+      System.out
+          .println("Error: Stepper class name does not exist or is placed in the wrong location");
+    }
+
+    //Casting the generic class to a stepper object
+    SimulationStepper simulationStepper = null;
+    try {
+      simulationStepper = (SimulationStepper) classStepper.newInstance();
+    } catch (Exception e) {
+      System.out.println("Error: Stepper casting");
+    }
+
+    simulationStepper.setGrid(simulationGrid);
+
+    return simulationStepper;
   }
 
   /**

@@ -30,9 +30,8 @@ public class Simulation {
     FILE_NAME = "data/config_files/" + simulationType + "/" + fileName;
     initializeSimulation();
     STEPPER_PATH = "cell_society.backend.simulation_stepper." + simulationInitializer.getStepperType();
-    initializeStepper();
+    //initializeStepper();
   }
-
 
   /**
    * Gives the simulation initializer the game type and file to be parsed for the starting
@@ -44,34 +43,12 @@ public class Simulation {
     simulationInitializer.initializeSimulation(SIMULATION_TYPE, FILE_NAME);
     simulationGrid = simulationInitializer.makeGrid();
     colorMappings = simulationInitializer.getColorCodes();
+    simulationStepper = simulationInitializer.makeStepper();
   }
 
   /**
-   * Initializes the stepper that loops through all the cells;
+   * Makes a step in the simulataion
    */
-  public void initializeStepper() {
-    String stepperType = simulationInitializer.getStepperType();
-
-    Class classStepper = null;
-    try {
-      classStepper = Class.forName(STEPPER_PATH);
-    } catch (ClassNotFoundException e) {
-      System.out
-          .println("Error: Stepper class name does not exist or is placed in the wrong location");
-    }
-
-    //Casting the generic class to a stepper object
-    simulationStepper = null;
-    try {
-      simulationStepper = (SimulationStepper) classStepper.newInstance();
-    } catch (Exception e) {
-      System.out.println("Error: Stepper casting");
-    }
-
-    simulationStepper.setGrid(simulationGrid);
-
-  }
-
   public void makeStep() {
     simulationStepper.makeStep();
     simulationGrid = simulationStepper.getGrid();
