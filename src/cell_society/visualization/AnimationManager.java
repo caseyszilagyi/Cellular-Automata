@@ -6,7 +6,8 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 
 /**
- * Handles main simulation loop by calling the backend update method
+ * The AnimationManager class handles main simulation
+ * loop by calling the backend update method.
  *
  * @author Donghan Park
  */
@@ -62,23 +63,15 @@ public class AnimationManager {
   }
 
   public double setNextFPS(){
-    if(animation.getRate() == 2.0){
-      animation.setRate(1.75);
-    } else if(animation.getRate() == 1.75){
-      animation.setRate(1.5);
-    } else if (animation.getRate() == 1.5){
-      animation.setRate(1.25);
-    } else if(animation.getRate() == 1.25){
-    animation.setRate(1.0);
-    } else if (animation.getRate() == 1.0){
-      animation.setRate(0.75);
-    } else if (animation.getRate() == 0.75) {
-      animation.setRate(0.5);
-    } else if (animation.getRate() == 0.5) {
-      animation.setRate(0.25);
-    } else {
-      animation.setRate(2.0);
+    double speedInterval = 0.25;
+    double maxSpeedScale = 2.0;
+    double minSpeedScale = 0.5;
+    double speedScale = animation.getRate() - speedInterval;
+    if (speedScale < minSpeedScale) {
+      speedScale = maxSpeedScale;
     }
-    return animation.getRate();
+    animation.setRate(speedScale);
+
+    return speedScale;
   }
 }

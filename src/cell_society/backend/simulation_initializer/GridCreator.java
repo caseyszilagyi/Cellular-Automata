@@ -13,9 +13,9 @@ import java.util.Map;
 public class GridCreator {
 
   private Grid simulationGrid;
-  private CellParameters cellBehavior;
-  private String PACKAGE_LOCATION = "cell_society.backend.automata.";
-  private String SIMULATION_TYPE;
+  private final String PACKAGE_LOCATION = "cell_society.backend.automata.";
+  private final String SIMULATION_TYPE;
+  private final CellCreator CELL_CREATOR;
 
   /**
    * Calls a method to make the grid, and sets up the simulation type so that the cells/grid can be
@@ -27,9 +27,10 @@ public class GridCreator {
    *                       found
    * @param gridType       A string representing the grid used to make the game
    */
-  public GridCreator(int row, int col, String simulationType, String gridType) {
-    SIMULATION_TYPE = simulationType + ".";
+  public GridCreator(int row, int col, String simulationType, String gridType, CellCreator cellCreator) {
+    SIMULATION_TYPE = simulationType;
     simulationGrid = makeGrid(row, col, gridType);
+    CELL_CREATOR = cellCreator;
   }
 
   /**
@@ -46,7 +47,7 @@ public class GridCreator {
       return new Grid(row, col);
     }
 
-    String gridFileLocation = PACKAGE_LOCATION + SIMULATION_TYPE + gridType;
+    String gridFileLocation = PACKAGE_LOCATION + SIMULATION_TYPE + "." + gridType;
     Class classGrid = null;
     try {
       classGrid = Class.forName(gridFileLocation);
@@ -84,7 +85,7 @@ public class GridCreator {
     int i = 0;
     for (int r = 0; r < simulationGrid.getGridHeight(); r++) {
       for (int c = 0; c < simulationGrid.getGridWidth(); c++) {
-        Cell newCell = makeCell(cellCodes.get(Character.toString(grid.charAt(i))));
+        Cell newCell = CELL_CREATOR.makeCell(cellCodes.get(Character.toString(grid.charAt(i))));
         if(newCell != null) {
           newCell.setPosition(r, c);
           simulationGrid.placeCell(r, c, newCell);
@@ -94,51 +95,9 @@ public class GridCreator {
     }
   }
 
-  /**
-   * Makes a single cell of the given type
-   *
-   * @param cellType The type of cell that we want to make
-   * @return The initialized cell
-   */
-  public Cell makeCell(String cellType) {
-    //e is an empty spot on the grid
-    if (cellType.equals("Empty")) {
-      return null;
-    }
-    String cellFileLocation = PACKAGE_LOCATION + SIMULATION_TYPE + cellType;
-    Class classCell = null;
-    try {
-      classCell = Class.forName(cellFileLocation);
-    } catch (ClassNotFoundException e) {
-      System.out
-          .println("Error: Cell class name does not exist or is placed in the wrong location");
-    }
-
-    //Casting the generic class to a cell object
-    Cell newCell = null;
-    try {
-      newCell = (Cell) classCell.newInstance();
-    } catch (Exception e) {
-      System.out.println("Error: Cell casting");
-    }
-
-    newCell.initializeParams(cellBehavior);
-
-    return newCell;
-  }
-
   //Parses the grid to get a string that only has the necessary characters
   private String parseGrid(String grid) {
     return grid.replace("\n", "").replace(" ", "");
-  }
-
-  /**
-   * Sets the behavior that each cell will be initialized with
-   *
-   * @param cellParameters The parameters that define the cell
-   */
-  public void setCellBehavior(CellParameters cellParameters) {
-    cellBehavior = cellParameters;
   }
 
   /**

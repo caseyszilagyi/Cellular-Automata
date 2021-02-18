@@ -80,6 +80,7 @@ public class SegregationStepper extends SimulationStepper {
     Neighbors neighbors = cell.getNeighbors(simulationGrid);
     cell.makeDecisions(neighbors, nextGrid, null);
     // Alright, there's the potential that the agent is unhappy.  In that case, queue up for relocation
+
     AgentCell agentCell = (AgentCell) cell;
     if (!agentCell.isSatisfied(neighbors)){
       dissatisfiedQueue.add(agentCell);

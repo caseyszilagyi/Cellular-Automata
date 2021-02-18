@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class FishCell extends Cell {
+public class FishCell extends Cell implements Reproduces{
 
   private int breedTimeCounter;
   private int breedTimeThresh;

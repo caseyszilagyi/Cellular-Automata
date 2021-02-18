@@ -8,7 +8,7 @@ import cell_society.backend.simulation_initializer.CellParameters;
 /**
  * Represents an agent in Schelling's model of segregation as a cell on a grid.
  */
-public class AgentCell extends Cell {
+public class AgentCell extends Cell implements DescribesSatisfaction{
 
   private double satisfactionProp;
 
