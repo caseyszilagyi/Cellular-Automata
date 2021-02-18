@@ -7,6 +7,7 @@ import java.util.Map;
 public class Grid {
 
   private Cell[][] grid;
+  private Patch[][] gridStates;
   private int gridHeight;
   private int gridWidth;
   private Map<Character, String> colorCodes;
@@ -14,15 +15,17 @@ public class Grid {
 
   public Grid(int gridHeight, int gridWidth) {
     grid = new Cell[gridHeight][gridWidth];
+    gridStates = new Patch[gridHeight][gridWidth];
     this.gridHeight = gridHeight;
     this.gridWidth = gridWidth;
   }
 
   /**
    * Copy constructor for the stepper to use to make a new grid with ease
+   *
    * @param grid The last grid
    */
-  public Grid(Grid grid){
+  public Grid(Grid grid) {
     this(grid.gridHeight, grid.gridWidth);
     this.colorCodes = grid.colorCodes;
     this.cellDecoder = grid.cellDecoder;
@@ -31,16 +34,18 @@ public class Grid {
   /**
    * Empty constructor for newInstance method use
    */
-  public Grid(){
+  public Grid() {
   }
 
   /**
    * Used to make the grid and establish width/height
-   * @param width The grid width
+   *
+   * @param width  The grid width
    * @param height The grid height
    */
-  public void makeGrid(int width, int height){
+  public void makeGrid(int width, int height) {
     grid = new Cell[height][width];
+    gridStates = new Patch[height][width];
     gridWidth = width;
     gridHeight = height;
   }
@@ -63,13 +68,14 @@ public class Grid {
     return gridWidth;
   }
 
-  public void setColorCodes(Map<Character, String> userColorCodes){
+  public void setColorCodes(Map<Character, String> userColorCodes) {
     colorCodes = userColorCodes;
   }
 
-  public void setCellDecoder(Map<String, String> userCellDecoder){
+  public void setCellDecoder(Map<String, String> userCellDecoder) {
     cellDecoder = userCellDecoder;
   }
+
   /**
    * Returns All cells neighboring the selected position, within one block, on the Grid.  This
    * produces a maximum of 8 neighbors.
@@ -178,28 +184,53 @@ public class Grid {
   }
 
   /**
+   * place a Patch into the desired coordinates.  Indices must be positive and within the bounds of
+   * the grid.
+   *
+   * @param row   row index of where to place the Patch
+   * @param col   column index of where to place the Patch
+   * @param patch Patch object to be placed
+   */
+  public void placePatch(int row, int col, Patch patch) {
+    gridStates[row][col] = patch;
+  }
+
+  /**
+   * While cells may all be updated during the course of the main update loop, Patches may be left
+   * alone, possibly due to the inclusion of null values representing empty cells..
+   *
+   * @param otherGrid grid to copy over unchanged patch values from
+   */
+  public void updateRemainingPatches(Grid otherGrid) throws CloneNotSupportedException {
+    for (int j = 0; j < gridHeight; j++) {
+      for (int k = 0; k < gridWidth; k++) {
+        if (gridStates[j][k] == null) {
+          gridStates[j][k] = (Patch) otherGrid.gridStates[j][k].clone();
+        }
+      }
+    }
+  }
+
+  /**
    * Gets the string code representation of the cells to pass to the display
    *
    * @return A 2D array of string codes.
    */
   public char[] getDisplay() {
-    char[] display = new char[gridHeight*gridWidth];
+    char[] display = new char[gridHeight * gridWidth];
     int i = 0;
     for (int j = 0; j < gridHeight; j++) {
       for (int k = 0; k < gridWidth; k++) {
-        if(grid[j][k] != null) {
+        if (grid[j][k] != null) {
           char curr = cellDecoder.get(grid[j][k].toString()).charAt(0);
           display[i] = curr;
-        }
-        else{
+        } else {
           display[i] = 'e';
         }
         i++;
       }
     }
-
     return display;
-
   }
 
   /**
