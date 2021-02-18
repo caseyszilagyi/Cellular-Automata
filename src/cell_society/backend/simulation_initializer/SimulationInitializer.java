@@ -23,7 +23,12 @@ public class SimulationInitializer {
   private Map<Character, String> colorCodes;
   // the parameters that define a cell's behavior
   private CellParameters cellParameters;
+  // creates the grid
   private GridCreator gridCreator;
+  // can make a cell
+  private CellCreator cellCreator;
+
+  private String simulationType;
 
 
   /**
@@ -38,18 +43,19 @@ public class SimulationInitializer {
    * Gets all of the parameters needed for the simulation that are contained in the XML file, and
    * makes hashmaps for them using the XMLFileReader class
    *
-   * @param simulationType The type of simulation that we have, used to check if the file is
-   *                       correct
-   * @param fileName       The name of the file with the data for initialization
+   * @param userSimulationType The type of simulation that we have, used to check if the file is
+   *                           correct
+   * @param fileName           The name of the file with the data for initialization
    */
-  public void initializeSimulation(String simulationType, String fileName) {
+  public void initializeSimulation(String userSimulationType, String fileName) {
+    simulationType = userSimulationType;
     xmlFileReader.setSimulationType(simulationType);
     xmlFileReader.setFile(fileName);
     getMaps();
   }
 
-   // Gets all of the maps that are used for various different purposes
-  private void getMaps(){
+  // Gets all of the maps that are used for various different purposes
+  private void getMaps() {
     simulationParameters = xmlFileReader.getSimulationParameters();
     cellParameters = new CellParameters(xmlFileReader.getAttributeMap("parameters"));
     cellCodes = xmlFileReader.getAttributeMap("codes");
@@ -64,11 +70,12 @@ public class SimulationInitializer {
    * @return The grid
    */
   public Grid makeGrid() {
+    cellCreator = new CellCreator(simulationType, cellParameters);
     gridCreator = new GridCreator(Integer.parseInt(simulationParameters.get("rows")),
         Integer.parseInt(simulationParameters.get("columns")),
         simulationParameters.get("cellPackage"),
-            simulationParameters.get("gridType"));
-    gridCreator.setCellBehavior(cellParameters);
+        simulationParameters.get("gridType"),
+        cellCreator);
     gridCreator.populateGrid(simulationParameters.get("grid"), cellCodes);
     gridCreator.setColorCodes(colorCodes);
     gridCreator.setCellDecoder(cellDecoder);
@@ -77,17 +84,20 @@ public class SimulationInitializer {
 
   /**
    * Allows the Simulation class to get the color codes representing the cells
+   *
    * @return The color coding map
    */
-  public Map getColorCodes(){
+  public Map getColorCodes() {
     return colorCodes;
   }
 
   /**
-   * Allows the Simulation class to get the stepper type in order to initialize the simulation stepper
+   * Allows the Simulation class to get the stepper type in order to initialize the simulation
+   * stepper
+   *
    * @return
    */
-  public String getStepperType(){
+  public String getStepperType() {
     return simulationParameters.get("stepperType");
   }
 
