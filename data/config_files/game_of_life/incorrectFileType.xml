@@ -18,20 +18,21 @@
     oooooooooooooooooooo
     oooooooooooooooooooo
     oooooooooooooooooooo
-    oooooooooooooooooooo
-    oooooooooooooooooooo
-    ooooobbbbbbbbbbooooo
-    ooooooooopoooooooooo
-    ooooobbbbbbbbbbooooo
-    oooooooooooooooooooo
-    bbbbbbbbbobbbbbbbbbb
-    oooooooooooooooooooo
-    oooooooooooooooooooo
-    oooooooooooooooooooo
+    ooobbbbbbbbbbbbooooo
+    oooboooooooooobooooo
+    oooboooooooooobooooo
+    ooobooooopoooobooooo
+    oooboooooooooobooooo
+    oooboooooooooobooooo
+    ooobbbbbbbbbbbbooooo
     oooooooooooooooooooo
     oooooooooooooooooooo
     oooooooooooooooooooo
     oooooooooooooooooooo
+    oooooooooooooooooooo
+    oooooooooooooooooooo
+    oooooooooooooooooooo
+
   </grid>
 
   <codes>
@@ -41,9 +42,9 @@
   </codes>
 
   <colors>
-    <key b = '272929'></key>
-    <key o = 'EDF7F7'></key>
-    <key p = '0099F0'></key>
+    <key b = '000000'></key>
+    <key o = 'FFFFFF'></key>
+    <key p = '0000CC'></key>
   </colors>
 
   <parameters>

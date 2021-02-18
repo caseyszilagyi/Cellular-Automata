@@ -1,9 +1,12 @@
 package cell_society;
 
 import cell_society.visualization.DisplayManager;
+import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -15,13 +18,13 @@ public class Main extends Application {
     int SCREEN_HEIGHT = 800;
 
     String STAGE_TITLE = "Cell Society Simulation";
-    Group root = new Group();
+    Pane root = new Pane();
 
-    Scene mainScene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
+    Scene scene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
     stage.setTitle(STAGE_TITLE);
-    stage.setScene(mainScene);
+    stage.setScene(scene);
     stage.show();
 
-    DisplayManager displayManager = new DisplayManager(stage, root, mainScene);
+    new DisplayManager(stage, root, scene);
   }
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation type="game_of_life">
-  <cellPackage>game_of_life</cellPackage>
   <title>Game of Life</title>
   <author>John Horton Conway</author>
   <desc>The Game of Life Simulation</desc>
@@ -12,7 +11,7 @@
   <rows>4</rows>
   <columns>4</columns>
   <grid>
-    d a d d
+    d a d
     d d a d
     a a a d
     d d d d

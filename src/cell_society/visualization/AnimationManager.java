@@ -5,28 +5,27 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 
+/**
+ * Handles main simulation loop by calling the backend update method
+ *
+ * @author Donghan Park
+ */
 public class AnimationManager {
 
-  private int fps;
-  private double secondDelay;
+  private final DisplayManager displayManager;
+
   private Simulation currentSim;
   private Timeline animation;
 
-  private DisplayManager displayManager;
-
   public AnimationManager(DisplayManager displayManager){
-    fps = 10;
-    secondDelay = 1.0 / fps;
     this.displayManager = displayManager;
     setupTimeline();
   }
 
-  public void setSimulation(Simulation currentSim){
-    this.currentSim = currentSim;
-    playSimulation();
-  }
-
   private void setupTimeline(){
+
+    int FPS = 10;
+    double secondDelay = 1.0 / FPS;
 
     KeyFrame keyframe = new KeyFrame(Duration.seconds(secondDelay), e -> {
       stepSimulation();
@@ -35,6 +34,11 @@ public class AnimationManager {
     animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(keyframe);
+  }
+
+  public void setSimulation(Simulation currentSim){
+    this.currentSim = currentSim;
+    playSimulation();
   }
 
   public void stepSimulation(){

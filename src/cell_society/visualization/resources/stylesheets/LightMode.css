@@ -1,0 +1,24 @@
+.root {
+  -fx-background-color: #f5f5f5;
+  -fx-font-family: "Roboto Black";
+  -fx-font-weight: bold;
+}
+
+.button {
+  -fx-border-radius: 10px;
+  -fx-background-radius: 10px;
+  -fx-border-width: 0px;
+
+  -fx-background-color: #ffffff;
+  -fx-text-fill: #3b3b3b;
+
+  -fx-font-size: 10;
+}
+
+.button:hover {
+  -fx-background-color: #e6e6e6;
+}
+
+.button:pressed {
+  -fx-background-color: #878787;
+}

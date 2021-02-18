@@ -2,6 +2,7 @@ package cell_society.backend.simulation_initializer;
 
 import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.Grid;
+import cell_society.controller.ErrorHandler;
 import java.util.Map;
 
 /**
@@ -76,6 +77,10 @@ public class GridCreator {
    */
   public void populateGrid(String grid, Map<String, String> cellCodes) {
     grid = parseGrid(grid);
+    if(grid.length() != simulationGrid.getGridHeight() * simulationGrid.getGridWidth()){
+      throw new ErrorHandler("IncorrectGridSpecification");
+    }
+
     int i = 0;
     for (int r = 0; r < simulationGrid.getGridHeight(); r++) {
       for (int c = 0; c < simulationGrid.getGridWidth(); c++) {
