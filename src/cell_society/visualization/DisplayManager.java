@@ -70,13 +70,27 @@ public class DisplayManager {
   }
 
   private void loadNewSimulation(String simulationType, String fileName){
+    if (!simulationType.equals("") && !fileName.equals("")){
+      Simulation currentSim = new Simulation(simulationType, fileName);
+      currentSim.initializeSimulation();
+      animationManager.setSimulation(currentSim);
 
-    Simulation currentSim = new Simulation(simulationType, fileName);
-    currentSim.initializeSimulation();
-    animationManager.setSimulation(currentSim);
+      updateDisplayGrid(currentSim);
+      addResizeWindowEventListeners(currentSim);
+    }
+  }
 
-    updateDisplayGrid(currentSim);
-    addResizeWindowEventListeners(currentSim);
+  private String[] loadNewFile(){
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setInitialDirectory(new File("data/config_files"));
+    File selectedDirectory = fileChooser.showOpenDialog(stage);
+
+    if(selectedDirectory != null){
+      String fileName = selectedDirectory.getName();
+      String simulationType = selectedDirectory.getParentFile().getName();
+      return new String[] {simulationType, fileName};
+    }
+    return new String[] {"", ""};
   }
 
   private void makeAllButtons(){
@@ -85,30 +99,12 @@ public class DisplayManager {
     Button pauseButton = makeButton("PauseButton", 10, 70);
     Button stepButton = makeButton("StepButton", 10, 100);
     Button speedButton = makeButton("SpeedButton", 10, 130);
-
     Button colorModeButton = makeButton("ColorModeButton", 10, 180);
-
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setInitialDirectory(new File("data/config_files"));
 
     loadSimButton.setOnMouseClicked(e -> {
       animationManager.pauseSimulation();
-
-      File selectedDirectory = fileChooser.showOpenDialog(stage);
-
-      if (selectedDirectory != null){
-        String fileName = selectedDirectory.getName();
-        String simulationType = selectedDirectory.getParentFile().getName();
-
-        try {
-          loadNewSimulation(simulationType, fileName);
-        } catch(Exception exception){
-          String message = resourceBundle.getString(exception.getMessage());
-          //Can display the message however
-          System.out.println(message);
-        }
-
-      }
+      String[] simulationInfo = loadNewFile();
+      loadNewSimulation(simulationInfo[0], simulationInfo[1]);
     });
 
     startButton.setOnMouseClicked(e -> {
@@ -125,7 +121,7 @@ public class DisplayManager {
     });
 
     speedButton.setOnMouseClicked(e -> {
-      speedButton.setText(resourceBundle.getString("SpeedButton") + ": x" + animationManager.setNextFPS());
+      speedButton.setText(resourceBundle.getString("SpeedButton") + animationManager.setNextFPS());
     });
 
     colorModeButton.setOnMouseClicked(e -> {
