@@ -18,7 +18,6 @@ public class CellCreator {
     CELL_PARAMETERS = cellParameters;
   }
 
-
   /**
    * Makes a single cell of the given type
    *

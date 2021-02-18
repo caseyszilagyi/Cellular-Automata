@@ -1,13 +1,5 @@
 # Cell Society Refactoring Discussion
 ### Team Number: 6
-### Names
-
-Donghan Park (dp239), George Hong (grh17), Casey Szilagyi (crs79)
-
-## Introduction
-
-# Cell Society Refactoring Discussion
-### Team Number: 6
 ### Names:
 
 Donghan Park (dp239), George Hong (grh17), Casey Szilagyi (crs79)
@@ -17,8 +9,8 @@ Donghan Park (dp239), George Hong (grh17), Casey Szilagyi (crs79)
 - In DisplayManager class: makeAllButtons() method is +40 lines long
 
 - We have many uses of instanceOf and a couple uses of  downcasting in our simulation steppers.  Additionally, because types are wrapped up into the subclasses of Cell, using instanceof is necessary for checking the types of other cells in a simulation.
-    - Trying to think of ways to fix this but couldn't come up with much that is substantial
-    - It feels like there
+  - Settled on having instanceOf in the cell objects only in order to code in the logic
+  - Going to make the base cell an interface
 
 ## Moderate Priority
 
