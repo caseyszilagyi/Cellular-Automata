@@ -6,7 +6,8 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 
 /**
- * Handles main simulation loop by calling the backend update method
+ * The AnimationManager class handles main simulation
+ * loop by calling the backend update method.
  *
  * @author Donghan Park
  */

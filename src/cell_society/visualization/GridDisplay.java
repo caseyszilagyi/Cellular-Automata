@@ -5,6 +5,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
+/**
+ * The GridDisplay class is responsible for creating and updating
+ * the main display grid that is viewed by the user.
+ *
+ * @author Donghan Park
+ */
 public class GridDisplay {
 
   private final Pane root;
