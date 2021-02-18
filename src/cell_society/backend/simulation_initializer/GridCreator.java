@@ -76,11 +76,11 @@ public class GridCreator {
    * @param cellCodes A map that links each character to a cell type
    */
   public void populateGrid(String grid, Map<String, String> cellCodes) {
+    grid = parseGrid(grid);
     if(grid.length() != simulationGrid.getGridHeight() * simulationGrid.getGridWidth()){
       throw new ErrorHandler("IncorrectGridSpecification");
     }
 
-    grid = parseGrid(grid);
     int i = 0;
     for (int r = 0; r < simulationGrid.getGridHeight(); r++) {
       for (int c = 0; c < simulationGrid.getGridWidth(); c++) {

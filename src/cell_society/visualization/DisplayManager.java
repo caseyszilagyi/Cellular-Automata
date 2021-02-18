@@ -106,7 +106,7 @@ public class DisplayManager {
         } catch(Exception exception){
           String message = resourceBundle.getString(exception.getMessage());
           //Can display the message however
-          // System.out.println(message);
+          System.out.println(message);
         }
 
       }
