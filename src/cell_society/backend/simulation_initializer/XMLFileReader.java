@@ -1,5 +1,6 @@
 package cell_society.backend.simulation_initializer;
 
+import cell_society.controller.ErrorHandler;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -82,7 +83,7 @@ public class XMLFileReader {
   public Map getSimulationParameters() throws XMLErrorHandler {
     Element root = getRootElement(currentFile);
     if (!isValidFile(root, simulationType)) {
-      throw new XMLErrorHandler(ERROR_MESSAGE, simulationType);
+      throw new ErrorHandler("WrongType");
     }
     // read data associated with the fields given by the object
     Map<String, String> results = new HashMap<>();
@@ -99,8 +100,8 @@ public class XMLFileReader {
    * @param userAttribute the element name
    */
   public Map getAttributeMap(String userAttribute) {
-    NodeList list = getRootElement(currentFile).getElementsByTagName(userAttribute).item(0)
-        .getChildNodes();
+    NodeList list = getNodeListByTagName(userAttribute);
+
     Map<String, String> results = new HashMap<>();
     for (int i = 0; i < list.getLength(); i++) {
       if (list.item(i) instanceof Element) {
@@ -118,8 +119,8 @@ public class XMLFileReader {
    * @param userAttribute the element name
    */
   public Map getReverseAttributeMap(String userAttribute) {
-    NodeList list = getRootElement(currentFile).getElementsByTagName(userAttribute).item(0)
-        .getChildNodes();
+    NodeList list = getNodeListByTagName(userAttribute);
+
     Map<String, String> results = new HashMap<>();
     for (int i = 0; i < list.getLength(); i++) {
       if (list.item(i) instanceof Element) {
@@ -128,6 +129,23 @@ public class XMLFileReader {
       }
     }
     return results;
+  }
+
+  /**
+   * Gets the NodeList corresponding to a certain tag name. Throws an exception if the tag
+   * name doesn't exist
+   * @param userAttribute The tag name
+   * @return The NodeList
+   */
+  public NodeList getNodeListByTagName(String userAttribute) {
+    NodeList list;
+    try {
+      list = getRootElement(currentFile).getElementsByTagName(userAttribute).item(0)
+          .getChildNodes();
+    }catch(Exception e){
+      throw new ErrorHandler("MissingCellSpecification");
+    }
+    return list;
   }
 
   /**

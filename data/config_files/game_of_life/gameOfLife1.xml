@@ -18,10 +18,10 @@
   </grid>
 
 
-  <codes>
+  <code>
     <key d='DeadCell'></key>
     <key a='AliveCell'></key>
-  </codes>
+  </code>
 
   <colors>
     <key d= 'FFFFFF'></key>
