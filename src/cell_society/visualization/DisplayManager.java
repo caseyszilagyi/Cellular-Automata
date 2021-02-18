@@ -90,6 +90,7 @@ public class DisplayManager {
       String simulationType = selectedDirectory.getParentFile().getName();
       return new String[] {simulationType, fileName};
     }
+
     return new String[] {"", ""};
   }
 
@@ -121,7 +122,7 @@ public class DisplayManager {
     });
 
     speedButton.setOnMouseClicked(e -> {
-      speedButton.setText(resourceBundle.getString("SpeedButton") + animationManager.setNextFPS());
+      speedButton.setText(resourceBundle.getString("SpeedButton") + animationManager.setNextFPS()); // <-- must use String.format() for info rather than '+'
     });
 
     colorModeButton.setOnMouseClicked(e -> {
