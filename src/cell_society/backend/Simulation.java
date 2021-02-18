@@ -22,15 +22,12 @@ public class Simulation {
 
   private final String SIMULATION_TYPE;
   private final String FILE_NAME;
-  private String STEPPER_PATH;
 
 
   public Simulation(String simulationType, String fileName) {
     SIMULATION_TYPE = simulationType;
     FILE_NAME = "data/config_files/" + simulationType + "/" + fileName;
     initializeSimulation();
-    STEPPER_PATH = "cell_society.backend.simulation_stepper." + simulationInitializer.getStepperType();
-    //initializeStepper();
   }
 
   /**

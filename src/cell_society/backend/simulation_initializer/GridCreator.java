@@ -13,7 +13,6 @@ import java.util.Map;
 public class GridCreator {
 
   private Grid simulationGrid;
-  private CellParameters cellBehavior;
   private final String PACKAGE_LOCATION = "cell_society.backend.automata.";
   private final String SIMULATION_TYPE;
   private final CellCreator CELL_CREATOR;
