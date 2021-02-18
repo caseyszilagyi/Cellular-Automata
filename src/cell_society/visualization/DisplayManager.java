@@ -100,7 +100,15 @@ public class DisplayManager {
       if (selectedDirectory != null){
         String fileName = selectedDirectory.getName();
         String simulationType = selectedDirectory.getParentFile().getName();
-        loadNewSimulation(simulationType, fileName);
+
+        try {
+          loadNewSimulation(simulationType, fileName);
+        } catch(Exception exception){
+          String message = resourceBundle.getString(exception.getMessage());
+          //Can display the message however
+          // System.out.println(message);
+        }
+
       }
     });
 

@@ -2,6 +2,7 @@ package cell_society.backend.simulation_initializer;
 
 import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.Grid;
+import cell_society.controller.ErrorHandler;
 import java.util.Map;
 
 /**
@@ -75,6 +76,10 @@ public class GridCreator {
    * @param cellCodes A map that links each character to a cell type
    */
   public void populateGrid(String grid, Map<String, String> cellCodes) {
+    if(grid.length() != simulationGrid.getGridHeight() * simulationGrid.getGridWidth()){
+      throw new ErrorHandler("IncorrectGridSpecification");
+    }
+
     grid = parseGrid(grid);
     int i = 0;
     for (int r = 0; r < simulationGrid.getGridHeight(); r++) {
