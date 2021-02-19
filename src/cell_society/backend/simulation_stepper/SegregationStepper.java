@@ -17,17 +17,17 @@ public class SegregationStepper extends SimulationStepper {
   private int gridWidth;
 
 
-  public SegregationStepper(){
+  public SegregationStepper() {
   }
 
-  public void setGrid(Grid grid){
+  public Grid getGrid() {
+    return simulationGrid;
+  }
+
+  public void setGrid(Grid grid) {
     simulationGrid = grid;
     gridHeight = grid.getGridHeight();
     gridWidth = grid.getGridWidth();
-  }
-
-  public Grid getGrid(){
-    return simulationGrid;
   }
 
   @Override
@@ -46,8 +46,9 @@ public class SegregationStepper extends SimulationStepper {
       List<Coordinate> vacantCoordinates) {
     Collections.shuffle(vacantCoordinates);
     // redistribute dissatisfied individuals.  Note, there's the potential here that a Cell will be placed in its current position.  Within the
-    while (!dissatisfiedQueue.isEmpty()){
-      AgentCell cell = (AgentCell) dissatisfiedQueue.poll();
+    while (!dissatisfiedQueue.isEmpty()) {
+      //AgentCell cell = (AgentCell) dissatisfiedQueue.poll();
+      Cell cell = dissatisfiedQueue.poll();
       Coordinate newSpot = vacantCoordinates.get(0);
       vacantCoordinates.remove(0);
       int r = newSpot.getFirst();
@@ -81,9 +82,8 @@ public class SegregationStepper extends SimulationStepper {
     cell.performPrimaryAction(neighbors, null, nextGrid);
     // Alright, there's the potential that the agent is unhappy.  In that case, queue up for relocation
 
-    AgentCell agentCell = (AgentCell) cell;
-    if (!agentCell.probeState(neighbors, null, null)){
-      dissatisfiedQueue.add(agentCell);
+    if (!cell.probeState(neighbors, null, null)) {
+      dissatisfiedQueue.add(cell);
       vacantCoordinates.add(new Coordinate(j, k));
     }
   }
