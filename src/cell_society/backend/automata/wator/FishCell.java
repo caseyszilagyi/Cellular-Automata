@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class FishCell extends Cell implements Reproduces{
+public class FishCell extends Cell {
 
   private int breedTimeCounter;
   private int breedTimeThresh;
@@ -75,17 +75,20 @@ public class FishCell extends Cell implements Reproduces{
   /**
    * Once the breed time is up a new fish spawns in a free neighboring cell and the parents breed
    * time is reset.
-   * @param grid
+   * @param neighbors
+   * @param currentGrid
+   * @param nextGrid
    */
-  public void reproduce(Grid grid) {
+  public void performSecondaryAction(Neighbors neighbors,
+      Grid currentGrid, Grid nextGrid) {
     if (breedTimeCounter >= breedTimeThresh) {
       for (Coordinate coords : getRandAdjacent(getRow(), getCol())) {
         int row = coords.getFirst();
         int col = coords.getSecond();
-        if (grid.isEmpty(row, col)) {
+        if (currentGrid.isEmpty(row, col)) {
           FishCell offspring = new FishCell(row, col, 0, breedTimeThresh);
           breedTimeCounter = 0;
-          grid.placeCell(row, col, offspring);
+          currentGrid.placeCell(row, col, offspring);
           return;
         }
       }

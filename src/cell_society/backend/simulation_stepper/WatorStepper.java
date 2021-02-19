@@ -4,7 +4,6 @@ import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.Grid;
 import cell_society.backend.automata.Neighbors;
 import cell_society.backend.automata.wator.FishCell;
-import cell_society.backend.automata.wator.Reproduces;
 import cell_society.backend.automata.wator.SharkCell;
 import cell_society.backend.automata.wator.ToroidalGrid;
 
@@ -38,10 +37,7 @@ public class WatorStepper extends SimulationStepper {
       for (int k = 0; k < gridWidth; k++) {
         Cell cell = nextGrid.getCell(j, k);
         if (cell == null) continue;
-        if (cell instanceof Reproduces){
-          Reproduces reproducibleCell = (Reproduces) cell;
-          reproducibleCell.reproduce(nextGrid);
-        }
+        cell.performSecondaryAction(null, nextGrid, null);
       }
     }
     simulationGrid = nextGrid;

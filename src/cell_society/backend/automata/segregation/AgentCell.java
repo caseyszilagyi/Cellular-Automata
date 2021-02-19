@@ -8,7 +8,7 @@ import cell_society.backend.simulation_initializer.CellParameters;
 /**
  * Represents an agent in Schelling's model of segregation as a cell on a grid.
  */
-public class AgentCell extends Cell implements DescribesSatisfaction{
+public class AgentCell extends Cell {
 
   private double satisfactionProp;
 
@@ -23,10 +23,6 @@ public class AgentCell extends Cell implements DescribesSatisfaction{
 
   public double getSatisfactionProp() {
     return satisfactionProp;
-  }
-
-  public String getAgentType() {
-    return getCellID();
   }
 
   @Override
@@ -57,29 +53,22 @@ public class AgentCell extends Cell implements DescribesSatisfaction{
    */
   @Override
   public void performPrimaryAction(Neighbors neighbors, Grid currentGrid, Grid nextGrid) {
-    if (isSatisfied(neighbors)) {
+    if (probeState(neighbors, null, null)) {
       AgentCell agentCell = new AgentCell(getRow(), getCol(), satisfactionProp);
       nextGrid.placeCell(getRow(), getCol(), agentCell);
     }
   }
 
   /**
-   * This method helps the stepper place the correct AgentCell type onto the grid.
-   * @param row row index of grid to place cell
-   * @param col row index of grid to place cell
-   * @param grid target grid to hold a new, appropriate Agent Cell.
-   */
-  public void relocate(int row, int col, Grid grid) {
-
-  }
-
-  /**
    * Determines whether a Cell is satisfied
    *
    * @param neighbors
+   * @param currentGrid
+   * @param nextGrid
    * @return
    */
-  public boolean isSatisfied(Neighbors neighbors) {
+  public boolean probeState(Neighbors neighbors, Grid currentGrid,
+      Grid nextGrid) {
     double numSameNeighbors = neighbors.getTypeCount(this);
     double totalNeighbors = neighbors.size();
     if(totalNeighbors == 0){

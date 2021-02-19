@@ -15,7 +15,7 @@ public class AgentCellB extends AgentCell {
 
   @Override
   public void performPrimaryAction(Neighbors neighbors, Grid currentGrid, Grid nextGrid) {
-    if (isSatisfied(neighbors)) {
+    if (probeState(neighbors, null, null)) {
       AgentCellB agentCell = new AgentCellB(getRow(), getCol(), getSatisfactionProp());
       nextGrid.placeCell(getRow(), getCol(), agentCell);
     }

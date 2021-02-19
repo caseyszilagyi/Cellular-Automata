@@ -94,17 +94,19 @@ public class SharkCell extends Cell {
    * If the shark has enough energy it spawns offspring in a free neighboring cell. The energy is
    * split evenly between the parent and the child.
    *
-   * @param grid
+   * @param neighbors
+   * @param currentGrid
+   * @param nextGrid
    */
-  public void reproduce(Grid grid) {
+  public void performSecondaryAction(Neighbors neighbors, Grid currentGrid, Grid nextGrid) {
     if (energy >= reproduceThresh) {
       for (Coordinate coords : getRandAdjacent(getRow(), getCol())) {
         int row = coords.getFirst();
         int col = coords.getSecond();
-        if (grid.isEmpty(row, col)) {
+        if (currentGrid.isEmpty(row, col)) {
           SharkCell offspring = new SharkCell(row, col, energy / 2, reproduceThresh, energyGain);
           energy /= 2;
-          grid.placeCell(row, col, offspring);
+          currentGrid.placeCell(row, col, offspring);
           return;
         }
       }

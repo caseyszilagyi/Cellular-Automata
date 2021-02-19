@@ -82,7 +82,7 @@ public class SegregationStepper extends SimulationStepper {
     // Alright, there's the potential that the agent is unhappy.  In that case, queue up for relocation
 
     AgentCell agentCell = (AgentCell) cell;
-    if (!agentCell.isSatisfied(neighbors)){
+    if (!agentCell.probeState(neighbors, null, null)){
       dissatisfiedQueue.add(agentCell);
       vacantCoordinates.add(new Coordinate(j, k));
     }
