@@ -7,6 +7,9 @@ import cell_society.backend.simulation_initializer.CellParameters;
 
 /**
  * Represents an agent in Schelling's model of segregation as a cell on a grid.
+ * <p>
+ * Primary Action: a satisfied agent will place a copy of itself in the same place, on the next
+ * grid. Secondary Action: N/A Probe State: probe whether the cell is satisfied
  */
 public class AgentCell extends Cell {
 
@@ -47,7 +50,8 @@ public class AgentCell extends Cell {
    * The update method of this class requires knowledge of other dissatisfied AgentCells. Therefore,
    * the makeDecisions method is solely responsible for placing satisfied Cells onto the nextState.
    * Handling the movement of the neighBors is dealt with elsewhere.
-   *  @param neighbors   Cells that this cell uses to make its decision
+   *
+   * @param neighbors   Cells that this cell uses to make its decision
    * @param currentGrid
    * @param nextGrid    grid to hold the next configuration of cells.
    */
@@ -71,7 +75,7 @@ public class AgentCell extends Cell {
       Grid nextGrid) {
     double numSameNeighbors = neighbors.getTypeCount(this);
     double totalNeighbors = neighbors.size();
-    if(totalNeighbors == 0){
+    if (totalNeighbors == 0) {
       return true;
     }
     return numSameNeighbors / totalNeighbors >= satisfactionProp;

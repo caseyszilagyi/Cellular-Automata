@@ -1,11 +1,11 @@
 package cell_society.backend.automata.wator;
 
-import cell_society.backend.simulation_initializer.CellParameters;
 import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.Coordinate;
 import cell_society.backend.automata.Direction;
 import cell_society.backend.automata.Grid;
 import cell_society.backend.automata.Neighbors;
+import cell_society.backend.simulation_initializer.CellParameters;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,14 +16,6 @@ public class FishCell extends Cell {
   private int breedTimeCounter;
   private int breedTimeThresh;
 
-  public int getBreedTimeCounter() {
-    return breedTimeCounter;
-  }
-
-  public int getBreedTimeThresh() {
-    return breedTimeThresh;
-  }
-
   public FishCell(int row, int col, int breedTimeCounter, int breedTimeThresh) {
     super(row, col);
     this.breedTimeCounter = breedTimeCounter;
@@ -32,6 +24,14 @@ public class FishCell extends Cell {
 
   public FishCell() {
 
+  }
+
+  public int getBreedTimeCounter() {
+    return breedTimeCounter;
+  }
+
+  public int getBreedTimeThresh() {
+    return breedTimeThresh;
   }
 
   @Override
@@ -48,7 +48,8 @@ public class FishCell extends Cell {
 
   /**
    * Prey fish move randomly to free neighboring cells.
-   *  @param neighbors   Cells that this cell uses to make its decision
+   *
+   * @param neighbors   Cells that this cell uses to make its decision
    * @param currentGrid
    * @param nextGrid    grid to hold the next configuration of cells.
    */
@@ -73,8 +74,11 @@ public class FishCell extends Cell {
   }
 
   /**
+   * The secondary action of the fish is to reproduce, if able.
+   * <p>
    * Once the breed time is up a new fish spawns in a free neighboring cell and the parents breed
    * time is reset.
+   *
    * @param neighbors
    * @param currentGrid
    * @param nextGrid

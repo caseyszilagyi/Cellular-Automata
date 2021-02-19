@@ -59,7 +59,8 @@ public class SharkCell extends Cell {
    * which the shark is moving is occupied by other fish it is consumed. The energy of the shark
    * increases by 1.  The shark dies if its energy level drops to zero, and sharks lose 1 energy
    * during every time step.
-   *  @param neighbors   Cells that this cell uses to make its decision
+   *
+   * @param neighbors   Cells that this cell uses to make its decision
    * @param currentGrid
    * @param nextGrid    grid to hold the next configuration of cells.
    */
@@ -79,9 +80,10 @@ public class SharkCell extends Cell {
           currentGrid)) {
         Cell cell = nextGrid.getCell(shiftedRow, shiftedCol);
         if (cell instanceof FishCell) {
-          energy+=energyGain;
+          energy += energyGain;
         }
-        SharkCell sharkCell = new SharkCell(shiftedRow, shiftedCol, energy, reproduceThresh,energyGain);
+        SharkCell sharkCell = new SharkCell(shiftedRow, shiftedCol, energy, reproduceThresh,
+            energyGain);
         nextGrid.placeCell(shiftedRow, shiftedCol, sharkCell);
         return;
       }
@@ -91,6 +93,8 @@ public class SharkCell extends Cell {
   }
 
   /**
+   * The secondary action of the shark is to reproduce, if able.
+   * <p>
    * If the shark has enough energy it spawns offspring in a free neighboring cell. The energy is
    * split evenly between the parent and the child.
    *
