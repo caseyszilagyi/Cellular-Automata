@@ -48,13 +48,12 @@ public class FishCell extends Cell implements Reproduces{
 
   /**
    * Prey fish move randomly to free neighboring cells.
-   *
-   * @param neighbors   Cells that this cell uses to make its decision
-   * @param nextGrid    grid to hold the next configuration of cells.
+   *  @param neighbors   Cells that this cell uses to make its decision
    * @param currentGrid
+   * @param nextGrid    grid to hold the next configuration of cells.
    */
   @Override
-  public void makeDecisions(Neighbors neighbors, Grid nextGrid, Grid currentGrid) {
+  public void performPrimaryAction(Neighbors neighbors, Grid currentGrid, Grid nextGrid) {
     breedTimeCounter++;
     int row = getRow();
     int col = getCol();

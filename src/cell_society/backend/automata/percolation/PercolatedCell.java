@@ -32,13 +32,12 @@ public class PercolatedCell extends Cell {
   /**
    * If a cell is percolated, it will always be percolated.  Therefore, update the nextGrid by
    * placing an identical, percolated cell.
-   *
-   * @param neighbors   Cells that this cell uses to make its decision
-   * @param nextGrid    grid to hold the next configuration of cells.
+   *  @param neighbors   Cells that this cell uses to make its decision
    * @param currentGrid
+   * @param nextGrid    grid to hold the next configuration of cells.
    */
   @Override
-  public void makeDecisions(Neighbors neighbors, Grid nextGrid, Grid currentGrid) {
+  public void performPrimaryAction(Neighbors neighbors, Grid currentGrid, Grid nextGrid) {
     int r = getRow();
     int c = getCol();
     PercolatedCell percolatedCell = new PercolatedCell(r, c);

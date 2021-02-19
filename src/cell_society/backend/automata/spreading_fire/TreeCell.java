@@ -45,13 +45,12 @@ public class TreeCell extends Cell {
    * If a TreeCell has a North, East, South, or West neighbor that is burning, there exists a
    * probCatch probability that the TreeCell will transform into a burning, Fire Cell.  Otherwise,
    * the Tree Cell remains intact, reflected in the next Grid state.
-   *
-   * @param neighbors   Cells that this cell uses to make its decision
-   * @param nextGrid    grid to hold the next configuration of cells.
+   *  @param neighbors   Cells that this cell uses to make its decision
    * @param currentGrid
+   * @param nextGrid    grid to hold the next configuration of cells.
    */
   @Override
-  public void makeDecisions(Neighbors neighbors, Grid nextGrid, Grid currentGrid) {
+  public void performPrimaryAction(Neighbors neighbors, Grid currentGrid, Grid nextGrid) {
     int burningNeighbors = neighbors.getTypeCount(new FireCell(-1, -1));
     double treeResult = Math.random();
     int row = getRow();

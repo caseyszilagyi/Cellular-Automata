@@ -2,7 +2,6 @@ package cell_society.backend.simulation_stepper;
 
 import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.Grid;
-import cell_society.backend.automata.wator.ToroidalGrid;
 
 /**
  * Deals with each "step" of the simulation, which is done every time the simulation loop makes a
@@ -33,7 +32,8 @@ public class SimulationStepper {
       for (int col = 0; col < simulationGrid.getGridWidth(); col++) {
         Cell currCell = simulationGrid.getCell(row, col);
         if(currCell != null) {
-          currCell.makeDecisions(currCell.getNeighbors(simulationGrid), nextGrid, simulationGrid);
+          currCell.performPrimaryAction(currCell.getNeighbors(simulationGrid), simulationGrid,
+              nextGrid);
         }
       }
     }

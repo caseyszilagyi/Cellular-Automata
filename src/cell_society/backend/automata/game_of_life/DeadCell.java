@@ -30,14 +30,12 @@ public class DeadCell extends Cell {
   /**
    * Updates the next Grid state according to the rules obeyed by DeadCells: Any dead cell with
    * exactly three live neighbours becomes a live cell, as if by reproduction.
-   *
-   * @param neighbors   Cells that this cell uses to make its decision
-   * @param nextGrid    grid to hold the next configuration of cells.
+   *  @param neighbors   Cells that this cell uses to make its decision
    * @param currentGrid
+   * @param nextGrid    grid to hold the next configuration of cells.
    */
   @Override
-  public void makeDecisions(Neighbors neighbors, Grid nextGrid,
-      Grid currentGrid) {
+  public void performPrimaryAction(Neighbors neighbors, Grid currentGrid, Grid nextGrid) {
     int numLiveNeighbors = neighbors.getTypeCount(new AliveCell(-1, -1));
     int row = getRow();
     int col = getCol();

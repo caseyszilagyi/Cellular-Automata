@@ -51,13 +51,12 @@ public class AgentCell extends Cell implements DescribesSatisfaction{
    * The update method of this class requires knowledge of other dissatisfied AgentCells. Therefore,
    * the makeDecisions method is solely responsible for placing satisfied Cells onto the nextState.
    * Handling the movement of the neighBors is dealt with elsewhere.
-   *
-   * @param neighbors   Cells that this cell uses to make its decision
-   * @param nextGrid    grid to hold the next configuration of cells.
+   *  @param neighbors   Cells that this cell uses to make its decision
    * @param currentGrid
+   * @param nextGrid    grid to hold the next configuration of cells.
    */
   @Override
-  public void makeDecisions(Neighbors neighbors, Grid nextGrid, Grid currentGrid) {
+  public void performPrimaryAction(Neighbors neighbors, Grid currentGrid, Grid nextGrid) {
     if (isSatisfied(neighbors)) {
       AgentCell agentCell = new AgentCell(getRow(), getCol(), satisfactionProp);
       nextGrid.placeCell(getRow(), getCol(), agentCell);

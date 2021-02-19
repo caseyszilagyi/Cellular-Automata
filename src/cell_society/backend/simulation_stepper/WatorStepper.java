@@ -61,7 +61,7 @@ public class WatorStepper extends SimulationStepper {
           continue;
         }
         Neighbors neighbors = cell.getNeighbors(simulationGrid);
-        cell.makeDecisions(neighbors, nextGrid, simulationGrid);
+        cell.performPrimaryAction(neighbors, simulationGrid, nextGrid);
       }
     }
   }

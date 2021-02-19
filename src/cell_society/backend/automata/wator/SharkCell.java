@@ -59,13 +59,12 @@ public class SharkCell extends Cell {
    * which the shark is moving is occupied by other fish it is consumed. The energy of the shark
    * increases by 1.  The shark dies if its energy level drops to zero, and sharks lose 1 energy
    * during every time step.
-   *
-   * @param neighbors   Cells that this cell uses to make its decision
-   * @param nextGrid    grid to hold the next configuration of cells.
+   *  @param neighbors   Cells that this cell uses to make its decision
    * @param currentGrid
+   * @param nextGrid    grid to hold the next configuration of cells.
    */
   @Override
-  public void makeDecisions(Neighbors neighbors, Grid nextGrid, Grid currentGrid) {
+  public void performPrimaryAction(Neighbors neighbors, Grid currentGrid, Grid nextGrid) {
     if (energy == 0) {
       return;
     }
