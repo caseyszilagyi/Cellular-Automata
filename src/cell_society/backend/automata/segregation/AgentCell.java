@@ -43,7 +43,9 @@ public class AgentCell extends Cell {
   public Neighbors getNeighbors(Grid grid) {
     int row = getRow();
     int col = getCol();
-    return grid.getDirectNeighbors(row, col);
+    Neighbors neighbors = grid.getDirectNeighbors(row, col);
+    neighbors.removeNull();
+    return neighbors;
   }
 
   /**

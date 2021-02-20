@@ -1,6 +1,7 @@
 package cell_society.backend.automata;
 
 import cell_society.backend.automata.grid_styles.SquareStructure;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -41,6 +42,10 @@ public class Grid {
    * Empty constructor for newInstance method use
    */
   public Grid() {
+  }
+
+  public CellStructure getGridCellStructure() {
+    return gridCellStructure;
   }
 
   /**
@@ -292,10 +297,13 @@ public class Grid {
   public void printCurrentState(int rowIndex, int colIndex, int height, int width) {
     for (int j = rowIndex; j < rowIndex + height; j++) {
       for (int k = colIndex; k < colIndex + width; k++) {
-        String token = !inBoundaries(j, k) || isEmpty(j, k) ? "_" : getCell(j, k).getGridRepresentation();
+        String token =
+            !inBoundaries(j, k) || isEmpty(j, k) ? "_" : getCell(j, k).getGridRepresentation();
         System.out.print("." + token + ".");
       }
+      System.out.println();
     }
+    System.out.println();
   }
 
 }

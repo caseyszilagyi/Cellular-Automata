@@ -58,7 +58,7 @@ public class InfiniteGrid extends Grid {
 
   @Override
   public boolean isEmpty(int row, int col) {
-    return grid.containsKey(new Coordinate(row, col));
+    return !grid.containsKey(new Coordinate(row, col));
   }
 
   @Override
@@ -74,7 +74,7 @@ public class InfiniteGrid extends Grid {
   public void updateRemainingPatches(Grid otherGrid) {
     List<Coordinate> coordinateList = getCoordinateUpdateList();
     for (Coordinate coord : coordinateList) {
-      if (gridStates.get(coord) == null){
+      if (gridStates.get(coord) == null) {
         gridStates.put(coord, otherGrid.getPatch(coord.getFirst(), coord.getSecond()));
       }
     }

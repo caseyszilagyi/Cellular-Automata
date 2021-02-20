@@ -4,7 +4,6 @@ import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.Coordinate;
 import cell_society.backend.automata.Grid;
 import cell_society.backend.automata.Neighbors;
-import cell_society.backend.automata.segregation.AgentCell;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
