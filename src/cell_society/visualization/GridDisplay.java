@@ -121,7 +121,7 @@ public class GridDisplay {
         }
         triangleDirectionUp = !triangleDirectionUp;
         createCell(
-            col * cellSideLength / 2.0 + whiteSpaceX,
+            col * cellSideLength + whiteSpaceX / 2.0,
             row * cellSideLength + whiteSpaceY,
             cellColorSheet[colorSheetIndex],
             triangleDirection
@@ -176,16 +176,16 @@ public class GridDisplay {
   private void drawTriangleCellUp(Polygon cell, double x, double y) {
     cell.getPoints().addAll(
         x, y + cellSideLength,
-        x + cellSideLength / 2.0, y,
-        x + cellSideLength, y + cellSideLength
+        x + cellSideLength, y,
+        x + cellSideLength * 2.0, y + cellSideLength
     );
   }
 
   private void drawTriangleCellDown(Polygon cell, double x, double y) {
     cell.getPoints().addAll(
         x, y,
-        x + cellSideLength, y,
-        x + cellSideLength / 2.0, y + cellSideLength
+        x + cellSideLength * 2.0, y,
+        x + cellSideLength, y + cellSideLength
     );
   }
 }
