@@ -2,8 +2,8 @@ package cell_society.backend.automata.game_of_life;
 
 
 import cell_society.backend.automata.Cell;
+import cell_society.backend.automata.grid_styles.Grid;
 import cell_society.backend.automata.Coordinate;
-import cell_society.backend.automata.Grid;
 import cell_society.backend.automata.Neighbors;
 import java.util.List;
 

@@ -2,7 +2,6 @@ package cell_society.backend.automata.grid_styles;
 
 import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.Coordinate;
-import cell_society.backend.automata.Grid;
 import cell_society.backend.automata.Patch;
 import java.util.ArrayList;
 import java.util.HashMap;

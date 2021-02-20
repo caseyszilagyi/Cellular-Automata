@@ -13,4 +13,8 @@ public class ErrorHandler extends RuntimeException{
     super(errorMessage);
   }
 
+  public ErrorHandler(Exception exception){
+    super(exception);
+  }
+
 }

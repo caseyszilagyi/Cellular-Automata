@@ -1,7 +1,8 @@
 package cell_society.backend.simulation_stepper;
 
 import cell_society.backend.automata.Cell;
-import cell_society.backend.automata.Grid;
+import cell_society.backend.automata.grid_styles.Grid;
+
 
 /**
  * Deals with each "step" of the simulation, which is done every time the simulation loop makes a
