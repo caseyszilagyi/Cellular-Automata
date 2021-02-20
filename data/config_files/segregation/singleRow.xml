@@ -9,7 +9,7 @@
   <stepperType>SegregationStepper</stepperType>
 
   <rows>1</rows>
-  <columns>20</columns>
+  <columns>25</columns>
   <grid>
     eeeeexoxoxoxoxoxoxoxoxoxo
   </grid>

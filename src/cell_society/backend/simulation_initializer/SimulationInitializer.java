@@ -1,6 +1,5 @@
 package cell_society.backend.simulation_initializer;
 
-import cell_society.backend.SimulationClassLoader;
 import cell_society.backend.automata.grid_styles.Grid;
 import cell_society.backend.simulation_stepper.SimulationStepper;
 import java.util.Map;
@@ -13,7 +12,10 @@ import java.util.Map;
  */
 public class SimulationInitializer {
 
-  private final String STEPPER_PATH = "cell_society.backend.simulation_stepper.";
+  private String STEPPER_LOCATION = "cell_society.backend.simulation_stepper.";
+  private String GRID_LOCATION = "cell_society.backend.automata.grid.";
+  private String CELL_LOCATION;
+  private String PACKAGE_LOCATION = "cell_society.backend.automata.";
 
   private XMLFileReader xmlFileReader;
   // All the general things about the simulation (title, author)
@@ -33,7 +35,7 @@ public class SimulationInitializer {
 
   private String simulationType;
   private Grid simulationGrid;
-  private SimulationClassLoader simulationClassLoader;
+  private SimulationClassLoader classLoader;
 
   /**
    * Initializes the file reader.
@@ -53,9 +55,9 @@ public class SimulationInitializer {
    */
   public void initializeSimulation(String userSimulationType, String fileName) {
     simulationType = userSimulationType;
-    simulationClassLoader = new SimulationClassLoader(userSimulationType);
     xmlFileReader.setSimulationType(simulationType);
     xmlFileReader.setFile(fileName);
+    classLoader = new SimulationClassLoader(userSimulationType);
     getMaps();
   }
 
@@ -79,7 +81,7 @@ public class SimulationInitializer {
         Integer.parseInt(simulationParameters.get("columns")),
         simulationParameters.get("cellPackage"),
         simulationParameters.get("gridType"),
-        cellCreator);
+        cellParameters, classLoader);
     gridCreator.populateGrid(simulationParameters.get("grid"), cellCodes);
     gridCreator.setColorCodes(colorCodes);
     gridCreator.setCellDecoder(cellDecoder);
@@ -92,28 +94,9 @@ public class SimulationInitializer {
    * Initializes the stepper that loops through all the cells;
    */
   public SimulationStepper makeStepper() {
-
-    String stepperType = simulationParameters.get("stepperType");
-
-    Class classStepper = null;
-    try {
-      classStepper = Class.forName(STEPPER_PATH + stepperType);
-    } catch (ClassNotFoundException e) {
-      System.out
-          .println("Error: Stepper class name does not exist or is placed in the wrong location");
-    }
-
-    //Casting the generic class to a stepper object
-    SimulationStepper simulationStepper = null;
-    try {
-      simulationStepper = (SimulationStepper) classStepper.newInstance();
-    } catch (Exception e) {
-      System.out.println("Error: Stepper casting");
-    }
-
-    simulationStepper.setGrid(simulationGrid);
-
-    return simulationStepper;
+    SimulationStepper myStepper = classLoader.makeStepper(simulationParameters.get("stepperType"));
+    myStepper.setGrid(simulationGrid);
+    return myStepper;
   }
 
   /**
