@@ -1,7 +1,7 @@
 package cell_society.backend.automata.percolation;
 
 import cell_society.backend.automata.Cell;
-import cell_society.backend.automata.grid.Grid;
+import cell_society.backend.automata.grid_styles.Grid;
 import cell_society.backend.automata.Neighbors;
 
 /**
@@ -33,13 +33,12 @@ public class OpenCell extends Cell {
    * If an open cell has at least one percolated neighbor, it will also become percolated.  If there
    * are no percolated neighbors, it will remain in the open state.  Therefore, update the nextGrid
    * to reflect this.
-   *
-   * @param neighbors   Cells that this cell uses to make its decision
-   * @param nextGrid    grid to hold the next configuration of cells.
+   *  @param neighbors   Cells that this cell uses to make its decision
    * @param currentGrid
+   * @param nextGrid    grid to hold the next configuration of cells.
    */
   @Override
-  public void makeDecisions(Neighbors neighbors, Grid nextGrid, Grid currentGrid) {
+  public void performPrimaryAction(Neighbors neighbors, Grid currentGrid, Grid nextGrid) {
     int numPercolatedNeighbors = neighbors.getTypeCount(new PercolatedCell(-1, -1));
     int r = getRow();
     int c = getCol();

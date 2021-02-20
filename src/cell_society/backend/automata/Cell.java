@@ -1,11 +1,10 @@
 package cell_society.backend.automata;
 
-import cell_society.backend.automata.grid.Grid;
+import cell_society.backend.automata.grid_styles.Grid;
 import cell_society.backend.simulation_initializer.CellParameters;
 
 public class Cell {
 
-  private String cellID;
   private int row;
   private int col;
 
@@ -16,22 +15,6 @@ public class Cell {
   public Cell(int row, int col) {
     this.row = row;
     this.col = col;
-  }
-
-  /**
-   * The cellID is a unique String identifier used to help map a Cell to a color.  It can also serve to further distinguish Cells of the same Class.
-   * @param cellID Desired cellID to set this Cell's ID to.
-   */
-  public void setCellID(String cellID) {
-    this.cellID = cellID;
-  }
-
-  /**
-   * Retrieve this Cell's string identifier
-   * @return cellID of this Cell.
-   */
-  public String getCellID(){
-    return cellID;
   }
 
   public void initializeParams(CellParameters parameters) {
@@ -67,14 +50,40 @@ public class Cell {
    * Updates the next Grid state according to the rules obeyed by the Cell.
    *
    * @param neighbors   Cells that this cell uses to make its decision
-   * @param nextGrid    grid to hold the next configuration of cells.
-   * @param currentGrid
+   * @param currentGrid Grid containing the current configuration of cells
+   * @param nextGrid    Grid to contain the next configuration of cells
    */
-  public void makeDecisions(Neighbors neighbors, Grid nextGrid,
-      Grid currentGrid) {
+  public void performPrimaryAction(Neighbors neighbors, Grid currentGrid, Grid nextGrid) {
   }
 
-  public String getGridRepresentation(){
+  /**
+   * Allows for the inclusion of additional functionality that cannot be wrapped into the Primary
+   * action.
+   *
+   * @param neighbors   Cells that this cell uses to make its decisions
+   * @param currentGrid Grid containing the current configuration of cells
+   * @param nextGrid    Grid to contain the next configuration of cells
+   */
+  public void performSecondaryAction(Neighbors neighbors, Grid currentGrid, Grid nextGrid) {
+  }
+
+  /**
+   * Method to allow for placing a nearly identical cell (with the exception of contained row and
+   * coordinates) to a new location.
+   *
+   * @param row  new row index to place cell
+   * @param col  new column index to place cell
+   * @param grid grid to accept the cell object.
+   */
+  public void relocate(int row, int col, Grid grid) {
+  }
+
+  public boolean probeState(Neighbors neighbors, Grid currentGrid, Grid nextGrid) {
+    return true;
+  }
+
+
+  public String getGridRepresentation() {
     return "?";
   }
 }

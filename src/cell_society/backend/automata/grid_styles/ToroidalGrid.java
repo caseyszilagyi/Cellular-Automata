@@ -1,8 +1,7 @@
-package cell_society.backend.automata.grid;
+package cell_society.backend.automata.grid_styles;
 
 import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.Coordinate;
-import cell_society.backend.automata.grid.Grid;
 
 /**
  * The toroidal grid is connected from sides, following a slightly different set of rules.
@@ -11,6 +10,7 @@ public class ToroidalGrid extends Grid {
 
   /**
    * Makes a grid with the given width/height
+   *
    * @param gridHeight
    * @param gridWidth
    */
@@ -21,19 +21,33 @@ public class ToroidalGrid extends Grid {
   /**
    * Empty constructor for newInstance method usage
    */
-  public ToroidalGrid(){
+  public ToroidalGrid() {
   }
 
-  public ToroidalGrid(Grid grid){
+  public ToroidalGrid(Grid grid) {
     super(grid);
   }
+
   /**
    * Used to make the grid and establish width/height
-   * @param width The grid width
+   *
+   * @param width  The grid width
    * @param height The grid height
    */
-  public void makeGrid(int width, int height){
+  public void makeGrid(int width, int height) {
     super.makeGrid(width, height);
+  }
+
+
+  /**
+   * Always in boundaries due to the toroidal nature.
+   * @param row
+   * @param col
+   * @return
+   */
+  @Override
+  public boolean inBoundaries(int row, int col) {
+    return true;
   }
 
   /**

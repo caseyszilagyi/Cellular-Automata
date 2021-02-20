@@ -1,12 +1,11 @@
 package cell_society.backend.simulation_stepper;
 
 import cell_society.backend.automata.Cell;
-import cell_society.backend.automata.grid.Grid;
+import cell_society.backend.automata.grid_styles.Grid;
 import cell_society.backend.automata.Neighbors;
 import cell_society.backend.automata.wator.FishCell;
-import cell_society.backend.automata.wator.Reproduces;
 import cell_society.backend.automata.wator.SharkCell;
-import cell_society.backend.automata.grid.ToroidalGrid;
+import cell_society.backend.automata.grid_styles.ToroidalGrid;
 
 public class WatorStepper extends SimulationStepper {
 
@@ -38,10 +37,7 @@ public class WatorStepper extends SimulationStepper {
       for (int k = 0; k < gridWidth; k++) {
         Cell cell = nextGrid.getCell(j, k);
         if (cell == null) continue;
-        if (cell instanceof Reproduces){
-          Reproduces reproducibleCell = (Reproduces) cell;
-          reproducibleCell.reproduce(nextGrid);
-        }
+        cell.performSecondaryAction(null, nextGrid, null);
       }
     }
     simulationGrid = nextGrid;
@@ -61,7 +57,7 @@ public class WatorStepper extends SimulationStepper {
           continue;
         }
         Neighbors neighbors = cell.getNeighbors(simulationGrid);
-        cell.makeDecisions(neighbors, nextGrid, simulationGrid);
+        cell.performPrimaryAction(neighbors, simulationGrid, nextGrid);
       }
     }
   }

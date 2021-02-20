@@ -1,28 +1,17 @@
 package cell_society.backend.automata.wator;
 
-import cell_society.backend.simulation_initializer.CellParameters;
 import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.Coordinate;
-import cell_society.backend.automata.Direction;
-import cell_society.backend.automata.grid.Grid;
+import cell_society.backend.automata.grid_styles.Grid;
 import cell_society.backend.automata.Neighbors;
-import java.util.ArrayList;
-import java.util.Arrays;
+import cell_society.backend.simulation_initializer.CellParameters;
 import java.util.Collections;
 import java.util.List;
 
-public class FishCell extends Cell implements Reproduces{
+public class FishCell extends Cell {
 
   private int breedTimeCounter;
   private int breedTimeThresh;
-
-  public int getBreedTimeCounter() {
-    return breedTimeCounter;
-  }
-
-  public int getBreedTimeThresh() {
-    return breedTimeThresh;
-  }
 
   public FishCell(int row, int col, int breedTimeCounter, int breedTimeThresh) {
     super(row, col);
@@ -32,6 +21,14 @@ public class FishCell extends Cell implements Reproduces{
 
   public FishCell() {
 
+  }
+
+  public int getBreedTimeCounter() {
+    return breedTimeCounter;
+  }
+
+  public int getBreedTimeThresh() {
+    return breedTimeThresh;
   }
 
   @Override
@@ -50,17 +47,18 @@ public class FishCell extends Cell implements Reproduces{
    * Prey fish move randomly to free neighboring cells.
    *
    * @param neighbors   Cells that this cell uses to make its decision
-   * @param nextGrid    grid to hold the next configuration of cells.
    * @param currentGrid
+   * @param nextGrid    grid to hold the next configuration of cells.
    */
   @Override
-  public void makeDecisions(Neighbors neighbors, Grid nextGrid, Grid currentGrid) {
+  public void performPrimaryAction(Neighbors neighbors, Grid currentGrid, Grid nextGrid) {
     breedTimeCounter++;
     int row = getRow();
     int col = getCol();
-    for (Coordinate coords : getRandAdjacent(row, col)) {
+    for (Coordinate coords : getRandAdjacent(row, col, currentGrid)) {
       int shiftedRow = coords.getFirst();
       int shiftedCol = coords.getSecond();
+      if (!currentGrid.inBoundaries(shiftedRow, shiftedCol)) continue;
       // Both the current and target grid the fish wants to move to must be empty
       if (currentGrid.isEmpty(shiftedRow, shiftedCol) && nextGrid.isEmpty(shiftedRow, shiftedCol)) {
         FishCell fishCell = new FishCell(shiftedRow, shiftedCol, breedTimeCounter, breedTimeThresh);
@@ -74,19 +72,26 @@ public class FishCell extends Cell implements Reproduces{
   }
 
   /**
+   * The secondary action of the fish is to reproduce, if able.
+   * <p>
    * Once the breed time is up a new fish spawns in a free neighboring cell and the parents breed
    * time is reset.
-   * @param grid
+   *
+   * @param neighbors
+   * @param currentGrid
+   * @param nextGrid
    */
-  public void reproduce(Grid grid) {
+  public void performSecondaryAction(Neighbors neighbors,
+      Grid currentGrid, Grid nextGrid) {
     if (breedTimeCounter >= breedTimeThresh) {
-      for (Coordinate coords : getRandAdjacent(getRow(), getCol())) {
+      for (Coordinate coords : getRandAdjacent(getRow(), getCol(), currentGrid)) {
         int row = coords.getFirst();
         int col = coords.getSecond();
-        if (grid.isEmpty(row, col)) {
+        if (!currentGrid.inBoundaries(row, col)) continue;
+        if (currentGrid.isEmpty(row, col)) {
           FishCell offspring = new FishCell(row, col, 0, breedTimeThresh);
           breedTimeCounter = 0;
-          grid.placeCell(row, col, offspring);
+          currentGrid.placeCell(row, col, offspring);
           return;
         }
       }
@@ -100,19 +105,14 @@ public class FishCell extends Cell implements Reproduces{
    *
    * @param row
    * @param col
+   * @param grid
    * @return
    */
-  private List<Coordinate> getRandAdjacent(int row, int col) {
-    List<Coordinate> returnCoordinates = new ArrayList<>();
-    Direction[] direction = new Direction[]{Direction.TOP, Direction.LEFT, Direction.RIGHT,
-        Direction.BOTTOM};
-    List<Direction> directionList = Arrays.asList(direction);
-    Collections.shuffle(directionList);
-    for (Direction dir : directionList) {
-      int shiftedRow = dir.applyToRow(row);
-      int shiftedCol = dir.applyToCol(col);
-      returnCoordinates.add(new Coordinate(shiftedRow, shiftedCol));
-    }
+  private List<Coordinate> getRandAdjacent(int row, int col,
+      Grid grid) {
+    List<Coordinate> returnCoordinates = grid.getGridCellStructure()
+        .getAllAdjacentCoordinates(row, col);
+    Collections.shuffle(returnCoordinates);
     return returnCoordinates;
   }
 

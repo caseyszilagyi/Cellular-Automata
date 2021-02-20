@@ -1,11 +1,11 @@
-package cell_society.backend.automata.grid;
+package cell_society.backend.automata.grid_styles;
 
 import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.CellStructure;
 import cell_society.backend.automata.Coordinate;
-import cell_society.backend.automata.Direction;
 import cell_society.backend.automata.Neighbors;
 import cell_society.backend.automata.Patch;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +14,7 @@ public class Grid {
 
   private Cell[][] grid;
   private Patch[][] gridStates;
-  private CellStructure gridCellStructure;
+  private CellStructure gridCellStructure = new SquareStructure();
 
   private int gridHeight;
   private int gridWidth;
@@ -37,12 +37,27 @@ public class Grid {
     this(grid.gridHeight, grid.gridWidth);
     this.colorCodes = grid.colorCodes;
     this.cellDecoder = grid.cellDecoder;
+    this.gridCellStructure = grid.gridCellStructure;
+    //updateRemainingPatches(grid);
   }
 
   /**
    * Empty constructor for newInstance method use
    */
   public Grid() {
+  }
+
+  public CellStructure getGridCellStructure() {
+    return gridCellStructure;
+  }
+
+  /**
+   * Alter how neighbors are determined
+   *
+   * @param structure CellStructure to use (Hex, Square, Triangular)
+   */
+  public void setGridCellStructure(CellStructure structure) {
+    gridCellStructure = structure;
   }
 
   /**
@@ -94,11 +109,12 @@ public class Grid {
    */
   public Neighbors getDirectNeighbors(int row, int col) {
     Neighbors neighbors = new Neighbors();
-    for (Direction d : Direction.values()) {
-      int newRow = d.applyToRow(row);
-      int newCol = d.applyToCol(col);
+    for (Coordinate coordinate : gridCellStructure.getAllNeighboringCoordinates(row, col)) {
+      int newRow = coordinate.getFirst();
+      int newCol = coordinate.getSecond();
       if (inBoundaries(newRow, newCol)) {
-        neighbors.add(grid[newRow][newCol]);
+        //neighbors.add(grid[newRow][newCol]);
+        neighbors.add(getCell(newRow, newCol));
       }
     }
     return neighbors;
@@ -114,28 +130,15 @@ public class Grid {
    */
   public Neighbors getAdjacentNeighbors(int row, int col) {
     Neighbors neighbors = new Neighbors();
-    Direction[] adjacentDirections = new Direction[]{Direction.TOP, Direction.BOTTOM,
-        Direction.LEFT, Direction.RIGHT};
-    for (Direction d : adjacentDirections) {
-      int newRow = d.applyToRow(row);
-      int newCol = d.applyToCol(col);
+    for (Coordinate coordinate : gridCellStructure.getAllAdjacentCoordinates(row, col)) {
+      int newRow = coordinate.getFirst();
+      int newCol = coordinate.getSecond();
       if (inBoundaries(newRow, newCol)) {
-        neighbors.add(grid[newRow][newCol]);
+        //neighbors.add(grid[newRow][newCol]);
+        neighbors.add(getCell(newRow, newCol));
       }
     }
     return neighbors;
-  }
-
-
-  /**
-   * Retrieve the cell object contained at the specified position
-   *
-   * @param row desired row index of grid
-   * @param col desired column index of grid
-   * @return Cell or null object contained at the specified location.
-   */
-  public Cell getCell(int row, int col) {
-    return grid[row][col];
   }
 
   /**
@@ -180,6 +183,17 @@ public class Grid {
   }
 
   /**
+   * Retrieve the cell object contained at the specified position
+   *
+   * @param row desired row index of grid
+   * @param col desired column index of grid
+   * @return Cell or null object contained at the specified location.
+   */
+  public Cell getCell(int row, int col) {
+    return grid[row][col];
+  }
+
+  /**
    * place a Cell into the desired coordinates.  Indices must be positive and within the bounds of
    * the grid.
    *
@@ -189,6 +203,10 @@ public class Grid {
    */
   public void placeCell(int row, int col, Cell cell) {
     grid[row][col] = cell;
+  }
+
+  public Patch getPatch(int row, int col) {
+    return gridStates[row][col];
   }
 
   /**
@@ -204,17 +222,27 @@ public class Grid {
   }
 
   /**
-   * While cells may all be updated during the course of the main update loop, Patches may be left
-   * alone, possibly due to the inclusion of null values representing empty cells..
+   * Uniform list of coordinates to update through.
    *
-   * @param otherGrid grid to copy over unchanged patch values from
+   * @return
    */
-  public void updateRemainingPatches(Grid otherGrid) throws CloneNotSupportedException {
+  public List<Coordinate> getCoordinateUpdateList() {
+    List<Coordinate> coordinateList = new ArrayList<>();
     for (int j = 0; j < gridHeight; j++) {
       for (int k = 0; k < gridWidth; k++) {
-        if (gridStates[j][k] == null) {
-          gridStates[j][k] = (Patch) otherGrid.gridStates[j][k].clone();
-        }
+        coordinateList.add(new Coordinate(j, k));
+      }
+    }
+    return coordinateList;
+  }
+
+  public void updateRemainingPatches(Grid otherGrid) {
+    List<Coordinate> coordinateList = getCoordinateUpdateList();
+    for (Coordinate coord : coordinateList) {
+      int row = coord.getFirst();
+      int col = coord.getSecond();
+      if (gridStates[row][col] == null) {
+        gridStates[row][col] = otherGrid.getPatch(row, col).copy();
       }
     }
   }
@@ -248,6 +276,26 @@ public class Grid {
     for (int j = 0; j < gridHeight; j++) {
       for (int k = 0; k < gridWidth; k++) {
         String token = isEmpty(j, k) ? "_" : grid[j][k].getGridRepresentation();
+        System.out.print("." + token + ".");
+      }
+      System.out.println();
+    }
+    System.out.println();
+  }
+
+  /**
+   * Updated print debugger.  Slices into the gridAccepts negative coordinates
+   *
+   * @param rowIndex
+   * @param colIndex
+   * @param height
+   * @param width
+   */
+  public void printCurrentState(int rowIndex, int colIndex, int height, int width) {
+    for (int j = rowIndex; j < rowIndex + height; j++) {
+      for (int k = colIndex; k < colIndex + width; k++) {
+        String token =
+            !inBoundaries(j, k) || isEmpty(j, k) ? "_" : getCell(j, k).getGridRepresentation();
         System.out.print("." + token + ".");
       }
       System.out.println();

@@ -1,14 +1,17 @@
 package cell_society.backend.automata.segregation;
 
 import cell_society.backend.automata.Cell;
-import cell_society.backend.automata.grid.Grid;
+import cell_society.backend.automata.grid_styles.Grid;
 import cell_society.backend.automata.Neighbors;
 import cell_society.backend.simulation_initializer.CellParameters;
 
 /**
  * Represents an agent in Schelling's model of segregation as a cell on a grid.
+ * <p>
+ * Primary Action: a satisfied agent will place a copy of itself in the same place, on the next
+ * grid. Secondary Action: N/A Probe State: probe whether the cell is satisfied
  */
-public class AgentCell extends Cell implements DescribesSatisfaction{
+public class AgentCell extends Cell {
 
   private double satisfactionProp;
 
@@ -23,10 +26,6 @@ public class AgentCell extends Cell implements DescribesSatisfaction{
 
   public double getSatisfactionProp() {
     return satisfactionProp;
-  }
-
-  public String getAgentType() {
-    return getCellID();
   }
 
   @Override
@@ -44,7 +43,9 @@ public class AgentCell extends Cell implements DescribesSatisfaction{
   public Neighbors getNeighbors(Grid grid) {
     int row = getRow();
     int col = getCol();
-    return grid.getDirectNeighbors(row, col);
+    Neighbors neighbors = grid.getDirectNeighbors(row, col);
+    neighbors.removeNull();
+    return neighbors;
   }
 
   /**
@@ -53,37 +54,30 @@ public class AgentCell extends Cell implements DescribesSatisfaction{
    * Handling the movement of the neighBors is dealt with elsewhere.
    *
    * @param neighbors   Cells that this cell uses to make its decision
-   * @param nextGrid    grid to hold the next configuration of cells.
    * @param currentGrid
+   * @param nextGrid    grid to hold the next configuration of cells.
    */
   @Override
-  public void makeDecisions(Neighbors neighbors, Grid nextGrid, Grid currentGrid) {
-    if (isSatisfied(neighbors)) {
+  public void performPrimaryAction(Neighbors neighbors, Grid currentGrid, Grid nextGrid) {
+    if (probeState(neighbors, null, null)) {
       AgentCell agentCell = new AgentCell(getRow(), getCol(), satisfactionProp);
       nextGrid.placeCell(getRow(), getCol(), agentCell);
     }
   }
 
   /**
-   * This method helps the stepper place the correct AgentCell type onto the grid.
-   * @param row row index of grid to place cell
-   * @param col row index of grid to place cell
-   * @param grid target grid to hold a new, appropriate Agent Cell.
-   */
-  public void relocate(int row, int col, Grid grid) {
-
-  }
-
-  /**
    * Determines whether a Cell is satisfied
    *
    * @param neighbors
+   * @param currentGrid
+   * @param nextGrid
    * @return
    */
-  public boolean isSatisfied(Neighbors neighbors) {
+  public boolean probeState(Neighbors neighbors, Grid currentGrid,
+      Grid nextGrid) {
     double numSameNeighbors = neighbors.getTypeCount(this);
     double totalNeighbors = neighbors.size();
-    if(totalNeighbors == 0){
+    if (totalNeighbors == 0) {
       return true;
     }
     return numSameNeighbors / totalNeighbors >= satisfactionProp;

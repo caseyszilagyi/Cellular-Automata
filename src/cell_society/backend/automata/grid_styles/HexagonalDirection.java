@@ -29,11 +29,17 @@ public enum HexagonalDirection implements Direction {
   @Override
   public Coordinate getResultingCoordinate(int row, int col) {
     int rowChange = row % 2 == 0 ? rowDelta : rowDeltaShift;
-    int colChange = col % 2 == 0 ? colDelta : colDeltaShift;
+    int colChange = row % 2 == 0 ? colDelta : colDeltaShift;
     Coordinate coordinate = new Coordinate(row + rowChange, col + colChange);
     return coordinate;
   }
 
+  /**
+   * Assume all neighbors bordering a hexagon are adjacent.
+   * @param row row index where the neighborhood is centered
+   * @param col column index where the neighborhood is centered
+   * @return
+   */
   @Override
   public List<Direction> getAdjacentDirections(int row, int col) {
     List<Direction> allAdjacentDirections = new ArrayList<>();

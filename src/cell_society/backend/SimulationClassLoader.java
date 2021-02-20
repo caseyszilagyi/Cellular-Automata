@@ -1,7 +1,7 @@
 package cell_society.backend;
 
 import cell_society.backend.automata.Cell;
-import cell_society.backend.automata.grid.Grid;
+import cell_society.backend.automata.grid_styles.Grid;
 import cell_society.backend.simulation_stepper.SimulationStepper;
 import cell_society.controller.ErrorHandler;
 import java.io.ByteArrayOutputStream;
@@ -131,7 +131,7 @@ public class SimulationClassLoader extends ClassLoader{
   public static void main(String[] args) throws Exception {
     ClassLoader classLoader = new ClassLoader() {
     };
-    Object grido = classLoader.loadClass("cell_society.backend.automata.grid.Grid").getDeclaredConstructor().newInstance();
+    Object grido = classLoader.loadClass("cell_society.backend.automata.grid_styles.Grid").getDeclaredConstructor().newInstance();
     Grid griddy = (Grid) grido;
     griddy.makeGrid(3,4);
 
