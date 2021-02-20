@@ -5,6 +5,7 @@ import cell_society.backend.automata.Coordinate;
 import cell_society.backend.automata.Grid;
 import cell_society.backend.automata.Neighbors;
 import cell_society.backend.simulation_initializer.CellParameters;
+import java.util.Collections;
 import java.util.List;
 
 public class SharkCell extends Cell {
@@ -124,6 +125,7 @@ public class SharkCell extends Cell {
       Grid grid) {
     List<Coordinate> returnCoordinates = grid.getGridCellStructure()
         .getAllAdjacentCoordinates(row, col);
+    Collections.shuffle(returnCoordinates);
     return returnCoordinates;
   }
 

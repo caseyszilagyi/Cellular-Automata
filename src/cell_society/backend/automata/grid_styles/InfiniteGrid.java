@@ -58,7 +58,7 @@ public class InfiniteGrid extends Grid {
 
   @Override
   public boolean isEmpty(int row, int col) {
-    return !grid.containsKey(new Coordinate(row, col));
+    return grid.get(new Coordinate(row, col)) == null;
   }
 
   @Override
