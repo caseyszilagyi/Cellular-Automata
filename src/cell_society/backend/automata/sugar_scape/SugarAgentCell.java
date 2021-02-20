@@ -52,6 +52,7 @@ public class SugarAgentCell extends Cell {
     for (Coordinate coordinate : coordinates) {
       int coordRow = coordinate.getFirst();
       int coordCol = coordinate.getSecond();
+      if (!nextGrid.inBoundaries(coordRow, coordCol)) continue;
       int coordSugar = currentGrid.getPatch(coordRow, coordCol).getState(SugarPatch.SUGAR);
       if (coordSugar > maxSugar && nextGrid.isEmpty(coordRow, coordCol)) {
         maxPatch = coordinate;
@@ -63,6 +64,6 @@ public class SugarAgentCell extends Cell {
 
   @Override
   public String getGridRepresentation() {
-    return super.getGridRepresentation();
+    return "@";
   }
 }

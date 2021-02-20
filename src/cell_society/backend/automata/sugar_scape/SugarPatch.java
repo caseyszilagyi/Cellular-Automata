@@ -28,4 +28,23 @@ public class SugarPatch extends Patch {
       super.setState(SUGAR, currentPatchSugar + sugarGrowBackRate);
     }
   }
+
+  @Override
+  public Patch copy() {
+    SugarPatch patch = new SugarPatch(super.getState(SUGAR), sugarGrowBackRate, sugarGrowBackInterval);
+    patch.sugarGrowBackCounter = sugarGrowBackCounter;
+    patch.setInternalData(super.passInternalData());
+    //patch.setInternalData(super.passInternalData());
+    return patch;
+  }
+
+  @Override
+  public String getGridRepresentation() {
+    return super.getState(SUGAR) + "";
+  }
+
+  @Override
+  public String toString() {
+    return super.toString() + "[SUGAR: " + super.getState(SUGAR) + "][COUNTER: " + sugarGrowBackCounter + "]";
+  }
 }

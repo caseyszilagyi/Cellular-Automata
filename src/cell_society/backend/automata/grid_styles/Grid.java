@@ -309,4 +309,17 @@ public class Grid {
     System.out.println();
   }
 
+  public void printCurrentPatchState(int rowIndex, int colIndex, int height, int width) {
+    for (int j = rowIndex; j < rowIndex + height; j++) {
+      for (int k = colIndex; k < colIndex + width; k++) {
+        String token =
+            // Printing of Patches
+            !inBoundaries(j, k) || getPatch(j, k) == null ? "_" : getPatch(j, k).getGridRepresentation();
+        System.out.print("." + token + ".");
+      }
+      System.out.println();
+    }
+    System.out.println();
+  }
+
 }

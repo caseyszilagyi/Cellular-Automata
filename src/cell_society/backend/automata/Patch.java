@@ -32,22 +32,21 @@ public class Patch {
     return patchStates.get(stateName);
   }
 
-
-  //  /**
-//   * Copies over the patch and its internal states into the next stage
-//   *
-//   * @return Patch object identical to this one.
-//   * @throws CloneNotSupportedException
-//   */
-//  @Override
-//  protected Object clone() throws CloneNotSupportedException {
-//    Patch patch = new Patch();
-//    patch.patchStates = new HashMap<>(patchStates);
-//    return patch;
-//  }
   public Patch copy() {
     Patch patch = new Patch();
     patch.patchStates = new HashMap<>(patchStates);
     return patch;
+  }
+
+  protected Map<String, Integer> passInternalData() {
+    return new HashMap<>(patchStates);
+  }
+
+  protected void setInternalData(Map<String, Integer> map) {
+    patchStates = new HashMap<>(map);
+  }
+
+  public String getGridRepresentation() {
+    return "?";
   }
 }
