@@ -4,7 +4,6 @@ import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.Coordinate;
 import cell_society.backend.automata.Grid;
 import cell_society.backend.automata.Neighbors;
-import cell_society.backend.automata.segregation.AgentCell;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,17 +16,17 @@ public class SegregationStepper extends SimulationStepper {
   private int gridWidth;
 
 
-  public SegregationStepper(){
+  public SegregationStepper() {
   }
 
-  public void setGrid(Grid grid){
+  public Grid getGrid() {
+    return simulationGrid;
+  }
+
+  public void setGrid(Grid grid) {
     simulationGrid = grid;
     gridHeight = grid.getGridHeight();
     gridWidth = grid.getGridWidth();
-  }
-
-  public Grid getGrid(){
-    return simulationGrid;
   }
 
   @Override
@@ -46,8 +45,9 @@ public class SegregationStepper extends SimulationStepper {
       List<Coordinate> vacantCoordinates) {
     Collections.shuffle(vacantCoordinates);
     // redistribute dissatisfied individuals.  Note, there's the potential here that a Cell will be placed in its current position.  Within the
-    while (!dissatisfiedQueue.isEmpty()){
-      AgentCell cell = (AgentCell) dissatisfiedQueue.poll();
+    while (!dissatisfiedQueue.isEmpty()) {
+      //AgentCell cell = (AgentCell) dissatisfiedQueue.poll();
+      Cell cell = dissatisfiedQueue.poll();
       Coordinate newSpot = vacantCoordinates.get(0);
       vacantCoordinates.remove(0);
       int r = newSpot.getFirst();
@@ -78,12 +78,11 @@ public class SegregationStepper extends SimulationStepper {
       return;
     }
     Neighbors neighbors = cell.getNeighbors(simulationGrid);
-    cell.makeDecisions(neighbors, nextGrid, null);
+    cell.performPrimaryAction(neighbors, null, nextGrid);
     // Alright, there's the potential that the agent is unhappy.  In that case, queue up for relocation
 
-    AgentCell agentCell = (AgentCell) cell;
-    if (!agentCell.isSatisfied(neighbors)){
-      dissatisfiedQueue.add(agentCell);
+    if (!cell.probeState(neighbors, null, null)) {
+      dissatisfiedQueue.add(cell);
       vacantCoordinates.add(new Coordinate(j, k));
     }
   }

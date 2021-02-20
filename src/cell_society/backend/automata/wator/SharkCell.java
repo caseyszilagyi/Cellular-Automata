@@ -2,12 +2,9 @@ package cell_society.backend.automata.wator;
 
 import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.Coordinate;
-import cell_society.backend.automata.Direction;
 import cell_society.backend.automata.Grid;
 import cell_society.backend.automata.Neighbors;
 import cell_society.backend.simulation_initializer.CellParameters;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -61,28 +58,31 @@ public class SharkCell extends Cell {
    * during every time step.
    *
    * @param neighbors   Cells that this cell uses to make its decision
-   * @param nextGrid    grid to hold the next configuration of cells.
    * @param currentGrid
+   * @param nextGrid    grid to hold the next configuration of cells.
    */
   @Override
-  public void makeDecisions(Neighbors neighbors, Grid nextGrid, Grid currentGrid) {
+  public void performPrimaryAction(Neighbors neighbors, Grid currentGrid, Grid nextGrid) {
     if (energy == 0) {
       return;
     }
     energy--;
     int row = getRow();
     int col = getCol();
-    for (Coordinate coords : getRandAdjacent(row, col)) {
+    for (Coordinate coords : getRandAdjacent(row, col, currentGrid)) {
       int shiftedRow = coords.getFirst();
       int shiftedCol = coords.getSecond();
+      // If used with a normal grid, some directions must be ignored.
+      if (!currentGrid.inBoundaries(shiftedRow, shiftedCol)) continue;
       // Next state either has empty space, or has a fish that can be consumed.
       if (notShark(shiftedRow, shiftedCol, nextGrid) && notShark(shiftedRow, shiftedCol,
           currentGrid)) {
         Cell cell = nextGrid.getCell(shiftedRow, shiftedCol);
         if (cell instanceof FishCell) {
-          energy+=energyGain;
+          energy += energyGain;
         }
-        SharkCell sharkCell = new SharkCell(shiftedRow, shiftedCol, energy, reproduceThresh,energyGain);
+        SharkCell sharkCell = new SharkCell(shiftedRow, shiftedCol, energy, reproduceThresh,
+            energyGain);
         nextGrid.placeCell(shiftedRow, shiftedCol, sharkCell);
         return;
       }
@@ -92,20 +92,25 @@ public class SharkCell extends Cell {
   }
 
   /**
+   * The secondary action of the shark is to reproduce, if able.
+   * <p>
    * If the shark has enough energy it spawns offspring in a free neighboring cell. The energy is
    * split evenly between the parent and the child.
    *
-   * @param grid
+   * @param neighbors
+   * @param currentGrid
+   * @param nextGrid
    */
-  public void reproduce(Grid grid) {
+  public void performSecondaryAction(Neighbors neighbors, Grid currentGrid, Grid nextGrid) {
     if (energy >= reproduceThresh) {
-      for (Coordinate coords : getRandAdjacent(getRow(), getCol())) {
+      for (Coordinate coords : getRandAdjacent(getRow(), getCol(), currentGrid)) {
         int row = coords.getFirst();
         int col = coords.getSecond();
-        if (grid.isEmpty(row, col)) {
+        if (!currentGrid.inBoundaries(row, col)) continue;
+        if (currentGrid.isEmpty(row, col)) {
           SharkCell offspring = new SharkCell(row, col, energy / 2, reproduceThresh, energyGain);
           energy /= 2;
-          grid.placeCell(row, col, offspring);
+          currentGrid.placeCell(row, col, offspring);
           return;
         }
       }
@@ -116,17 +121,11 @@ public class SharkCell extends Cell {
     return grid.isEmpty(row, col) || !(grid.getCell(row, col) instanceof SharkCell);
   }
 
-  private List<Coordinate> getRandAdjacent(int row, int col) {
-    List<Coordinate> returnCoordinates = new ArrayList<>();
-    Direction[] direction = new Direction[]{Direction.TOP, Direction.LEFT, Direction.RIGHT,
-        Direction.BOTTOM};
-    List<Direction> directionList = Arrays.asList(direction);
-    Collections.shuffle(directionList);
-    for (Direction dir : directionList) {
-      int shiftedRow = dir.applyToRow(row);
-      int shiftedCol = dir.applyToCol(col);
-      returnCoordinates.add(new Coordinate(shiftedRow, shiftedCol));
-    }
+  private List<Coordinate> getRandAdjacent(int row, int col,
+      Grid grid) {
+    List<Coordinate> returnCoordinates = grid.getGridCellStructure()
+        .getAllAdjacentCoordinates(row, col);
+    Collections.shuffle(returnCoordinates);
     return returnCoordinates;
   }
 

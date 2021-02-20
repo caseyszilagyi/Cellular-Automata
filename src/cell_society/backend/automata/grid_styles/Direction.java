@@ -20,6 +20,14 @@ public interface Direction {
    */
   Coordinate getResultingCoordinate(int row, int col);
 
+  /**
+   * Allows the implementing class to quickly obtain all cardinal directions.  For a square grid,
+   * this would include spots to the North, East, South, and West.
+   *
+   * @param row row index where the neighborhood is centered
+   * @param col column index where the neighborhood is centered
+   * @return Coordinate of the point pointed to by a given direction.
+   */
   List<Direction> getAdjacentDirections(int row, int col);
 
   Direction rotateLeft(Direction direction);
