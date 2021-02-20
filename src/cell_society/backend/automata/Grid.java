@@ -35,7 +35,7 @@ public class Grid {
     this.colorCodes = grid.colorCodes;
     this.cellDecoder = grid.cellDecoder;
     this.gridCellStructure = grid.gridCellStructure;
-    updateRemainingPatches(grid);
+    //updateRemainingPatches(grid);
   }
 
   /**
@@ -233,12 +233,6 @@ public class Grid {
     return coordinateList;
   }
 
-  /**
-   * Copy over the current state of patches
-   *
-   * @param otherGrid
-   * @throws CloneNotSupportedException
-   */
   public void updateRemainingPatches(Grid otherGrid) {
     List<Coordinate> coordinateList = getCoordinateUpdateList();
     for (Coordinate coord : coordinateList) {
