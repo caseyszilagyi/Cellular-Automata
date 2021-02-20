@@ -1,6 +1,5 @@
-package cell_society.backend.simulation_initializer;
+package cell_society.backend;
 
-import cell_society.backend.Simulation;
 import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.grid.Grid;
 import cell_society.backend.simulation_stepper.SimulationStepper;
@@ -32,7 +31,7 @@ public class SimulationClassLoader extends ClassLoader{
    * @param stepperType The class name of the grid we want to make
    * @return The grid
    */
-  public SimulationStepper makeStepper(String stepperType){
+  public Class makeStepper(String stepperType){
     byte[] b;
     try {
       b = loadClassData(stepperType, STEPPER_LOCATION);
@@ -40,15 +39,17 @@ public class SimulationClassLoader extends ClassLoader{
       throw new ErrorHandler("InvalidStepperClass");
     }
 
+
     Class stepper = defineClass(STEPPER_LOCATION +stepperType, b, 0, b.length);
+    /**
     SimulationStepper result;
     try{
       result = (SimulationStepper) stepper.getDeclaredConstructor().newInstance();
     } catch(Exception e){
-      throw new ErrorHandler("InvalidStepperClass");
+      throw new ErrorHandler(e);
     }
-
-    return result;
+    */
+    return stepper;
   }
 
   /**
@@ -99,6 +100,17 @@ public class SimulationClassLoader extends ClassLoader{
     return result;
   }
 
+  public Class findClass(String className){
+    byte[] b = null;
+    try {
+      b = loadClassData("Grid", GRID_LOCATION);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    return defineClass(GRID_LOCATION + "Grid", b, 0, b.length);
+  }
+
   public byte[] loadClassData(String className, String path) throws Exception{
     path = path+className;
     InputStream inputStream = getClass().getClassLoader().getResourceAsStream(
@@ -116,11 +128,31 @@ public class SimulationClassLoader extends ClassLoader{
   }
 
   // Testing
-  public static void main(String[] args){
+  public static void main(String[] args) throws Exception {
+    ClassLoader classLoader = new ClassLoader() {
+    };
+    Object grido = classLoader.loadClass("cell_society.backend.automata.grid.Grid").getDeclaredConstructor().newInstance();
+    Grid griddy = (Grid) grido;
+    griddy.makeGrid(3,4);
+
+
     SimulationClassLoader my = new SimulationClassLoader("game_of_life");
-    Cell cell = my.makeCell("AliveCell");
-    SimulationStepper stepper = my.makeStepper("SimulationStepper");
-    System.out.println(cell.toString());
+    //Grid grid = my.makeGrid("Grid");
+    //Cell cell = my.makeCell("AliveCell");
+    System.out.println();
+
+    Object mine = my.loadClass("Grid").newInstance();
+    Grid grid = (Grid) mine;
+
+    Class stepper = my.makeStepper("SimulationStepper");
+    SimulationStepper result;
+    try{
+      result = (SimulationStepper) stepper.newInstance();
+    } catch(Exception e){
+      throw new ErrorHandler(e);
+    }
+
+    //System.out.println(cell.toString());
   }
 
 }

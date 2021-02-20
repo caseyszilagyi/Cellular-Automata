@@ -1,5 +1,6 @@
 package cell_society.backend.simulation_initializer;
 
+import cell_society.backend.SimulationClassLoader;
 import cell_society.backend.automata.grid.Grid;
 import cell_society.backend.simulation_stepper.SimulationStepper;
 import java.util.Map;
@@ -112,7 +113,8 @@ public class SimulationInitializer {
 
     simulationStepper.setGrid(simulationGrid);
     */
-    return simulationClassLoader.makeStepper(simulationParameters.get("stepperType"));
+    //return simulationClassLoader.makeStepper(simulationParameters.get("stepperType"));
+    return new SimulationStepper();
   }
 
   /**
