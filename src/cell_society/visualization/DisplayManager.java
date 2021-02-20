@@ -103,13 +103,13 @@ public class DisplayManager {
   }
 
   private void makeAllButtons(){
-    Button loadSimButton = makeButton("LoadSimulationButton", 10, 10);
-    Button startButton = makeButton("StartButton", 10, 40);
-    Button pauseButton = makeButton("PauseButton", 10, 70);
-    Button stepButton = makeButton("StepButton", 10, 100);
-    Button speedButton = makeButton("SpeedButton", 10, 130);
-    Button colorModeButton = makeButton("ColorModeButton", 10, 180);
-    Button addNewSimButton = makeButton("NewSimulationButton", 10, 220);
+    Button loadSimButton = makeButton("LoadSimulationButton", 10, 10, 120);
+    Button startButton = makeButton("StartButton", 10, 40, 80);
+    Button pauseButton = makeButton("PauseButton", 10, 70, 80);
+    Button stepButton = makeButton("StepButton", 10, 100, 80);
+    Button speedButton = makeButton("SpeedButton", 10, 130, 120);
+    Button colorModeButton = makeButton("ColorModeButton", 10, 180, 120);
+    Button addNewSimButton = makeButton("NewSimulationButton", 10, 220, 180);
 
     loadSimButton.setOnMouseClicked(e -> {
       animationManager.pauseSimulation();
@@ -118,7 +118,6 @@ public class DisplayManager {
     });
 
     addNewSimButton.setOnMouseClicked(e -> {
-      animationManager.pauseSimulation();
       openNewWindow();
     });
 
@@ -145,11 +144,11 @@ public class DisplayManager {
     });
   }
 
-  private Button makeButton(String property, double x, double y){
+  private Button makeButton(String property, double x, double y, double buttonWidth){
     Button button = new Button(resourceBundle.getString(property));
     button.setLayoutX(x);
     button.setLayoutY(y);
-    button.setPrefWidth(120);
+    button.setPrefWidth(buttonWidth);
     root.getChildren().add(button);
     return button;
   }
