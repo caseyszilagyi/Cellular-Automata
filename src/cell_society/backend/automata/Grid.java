@@ -234,12 +234,12 @@ public class Grid {
   }
 
   public void updateRemainingPatches(Grid otherGrid) {
-    List<Coordinate> coordinateList = getCoordinateUpdateList();
+    List<Coordinate> coordinateList = otherGrid.getCoordinateUpdateList();
     for (Coordinate coord : coordinateList) {
       int row = coord.getFirst();
       int col = coord.getSecond();
-      if (gridStates[row][col] == null) {
-        gridStates[row][col] = otherGrid.getPatch(row, col).copy();
+      if (getPatch(row, col) == null && otherGrid.getPatch(row, col) != null) {
+        placePatch(row, col, otherGrid.getPatch(row, col).copy());
       }
     }
   }
