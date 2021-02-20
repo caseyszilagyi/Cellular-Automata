@@ -16,6 +16,10 @@ public class Coordinate {
     this.first = first;
     this.second = second;
   }
+  public Coordinate(Coordinate coordinate){
+    this.first = coordinate.first;
+    this.second = coordinate.second;
+  }
 
   // NOTE: provides getters, but not setters
 

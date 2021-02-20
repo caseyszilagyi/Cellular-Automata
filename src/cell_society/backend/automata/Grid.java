@@ -1,6 +1,7 @@
 package cell_society.backend.automata;
 
 import cell_society.backend.automata.grid_styles.SquareStructure;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,7 @@ public class Grid {
 
   /**
    * Alter how neighbors are determined
+   *
    * @param structure CellStructure to use (Hex, Square, Triangular)
    */
   public void setGridCellStructure(CellStructure structure) {
@@ -103,7 +105,8 @@ public class Grid {
       int newRow = coordinate.getFirst();
       int newCol = coordinate.getSecond();
       if (inBoundaries(newRow, newCol)) {
-        neighbors.add(grid[newRow][newCol]);
+        //neighbors.add(grid[newRow][newCol]);
+        neighbors.add(getCell(newRow, newCol));
       }
     }
     return neighbors;
@@ -119,25 +122,15 @@ public class Grid {
    */
   public Neighbors getAdjacentNeighbors(int row, int col) {
     Neighbors neighbors = new Neighbors();
-    for (Coordinate coordinate : gridCellStructure.getAllAdjacentCoordinates(row, col)){
+    for (Coordinate coordinate : gridCellStructure.getAllAdjacentCoordinates(row, col)) {
       int newRow = coordinate.getFirst();
       int newCol = coordinate.getSecond();
       if (inBoundaries(newRow, newCol)) {
-        neighbors.add(grid[newRow][newCol]);
+        //neighbors.add(grid[newRow][newCol]);
+        neighbors.add(getCell(newRow, newCol));
       }
     }
     return neighbors;
-  }
-
-  /**
-   * Retrieve the cell object contained at the specified position
-   *
-   * @param row desired row index of grid
-   * @param col desired column index of grid
-   * @return Cell or null object contained at the specified location.
-   */
-  public Cell getCell(int row, int col) {
-    return grid[row][col];
   }
 
   /**
@@ -182,6 +175,17 @@ public class Grid {
   }
 
   /**
+   * Retrieve the cell object contained at the specified position
+   *
+   * @param row desired row index of grid
+   * @param col desired column index of grid
+   * @return Cell or null object contained at the specified location.
+   */
+  public Cell getCell(int row, int col) {
+    return grid[row][col];
+  }
+
+  /**
    * place a Cell into the desired coordinates.  Indices must be positive and within the bounds of
    * the grid.
    *
@@ -191,6 +195,10 @@ public class Grid {
    */
   public void placeCell(int row, int col, Cell cell) {
     grid[row][col] = cell;
+  }
+
+  public Patch getPatch(int row, int col) {
+    return gridStates[row][col];
   }
 
   /**
@@ -206,17 +214,33 @@ public class Grid {
   }
 
   /**
+   * Uniform list of coordinates to update through.
+   *
+   * @return
+   */
+  public List<Coordinate> getCoordinateUpdateList() {
+    List<Coordinate> coordinateList = new ArrayList<>();
+    for (int j = 0; j < gridHeight; j++) {
+      for (int k = 0; k < gridWidth; k++) {
+        coordinateList.add(new Coordinate(j, k));
+      }
+    }
+    return coordinateList;
+  }
+
+  /**
    * Copy over the current state of patches
    *
    * @param otherGrid
    * @throws CloneNotSupportedException
    */
   public void updateRemainingPatches(Grid otherGrid) {
-    for (int j = 0; j < gridHeight; j++) {
-      for (int k = 0; k < gridWidth; k++) {
-        if (gridStates[j][k] == null) {
-          gridStates[j][k] = otherGrid.gridStates[j][k].copy();
-        }
+    List<Coordinate> coordinateList = getCoordinateUpdateList();
+    for (Coordinate coord : coordinateList) {
+      int row = coord.getFirst();
+      int col = coord.getSecond();
+      if (gridStates[row][col] == null) {
+        gridStates[row][col] = otherGrid.getPatch(row, col).copy();
       }
     }
   }
