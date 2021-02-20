@@ -1,5 +1,11 @@
-package cell_society.backend.automata;
+package cell_society.backend.automata.grid;
 
+import cell_society.backend.automata.Cell;
+import cell_society.backend.automata.CellStructure;
+import cell_society.backend.automata.Coordinate;
+import cell_society.backend.automata.Direction;
+import cell_society.backend.automata.Neighbors;
+import cell_society.backend.automata.Patch;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;

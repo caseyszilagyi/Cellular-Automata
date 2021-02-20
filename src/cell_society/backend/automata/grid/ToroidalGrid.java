@@ -1,8 +1,8 @@
-package cell_society.backend.automata.wator;
+package cell_society.backend.automata.grid;
 
 import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.Coordinate;
-import cell_society.backend.automata.Grid;
+import cell_society.backend.automata.grid.Grid;
 
 /**
  * The toroidal grid is connected from sides, following a slightly different set of rules.

@@ -4,7 +4,7 @@ import cell_society.backend.simulation_initializer.CellParameters;
 import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.Coordinate;
 import cell_society.backend.automata.Direction;
-import cell_society.backend.automata.Grid;
+import cell_society.backend.automata.grid.Grid;
 import cell_society.backend.automata.Neighbors;
 import java.util.ArrayList;
 import java.util.Arrays;

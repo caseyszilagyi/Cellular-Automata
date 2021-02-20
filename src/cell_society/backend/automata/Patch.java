@@ -17,7 +17,7 @@ public class Patch {
   }
 
   @Override
-  protected Object clone() throws CloneNotSupportedException {
+  public Object clone() throws CloneNotSupportedException {
     Patch patch = new Patch();
     return patch;
   }

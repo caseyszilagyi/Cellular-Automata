@@ -1,6 +1,6 @@
 package cell_society.backend.automata.segregation;
 
-import cell_society.backend.automata.Grid;
+import cell_society.backend.automata.grid.Grid;
 import cell_society.backend.automata.Neighbors;
 
 interface DescribesSatisfaction {

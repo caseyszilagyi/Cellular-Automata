@@ -1,7 +1,7 @@
 package cell_society.backend.simulation_initializer;
 
 import cell_society.backend.automata.Cell;
-import cell_society.backend.automata.Grid;
+import cell_society.backend.automata.grid.Grid;
 import cell_society.controller.ErrorHandler;
 import java.util.Map;
 
