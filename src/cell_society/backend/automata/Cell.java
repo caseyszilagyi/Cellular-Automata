@@ -1,5 +1,6 @@
 package cell_society.backend.automata;
 
+import cell_society.backend.automata.grid_styles.Grid;
 import cell_society.backend.simulation_initializer.CellParameters;
 
 public class Cell {

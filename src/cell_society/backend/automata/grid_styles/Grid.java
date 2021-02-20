@@ -1,7 +1,10 @@
-package cell_society.backend.automata;
+package cell_society.backend.automata.grid_styles;
 
-import cell_society.backend.automata.grid_styles.SquareStructure;
-import java.sql.SQLOutput;
+import cell_society.backend.automata.Cell;
+import cell_society.backend.automata.CellStructure;
+import cell_society.backend.automata.Coordinate;
+import cell_society.backend.automata.Neighbors;
+import cell_society.backend.automata.Patch;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
