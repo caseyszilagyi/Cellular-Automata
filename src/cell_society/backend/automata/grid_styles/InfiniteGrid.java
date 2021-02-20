@@ -24,7 +24,6 @@ public class InfiniteGrid extends Grid {
   }
 
   public InfiniteGrid() {
-    super();
   }
 
   @Override

@@ -281,4 +281,21 @@ public class Grid {
     System.out.println();
   }
 
+  /**
+   * Updated print debugger.  Slices into the gridAccepts negative coordinates
+   *
+   * @param rowIndex
+   * @param colIndex
+   * @param height
+   * @param width
+   */
+  public void printCurrentState(int rowIndex, int colIndex, int height, int width) {
+    for (int j = rowIndex; j < rowIndex + height; j++) {
+      for (int k = colIndex; k < colIndex + width; k++) {
+        String token = !inBoundaries(j, k) || isEmpty(j, k) ? "_" : getCell(j, k).getGridRepresentation();
+        System.out.print("." + token + ".");
+      }
+    }
+  }
+
 }
