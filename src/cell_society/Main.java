@@ -11,20 +11,23 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+  private final int SCREEN_WIDTH = 800;
+  private final int SCREEN_HEIGHT = 800;
+
   @Override
   public void start(Stage stage) {
+    createNewWindow("Cell Society Simulation");
+  }
 
-    int SCREEN_WIDTH = 800;
-    int SCREEN_HEIGHT = 800;
-
-    String STAGE_TITLE = "Cell Society Simulation";
+  public void createNewWindow(String stageTitle){
+    Stage stage = new Stage();
+    stage.setTitle(stageTitle);
     Pane root = new Pane();
 
     Scene scene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
-    stage.setTitle(STAGE_TITLE);
     stage.setScene(scene);
     stage.show();
 
-    new DisplayManager(stage, root, scene);
+    new DisplayManager(this, stage, root, scene);
   }
 }

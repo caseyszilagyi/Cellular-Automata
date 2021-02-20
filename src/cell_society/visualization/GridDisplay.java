@@ -64,7 +64,7 @@ public class GridDisplay {
     double whiteSpaceX = (currentScreenWidth - (width * cellSideLength)) / 2.0 + BORDER_LENGTH;
     double whiteSpaceY = (currentScreenHeight - (height * cellSideLength)) / 2.0 + BORDER_LENGTH;
 
-    createTriangleGrid(whiteSpaceX, whiteSpaceY, cellColorSheet);
+    createRectangleGrid(whiteSpaceX, whiteSpaceY, cellColorSheet);
   }
 
   private void createRectangleGrid(double whiteSpaceX, double whiteSpaceY, String[] cellColorSheet){

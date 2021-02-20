@@ -1,5 +1,6 @@
 package cell_society.visualization;
 
+import cell_society.Main;
 import cell_society.backend.Simulation;
 import java.io.File;
 import java.util.Map;
@@ -17,6 +18,8 @@ import javafx.stage.Stage;
  * @author Donghan Park
  */
 public class DisplayManager {
+
+  private final Main main;
 
   private final Stage stage;
   private final Pane root;
@@ -39,7 +42,8 @@ public class DisplayManager {
    * @param root The root node of the main scene graph
    * @param scene The container for the main scene graph
    */
-  public DisplayManager(Stage stage, Pane root, Scene scene) {
+  public DisplayManager(Main main, Stage stage, Pane root, Scene scene) {
+    this.main = main;
     resourceBundle = ResourceBundle.getBundle(VISUALIZATION_RESOURCE_PACKAGE + "properties/English");
     this.stage = stage;
     this.root = root;
@@ -94,6 +98,10 @@ public class DisplayManager {
     return new String[] {"", ""};
   }
 
+  private void openNewWindow(){
+    main.createNewWindow("Test stage");
+  }
+
   private void makeAllButtons(){
     Button loadSimButton = makeButton("LoadSimulationButton", 10, 10);
     Button startButton = makeButton("StartButton", 10, 40);
@@ -101,11 +109,17 @@ public class DisplayManager {
     Button stepButton = makeButton("StepButton", 10, 100);
     Button speedButton = makeButton("SpeedButton", 10, 130);
     Button colorModeButton = makeButton("ColorModeButton", 10, 180);
+    Button addNewSimButton = makeButton("NewSimulationButton", 10, 220);
 
     loadSimButton.setOnMouseClicked(e -> {
       animationManager.pauseSimulation();
       String[] simulationInfo = loadNewFile();
       loadNewSimulation(simulationInfo[0], simulationInfo[1]);
+    });
+
+    addNewSimButton.setOnMouseClicked(e -> {
+      animationManager.pauseSimulation();
+      openNewWindow();
     });
 
     startButton.setOnMouseClicked(e -> {
