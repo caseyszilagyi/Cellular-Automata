@@ -52,7 +52,10 @@ public class SugarAgentCell extends Cell {
     for (Coordinate coordinate : coordinates) {
       int coordRow = coordinate.getFirst();
       int coordCol = coordinate.getSecond();
+      // Must make sure point off the grid is not chosen
       if (!nextGrid.inBoundaries(coordRow, coordCol)) continue;
+      // Patch has the potential to be null
+      if (currentGrid.getPatch(coordRow, coordCol) == null) continue;
       int coordSugar = currentGrid.getPatch(coordRow, coordCol).getState(SugarPatch.SUGAR);
       if (coordSugar > maxSugar && nextGrid.isEmpty(coordRow, coordCol)) {
         maxPatch = coordinate;

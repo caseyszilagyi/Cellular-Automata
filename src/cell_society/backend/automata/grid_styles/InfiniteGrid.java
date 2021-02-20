@@ -71,11 +71,20 @@ public class InfiniteGrid extends Grid {
 
   @Override
   public void updateRemainingPatches(Grid otherGrid) {
-    List<Coordinate> coordinateList = getCoordinateUpdateList();
+    //List<Coordinate> coordinateList = getCoordinateUpdateList();
+    List<Coordinate> coordinateList = otherGrid.getPatchUpdateList();
     for (Coordinate coord : coordinateList) {
       if (gridStates.get(coord) == null) {
         gridStates.put(coord, otherGrid.getPatch(coord.getFirst(), coord.getSecond()));
       }
     }
+  }
+
+  protected List<Coordinate> getPatchUpdateList() {
+    List<Coordinate> coordinateList = new ArrayList<>();
+    for (Coordinate coordinate : gridStates.keySet()) {
+      coordinateList.add(new Coordinate(coordinate));
+    }
+    return coordinateList;
   }
 }

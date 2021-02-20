@@ -236,6 +236,10 @@ public class Grid {
     return coordinateList;
   }
 
+  protected List<Coordinate> getPatchUpdateList() {
+    return null;
+  }
+
   /**
    * This method lifts the patch states from an earlier state and makes them available to the
    * current Grid.
