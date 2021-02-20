@@ -1,5 +1,6 @@
 package cell_society.backend.automata;
 
+import cell_society.backend.automata.grid_styles.SquareStructure;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +9,7 @@ public class Grid {
 
   private Cell[][] grid;
   private Patch[][] gridStates;
-  private CellStructure gridCellStructure;
+  private CellStructure gridCellStructure = new SquareStructure();
 
   private int gridHeight;
   private int gridWidth;
@@ -198,10 +199,9 @@ public class Grid {
   }
 
   /**
-   * While cells may all be updated during the course of the main update loop, Patches may be left
-   * alone, possibly due to the inclusion of null values representing empty cells..
-   *
-   * @param otherGrid grid to copy over unchanged patch values from
+   * Copy over the current state of patches
+   * @param otherGrid
+   * @throws CloneNotSupportedException
    */
   public void updateRemainingPatches(Grid otherGrid) throws CloneNotSupportedException {
     for (int j = 0; j < gridHeight; j++) {
