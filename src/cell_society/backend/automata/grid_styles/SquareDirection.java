@@ -28,6 +28,12 @@ public enum SquareDirection implements Direction {
     return coordinate;
   }
 
+  /**
+   * Adjacent directions are considered North, East, South, West
+   * @param row row index where the neighborhood is centered
+   * @param col column index where the neighborhood is centered
+   * @return
+   */
   @Override
   public List<Direction> getAdjacentDirections(int row, int col) {
     Direction[] adjacentDirectionsArray = {
