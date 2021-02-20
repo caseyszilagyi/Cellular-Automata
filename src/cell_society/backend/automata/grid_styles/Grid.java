@@ -236,6 +236,12 @@ public class Grid {
     return coordinateList;
   }
 
+  /**
+   * This method lifts the patch states from an earlier state and makes them available to the
+   * current Grid.
+   *
+   * @param otherGrid previous Grid object
+   */
   public void updateRemainingPatches(Grid otherGrid) {
     List<Coordinate> coordinateList = otherGrid.getCoordinateUpdateList();
     for (Coordinate coord : coordinateList) {

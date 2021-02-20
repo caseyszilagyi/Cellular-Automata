@@ -16,6 +16,13 @@ public class Patch {
 
   }
 
+  /**
+   * Describes how these may change over time
+   */
+  public void applyUpdateRule() {
+
+  }
+
   public void setState(String stateName, int newValue) {
     patchStates.putIfAbsent(stateName, newValue);
     patchStates.put(stateName, newValue);
