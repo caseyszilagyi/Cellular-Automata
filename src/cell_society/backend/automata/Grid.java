@@ -32,12 +32,22 @@ public class Grid {
     this(grid.gridHeight, grid.gridWidth);
     this.colorCodes = grid.colorCodes;
     this.cellDecoder = grid.cellDecoder;
+    this.gridCellStructure = grid.gridCellStructure;
+    updateRemainingPatches(grid);
   }
 
   /**
    * Empty constructor for newInstance method use
    */
   public Grid() {
+  }
+
+  /**
+   * Alter how neighbors are determined
+   * @param structure CellStructure to use (Hex, Square, Triangular)
+   */
+  public void setGridCellStructure(CellStructure structure) {
+    gridCellStructure = structure;
   }
 
   /**
@@ -89,9 +99,9 @@ public class Grid {
    */
   public Neighbors getDirectNeighbors(int row, int col) {
     Neighbors neighbors = new Neighbors();
-    for (Direction d : Direction.values()) {
-      int newRow = d.applyToRow(row);
-      int newCol = d.applyToCol(col);
+    for (Coordinate coordinate : gridCellStructure.getAllNeighboringCoordinates(row, col)) {
+      int newRow = coordinate.getFirst();
+      int newCol = coordinate.getSecond();
       if (inBoundaries(newRow, newCol)) {
         neighbors.add(grid[newRow][newCol]);
       }
@@ -109,18 +119,15 @@ public class Grid {
    */
   public Neighbors getAdjacentNeighbors(int row, int col) {
     Neighbors neighbors = new Neighbors();
-    Direction[] adjacentDirections = new Direction[]{Direction.TOP, Direction.BOTTOM,
-        Direction.LEFT, Direction.RIGHT};
-    for (Direction d : adjacentDirections) {
-      int newRow = d.applyToRow(row);
-      int newCol = d.applyToCol(col);
+    for (Coordinate coordinate : gridCellStructure.getAllAdjacentCoordinates(row, col)){
+      int newRow = coordinate.getFirst();
+      int newCol = coordinate.getSecond();
       if (inBoundaries(newRow, newCol)) {
         neighbors.add(grid[newRow][newCol]);
       }
     }
     return neighbors;
   }
-
 
   /**
    * Retrieve the cell object contained at the specified position
@@ -200,14 +207,15 @@ public class Grid {
 
   /**
    * Copy over the current state of patches
+   *
    * @param otherGrid
    * @throws CloneNotSupportedException
    */
-  public void updateRemainingPatches(Grid otherGrid) throws CloneNotSupportedException {
+  public void updateRemainingPatches(Grid otherGrid) {
     for (int j = 0; j < gridHeight; j++) {
       for (int k = 0; k < gridWidth; k++) {
         if (gridStates[j][k] == null) {
-          gridStates[j][k] = (Patch) otherGrid.gridStates[j][k].clone();
+          gridStates[j][k] = otherGrid.gridStates[j][k].copy();
         }
       }
     }

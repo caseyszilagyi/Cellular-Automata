@@ -40,4 +40,20 @@ public class Coordinate {
   public String toString() {
     return "(" + first + ", " + second + ")";
   }
+
+  @Override
+  public int hashCode() {
+    // https://stackoverflow.com/questions/14677993/how-to-create-a-hashmap-with-two-keys-key-pair-value
+    int result = first;
+    result = 31 * result + second;
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (!(obj instanceof Coordinate)) return false;
+    Coordinate coordinate = (Coordinate) obj;
+    return first == coordinate.first && second == coordinate.second;
+  }
 }
