@@ -35,6 +35,14 @@ public class DisplayManager {
   private final String VISUALIZATION_RESOURCE_PACKAGE = "cell_society/visualization/resources/";
   private final String VISUALIZATION_RESOURCE_FOLDER = "/" + VISUALIZATION_RESOURCE_PACKAGE;
 
+  private final String COLOR_MODE_BUTTON_PROPERTY = "ColorModeButton";
+  private final String LOAD_NEW_SIMULATION_BUTTON_PROPERTY = "LoadNewSimulationButton";
+  private final String OPEN_NEW_WINDOW_BUTTON_PROPERTY = "OpenNewWindowButton";
+  private final String PLAY_PAUSE_BUTTON_PROPERTY = "PlayPauseButton";
+  private final String STEP_BUTTON_PROPERTY = "StepButton";
+  private final String SPEED_BUTTON_PROPERTY = "SpeedButton";
+  private final String[] COLOR_MODES_LIST = {"Dark Mode", "Light Mode", "Colorful Mode"};
+
   private Simulation currentSim;
   private String currentSimulationType;
 
@@ -98,13 +106,13 @@ public class DisplayManager {
   }
 
   private void makeAllButtons(){
-    ComboBox<String> colorModeButton = makeDropdownButton("ColorModeButton", 10+10+80+10+80+10+120, 40, 120, new String[]{"Dark Mode", "Light Mode", "Colorful Mode"});
-    Button loadSimButton = makeButton("LoadSimulationButton", 10, 10, 120);
-    Button addNewSimButton = makeButton("NewSimulationButton", 10+10+120, 10, 160);
+    ComboBox<String> colorModeButton = makeDropdownButton(COLOR_MODE_BUTTON_PROPERTY, 10+10+80+10+80+10+120, 40, 120, COLOR_MODES_LIST);
+    Button loadSimButton = makeButton(LOAD_NEW_SIMULATION_BUTTON_PROPERTY, 10, 10, 120);
+    Button addNewSimButton = makeButton(OPEN_NEW_WINDOW_BUTTON_PROPERTY, 10+10+120, 10, 160);
 
-    Button playPauseButton = makeButton("PlayPauseButton", 10, 40, 80);
-    Button stepButton = makeButton("StepButton", 10+10+80, 40, 80);
-    Button speedButton = makeButton("SpeedButton", 10+10+80+10+80, 40, 120);
+    Button playPauseButton = makeButton(PLAY_PAUSE_BUTTON_PROPERTY, 10, 40, 80);
+    Button stepButton = makeButton(STEP_BUTTON_PROPERTY, 10+10+80, 40, 80);
+    Button speedButton = makeButton(SPEED_BUTTON_PROPERTY, 10+10+80+10+80, 40, 120);
 
     loadSimButton.setOnMouseClicked(e -> {
       animationManager.pauseSimulation();
@@ -157,24 +165,8 @@ public class DisplayManager {
     return comboBox;
   }
 
-//  private String[] convertCharSheetToColors(char[] charSheet, Map<Character, String> charToColorMap){
-//    String[] colorSheet = new String[charSheet.length];
-//
-//    for(int i = 0; i < colorSheet.length; i++){
-//        colorSheet[i] = charToColorMap.get(charSheet[i]);
-//    }
-//
-//    return colorSheet;
-//  }
-
   public void updateDisplayGrid(){
     gridDisplay.setSimulationType(currentSimulationType);
-    gridDisplay.updateGrid(currentSim.getNewGrid());
+    gridDisplay.updateGrid(currentSim.getNewGrid()); //convert backend grid into frontend grid
   }
-
-//  private String[] getCellColorSheet(Simulation currentSim){
-//    int[] yey = currentSim.getNewGrid();
-//    System.out.println(yey.length);
-//    return convertCharSheetToColors(currentSim.getOldGrid(), currentSim.getColorMapping());
-//  }
 }

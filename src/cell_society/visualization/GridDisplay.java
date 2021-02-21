@@ -39,11 +39,6 @@ public class GridDisplay {
     this.pane = pane;
   }
 
-  public void setGridDimensions(int gridHeight, int gridWidth) {
-    this.gridHeight = gridHeight;
-    this.gridWidth = gridWidth;
-  }
-
   public void setSimulationType(String simulationType){
     currentSimulationType = simulationType;
   }
