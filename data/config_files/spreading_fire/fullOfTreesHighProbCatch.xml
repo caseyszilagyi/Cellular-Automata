@@ -8,7 +8,7 @@
     <type cellPackage ="spreading_fire"></type>
     <type gridType = "Grid"></type>
     <type stepperType = "SimulationStepper"></type>
-    <type structureType = "Hexagon"></type>
+    <type structureType = "Triangle"></type>
   </coreSpecifications>
 
   <gridInfo>

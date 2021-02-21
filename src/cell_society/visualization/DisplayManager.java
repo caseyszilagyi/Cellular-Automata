@@ -5,6 +5,8 @@ import cell_society.backend.Simulation;
 import java.io.File;
 import java.util.ResourceBundle;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Pane;
@@ -33,8 +35,7 @@ public class DisplayManager {
   private final Pane gridPane;
   private final Pane graphPane;
 
-  private final String VISUALIZATION_RESOURCE_PACKAGE = "cell_society/visualization/resources/";
-  private final String VISUALIZATION_RESOURCE_FOLDER = "/" + VISUALIZATION_RESOURCE_PACKAGE;
+  private final String VISUALIZATION_RESOURCE_PACKAGE = "cell_society/visualization/resources";
 
   private final String COLOR_MODE_BUTTON_PROPERTY = "ColorModeButton";
   private final String LOAD_NEW_SIMULATION_BUTTON_PROPERTY = "LoadNewSimulationButton";
@@ -54,7 +55,7 @@ public class DisplayManager {
    */
   public DisplayManager(Main main, Stage stage, Pane root, Scene scene) {
     this.main = main;
-    resourceBundle = ResourceBundle.getBundle(VISUALIZATION_RESOURCE_PACKAGE + "properties/languages/English");
+    resourceBundle = ResourceBundle.getBundle(String.format("%s/properties/languages/English", VISUALIZATION_RESOURCE_PACKAGE));
     this.stage = stage;
     this.root = root;
     this.scene = scene;
@@ -78,22 +79,32 @@ public class DisplayManager {
 
   private void changeStylesheet(String fileName){
     scene.getStylesheets().clear();
-    scene.getStylesheets().add(getClass().getResource(VISUALIZATION_RESOURCE_FOLDER + "stylesheets/" + fileName).toExternalForm());
+    scene.getStylesheets().add(getClass().getResource(String.format("/%s/stylesheets/%s", VISUALIZATION_RESOURCE_PACKAGE, fileName)).toExternalForm());
   }
 
   private void loadNewSimulation(String simulationType, String fileName){
     if (!simulationType.equals("") && !fileName.equals("")){
-
       try {
         currentSim = new Simulation(simulationType, fileName);
         currentSimulationType = simulationType;
         currentSim.initializeSimulation();
         animationManager.setSimulation(currentSim);
+
+        gridDisplay.setCurrentSimInfo(currentSim, currentSimulationType);
+        graphDisplay.setCurrentSimInfo(currentSim, currentSimulationType);
         updateDisplayGraph();
         updateDisplayGrid();
+
         animationManager.pauseSimulation();
-      }catch (Exception error){
-        System.out.println(error.getMessage());
+      } catch (Exception error){
+        // exception handling
+
+        Alert newAlert = new Alert(AlertType.ERROR);
+        newAlert.setTitle(resourceBundle.getString("ErrorTitle"));
+        newAlert.setHeaderText(null);
+        newAlert.setContentText(resourceBundle.getString(error.getMessage()));
+
+        newAlert.showAndWait();
       }
     }
   }
@@ -125,6 +136,8 @@ public class DisplayManager {
     Button stepButton = makeButton(STEP_BUTTON_PROPERTY, 10+10+80, 40, 80);
     Button speedButton = makeButton(SPEED_BUTTON_PROPERTY, 10+10+80+10+80, 40, 120);
 
+
+
     loadSimButton.setOnMouseClicked(e -> {
       animationManager.pauseSimulation();
       String[] simulationInfo = loadNewFile();
@@ -145,12 +158,13 @@ public class DisplayManager {
     });
 
     speedButton.setOnMouseClicked(e -> {
-      speedButton.setText(resourceBundle.getString("SpeedButton") + animationManager.setNextFPS()); // <-- must use String.format() for info rather than '+'
+      String newText = String.format("%s: x%.2f", resourceBundle.getString("SpeedButton"), animationManager.setNextFPS());
+      speedButton.setText(newText);
     });
 
     colorModeButton.setOnAction(e -> {
       String selected = colorModeButton.getSelectionModel().getSelectedItem();
-      String fileName = selected.replace(" ", "") + ".css";
+      String fileName = String.format("%s.css", selected.replace(" ", ""));
       changeStylesheet(fileName);
     });
   }
@@ -180,13 +194,13 @@ public class DisplayManager {
    *
    */
   public void updateDisplayGrid(){
-    gridDisplay.setSimulationType(currentSimulationType);
     gridDisplay.updateGrid(currentSim.getGridDisplay()); //convert backend grid into frontend grid
   }
 
+  /**
+   *
+   */
   public void updateDisplayGraph(){
-    graphDisplay.setCurrentSim(currentSim);
-    graphDisplay.setSimulationType(currentSimulationType);
     graphDisplay.updateGraph();
   }
 }
