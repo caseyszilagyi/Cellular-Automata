@@ -18,4 +18,9 @@ public class AntPatch extends Patch {
     patch.setInternalData(super.passInternalData());
     return patch;
   }
+
+  @Override
+  public String getGridRepresentation() {
+    return super.getState(FOOD_PHEROMONE_LEVEL) + "";
+  }
 }

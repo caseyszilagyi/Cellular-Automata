@@ -57,6 +57,21 @@ public enum SquareDirection implements Direction {
   public Direction rotateCCW() {
     List<SquareDirection> directions = Arrays.asList(SquareDirection.values());
     int size = directions.size();
-    return directions.get((directions.indexOf(this) - 1) % size);
+    int dex = (directions.indexOf(this) - 1) % size;
+    if (dex < 0) dex = size + dex;
+    return directions.get(dex);
+  }
+
+  public static void main(String[] args){
+    Direction d = SquareDirection.BOTTOM;
+    for (int k = 0; k < 20; k++){
+      d = d.rotateCCW();
+      System.out.println(d);
+    }
+    System.out.println();
+    for (int k = 0; k < 20; k++){
+      d = d.rotateCW();
+      System.out.println(d);
+    }
   }
 }

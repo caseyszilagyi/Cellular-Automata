@@ -28,7 +28,7 @@ public class AntCell extends Cell {
   private static boolean weightedRandom(int weight1, int weight2) {
     // Returns true for option1, false for option2
     int sum = weight1 + weight2;
-    int randInt = ThreadLocalRandom.current().nextInt(1, sum + 1);
+    int randInt = ThreadLocalRandom.current().nextInt(0, sum + 1);
     return randInt <= weight1;
   }
 
@@ -122,7 +122,7 @@ public class AntCell extends Cell {
     int currentLevel = patch.getState(AntPatch.FOOD_PHEROMONE_LEVEL);
     if (food > 0) {
       // Ants searching leave home pheromones
-      patch.setState(AntPatch.FOOD_PHEROMONE_LEVEL, currentLevel + 3);
+      patch.setState(AntPatch.FOOD_PHEROMONE_LEVEL, currentLevel + 8);
     } else {
       // Ants going home leave food pheromones
       patch.setState(AntPatch.FOOD_PHEROMONE_LEVEL, currentLevel + 1);
