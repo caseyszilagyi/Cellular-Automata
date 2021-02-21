@@ -19,8 +19,8 @@ public class LizardCell extends RPSCell {
   }
 
   @Override
-  protected Cell[] defineWeaknesses() {
-    return new Cell[]{new RockCell(), new ScissorCell()};
+  protected RPSCell[] defineWeaknesses() {
+    return new RPSCell[]{new RockCell(), new ScissorCell()};
   }
 
   @Override

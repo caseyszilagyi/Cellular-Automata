@@ -20,24 +20,29 @@ public class RPSCell extends Cell {
 
   @Override
   public void performPrimaryAction(Neighbors neighbors, Grid currentGrid, Grid nextGrid) {
-    TreeMap<Integer, Cell> map = new TreeMap<>();
-    for (Cell cell : defineWeaknesses()) {
+    TreeMap<Integer, RPSCell> map = new TreeMap<>();
+    for (RPSCell cell : defineWeaknesses()) {
       map.put(neighbors.getTypeCount(cell), cell);
     }
     if (map.lastKey() >= threshold) {
-      Cell cell = map.get(map.lastKey());
+      RPSCell cell = map.get(map.lastKey());
+      cell.setThreshold(threshold);
       cell.relocate(getRow(), getCol(), nextGrid);
     } else {
       this.relocate(getRow(), getCol(), nextGrid);
     }
   }
 
+  protected void setThreshold(int threshold){
+    this.threshold = threshold;
+  }
+
   protected int getThreshold() {
     return threshold;
   }
 
-  protected Cell[] defineWeaknesses() {
-    return new Cell[]{};
+  protected RPSCell[] defineWeaknesses() {
+    return new RPSCell[]{};
   }
 
 }
