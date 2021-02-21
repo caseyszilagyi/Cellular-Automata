@@ -10,7 +10,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class AntCell extends Cell {
 
-  private final int food;
+  private int food;
   private Direction antDirection;
 
   public AntCell(int row, int col, AntCell antCell) {
@@ -40,52 +40,47 @@ public class AntCell extends Cell {
   @Override
   public void performPrimaryAction(Neighbors neighbors, Grid currentGrid, Grid nextGrid) {
     // Find food mode
-    if (food == 0) {
-      int row = getRow();
-      int col = getCol();
-      // Assess movement options
-      Patch patchCW = null;
-      Coordinate coordCW = null;
-      Patch patchCCW = null;
-      Coordinate coordCCW = null;
+    int row = getRow();
+    int col = getCol();
+    // Assess movement options
+    Patch patchCW = null;
+    Coordinate coordCW = null;
+    Patch patchCCW = null;
+    Coordinate coordCCW = null;
 
-      // Check valid direction to move to.
-      if (validDirection(row, col, antDirection.rotateCW(), currentGrid, nextGrid)) {
-        coordCW = antDirection.rotateCW().getResultingCoordinate(row, col);
-        patchCW = nextGrid.getPatch(coordCW.getFirst(), coordCW.getSecond());
-      }
-      if (validDirection(row, col, antDirection.rotateCCW(), currentGrid, nextGrid)) {
-        coordCCW = antDirection.rotateCW().getResultingCoordinate(row, col);
-        patchCCW = nextGrid.getPatch(coordCCW.getFirst(), coordCCW.getSecond());
-      }
-      int newRow;
-      int newCol;
-      if (coordCW == null && coordCCW == null) {
-        // Ant stays in place, rotates slightly
-        AntCell antCell = new AntCell(row, col, this);
-        antCell.antDirection = antDirection.rotateCW();
-      }
-      if (coordCCW == null ^ coordCW == null) {
-        newRow = coordCCW == null ? coordCW.getFirst() : coordCCW.getFirst();
-        newCol = coordCCW == null ? coordCW.getSecond() : coordCCW.getSecond();
-        AntCell antCell = new AntCell(newRow, newCol, this);
-        nextGrid.placeCell(newRow, newCol, antCell);
-        return;
-      }
-      int foodPheromoneCW = patchCW.getState(AntPatch.FOOD_PHEROMONE_LEVEL);
-      int foodPheromoneCCW = patchCCW.getState(AntPatch.FOOD_PHEROMONE_LEVEL);
-      newRow = weightedRandom(foodPheromoneCW, foodPheromoneCCW) ? coordCW.getFirst()
-          : coordCCW.getFirst();
-      newCol = weightedRandom(foodPheromoneCW, foodPheromoneCCW) ? coordCW.getSecond()
-          : coordCCW.getSecond();
+    // Check valid direction to move to.
+    if (validDirection(row, col, antDirection.rotateCW(), currentGrid, nextGrid)) {
+      coordCW = antDirection.rotateCW().getResultingCoordinate(row, col);
+      patchCW = nextGrid.getPatch(coordCW.getFirst(), coordCW.getSecond());
+    }
+    if (validDirection(row, col, antDirection.rotateCCW(), currentGrid, nextGrid)) {
+      coordCCW = antDirection.rotateCW().getResultingCoordinate(row, col);
+      patchCCW = nextGrid.getPatch(coordCCW.getFirst(), coordCCW.getSecond());
+    }
+    int newRow;
+    int newCol;
+    if (coordCW == null && coordCCW == null) {
+      // Ant stays in place, rotates slightly
+      AntCell antCell = new AntCell(row, col, this);
+      antCell.antDirection = antDirection.rotateCW();
+    }
+    if (coordCCW == null ^ coordCW == null) {
+      newRow = coordCCW == null ? coordCW.getFirst() : coordCCW.getFirst();
+      newCol = coordCCW == null ? coordCW.getSecond() : coordCCW.getSecond();
       AntCell antCell = new AntCell(newRow, newCol, this);
       nextGrid.placeCell(newRow, newCol, antCell);
-
-
-    } else {
-      // Return home mode
-
+      return;
     }
+    // Decide on coordinate to move to
+    int foodPheromoneCW = patchCW.getState(AntPatch.FOOD_PHEROMONE_LEVEL);
+    int foodPheromoneCCW = patchCCW.getState(AntPatch.FOOD_PHEROMONE_LEVEL);
+    newRow = weightedRandom(foodPheromoneCW, foodPheromoneCCW) ? coordCW.getFirst()
+        : coordCCW.getFirst();
+    newCol = weightedRandom(foodPheromoneCW, foodPheromoneCCW) ? coordCW.getSecond()
+        : coordCCW.getSecond();
+
+    AntCell antCell = new AntCell(newRow, newCol, this);
+    nextGrid.placeCell(newRow, newCol, antCell);
   }
 
   private boolean validDirection(int row, int col, Direction direction, Grid currentGrid,
@@ -97,7 +92,21 @@ public class AntCell extends Cell {
 
   @Override
   public void performSecondaryAction(Neighbors neighbors, Grid currentGrid, Grid nextGrid) {
-    super.performSecondaryAction(neighbors, currentGrid, nextGrid);
+    Patch patch = currentGrid.getPatch(getRow(), getCol());
+    // Acquire food?
+    if (patch.getState(AntPatch.FOOD_LEVEL) > 0 && food == 0){
+      food = 1;
+    }
+
+    // Pheromone adjustments
+    int currentLevel = patch.getState(AntPatch.FOOD_PHEROMONE_LEVEL);
+    if (food > 0) {
+      // Ants searching leave home pheromones
+      patch.setState(AntPatch.FOOD_PHEROMONE_LEVEL, currentLevel + 3);
+    } else {
+      // Ants going home leave food pheromones
+      patch.setState(AntPatch.FOOD_PHEROMONE_LEVEL, currentLevel + 1);
+    }
   }
 
   @Override
