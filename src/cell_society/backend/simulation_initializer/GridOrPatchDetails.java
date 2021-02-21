@@ -12,6 +12,8 @@ public class GridOrPatchDetails {
   private Map<String, String> CODES;
   private Map<String, String> DECODER;
 
+  private String DEFAULT_PATH = "data/default_values/";
+
   public GridOrPatchDetails(String type, int width, int height, String grid,
       Map<String, String> parameters, Map<String, String> codes, Map<String, String> decoder) {
     TYPE = type;
