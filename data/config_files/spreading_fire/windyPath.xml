@@ -1,49 +1,55 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation type="spreading_fire">
-  <cellPackage>spreading_fire</cellPackage>
   <title>Spreading Fire</title>
   <author></author>
   <desc>Simulation designed to show the spread of wildfire in a forest</desc>
 
-  <cellPackage>spreading_fire</cellPackage>
-  <gridType>Grid</gridType>
-  <stepperType>SimulationStepper</stepperType>
+  <coreSpecifications>
+    <type cellPackage ="spreading_fire"></type>
+    <type gridType = "Grid"></type>
+    <type stepperType = "SimulationStepper"></type>
+  </coreSpecifications>
 
-  <rows>15</rows>
-  <columns>10</columns>
-  <grid>
-    fttttttttt
-    eeeeeeeeet
-    tttttttttt
-    teeeeeeeee
-    tttttttttt
-    eeeeeeeeet
-    tttttttttt
-    teeeeeeeee
-    tttttttttt
-    eeeeeeeeet
-    eeeeeeeett
-    eeeeeeettt
-    eeeeeetttt
-    eeeeettttt
-    eeeetttttt
-  </grid>
+  <gridInfo>
+    <rows>15</rows>
+    <columns>10</columns>
 
-  <codes>
-    <key t='TreeCell'></key>
-    <key f='FireCell'></key>
-    <key e ='Empty'></key>
-  </codes>
+    <grid>
+      <type>Grid</type>
+      <gridState>
+        fttttttttt
+        eeeeeeeeet
+        tttttttttt
+        teeeeeeeee
+        tttttttttt
+        eeeeeeeeet
+        tttttttttt
+        teeeeeeeee
+        tttttttttt
+        eeeeeeeeet
+        eeeeeeeett
+        eeeeeeettt
+        eeeeeetttt
+        eeeeettttt
+        eeeetttttt
+      </gridState>
+
+      <codes>
+        <key t='TreeCell'></key>
+        <key f='FireCell'></key>
+        <key e ='Empty'></key>
+      </codes>
+
+      <parameters>
+        <parameter probcatch='1'/>
+      </parameters>
+    </grid>
+  </gridInfo>
 
   <colors>
     <key t = '00AA00'></key>
     <key f = 'CC3300'></key>
     <key e = '000000'></key>
   </colors>
-
-  <parameters>
-    <parameter probcatch='1'/>
-  </parameters>
-
 
 </simulation>

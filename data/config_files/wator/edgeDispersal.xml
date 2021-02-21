@@ -30,12 +30,12 @@
     <key e = '0000FF'></key>
   </colors>
 
-  <parameters>
-    <parameter breedtimecounter='0'/>
-    <parameter breedtimethresh='2'/>
-    <parameter energy='10'/>
-    <parameter energygain = '8'/>
-    <parameter reproducethresh='15'/>
-  </parameters>
+      <parameters>
+        <parameter breedtimecounter='0'/>
+        <parameter breedtimethresh='2'/>
+        <parameter energy='10'/>
+        <parameter energygain = '8'/>
+        <parameter reproducethresh='15'/>
+      </parameters>
 
 </simulation>

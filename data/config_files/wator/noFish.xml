@@ -12,17 +12,17 @@
   <rows>10</rows>
   <columns>10</columns>
   <grid>
-    seeeeeeeee
-    eeeseeeeee
-    eeeeeeeeee
-    eeeeeeeeee
-    eeeeeeeeee
-    eeeeeeeese
-    eeeseeeeee
-    eeeeeeeeee
-    eeseeeeeee
-    eeeeeeeeee
-    eeeeeeeeee
+        seeeeeeeee
+        eeeseeeeee
+        eeeeeeeeee
+        eeeeeeeeee
+        eeeeeeeeee
+        eeeeeeeese
+        eeeseeeeee
+        eeeeeeeeee
+        eeseeeeeee
+        eeeeeeeeee
+        eeeeeeeeee
   </grid>
 
   <codes>
@@ -37,12 +37,12 @@
     <key e = '0000FF'></key>
   </colors>
 
-  <parameters>
-    <parameter breedtimecounter='5'/>
-    <parameter breedtimethresh='0'/>
-    <parameter energy='10'/>
-    <parameter energygain = '10'/>
-    <parameter reproducethresh='15'/>
-  </parameters>
+      <parameters>
+        <parameter breedtimecounter='5'/>
+        <parameter breedtimethresh='0'/>
+        <parameter energy='10'/>
+        <parameter energygain = '10'/>
+        <parameter reproducethresh='15'/>
+      </parameters>
 
 </simulation>
