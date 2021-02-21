@@ -8,6 +8,7 @@
     <type cellPackage ="spreading_fire"></type>
     <type gridType = "Grid"></type>
     <type stepperType = "SimulationStepper"></type>
+    <type structureType = "Square"></type>
   </coreSpecifications>
 
   <gridInfo>
@@ -34,6 +35,11 @@
         <key f='FireCell'></key>
         <key e ='Empty'></key>
       </codes>
+
+      <decoder>
+        <key TreeCell = '1'></key>
+        <key FireCell = '2'></key>
+      </decoder>
 
       <parameters>
         <parameter probcatch='0.7'/>

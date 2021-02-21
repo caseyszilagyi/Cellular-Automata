@@ -8,16 +8,19 @@ public class GridOrPatchDetails {
   private int GRID_HEIGHT;
   private int GRID_WIDTH;
   private String GRID;
-  private Map<String,String> PARAMETERS;
-  private Map<String,String> CODES;
+  private Map<String, String> PARAMETERS;
+  private Map<String, String> CODES;
+  private Map<String, String> DECODER;
 
-  public GridOrPatchDetails(String type, int width, int height, String grid, Map<String,String> parameters, Map<String, String> codes){
+  public GridOrPatchDetails(String type, int width, int height, String grid,
+      Map<String, String> parameters, Map<String, String> codes, Map<String, String> decoder) {
     TYPE = type;
     GRID_WIDTH = width;
     GRID_HEIGHT = height;
     GRID = grid;
     PARAMETERS = parameters;
     CODES = codes;
+    DECODER = decoder;
   }
 
   public String getType() {
@@ -42,6 +45,10 @@ public class GridOrPatchDetails {
 
   public Map<String, String> getCodes() {
     return CODES;
+  }
+
+  public Map<String, String> getDecoder() {
+    return DECODER;
   }
 
 }

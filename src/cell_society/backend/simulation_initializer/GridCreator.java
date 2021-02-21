@@ -21,17 +21,13 @@ public class GridCreator {
   /**
    * Calls a method to make the grid, and sets up the simulation type so that the cells/grid can be
    * found in the correct package
-   *
-   * @param row            Number of rows
-   * @param col            Number of columns
-   * @param simulationType A string representing the type of simulation so that the package can be
-   *                       found
-   * @param gridType       A string representing the grid used to make the game
+   * @param simulationType The type of simulation
+   * @param cellParameters The parameters that define each cell
+   * @param classLoader The classloader that is used to make cell and grid objects
    */
-  public GridCreator(int row, int col, String simulationType, String gridType, CellParameters cellParameters, SimulationClassLoader classLoader) {
+  public GridCreator(String simulationType, CellParameters cellParameters, SimulationClassLoader classLoader) {
     SIMULATION_TYPE = simulationType;
     CLASS_LOADER = classLoader;
-    simulationGrid = makeGrid(row, col, gridType);
     CELL_PARAMETERS = cellParameters;
   }
 
@@ -43,10 +39,10 @@ public class GridCreator {
    * @param gridType the string representing the class name of the grid
    * @return The initialized grid, completely empty
    */
-  public Grid makeGrid(int row, int col, String gridType) {
+  public void makeGrid(int row, int col, String gridType) {
     Grid newGrid = CLASS_LOADER.makeGrid(gridType);
     newGrid.makeGrid(col, row);
-    return newGrid;
+    simulationGrid = newGrid;
   }
 
 

@@ -8,6 +8,7 @@
     <type cellPackage ="game_of_life"></type>
     <type gridType = "Grid"></type>
     <type stepperType = "SimulationStepper"></type>
+    <type structureType = "Square"></type>
   </coreSpecifications>
 
   <gridInfo>
@@ -30,9 +31,14 @@
       </gridState>
 
       <codes>
-        <key x='DeadCell'></key>
-        <key O='AliveCell'></key>
+        <key a='DeadCell'></key>
+        <key d='AliveCell'></key>
       </codes>
+
+      <decoder>
+        <key AliveCell = '1'></key>
+        <key DeadCell = '2'></key>
+      </decoder>
 
       <parameters>
       </parameters>

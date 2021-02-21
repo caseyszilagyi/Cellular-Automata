@@ -8,6 +8,7 @@
     <type cellPackage ="wator"></type>
     <type gridType = "ToroidalGrid"></type>
     <type stepperType = "WatorStepper"></type>
+    <type structureType = "Square"></type>
   </coreSpecifications>
 
   <gridInfo>
@@ -34,6 +35,11 @@
         <key s='SharkCell'></key>
         <key e ='Empty'></key>
       </codes>
+
+      <decoder>
+        <key FishCell = '1'></key>
+        <key SharkCell = '2'></key>
+      </decoder>
 
       <parameters>
         <parameter breedtimecounter='5'/>

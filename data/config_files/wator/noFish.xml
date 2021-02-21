@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation type="wator">
-  <cellPackage>wator</cellPackage>
   <title>WA-Tor</title>
-  <author></author>
+  <author>John Horton Conway</author>
   <desc>Simulation designed to show the interaction of species</desc>
 
-  <cellPackage>wator</cellPackage>
-  <gridType>ToroidalGrid</gridType>
-  <stepperType>WatorStepper</stepperType>
+  <coreSpecifications>
+    <type cellPackage ="wator"></type>
+    <type gridType = "ToroidalGrid"></type>
+    <type stepperType = "WatorStepper"></type>
+    <type structureType = "Square"></type>
+  </coreSpecifications>
 
-  <rows>10</rows>
-  <columns>10</columns>
-  <grid>
+  <gridInfo>
+    <rows>10</rows>
+    <columns>10</columns>
+
+    <grid>
+      <type>Grid</type>
+      <gridState>
         seeeeeeeee
         eeeseeeeee
         eeeeeeeeee
@@ -23,19 +29,18 @@
         eeseeeeeee
         eeeeeeeeee
         eeeeeeeeee
-  </grid>
+      </gridState>
 
-  <codes>
-    <key f='FishCell'></key>
-    <key s='SharkCell'></key>
-    <key e ='Empty'></key>
-  </codes>
+      <codes>
+        <key f='FishCell'></key>
+        <key s='SharkCell'></key>
+        <key e ='Empty'></key>
+      </codes>
 
-  <colors>
-    <key f = 'CCAA00'></key>
-    <key s = 'AAAAAA'></key>
-    <key e = '0000FF'></key>
-  </colors>
+      <decoder>
+        <key FishCell = '1'></key>
+        <key SharkCell = '2'></key>
+      </decoder>
 
       <parameters>
         <parameter breedtimecounter='5'/>
@@ -44,5 +49,14 @@
         <parameter energygain = '10'/>
         <parameter reproducethresh='15'/>
       </parameters>
+    </grid>
+
+  </gridInfo>
+
+  <colors>
+    <key f = 'CCAA00'></key>
+    <key s = 'AAAAAA'></key>
+    <key e = '0000FF'></key>
+  </colors>
 
 </simulation>
