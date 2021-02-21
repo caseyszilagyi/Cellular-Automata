@@ -17,8 +17,8 @@ public class GridDisplay {
   private final Scene scene;
   private final Pane pane;
 
-  private final int HORIZONTAL_BORDER_LENGTH = 20;
-  private final int VERTICAL_BORDER_LENGTH = 80;
+  private final int HORIZONTAL_BORDER_LENGTH = 50;
+  private final int VERTICAL_BORDER_LENGTH = 90;
 
   private final String VISUALIZATION_RESOURCE_PACKAGE = "cell_society/visualization/resources/";
   private final ResourceBundle resourceBundle = ResourceBundle.getBundle(VISUALIZATION_RESOURCE_PACKAGE + "properties/GridType");

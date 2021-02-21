@@ -128,9 +128,9 @@ public class DisplayManager {
     });
 
     colorModeButton.setOnAction(e -> {
-      animationManager.pauseSimulation();
       String selected = colorModeButton.getSelectionModel().getSelectedItem();
-      changeStylesheet(selected.replace(" ", "") + ".css");
+      String fileName = selected.replace(" ", "") + ".css";
+      changeStylesheet(fileName);
     });
   }
 
@@ -167,7 +167,7 @@ public class DisplayManager {
 
   public void updateDisplayGrid(Simulation currentSim){
     gridDisplay.setGridDimensions(currentSim.getGridWidth(), currentSim.getGridHeight());
-    gridDisplay.updateGrid(getCellColorSheet(currentSim), "hexagon");
+    gridDisplay.updateGrid(getCellColorSheet(currentSim), "rectangle");
   }
 
   private String[] getCellColorSheet(Simulation currentSim){
