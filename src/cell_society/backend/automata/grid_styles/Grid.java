@@ -6,6 +6,7 @@ import cell_society.backend.automata.Coordinate;
 import cell_society.backend.automata.Neighbors;
 import cell_society.backend.automata.Patch;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -302,6 +303,23 @@ public class Grid {
       }
     }
     return display;
+  }
+
+  /**
+   * Calculate the distribution of each type of cell.
+   * @return
+   */
+  public Map<Integer, Integer> getCellDistribution() {
+    Map<Integer, Integer> map = new HashMap<>();
+    for (Coordinate coordinate : getCoordinateUpdateList()){
+      int row = coordinate.getFirst();
+      int col = coordinate.getSecond();
+      Cell cell = getCell(row, col);
+      int curr = cell == null ? 0 : Integer.parseInt(cellDecoder.get(cell.toString()));
+      map.putIfAbsent(curr, 0);
+      map.put(curr, map.get(curr) + 1);
+    }
+    return map;
   }
 
   /**

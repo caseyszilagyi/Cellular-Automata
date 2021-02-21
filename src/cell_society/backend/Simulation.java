@@ -1,7 +1,7 @@
 package cell_society.backend;
 
-import cell_society.backend.simulation_initializer.SimulationInitializer;
 import cell_society.backend.automata.grid_styles.Grid;
+import cell_society.backend.simulation_initializer.SimulationInitializer;
 import cell_society.backend.simulation_stepper.SimulationStepper;
 import java.util.Map;
 
@@ -15,13 +15,12 @@ import java.util.Map;
  */
 public class Simulation {
 
+  private final String SIMULATION_TYPE;
+  private final String FILE_NAME;
   private SimulationInitializer simulationInitializer;
   private SimulationStepper simulationStepper;
   private Grid simulationGrid;
   private Map colorMappings;
-
-  private final String SIMULATION_TYPE;
-  private final String FILE_NAME;
 
 
   public Simulation(String simulationType, String fileName) {
@@ -52,26 +51,36 @@ public class Simulation {
   }
 
 
-  public char[] getOldGrid(){
+  public char[] getOldGrid() {
     return simulationGrid.getDisplay();
   }
 
-  public int[] getNewGrid(){ return simulationGrid.getIntDisplay(); }
+  public int[] getNewGrid() {
+    return simulationGrid.getIntDisplay();
+  }
+
+  /**
+   * Gets the amount of each cell type, coded as an int
+   * @return map of cell code to frequency
+   */
+  public Map<Integer, Integer> getCellDistribution() {
+    return simulationGrid.getCellDistribution();
+  }
 
   //only for testing
-  public Grid getRealGrid(){
+  public Grid getRealGrid() {
     return simulationGrid;
   }
 
-  public int getGridWidth(){
+  public int getGridWidth() {
     return simulationGrid.getGridWidth();
   }
 
-  public Map getColorMapping(){
+  public Map getColorMapping() {
     return colorMappings;
   }
 
-  public int getGridHeight(){
+  public int getGridHeight() {
     return simulationGrid.getGridHeight();
   }
 
