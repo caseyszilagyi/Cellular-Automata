@@ -150,12 +150,12 @@ public class GridDisplay {
 
   private void drawHexagonCell(Polygon cell, double x, double y) {
     cell.getPoints().addAll(
-        x, y + cellHeight * (1.0 / 3),
-        x + cellWidth / 2.0, y - cellHeight * (1.0 / 3),
-        x + cellWidth, y + cellHeight * (1.0 / 3),
-        x + cellWidth, y + cellHeight * (2.0 / 3),
-        x + cellWidth / 2.0, y + cellHeight * (4.0 / 3),
-        x, y + cellHeight * (2.0 / 3)
+        x, y + cellHeight * (1.0 / 4),
+        x + cellWidth / 2.0, y - cellHeight * (1.0 / 4),
+        x + cellWidth, y + cellHeight * (1.0 / 4),
+        x + cellWidth, y + cellHeight * (3.0 / 4),
+        x + cellWidth / 2.0, y + cellHeight * (5.0 / 4),
+        x, y + cellHeight * (3.0 / 4)
     );
   }
 

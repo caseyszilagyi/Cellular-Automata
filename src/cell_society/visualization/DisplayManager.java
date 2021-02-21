@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -31,7 +32,6 @@ public class DisplayManager {
   private final AnimationManager animationManager;
   private final Pane pane;
 
-  private final String[] colorModes = {"LightMode.css", "Colorful.css", "DarkMode.css"};
   private int currentColorMode = 0;
 
   private final String VISUALIZATION_RESOURCE_PACKAGE = "cell_society/visualization/resources/";
@@ -58,24 +58,12 @@ public class DisplayManager {
 
     makeAllButtons();
 
-    changeStylesheet(colorModes[currentColorMode]);
-  }
-
-  public void printWindowSize(){
-    System.out.println("WINDOW WIDTH: " + stage.getWidth());
+    changeStylesheet("LightMode.css");
   }
 
   private void changeStylesheet(String fileName){
     scene.getStylesheets().clear();
     scene.getStylesheets().add(getClass().getResource(VISUALIZATION_RESOURCE_FOLDER + "stylesheets/" + fileName).toExternalForm());
-  }
-
-  private void toggleNextStylesheet(){
-    currentColorMode++;
-    if(currentColorMode > colorModes.length - 1){
-      currentColorMode = 0;
-    }
-    changeStylesheet(colorModes[currentColorMode]);
   }
 
   private void loadNewSimulation(String simulationType, String fileName){
@@ -108,13 +96,13 @@ public class DisplayManager {
   }
 
   private void makeAllButtons(){
+    ComboBox<String> colorModeButton = makeDropdownButton("ColorModeButton", 10+10+80+10+80+10+120, 40, 120, new String[]{"Dark Mode", "Light Mode", "Colorful Mode"});
     Button loadSimButton = makeButton("LoadSimulationButton", 10, 10, 120);
     Button addNewSimButton = makeButton("NewSimulationButton", 10+10+120, 10, 160);
 
     Button playPauseButton = makeButton("PlayPauseButton", 10, 40, 80);
     Button stepButton = makeButton("StepButton", 10+10+80, 40, 80);
     Button speedButton = makeButton("SpeedButton", 10+10+80+10+80, 40, 120);
-    Button colorModeButton = makeButton("ColorModeButton", 10+10+80+10+80+10+120, 40, 120);
 
     loadSimButton.setOnMouseClicked(e -> {
       animationManager.pauseSimulation();
@@ -139,9 +127,10 @@ public class DisplayManager {
       speedButton.setText(resourceBundle.getString("SpeedButton") + animationManager.setNextFPS()); // <-- must use String.format() for info rather than '+'
     });
 
-    colorModeButton.setOnMouseClicked(e -> {
+    colorModeButton.setOnAction(e -> {
       animationManager.pauseSimulation();
-      toggleNextStylesheet();
+      String selected = colorModeButton.getSelectionModel().getSelectedItem();
+      changeStylesheet(selected.replace(" ", "") + ".css");
     });
   }
 
@@ -152,6 +141,18 @@ public class DisplayManager {
     button.setPrefWidth(buttonWidth);
     root.getChildren().add(button);
     return button;
+  }
+
+  private ComboBox<String> makeDropdownButton(String property, double x, double y, double buttonWidth, String[] choices){
+    ComboBox<String> comboBox = new ComboBox<>();
+    comboBox.setPromptText(resourceBundle.getString(property));
+    comboBox.setLayoutX(x);
+    comboBox.setLayoutY(y);
+    for (String choice : choices) {
+      comboBox.getItems().add(choice);
+    }
+    root.getChildren().add(comboBox);
+    return comboBox;
   }
 
   private String[] convertCharSheetToColors(char[] charSheet, Map<Character, String> charToColorMap){
@@ -166,7 +167,7 @@ public class DisplayManager {
 
   public void updateDisplayGrid(Simulation currentSim){
     gridDisplay.setGridDimensions(currentSim.getGridWidth(), currentSim.getGridHeight());
-    gridDisplay.updateGrid(getCellColorSheet(currentSim), "rectangle");
+    gridDisplay.updateGrid(getCellColorSheet(currentSim), "hexagon");
   }
 
   private String[] getCellColorSheet(Simulation currentSim){
