@@ -37,6 +37,16 @@ public class AntCell extends Cell {
     return super.getNeighbors(grid);
   }
 
+  /**
+   * The primary action of the ant is to move in one of two possible directions that it is facing.
+   * If both positions are avilable, the position with the highest pheromone concentration is moved
+   * to.  Otherwise, the ant remains in the same position and rotates to a new direction to try
+   * during the next round.
+   *
+   * @param neighbors   Cells that this cell uses to make its decision
+   * @param currentGrid Grid containing the current configuration of cells
+   * @param nextGrid    Grid to contain the next configuration of cells
+   */
   @Override
   public void performPrimaryAction(Neighbors neighbors, Grid currentGrid, Grid nextGrid) {
     // Find food mode
@@ -54,7 +64,7 @@ public class AntCell extends Cell {
       patchCW = nextGrid.getPatch(coordCW.getFirst(), coordCW.getSecond());
     }
     if (validDirection(row, col, antDirection.rotateCCW(), currentGrid, nextGrid)) {
-      coordCCW = antDirection.rotateCW().getResultingCoordinate(row, col);
+      coordCCW = antDirection.rotateCCW().getResultingCoordinate(row, col);
       patchCCW = nextGrid.getPatch(coordCCW.getFirst(), coordCCW.getSecond());
     }
     int newRow;
@@ -63,6 +73,8 @@ public class AntCell extends Cell {
       // Ant stays in place, rotates slightly
       AntCell antCell = new AntCell(row, col, this);
       antCell.antDirection = antDirection.rotateCW();
+      nextGrid.placeCell(row, col, antCell);
+      return;
     }
     if (coordCCW == null ^ coordCW == null) {
       newRow = coordCCW == null ? coordCW.getFirst() : coordCCW.getFirst();
@@ -71,7 +83,7 @@ public class AntCell extends Cell {
       nextGrid.placeCell(newRow, newCol, antCell);
       return;
     }
-    // Decide on coordinate to move to
+    // Decide on coordinate to move to if both are available
     int foodPheromoneCW = patchCW.getState(AntPatch.FOOD_PHEROMONE_LEVEL);
     int foodPheromoneCCW = patchCCW.getState(AntPatch.FOOD_PHEROMONE_LEVEL);
     newRow = weightedRandom(foodPheromoneCW, foodPheromoneCCW) ? coordCW.getFirst()
@@ -90,12 +102,20 @@ public class AntCell extends Cell {
     return nextGrid.inBoundaries(result) && currentGrid.isEmpty(result) && nextGrid.isEmpty(result);
   }
 
+  /**
+   * Once the ant is on a new patch, the new patch has the ability to influence the ant's behavior.
+   * @param neighbors   Cells that this cell uses to make its decisions
+   * @param currentGrid Grid containing the current configuration of cells
+   * @param nextGrid    Grid to contain the next configuration of cells
+   */
   @Override
   public void performSecondaryAction(Neighbors neighbors, Grid currentGrid, Grid nextGrid) {
     Patch patch = currentGrid.getPatch(getRow(), getCol());
     // Acquire food?
-    if (patch.getState(AntPatch.FOOD_LEVEL) > 0 && food == 0){
+    if (patch.getState(AntPatch.FOOD_LEVEL) > 0 && food == 0) {
       food = 1;
+      // Ant rapidly adjusts location in an attempt to go back
+      antDirection = currentGrid.getGridCellStructure().getRandomDirection(getRow(), getCol());
     }
 
     // Pheromone adjustments
@@ -112,5 +132,10 @@ public class AntCell extends Cell {
   @Override
   public boolean probeState(Neighbors neighbors, Grid currentGrid, Grid nextGrid) {
     return food > 0;
+  }
+
+  @Override
+  public String getGridRepresentation() {
+    return "A";
   }
 }
