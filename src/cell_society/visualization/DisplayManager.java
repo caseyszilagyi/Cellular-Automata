@@ -83,16 +83,19 @@ public class DisplayManager {
 
   private void loadNewSimulation(String simulationType, String fileName){
     if (!simulationType.equals("") && !fileName.equals("")){
-
       try {
         currentSim = new Simulation(simulationType, fileName);
         currentSimulationType = simulationType;
         currentSim.initializeSimulation();
         animationManager.setSimulation(currentSim);
+
+        gridDisplay.setCurrentSimInfo(currentSim, currentSimulationType);
+        graphDisplay.setCurrentSimInfo(currentSim, currentSimulationType);
         updateDisplayGraph();
         updateDisplayGrid();
+
         animationManager.pauseSimulation();
-      }catch (Exception error){
+      } catch (Exception error){
         System.out.println(error.getMessage());
       }
     }
@@ -124,6 +127,8 @@ public class DisplayManager {
     Button playPauseButton = makeButton(PLAY_PAUSE_BUTTON_PROPERTY, 10, 40, 80);
     Button stepButton = makeButton(STEP_BUTTON_PROPERTY, 10+10+80, 40, 80);
     Button speedButton = makeButton(SPEED_BUTTON_PROPERTY, 10+10+80+10+80, 40, 120);
+
+
 
     loadSimButton.setOnMouseClicked(e -> {
       animationManager.pauseSimulation();
@@ -180,13 +185,10 @@ public class DisplayManager {
    *
    */
   public void updateDisplayGrid(){
-    gridDisplay.setSimulationType(currentSimulationType);
     gridDisplay.updateGrid(currentSim.getGridDisplay()); //convert backend grid into frontend grid
   }
 
   public void updateDisplayGraph(){
-    graphDisplay.setCurrentSim(currentSim);
-    graphDisplay.setSimulationType(currentSimulationType);
     graphDisplay.updateGraph();
   }
 }

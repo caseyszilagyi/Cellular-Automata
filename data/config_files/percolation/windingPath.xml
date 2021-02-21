@@ -8,7 +8,7 @@
     <type cellPackage ="percolation"></type>
     <type gridType = "Grid"></type>
     <type stepperType = "SimulationStepper"></type>
-    <type structureType = "Square"></type>
+    <type structureType = "Hexagon"></type>
   </coreSpecifications>
 
   <gridInfo>

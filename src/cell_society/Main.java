@@ -6,21 +6,25 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+/**
+ * @author Donghan Park
+ */
 public class Main extends Application {
 
   private final int SCREEN_WIDTH = 1600;
   private final int SCREEN_HEIGHT = 800;
+  private final String STAGE_TITLE = "Cell Society Simulation";
 
   @Override
   public void start(Stage stage) {
-    createNewWindow("Cell Society Simulation");
+    createNewWindow(STAGE_TITLE);
   }
 
   public void createNewWindow(String stageTitle){
     Stage stage = new Stage();
     stage.setTitle(stageTitle);
-    stage.setMinWidth(480);
-    stage.setMinHeight(500);
+    stage.setMinWidth(800);
+    stage.setMinHeight(600);
 
     Pane root = new Pane();
 
