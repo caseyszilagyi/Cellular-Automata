@@ -5,6 +5,8 @@ import cell_society.backend.Simulation;
 import java.io.File;
 import java.util.ResourceBundle;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Pane;
@@ -95,7 +97,14 @@ public class DisplayManager {
 
         animationManager.pauseSimulation();
       } catch (Exception error){
-        System.out.println(error.getMessage());
+        // exception handling
+
+        Alert newAlert = new Alert(AlertType.ERROR);
+        newAlert.setTitle(resourceBundle.getString("ErrorTitle"));
+        newAlert.setHeaderText(null);
+        newAlert.setContentText(resourceBundle.getString(error.getMessage()));
+
+        newAlert.showAndWait();
       }
     }
   }
