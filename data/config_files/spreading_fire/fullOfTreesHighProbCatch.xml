@@ -8,7 +8,7 @@
     <type cellPackage ="spreading_fire"></type>
     <type gridType = "Grid"></type>
     <type stepperType = "SimulationStepper"></type>
-    <type structureType = "Square"></type>
+    <type structureType = "Hexagon"></type>
   </coreSpecifications>
 
   <gridInfo>
@@ -35,10 +35,10 @@
         tttttttttttttttttttttttttttttttttttttttt
         tttttttttttttttttttttttttttttttttttttttt
         tttttttttttttttttttttttttttttttttttttttt
-        fttttttttttttttttttttttttttttttttttttttt
-        fttttttttttttttttttttttttttttttttttttttt
-        fttttttttttttttttttttttttttttttttttttttt
-        fttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttftttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
         tttttttttttttttttttttttttttttttttttttttt
         tttttttttttttttttttttttttttttttttttttttt
         tttttttttttttttttttttttttttttttttttttttt
@@ -72,7 +72,7 @@
       </decoder>
 
       <parameters>
-        <parameter probcatch='0.8'/>
+        <parameter probcatch='1.0'/>
       </parameters>
     </grid>
 
