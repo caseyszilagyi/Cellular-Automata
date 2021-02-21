@@ -60,6 +60,11 @@
         xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
       </gridState>
 
+      <randomProbs>
+        <key x='0.5'></key>
+        <key O='0.5'></key>
+      </randomProbs>
+
       <codes>
         <key x='DeadCell'></key>
         <key O='AliveCell'></key>
