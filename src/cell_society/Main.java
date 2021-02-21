@@ -11,7 +11,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-  private final int SCREEN_WIDTH = 1600;
+  private final int SCREEN_WIDTH = 1000;
   private final int SCREEN_HEIGHT = 800;
   private final String STAGE_TITLE = "Cell Society Simulation";
 

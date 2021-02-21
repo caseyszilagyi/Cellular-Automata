@@ -25,6 +25,11 @@ public class GridDisplay extends ViewDisplay {
   private int gridWidth, gridHeight;
   private double cellWidth, cellHeight;
 
+  /**
+   *
+   * @param scene
+   * @param pane
+   */
   public GridDisplay(Scene scene, Pane pane) {
     super();
     this.scene = scene;

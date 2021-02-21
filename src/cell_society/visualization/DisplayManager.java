@@ -43,6 +43,8 @@ public class DisplayManager {
   private final String PLAY_PAUSE_BUTTON_PROPERTY = "PlayPauseButton";
   private final String STEP_BUTTON_PROPERTY = "StepButton";
   private final String SPEED_BUTTON_PROPERTY = "SpeedButton";
+  private final String GRID_BUTTON_PROPERTY = "GridButton";
+  private final String GRAPH_BUTTON_PROPERTY = "GraphButton";
   private final String[] COLOR_MODES_LIST = {"Dark Mode", "Light Mode", "Colorful Mode"};
 
   private Simulation currentSim;
@@ -97,8 +99,6 @@ public class DisplayManager {
 
         animationManager.pauseSimulation();
       } catch (Exception error){
-        // exception handling
-
         Alert newAlert = new Alert(AlertType.ERROR);
         newAlert.setTitle(resourceBundle.getString("ErrorTitle"));
         newAlert.setHeaderText(null);
@@ -136,7 +136,24 @@ public class DisplayManager {
     Button stepButton = makeButton(STEP_BUTTON_PROPERTY, 10+10+80, 40, 80);
     Button speedButton = makeButton(SPEED_BUTTON_PROPERTY, 10+10+80+10+80, 40, 120);
 
+    Button gridButton = makeButton(GRID_BUTTON_PROPERTY, scene.getWidth() - 130, 10, 120);
+    Button graphButton = makeButton(GRAPH_BUTTON_PROPERTY, scene.getWidth()- 130, 40, 120);
 
+    gridButton.setOnMouseClicked(e -> {
+      if(gridPane.isVisible()){
+        gridPane.setVisible(false);
+      } else {
+        gridPane.setVisible(true);
+      }
+    });
+
+    graphButton.setOnMouseClicked(e -> {
+      if(graphPane.isVisible()){
+        graphPane.setVisible(false);
+      } else {
+        graphPane.setVisible(true);
+      }
+    });
 
     loadSimButton.setOnMouseClicked(e -> {
       animationManager.pauseSimulation();

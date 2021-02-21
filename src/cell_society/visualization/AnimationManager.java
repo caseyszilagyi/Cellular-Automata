@@ -20,6 +20,10 @@ public class AnimationManager {
 
   private boolean animationRunning;
 
+  /**
+   *
+   * @param displayManager
+   */
   public AnimationManager(DisplayManager displayManager){
     this.displayManager = displayManager;
     setupTimeline();
