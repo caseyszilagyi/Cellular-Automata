@@ -129,11 +129,13 @@ public class GridDisplay {
 
     if (colorHex != null) { // if the cell is empty
       cell.setFill(Color.web(colorHex));
+      cell.setStroke(Color.BLACK);
+      //cell.setStroke(Color.web(colorHex)); // <-- this is no border since it's the same fill
     } else {
       cell.setFill(defaultCellColor);
+      //cell.setStroke(Color.GAINSBORO);
     }
 
-    cell.setStroke(Color.GAINSBORO); // border color (can be changed by user)
     pane.getChildren().add(cell);
   }
 
