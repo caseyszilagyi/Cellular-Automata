@@ -4,8 +4,10 @@ import cell_society.controller.ErrorHandler;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -31,13 +33,7 @@ public class XMLFileReader {
   public final List<String> DATA_FIELDS = List.of(
       "title",
       "author",
-      "description",
-      "rows",
-      "columns",
-      "grid",
-      "cellPackage",
-      "gridType",
-      "stepperType"
+      "description"
   );
 
   /**
@@ -91,6 +87,82 @@ public class XMLFileReader {
       results.put(field, getTextValue(root, field));
     }
 
+    return results;
+  }
+
+  /**
+   * Getting an element value
+   * @param element The element tag
+   * @return The element value
+   * @throws XMLErrorHandler error for if element does not exist?
+   */
+  public String getElement(String element) throws XMLErrorHandler {
+    Element root = getRootElement(currentFile);
+    NodeList current = root.getElementsByTagName(element);
+    return getTextValue(root, element);
+  }
+
+  /**
+   * A way of getting each grid/patch details by looping through all of them and adding them to a set
+   * @return The set of all the GridOrPatchDetails objects, which specify the initial state of the
+   * simulation
+   * @throws XMLErrorHandler
+   */
+  public Set<GridOrPatchDetails> getPatchDetails() throws XMLErrorHandler {
+    Element root = getRootElement(currentFile);
+    int rows = Integer.parseInt(getTextValue(root, "rows"));
+    int cols = Integer.parseInt(getTextValue(root, "columns"));
+    NodeList current = ((Element) root.getElementsByTagName("gridInfo").item(0)).getElementsByTagName("patch");
+
+    HashSet<GridOrPatchDetails> details = new HashSet<>();
+    for(int i = 0; i<current.getLength(); i++){
+      Element currentGridOrPatch = (Element) current.item(i);
+      String type = getTextValue(currentGridOrPatch, "type");
+      String grid = getTextValue(currentGridOrPatch, "gridState");
+      Map<String, String> codes = getSubAttributeMap("codes",currentGridOrPatch);
+      Map<String, String> parameters = getSubAttributeMap("parameters",currentGridOrPatch);
+      details.add(new GridOrPatchDetails(type, cols, rows, grid, parameters, codes));
+    }
+
+    return details;
+  }
+
+  public GridOrPatchDetails getGridDetails() throws XMLErrorHandler {
+    Element root = getRootElement(currentFile);
+    int rows = Integer.parseInt(getTextValue(root, "rows"));
+    int cols = Integer.parseInt(getTextValue(root, "columns"));
+    NodeList current = ((Element) root.getElementsByTagName("gridInfo").item(0)).getElementsByTagName("grid");
+
+    GridOrPatchDetails newGrid = null;
+    for(int i = 0; i<current.getLength(); i++){
+      Element currentGridOrPatch = (Element) current.item(i);
+      String type = getTextValue(currentGridOrPatch, "type");
+      String grid = getTextValue(currentGridOrPatch, "gridState");
+      Map<String, String> codes = getSubAttributeMap("codes",currentGridOrPatch);
+      Map<String, String> parameters = getSubAttributeMap("parameters",currentGridOrPatch);
+      newGrid = new GridOrPatchDetails(type, cols, rows, grid, parameters, codes);
+    }
+
+    return newGrid;
+  }
+
+
+  /**
+   * Gets a hashmap of all of the attributes and their assigned values inside a given element
+   *
+   * @param userAttribute the element name
+   */
+  public Map getSubAttributeMap(String userAttribute, Element element) {
+    NodeList list = element.getElementsByTagName(userAttribute).item(0)
+        .getChildNodes();
+
+    Map<String, String> results = new HashMap<>();
+    for (int i = 0; i < list.getLength(); i++) {
+      if (list.item(i) instanceof Element) {
+        Node attribute = list.item(i).getAttributes().item(0);
+        results.put(attribute.getNodeName(), attribute.getNodeValue());
+      }
+    }
     return results;
   }
 
