@@ -101,7 +101,8 @@ public class XMLFileReader {
       Map<String, String> codes = getSubAttributeMap("codes", gridOrPatch);
       Map<String, String> decoder = getSubAttributeMap("decoder", gridOrPatch);
       Map<String, String> parameters = getSubAttributeMap("parameters", gridOrPatch);
-      GridOrPatchDetails details = new GridOrPatchDetails(type, cols, rows, grid, parameters, codes, decoder);
+      Map<String, String> probabilities = getSubAttributeMap("randomProbs", gridOrPatch);
+      GridOrPatchDetails details = new GridOrPatchDetails(type, cols, rows, grid, parameters, codes, decoder, probabilities);
       return details;
     } catch(Exception e){
       throw new ErrorHandler("CoreGridSpecification");

@@ -65,4 +65,8 @@ public class Simulation {
     return simulationGrid.getCellDistribution();
   }
 
+  public void storeAsXMLFile(){
+
+  }
+
 }

@@ -31,6 +31,8 @@ For XML file reading: https://docs.oracle.com/javase/tutorial/jaxp/dom/readingXM
 
 For window resize listeners: https://blog.idrsolutions.com/2012/11/adding-a-window-resize-listener-to-javafx-scene
 
+For weighted random generation: https://stackoverflow.com/questions/6409652/random-weighted-selection-in-java
+
 ### Running the Program
 
 Main class: Main
