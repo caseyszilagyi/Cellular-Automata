@@ -42,10 +42,10 @@ public class GraphDisplay extends ViewDisplay {
     ResourceBundle resourceBundle = getColorSheetResourceBundle();
 
     for(Map.Entry<Integer, Integer> entry : cellTypesMap.entrySet()){
-      PieChart.Data slice = new PieChart.Data(resourceBundle.getString(entry.getKey() + "name"), entry.getValue());
+      PieChart.Data slice = new PieChart.Data(resourceBundle.getString(String.format("%dname", entry.getKey())), entry.getValue());
       chart.getData().add(slice);
-      slice.getNode().setStyle("-fx-pie-color: #" + resourceBundle.getString(Integer.toString(entry.getKey())) + ";");
-      slice.setName(slice.getName() + ": " + (int) slice.getPieValue());
+      slice.getNode().setStyle(String.format("-fx-pie-color: #%s;" ,resourceBundle.getString(Integer.toString(entry.getKey()))));
+      slice.setName(String.format("%s: %d", slice.getName(), (int) slice.getPieValue()));
     }
 
     chart.setPrefSize(screenWidth, screenHeight);

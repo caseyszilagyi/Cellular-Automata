@@ -29,8 +29,8 @@ public class ViewDisplay {
   }
 
   public ResourceBundle getColorSheetResourceBundle(){
-    String VISUALIZATION_RESOURCE_PACKAGE = "cell_society/visualization/resources/";
-    return ResourceBundle.getBundle(VISUALIZATION_RESOURCE_PACKAGE + "properties/simulationColorCodes/" + currentSimType);
+    String simColorCodesPackage = "cell_society/visualization/resources/properties/simulationColorCodes";
+    return ResourceBundle.getBundle(String.format("%s/%s", simColorCodesPackage, currentSimType));
   }
 
   public int getHorizontalBorderLength(){
