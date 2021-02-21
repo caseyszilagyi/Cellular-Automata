@@ -4,6 +4,7 @@ import cell_society.backend.automata.CellStructure;
 import cell_society.backend.automata.Coordinate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class SquareStructure extends CellStructure {
 
@@ -23,6 +24,13 @@ public class SquareStructure extends CellStructure {
       allAdjacentCoordinates.add(d.getResultingCoordinate(row, col));
     }
     return allAdjacentCoordinates;
+  }
+
+  @Override
+  public Direction getRandomDirection(int row, int col) {
+    SquareDirection[] directions = SquareDirection.values();
+    int length = directions.length;
+    return directions[ThreadLocalRandom.current().nextInt(0, length)];
   }
 
   public int getCode(){

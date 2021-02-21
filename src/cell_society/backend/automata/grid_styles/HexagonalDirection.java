@@ -7,12 +7,12 @@ import java.util.List;
 public enum HexagonalDirection implements Direction {
 
   // rows with odd indices are shifted to the right and have alternative indices to apply
-  LEFT(0, -1, 0, -1),
-  RIGHT(0, 1, 0, 1),
   TOP_LEFT(-1, -1, -1, 0),
   TOP_RIGHT(-1, 0, -1, 1),
+  RIGHT(0, 1, 0, 1),
+  BOTTOM_RIGHT(1, 0, 1, 1),
   BOTTOM_LEFT(1, -1, 1, 0),
-  BOTTOM_RIGHT(1, 0, 1, 1);
+  LEFT(0, -1, 0, -1);
 
   private final int rowDelta;
   private final int colDelta;
