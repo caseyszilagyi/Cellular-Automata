@@ -86,7 +86,7 @@ public class SimulationInitializer {
     gridCreator.makeGrid(gridDetails.getGridHeight(), gridDetails.getGridWidth(), coreSpecifications.get("gridType"));
     gridCreator.populateGrid(gridDetails.getGrid(), gridDetails.getCodes());
     gridCreator.setColorCodes(colorCodes);
-    cellDecoder = gridDetails.getDecoder();
+    //cellDecoder = gridDetails.getDecoder();
     gridCreator.setCellDecoder(cellDecoder);
     simulationGrid = gridCreator.getGrid();
     return simulationGrid;
