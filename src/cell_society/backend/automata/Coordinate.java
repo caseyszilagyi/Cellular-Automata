@@ -21,7 +21,6 @@ public class Coordinate {
     this.second = coordinate.second;
   }
 
-  // NOTE: provides getters, but not setters
 
   /**
    * Returns first value in pair

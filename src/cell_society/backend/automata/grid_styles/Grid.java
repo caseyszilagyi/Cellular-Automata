@@ -280,6 +280,7 @@ public class Grid {
   }
 
   /**
+   * @Deprecated, please use printCurrentState for a more general debug function.
    * Used for debugging
    */
   public void printCurrentState() {
@@ -294,12 +295,12 @@ public class Grid {
   }
 
   /**
-   * Updated print debugger.  Slices into the gridAccepts negative coordinates
+   * Updated print debugger.  Slices into the grid and accepts negative coordinates
    *
-   * @param rowIndex
-   * @param colIndex
-   * @param height
-   * @param width
+   * @param rowIndex row index of the top-left bounding corner
+   * @param colIndex column index of the top-left bounding corner
+   * @param height height of the grid slice
+   * @param width width of the grid slice
    */
   public void printCurrentState(int rowIndex, int colIndex, int height, int width) {
     for (int j = rowIndex; j < rowIndex + height; j++) {
@@ -313,6 +314,13 @@ public class Grid {
     System.out.println();
   }
 
+  /**
+   * Print debugger for displaying the Patch state.  Slices into the grid and accepts negative coordiantes.
+   * @param rowIndex row index of the top-left bounding corner
+   * @param colIndex column index of the top-left bounding corner
+   * @param height height of the grid slice
+   * @param width width of the grid slice
+   */
   public void printCurrentPatchState(int rowIndex, int colIndex, int height, int width) {
     for (int j = rowIndex; j < rowIndex + height; j++) {
       for (int k = colIndex; k < colIndex + width; k++) {
