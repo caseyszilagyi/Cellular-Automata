@@ -18,9 +18,12 @@ public class AnimationManager {
   private Simulation currentSim;
   private Timeline animation;
 
+  private boolean animationRunning;
+
   public AnimationManager(DisplayManager displayManager){
     this.displayManager = displayManager;
     setupTimeline();
+    animationRunning = false;
   }
 
   private void setupTimeline(){
@@ -50,22 +53,32 @@ public class AnimationManager {
     }
   }
 
+  public void playPauseSimulation(){
+    if(animationRunning){
+      pauseSimulation();
+    } else {
+      playSimulation();
+    }
+  }
+
   public void playSimulation(){
     if(currentSim != null){
       animation.play();
+      animationRunning = true;
     }
   }
 
   public void pauseSimulation(){
     if(currentSim != null){
       animation.pause();
+      animationRunning = false;
     }
   }
 
   public double setNextFPS(){
-    double speedInterval = 0.20;
+    double speedInterval = 0.25;
     double maxSpeedScale = 2.0;
-    double minSpeedScale = 0.20;
+    double minSpeedScale = 0.25;
     double speedScale = animation.getRate() - speedInterval;
     if (speedScale < minSpeedScale) {
       speedScale = maxSpeedScale;

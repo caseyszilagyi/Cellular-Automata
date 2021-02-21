@@ -109,8 +109,7 @@ public class DisplayManager {
 
   private void makeAllButtons(){
     Button loadSimButton = makeButton("LoadSimulationButton", 10, 10, 120);
-    Button startButton = makeButton("StartButton", 10, 40, 80);
-    Button pauseButton = makeButton("PauseButton", 10, 70, 80);
+    Button playPauseButton = makeButton("PlayPauseButton", 10, 40, 80);
     Button stepButton = makeButton("StepButton", 10, 100, 80);
     Button speedButton = makeButton("SpeedButton", 10, 130, 120);
     Button colorModeButton = makeButton("ColorModeButton", 10, 180, 120);
@@ -126,12 +125,8 @@ public class DisplayManager {
       openNewWindow();
     });
 
-    startButton.setOnMouseClicked(e -> {
-      animationManager.playSimulation();
-    });
-
-    pauseButton.setOnMouseClicked(e -> {
-      animationManager.pauseSimulation();
+    playPauseButton.setOnMouseClicked(e -> {
+      animationManager.playPauseSimulation();
     });
 
     stepButton.setOnMouseClicked(e -> {
