@@ -3,7 +3,6 @@ package cell_society.visualization;
 import cell_society.Main;
 import cell_society.backend.Simulation;
 import java.io.File;
-import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -29,6 +28,7 @@ public class DisplayManager {
   private final ResourceBundle resourceBundle;
 
   private final GridDisplay gridDisplay;
+  private final GraphDisplay graphDisplay;
   private final AnimationManager animationManager;
   private final Pane pane;
 
@@ -62,6 +62,7 @@ public class DisplayManager {
     root.getChildren().add(pane);
 
     gridDisplay = new GridDisplay(scene, pane);
+    graphDisplay = new GraphDisplay(scene, pane);
 
     animationManager = new AnimationManager(this);
 
@@ -82,7 +83,8 @@ public class DisplayManager {
       currentSim.initializeSimulation();
       animationManager.setSimulation(currentSim);
 
-      updateDisplayGrid();
+      updateDisplayGraph();
+      //updateDisplayGrid();
       animationManager.pauseSimulation();
     }
   }
@@ -165,8 +167,17 @@ public class DisplayManager {
     return comboBox;
   }
 
+  /**
+   *
+   */
   public void updateDisplayGrid(){
     gridDisplay.setSimulationType(currentSimulationType);
     gridDisplay.updateGrid(currentSim.getNewGrid()); //convert backend grid into frontend grid
+  }
+
+  public void updateDisplayGraph(){
+    graphDisplay.setCurrentSim(currentSim);
+    graphDisplay.setSimulationType(currentSimulationType);
+    graphDisplay.updateGraph();
   }
 }
