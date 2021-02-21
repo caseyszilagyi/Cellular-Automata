@@ -83,14 +83,18 @@ public class DisplayManager {
 
   private void loadNewSimulation(String simulationType, String fileName){
     if (!simulationType.equals("") && !fileName.equals("")){
-      currentSim = new Simulation(simulationType, fileName);
-      currentSimulationType = simulationType;
-      currentSim.initializeSimulation();
-      animationManager.setSimulation(currentSim);
 
-      updateDisplayGraph();
-      updateDisplayGrid();
-      animationManager.pauseSimulation();
+      try {
+        currentSim = new Simulation(simulationType, fileName);
+        currentSimulationType = simulationType;
+        currentSim.initializeSimulation();
+        animationManager.setSimulation(currentSim);
+        updateDisplayGraph();
+        updateDisplayGrid();
+        animationManager.pauseSimulation();
+      }catch (Exception error){
+        System.out.println(error.getMessage());
+      }
     }
   }
 
