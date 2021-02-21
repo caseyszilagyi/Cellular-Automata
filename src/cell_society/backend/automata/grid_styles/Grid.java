@@ -5,6 +5,7 @@ import cell_society.backend.automata.CellStructure;
 import cell_society.backend.automata.Coordinate;
 import cell_society.backend.automata.Neighbors;
 import cell_society.backend.automata.Patch;
+import cell_society.controller.ErrorHandler;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -171,6 +172,10 @@ public class Grid {
     return grid[row][col] == null;
   }
 
+  public boolean isEmpty(Coordinate coord){
+    return isEmpty(coord.getFirst(), coord.getSecond());
+  }
+
   /**
    * This method provides a quick check that a provided coordinate is within the bounds of the
    * Grid.
@@ -181,6 +186,12 @@ public class Grid {
    */
   public boolean inBoundaries(int row, int col) {
     return !(row >= gridHeight || row < 0 || col >= gridWidth || col < 0);
+  }
+
+  public boolean inBoundaries(Coordinate coord){
+    int row = coord.getFirst();
+    int col = coord.getSecond();
+    return inBoundaries(row, col);
   }
 
   /**
@@ -288,13 +299,18 @@ public class Grid {
   public int[] getIntDisplay() {
     int[] display = new int[gridHeight * gridWidth+3];
     display[0] = gridCellStructure.getCode();
-    display[1] = getGridWidth();
-    display[2] = getGridHeight();
+    display[1] = getGridHeight();
+    display[2] = getGridWidth();
     int i = 3;
     for (int j = 0; j < gridHeight; j++) {
       for (int k = 0; k < gridWidth; k++) {
         if (grid[j][k] != null) {
-          int curr = Integer.parseInt(cellDecoder.get(grid[j][k].toString()));
+          int curr;
+          try{
+            curr = Integer.parseInt(cellDecoder.get(grid[j][k].toString()));
+          }catch (Exception e){
+            throw new ErrorHandler("InvalidCellMapping");
+          }
           display[i] = curr;
         } else {
           display[i] = 0;

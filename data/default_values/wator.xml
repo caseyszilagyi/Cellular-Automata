@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation>
+  <parameters>
+    <parameter breedtimecounter='0'/>
+    <parameter breedtimethresh='3'/>
+    <parameter energy='10'/>
+    <parameter energygain = '3'/>
+    <parameter reproducethresh='15'/>
+  </parameters>
+</simulation>

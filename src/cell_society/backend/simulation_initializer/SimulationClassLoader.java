@@ -105,7 +105,7 @@ public class SimulationClassLoader {
     CellStructure myStructure = null;
     try {
       Object cellStructure = classLoader
-          .loadClass(GRID_LOCATION + structureType)
+          .loadClass(GRID_LOCATION + structureType +"Structure")
           .getDeclaredConstructor().newInstance();
       myStructure = (CellStructure) cellStructure;
     } catch (Exception e) {

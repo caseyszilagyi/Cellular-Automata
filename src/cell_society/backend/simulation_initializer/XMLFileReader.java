@@ -76,7 +76,7 @@ public class XMLFileReader {
    * @return The map that links the specific parameters to their values
    * @throws XMLErrorHandler Error that is thrown if the file is not valid
    */
-  public Map getSimulationParameters() throws XMLErrorHandler {
+  public Map getSimulationParameters(){
     Element root = getRootElement(currentFile);
     if (!isValidFile(root, simulationType)) {
       throw new ErrorHandler("WrongType");
@@ -90,62 +90,47 @@ public class XMLFileReader {
     return results;
   }
 
-  /**
-   * Getting an element value
-   * @param element The element tag
-   * @return The element value
-   * @throws XMLErrorHandler error for if element does not exist?
-   */
-  public String getElement(String element) throws XMLErrorHandler {
+  // gets the details of a grid or patch and returns it. Throws an error if a core grid specification is missing
+  private GridOrPatchDetails getGridOrPatchDetails(Element gridOrPatch){
     Element root = getRootElement(currentFile);
-    NodeList current = root.getElementsByTagName(element);
-    return getTextValue(root, element);
+    try {
+      int rows = Integer.parseInt(getTextValue(root, "rows"));
+      int cols = Integer.parseInt(getTextValue(root, "columns"));
+      String type = getTextValue(gridOrPatch, "type");
+      String grid = getTextValue(gridOrPatch, "gridState");
+      Map<String, String> codes = getSubAttributeMap("codes", gridOrPatch);
+      Map<String, String> decoder = getSubAttributeMap("decoder", gridOrPatch);
+      Map<String, String> parameters = getSubAttributeMap("parameters", gridOrPatch);
+      GridOrPatchDetails details = new GridOrPatchDetails(type, cols, rows, grid, parameters, codes, decoder);
+      return details;
+    } catch(Exception e){
+      throw new ErrorHandler("CoreGridSpecification");
+    }
   }
 
   /**
-   * A way of getting each grid/patch details by looping through all of them and adding them to a set
-   * @return The set of all the GridOrPatchDetails objects, which specify the initial state of the
-   * simulation
+   * Gets the details of the simulation grid
+   * @return The grid details
    * @throws XMLErrorHandler
    */
-  public Set<GridOrPatchDetails> getPatchDetails() throws XMLErrorHandler {
+  public GridOrPatchDetails getGridDetails() {
     Element root = getRootElement(currentFile);
-    int rows = Integer.parseInt(getTextValue(root, "rows"));
-    int cols = Integer.parseInt(getTextValue(root, "columns"));
-    NodeList current = ((Element) root.getElementsByTagName("gridInfo").item(0)).getElementsByTagName("patch");
-
-    HashSet<GridOrPatchDetails> details = new HashSet<>();
-    for(int i = 0; i<current.getLength(); i++){
-      Element currentGridOrPatch = (Element) current.item(i);
-      String type = getTextValue(currentGridOrPatch, "type");
-      String grid = getTextValue(currentGridOrPatch, "gridState");
-      Map<String, String> codes = getSubAttributeMap("codes",currentGridOrPatch);
-      Map<String, String> decoder = getSubAttributeMap("decoder",currentGridOrPatch);
-      Map<String, String> parameters = getSubAttributeMap("parameters",currentGridOrPatch);
-      details.add(new GridOrPatchDetails(type, cols, rows, grid, parameters, codes, decoder));
-    }
-
-    return details;
+    Element current = (Element) ((Element) root.getElementsByTagName("gridInfo").item(0)).getElementsByTagName("grid").item(0);
+    return getGridOrPatchDetails(current);
   }
 
-  public GridOrPatchDetails getGridDetails() throws XMLErrorHandler {
+  /**
+   * Gets a set of all the patches
+   * @return The set of patches
+   */
+  public Set getPatchDetails(){
     Element root = getRootElement(currentFile);
-    int rows = Integer.parseInt(getTextValue(root, "rows"));
-    int cols = Integer.parseInt(getTextValue(root, "columns"));
-    NodeList current = ((Element) root.getElementsByTagName("gridInfo").item(0)).getElementsByTagName("grid");
-
-    GridOrPatchDetails newGrid = null;
+    NodeList current = ((Element) root.getElementsByTagName("gridInfo").item(0)).getElementsByTagName("patch");
+    Set<GridOrPatchDetails> allPatches = new HashSet<>();
     for(int i = 0; i<current.getLength(); i++){
-      Element currentGridOrPatch = (Element) current.item(i);
-      String type = getTextValue(currentGridOrPatch, "type");
-      String grid = getTextValue(currentGridOrPatch, "gridState");
-      Map<String, String> codes = getSubAttributeMap("codes",currentGridOrPatch);
-      Map<String, String> decoder = getSubAttributeMap("decoder",currentGridOrPatch);
-      Map<String, String> parameters = getSubAttributeMap("parameters",currentGridOrPatch);
-      newGrid = new GridOrPatchDetails(type, cols, rows, grid, parameters, codes, decoder);
+      allPatches.add(getGridOrPatchDetails((Element) current.item(i)));
     }
-
-    return newGrid;
+    return allPatches;
   }
 
 
@@ -174,7 +159,12 @@ public class XMLFileReader {
    * @param userAttribute the element name
    */
   public Map getAttributeMap(String userAttribute) {
-    NodeList list = getNodeListByTagName(userAttribute);
+    NodeList list;
+    try{
+      list = getNodeListByTagName(userAttribute);
+    } catch(Exception e){
+      throw new ErrorHandler("CoreSpecificationError");
+    }
 
     Map<String, String> results = new HashMap<>();
     for (int i = 0; i < list.getLength(); i++) {
@@ -187,53 +177,16 @@ public class XMLFileReader {
   }
 
   /**
-   * Gets a hashmap of all of the attributes and their assigned values inside a given element,
-   * but reverses the key and the corresponding value
-   *
-   * @param userAttribute the element name
-   */
-  public Map getReverseAttributeMap(String userAttribute) {
-    NodeList list = getNodeListByTagName(userAttribute);
-
-    Map<String, String> results = new HashMap<>();
-    for (int i = 0; i < list.getLength(); i++) {
-      if (list.item(i) instanceof Element) {
-        Node attribute = list.item(i).getAttributes().item(0);
-        results.put(attribute.getNodeValue(), attribute.getNodeName());
-      }
-    }
-    return results;
-  }
-
-  /**
    * Gets the NodeList corresponding to a certain tag name. Throws an exception if the tag
    * name doesn't exist
    * @param userAttribute The tag name
    * @return The NodeList
    */
   public NodeList getNodeListByTagName(String userAttribute) {
-    NodeList list;
-    try {
-      list = getRootElement(currentFile).getElementsByTagName(userAttribute).item(0)
-          .getChildNodes();
-    }catch(Exception e){
-      throw new ErrorHandler("MissingCellSpecification");
-    }
-    return list;
+    return getRootElement(currentFile).getElementsByTagName(userAttribute).item(0)
+        .getChildNodes();
   }
 
-  /**
-   * Converts a map from string string to character string
-   * @param map The map to convert
-   * @return The converted map
-   */
-  public Map charMapConverter(Map<String, String> map){
-    Map<Character, String> newMap = new HashMap<>();
-    for(String key: map.keySet()){
-      newMap.put(key.charAt(0), map.get(key));
-    }
-    return newMap;
-  }
 
   // returns if this is a valid XML file for the specified object type. The attribute of the first
   // tag needs to be the same as the type of game that is given

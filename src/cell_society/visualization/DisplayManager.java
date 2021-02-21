@@ -177,7 +177,7 @@ public class DisplayManager {
    */
   public void updateDisplayGrid(){
     gridDisplay.setSimulationType(currentSimulationType);
-    gridDisplay.updateGrid(currentSim.getNewGrid()); //convert backend grid into frontend grid
+    gridDisplay.updateGrid(currentSim.getGridDisplay()); //convert backend grid into frontend grid
   }
 
   public void updateDisplayGraph(){

@@ -47,12 +47,16 @@ public enum SquareDirection implements Direction {
   }
 
   @Override
-  public Direction rotateLeft(Direction direction) {
-    return null;
+  public Direction rotateCW() {
+    List<SquareDirection> directions = Arrays.asList(SquareDirection.values());
+    int size = directions.size();
+    return directions.get((directions.indexOf(this) + 1) % size);
   }
 
   @Override
-  public Direction rotateRight(Direction direction) {
-    return null;
+  public Direction rotateCCW() {
+    List<SquareDirection> directions = Arrays.asList(SquareDirection.values());
+    int size = directions.size();
+    return directions.get((directions.indexOf(this) - 1) % size);
   }
 }

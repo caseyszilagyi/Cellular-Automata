@@ -1,6 +1,7 @@
 package cell_society.backend.simulation_initializer;
 
 import cell_society.backend.automata.Cell;
+import cell_society.backend.automata.CellStructure;
 import cell_society.backend.automata.grid_styles.Grid;
 import cell_society.controller.ErrorHandler;
 import java.util.Map;
@@ -91,6 +92,11 @@ public class GridCreator {
 
   public void setCellDecoder(Map<String, String> cellDecoder){
     simulationGrid.setCellDecoder(cellDecoder);
+  }
+
+  public void setCellStructure(String cellStructure){
+    CellStructure gridStructure = CLASS_LOADER.makeCellStructure(cellStructure);
+    simulationGrid.setGridCellStructure(gridStructure);
   }
 
 }
