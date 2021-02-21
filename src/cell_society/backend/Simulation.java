@@ -20,7 +20,6 @@ public class Simulation {
   private SimulationInitializer simulationInitializer;
   private SimulationStepper simulationStepper;
   private Grid simulationGrid;
-  private Map colorMappings;
 
 
   public Simulation(String simulationType, String fileName) {
@@ -38,24 +37,23 @@ public class Simulation {
     simulationInitializer = new SimulationInitializer();
     simulationInitializer.initializeSimulation(SIMULATION_TYPE, FILE_NAME);
     simulationGrid = simulationInitializer.makeGrid();
-    colorMappings = simulationInitializer.getColorCodes();
     simulationStepper = simulationInitializer.makeStepper();
   }
 
   /**
-   * Makes a step in the simulataion
+   * Makes a step in the simulation
    */
   public void makeStep() {
     simulationStepper.makeStep();
     simulationGrid = simulationStepper.getGrid();
   }
 
-
-  public char[] getOldGrid() {
-    return simulationGrid.getDisplay();
-  }
-
-  public int[] getNewGrid() {
+  /**
+   * The int array that has the shape, height, width, and all the encodings for the cells to be
+   * passed to the front end
+   * @return The array of integers
+   */
+  public int[] getGridDisplay() {
     return simulationGrid.getIntDisplay();
   }
 
@@ -65,23 +63,6 @@ public class Simulation {
    */
   public Map<Integer, Integer> getCellDistribution() {
     return simulationGrid.getCellDistribution();
-  }
-
-  //only for testing
-  public Grid getRealGrid() {
-    return simulationGrid;
-  }
-
-  public int getGridWidth() {
-    return simulationGrid.getGridWidth();
-  }
-
-  public Map getColorMapping() {
-    return colorMappings;
-  }
-
-  public int getGridHeight() {
-    return simulationGrid.getGridHeight();
   }
 
 }

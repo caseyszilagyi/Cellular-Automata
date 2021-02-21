@@ -70,14 +70,10 @@
         <key DeadCell = '2'></key>
       </decoder>
 
+      
       <parameters>
       </parameters>
     </grid>
   </gridInfo>
-
-  <colors>
-    <key x= 'FFFFFF'></key>
-    <key O= '000000'></key>
-  </colors>
 
 </simulation>
