@@ -58,11 +58,6 @@ public class Simulation {
 
   public int[] getNewGrid(){ return simulationGrid.getIntDisplay(); }
 
-  //only for testing
-  public Grid getRealGrid(){
-    return simulationGrid;
-  }
-
   public int getGridWidth(){
     return simulationGrid.getGridWidth();
   }
