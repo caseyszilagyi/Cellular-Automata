@@ -280,6 +280,31 @@ public class Grid {
   }
 
   /**
+   * Gets the string code representation of the cells to pass to the display
+   *
+   * @return A 2D array of string codes.
+   */
+  public int[] getIntDisplay() {
+    int[] display = new int[gridHeight * gridWidth+3];
+    display[0] = gridCellStructure.getCode();
+    display[1] = getGridWidth();
+    display[2] = getGridHeight();
+    int i = 3;
+    for (int j = 0; j < gridHeight; j++) {
+      for (int k = 0; k < gridWidth; k++) {
+        if (grid[j][k] != null) {
+          int curr = Integer.parseInt(cellDecoder.get(grid[j][k].toString()));
+          display[i] = curr;
+        } else {
+          display[i] = 0;
+        }
+        i++;
+      }
+    }
+    return display;
+  }
+
+  /**
    * @Deprecated, please use printCurrentState for a more general debug function.
    * Used for debugging
    */

@@ -3,6 +3,7 @@ package cell_society.backend.simulation_initializer;
 import cell_society.backend.automata.grid_styles.Grid;
 import cell_society.backend.simulation_stepper.SimulationStepper;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * This is where all of the logic to initialize a simulation is contained. The XML file will be read
@@ -20,22 +21,19 @@ public class SimulationInitializer {
   private XMLFileReader xmlFileReader;
   // All the general things about the simulation (title, author)
   private Map<String, String> simulationParameters;
-  // What grid character corresponds to what cell
-  private Map<String, String> cellCodes;
   // Converting the cell types back to codes (for passing to the display)
   private Map<String, String> cellDecoder;
   // Linkage between a specific code and its color
   private Map<Character, String> colorCodes;
-  // the parameters that define a cell's behavior
-  private CellParameters cellParameters;
   // creates the grid
   private GridCreator gridCreator;
-  // can make a cell
-  private CellCreator cellCreator;
 
   private String simulationType;
   private Grid simulationGrid;
   private SimulationClassLoader classLoader;
+
+  private Map<String, String> coreSpecifications;
+  private Set<GridOrPatchDetails> patchDetails;
 
   /**
    * Initializes the file reader.
@@ -61,11 +59,17 @@ public class SimulationInitializer {
     getMaps();
   }
 
+
+  private Set<GridOrPatchDetails> makePatchDetails(){
+    Set<GridOrPatchDetails> details = xmlFileReader.getPatchDetails();
+    return details;
+  }
+
   // Gets all of the maps that are used for various different purposes
   private void getMaps() {
     simulationParameters = xmlFileReader.getSimulationParameters();
-    cellParameters = new CellParameters(xmlFileReader.getAttributeMap("parameters"));
-    cellCodes = xmlFileReader.getAttributeMap("codes");
+    coreSpecifications = xmlFileReader.getAttributeMap("coreSpecifications");
+    patchDetails = makePatchDetails();
     cellDecoder = xmlFileReader.getReverseAttributeMap("codes");
     colorCodes = xmlFileReader.charMapConverter(xmlFileReader.getAttributeMap("colors"));
   }
@@ -76,14 +80,13 @@ public class SimulationInitializer {
    * @return The grid
    */
   public Grid makeGrid() {
-    cellCreator = new CellCreator(simulationType, cellParameters);
-    gridCreator = new GridCreator(Integer.parseInt(simulationParameters.get("rows")),
-        Integer.parseInt(simulationParameters.get("columns")),
-        simulationParameters.get("cellPackage"),
-        simulationParameters.get("gridType"),
-        cellParameters, classLoader);
-    gridCreator.populateGrid(simulationParameters.get("grid"), cellCodes);
+    GridOrPatchDetails gridDetails = xmlFileReader.getGridDetails();
+    gridCreator = new GridCreator(coreSpecifications.get("cellPackage"),
+        new CellParameters(gridDetails.getParameters()), classLoader);
+    gridCreator.makeGrid(gridDetails.getGridHeight(), gridDetails.getGridWidth(), coreSpecifications.get("gridType"));
+    gridCreator.populateGrid(gridDetails.getGrid(), gridDetails.getCodes());
     gridCreator.setColorCodes(colorCodes);
+    //cellDecoder = gridDetails.getDecoder();
     gridCreator.setCellDecoder(cellDecoder);
     simulationGrid = gridCreator.getGrid();
     return simulationGrid;
@@ -94,7 +97,7 @@ public class SimulationInitializer {
    * Initializes the stepper that loops through all the cells;
    */
   public SimulationStepper makeStepper() {
-    SimulationStepper myStepper = classLoader.makeStepper(simulationParameters.get("stepperType"));
+    SimulationStepper myStepper = classLoader.makeStepper(coreSpecifications.get("stepperType"));
     myStepper.setGrid(simulationGrid);
     return myStepper;
   }
@@ -106,16 +109,6 @@ public class SimulationInitializer {
    */
   public Map getColorCodes() {
     return colorCodes;
-  }
-
-  /**
-   * Allows the Simulation class to get the stepper type in order to initialize the simulation
-   * stepper
-   *
-   * @return
-   */
-  public String getStepperType() {
-    return simulationParameters.get("stepperType");
   }
 
 }

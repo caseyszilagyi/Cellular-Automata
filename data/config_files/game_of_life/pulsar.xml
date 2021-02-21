@@ -1,49 +1,60 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation type="game_of_life">
-  <cellPackage>game_of_life</cellPackage>
   <title>Game of Life</title>
   <author>John Horton Conway</author>
   <desc>The Game of Life Simulation</desc>
 
-  <cellPackage>game_of_life</cellPackage>
-  <gridType>Grid</gridType>
-  <stepperType>SimulationStepper</stepperType>
+  <coreSpecifications>
+    <type cellPackage ="game_of_life"></type>
+    <type gridType = "Grid"></type>
+    <type stepperType = "SimulationStepper"></type>
+    <type structureType = "Square"></type>
+  </coreSpecifications>
 
-  <rows>17</rows>
-  <columns>17</columns>
-  <grid>
-    x x x x x x x x x x x x x x x x x
-    x x x x O O O x x x O O O x x x x
-    x x x x x x x x x x x x x x x x x
-    x x O x x x x O x O x x x x O x x
-    x x O x x x x O x O x x x x O x x
-    x x O x x x x O x O x x x x O x x
-    x x x x O O O x x x O O O x x x x
-    x x x x x x x x x x x x x x x x x
-    x x x x O O O x x x O O O x x x x
-    x x O x x x x O x O x x x x O x x
-    x x O x x x x O x O x x x x O x x
-    x x O x x x x O x O x x x x O x x
-    x x x x x x x x x x x x x x x x x
-    x x x x O O O x x x O O O x x x x
-    x x x x x x x x x x x x x x x x x
-    x x x x x x x x x x x x x x x x x
-    x x x x x x x x x x x x x x x x x
+  <gridInfo>
+    <rows>17</rows>
+    <columns>17</columns>
 
-  </grid>
+    <grid>
+      <type>Grid</type>
+      <gridState>
+        x x x x x x x x x x x x x x x x x
+        x x x x O O O x x x O O O x x x x
+        x x x x x x x x x x x x x x x x x
+        x x O x x x x O x O x x x x O x x
+        x x O x x x x O x O x x x x O x x
+        x x O x x x x O x O x x x x O x x
+        x x x x O O O x x x O O O x x x x
+        x x x x x x x x x x x x x x x x x
+        x x x x O O O x x x O O O x x x x
+        x x O x x x x O x O x x x x O x x
+        x x O x x x x O x O x x x x O x x
+        x x O x x x x O x O x x x x O x x
+        x x x x x x x x x x x x x x x x x
+        x x x x O O O x x x O O O x x x x
+        x x x x x x x x x x x x x x x x x
+        x x x x x x x x x x x x x x x x x
+        x x x x x x x x x x x x x x x x x
+      </gridState>
 
+      <codes>
+        <key x='DeadCell'></key>
+        <key O='AliveCell'></key>
+      </codes>
 
-  <codes>
-    <key x='DeadCell'></key>
-    <key O='AliveCell'></key>
-  </codes>
+      <decoder>
+        <key AliveCell = '1'></key>
+        <key DeadCell = '2'></key>
+      </decoder>
+
+      <parameters>
+      </parameters>
+    </grid>
+  </gridInfo>
 
   <colors>
     <key x= 'FFFFFF'></key>
     <key O= '000000'></key>
   </colors>
-
-  <parameters>
-  </parameters>
 
 </simulation>
