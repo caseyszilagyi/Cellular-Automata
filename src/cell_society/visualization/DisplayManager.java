@@ -1,11 +1,12 @@
 package cell_society.visualization;
 
+import cell_society.Main;
 import cell_society.backend.Simulation;
 import java.io.File;
-import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -18,6 +19,8 @@ import javafx.stage.Stage;
  */
 public class DisplayManager {
 
+  private final Main main;
+
   private final Stage stage;
   private final Pane root;
   private final Scene scene;
@@ -25,35 +28,52 @@ public class DisplayManager {
   private final ResourceBundle resourceBundle;
 
   private final GridDisplay gridDisplay;
+  private final GraphDisplay graphDisplay;
   private final AnimationManager animationManager;
-  private final Pane pane;
-
-  private final String[] colorModes = {"LightMode.css", "Colorful.css", "DarkMode.css"};
-  private int currentColorMode = 0;
+  private final Pane gridPane;
+  private final Pane graphPane;
 
   private final String VISUALIZATION_RESOURCE_PACKAGE = "cell_society/visualization/resources/";
   private final String VISUALIZATION_RESOURCE_FOLDER = "/" + VISUALIZATION_RESOURCE_PACKAGE;
+
+  private final String COLOR_MODE_BUTTON_PROPERTY = "ColorModeButton";
+  private final String LOAD_NEW_SIMULATION_BUTTON_PROPERTY = "LoadNewSimulationButton";
+  private final String OPEN_NEW_WINDOW_BUTTON_PROPERTY = "OpenNewWindowButton";
+  private final String PLAY_PAUSE_BUTTON_PROPERTY = "PlayPauseButton";
+  private final String STEP_BUTTON_PROPERTY = "StepButton";
+  private final String SPEED_BUTTON_PROPERTY = "SpeedButton";
+  private final String[] COLOR_MODES_LIST = {"Dark Mode", "Light Mode", "Colorful Mode"};
+
+  private Simulation currentSim;
+  private String currentSimulationType;
 
   /**
    * Constructor that creates an instance of the DisplayManager
    * @param root The root node of the main scene graph
    * @param scene The container for the main scene graph
    */
-  public DisplayManager(Stage stage, Pane root, Scene scene) {
-    resourceBundle = ResourceBundle.getBundle(VISUALIZATION_RESOURCE_PACKAGE + "properties/English");
+  public DisplayManager(Main main, Stage stage, Pane root, Scene scene) {
+    this.main = main;
+    resourceBundle = ResourceBundle.getBundle(VISUALIZATION_RESOURCE_PACKAGE + "properties/languages/English");
     this.stage = stage;
     this.root = root;
     this.scene = scene;
-    pane = new Pane();
-    root.getChildren().add(pane);
 
-    gridDisplay = new GridDisplay(pane, scene);
+    gridPane = new Pane();
+    graphPane = new Pane();
+    root.getChildren().add(gridPane);
+    root.getChildren().add(graphPane);
+
+    //graphPane.setVisible(false);
+
+    gridDisplay = new GridDisplay(scene, gridPane);
+    graphDisplay = new GraphDisplay(scene, graphPane);
 
     animationManager = new AnimationManager(this);
 
     makeAllButtons();
 
-    changeStylesheet(colorModes[currentColorMode]);
+    changeStylesheet("LightMode.css");
   }
 
   private void changeStylesheet(String fileName){
@@ -61,22 +81,16 @@ public class DisplayManager {
     scene.getStylesheets().add(getClass().getResource(VISUALIZATION_RESOURCE_FOLDER + "stylesheets/" + fileName).toExternalForm());
   }
 
-  private void toggleNextStylesheet(){
-    currentColorMode++;
-    if(currentColorMode > colorModes.length - 1){
-      currentColorMode = 0;
-    }
-    changeStylesheet(colorModes[currentColorMode]);
-  }
-
   private void loadNewSimulation(String simulationType, String fileName){
     if (!simulationType.equals("") && !fileName.equals("")){
-      Simulation currentSim = new Simulation(simulationType, fileName);
+      currentSim = new Simulation(simulationType, fileName);
+      currentSimulationType = simulationType;
       currentSim.initializeSimulation();
       animationManager.setSimulation(currentSim);
 
-      updateDisplayGrid(currentSim);
-      addResizeWindowEventListeners(currentSim);
+      updateDisplayGraph();
+      updateDisplayGrid();
+      animationManager.pauseSimulation();
     }
   }
 
@@ -94,13 +108,18 @@ public class DisplayManager {
     return new String[] {"", ""};
   }
 
+  private void openNewWindow(){
+    main.createNewWindow("Test stage");
+  }
+
   private void makeAllButtons(){
-    Button loadSimButton = makeButton("LoadSimulationButton", 10, 10);
-    Button startButton = makeButton("StartButton", 10, 40);
-    Button pauseButton = makeButton("PauseButton", 10, 70);
-    Button stepButton = makeButton("StepButton", 10, 100);
-    Button speedButton = makeButton("SpeedButton", 10, 130);
-    Button colorModeButton = makeButton("ColorModeButton", 10, 180);
+    ComboBox<String> colorModeButton = makeDropdownButton(COLOR_MODE_BUTTON_PROPERTY, 10+10+80+10+80+10+120, 40, 120, COLOR_MODES_LIST);
+    Button loadSimButton = makeButton(LOAD_NEW_SIMULATION_BUTTON_PROPERTY, 10, 10, 120);
+    Button addNewSimButton = makeButton(OPEN_NEW_WINDOW_BUTTON_PROPERTY, 10+10+120, 10, 160);
+
+    Button playPauseButton = makeButton(PLAY_PAUSE_BUTTON_PROPERTY, 10, 40, 80);
+    Button stepButton = makeButton(STEP_BUTTON_PROPERTY, 10+10+80, 40, 80);
+    Button speedButton = makeButton(SPEED_BUTTON_PROPERTY, 10+10+80+10+80, 40, 120);
 
     loadSimButton.setOnMouseClicked(e -> {
       animationManager.pauseSimulation();
@@ -108,12 +127,12 @@ public class DisplayManager {
       loadNewSimulation(simulationInfo[0], simulationInfo[1]);
     });
 
-    startButton.setOnMouseClicked(e -> {
-      animationManager.playSimulation();
+    addNewSimButton.setOnMouseClicked(e -> {
+      openNewWindow();
     });
 
-    pauseButton.setOnMouseClicked(e -> {
-      animationManager.pauseSimulation();
+    playPauseButton.setOnMouseClicked(e -> {
+      animationManager.playPauseSimulation();
     });
 
     stepButton.setOnMouseClicked(e -> {
@@ -125,53 +144,45 @@ public class DisplayManager {
       speedButton.setText(resourceBundle.getString("SpeedButton") + animationManager.setNextFPS()); // <-- must use String.format() for info rather than '+'
     });
 
-    colorModeButton.setOnMouseClicked(e -> {
-      animationManager.pauseSimulation();
-      toggleNextStylesheet();
+    colorModeButton.setOnAction(e -> {
+      String selected = colorModeButton.getSelectionModel().getSelectedItem();
+      String fileName = selected.replace(" ", "") + ".css";
+      changeStylesheet(fileName);
     });
   }
 
-  private Button makeButton(String property, double x, double y){
+  private Button makeButton(String property, double x, double y, double buttonWidth){
     Button button = new Button(resourceBundle.getString(property));
     button.setLayoutX(x);
     button.setLayoutY(y);
-    button.setPrefWidth(120);
+    button.setPrefWidth(buttonWidth);
     root.getChildren().add(button);
     return button;
   }
 
-  private String[] convertCharSheetToColors(char[] charSheet, Map<Character, String> charToColorMap){
-    String[] colorSheet = new String[charSheet.length];
-
-    for(int i = 0; i < colorSheet.length; i++){
-        colorSheet[i] = charToColorMap.get(charSheet[i]);
+  private ComboBox<String> makeDropdownButton(String property, double x, double y, double buttonWidth, String[] choices){
+    ComboBox<String> comboBox = new ComboBox<>();
+    comboBox.setPromptText(resourceBundle.getString(property));
+    comboBox.setLayoutX(x);
+    comboBox.setLayoutY(y);
+    for (String choice : choices) {
+      comboBox.getItems().add(choice);
     }
-
-    return colorSheet;
+    root.getChildren().add(comboBox);
+    return comboBox;
   }
 
-  public void updateDisplayGrid(Simulation currentSim){
-    gridDisplay.setGridDimensions(currentSim.getGridWidth(), currentSim.getGridHeight());
-    gridDisplay.updateGrid(getCellColorSheet(currentSim));
+  /**
+   *
+   */
+  public void updateDisplayGrid(){
+    gridDisplay.setSimulationType(currentSimulationType);
+    gridDisplay.updateGrid(currentSim.getGridDisplay()); //convert backend grid into frontend grid
   }
 
-  private String[] getCellColorSheet(Simulation currentSim){
-    return convertCharSheetToColors(currentSim.getOldGrid(), currentSim.getColorMapping());
-  }
-
-  private void addResizeWindowEventListeners(Simulation currentSim){
-    // update grid every time window WIDTH is resized
-    scene.widthProperty().addListener((currentWidth, oldWidth, newWidth) -> {
-      animationManager.pauseSimulation();
-      gridDisplay.setCurrentScreenWidth(newWidth.doubleValue());
-      gridDisplay.updateGrid(getCellColorSheet(currentSim));
-    });
-
-    // update grid every time window HEIGHT is resized
-    scene.heightProperty().addListener((currentHeight, oldHeight, newHeight) -> {
-      animationManager.pauseSimulation();
-      gridDisplay.setCurrentScreenHeight(newHeight.doubleValue());
-      gridDisplay.updateGrid(getCellColorSheet(currentSim));
-    });
+  public void updateDisplayGraph(){
+    graphDisplay.setCurrentSim(currentSim);
+    graphDisplay.setSimulationType(currentSimulationType);
+    graphDisplay.updateGraph();
   }
 }

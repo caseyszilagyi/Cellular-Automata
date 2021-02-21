@@ -13,18 +13,11 @@ import java.util.Set;
  */
 public class SimulationInitializer {
 
-  private String STEPPER_LOCATION = "cell_society.backend.simulation_stepper.";
-  private String GRID_LOCATION = "cell_society.backend.automata.grid.";
-  private String CELL_LOCATION;
-  private String PACKAGE_LOCATION = "cell_society.backend.automata.";
-
   private XMLFileReader xmlFileReader;
   // All the general things about the simulation (title, author)
   private Map<String, String> simulationParameters;
-  // Converting the cell types back to codes (for passing to the display)
-  private Map<String, String> cellDecoder;
-  // Linkage between a specific code and its color
-  private Map<Character, String> colorCodes;
+  // Types of grid, stepper, etc to use
+  private Map<String, String> coreSpecifications;
   // creates the grid
   private GridCreator gridCreator;
 
@@ -32,7 +25,6 @@ public class SimulationInitializer {
   private Grid simulationGrid;
   private SimulationClassLoader classLoader;
 
-  private Map<String, String> coreSpecifications;
   private Set<GridOrPatchDetails> patchDetails;
 
   /**
@@ -60,18 +52,16 @@ public class SimulationInitializer {
   }
 
 
-  private Set<GridOrPatchDetails> makePatchDetails(){
-    Set<GridOrPatchDetails> details = xmlFileReader.getPatchDetails();
-    return details;
-  }
+  //private Set<GridOrPatchDetails> makePatchDetails(){
+    //Set<GridOrPatchDetails> details = xmlFileReader.getPatchDetails();
+    //return details;
+  //}
 
   // Gets all of the maps that are used for various different purposes
   private void getMaps() {
     simulationParameters = xmlFileReader.getSimulationParameters();
     coreSpecifications = xmlFileReader.getAttributeMap("coreSpecifications");
-    patchDetails = makePatchDetails();
-    cellDecoder = xmlFileReader.getReverseAttributeMap("codes");
-    colorCodes = xmlFileReader.charMapConverter(xmlFileReader.getAttributeMap("colors"));
+    //patchDetails = makePatchDetails();
   }
 
   /**
@@ -85,9 +75,7 @@ public class SimulationInitializer {
         new CellParameters(gridDetails.getParameters()), classLoader);
     gridCreator.makeGrid(gridDetails.getGridHeight(), gridDetails.getGridWidth(), coreSpecifications.get("gridType"));
     gridCreator.populateGrid(gridDetails.getGrid(), gridDetails.getCodes());
-    gridCreator.setColorCodes(colorCodes);
-    //cellDecoder = gridDetails.getDecoder();
-    gridCreator.setCellDecoder(cellDecoder);
+    gridCreator.setCellDecoder(gridDetails.getDecoder());
     simulationGrid = gridCreator.getGrid();
     return simulationGrid;
   }
@@ -100,15 +88,6 @@ public class SimulationInitializer {
     SimulationStepper myStepper = classLoader.makeStepper(coreSpecifications.get("stepperType"));
     myStepper.setGrid(simulationGrid);
     return myStepper;
-  }
-
-  /**
-   * Allows the Simulation class to get the color codes representing the cells
-   *
-   * @return The color coding map
-   */
-  public Map getColorCodes() {
-    return colorCodes;
   }
 
 }

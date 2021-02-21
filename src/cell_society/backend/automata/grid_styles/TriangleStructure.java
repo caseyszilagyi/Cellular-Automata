@@ -4,6 +4,7 @@ import cell_society.backend.automata.CellStructure;
 import cell_society.backend.automata.Coordinate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class TriangleStructure extends CellStructure {
 
@@ -29,6 +30,13 @@ public class TriangleStructure extends CellStructure {
       allAdjacentCoordinates.add(d.getResultingCoordinate(row, col));
     }
     return allAdjacentCoordinates;
+  }
+
+  @Override
+  public Direction getRandomDirection(int row, int col) {
+    TriangularDirection[] directions = TriangularDirection.values();
+    int length = directions.length;
+    return directions[ThreadLocalRandom.current().nextInt(0, length)];
   }
 
   public int getCode(){

@@ -5,7 +5,9 @@ import cell_society.backend.automata.CellStructure;
 import cell_society.backend.automata.Coordinate;
 import cell_society.backend.automata.Neighbors;
 import cell_society.backend.automata.Patch;
+import cell_society.controller.ErrorHandler;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -287,13 +289,18 @@ public class Grid {
   public int[] getIntDisplay() {
     int[] display = new int[gridHeight * gridWidth+3];
     display[0] = gridCellStructure.getCode();
-    display[1] = getGridWidth();
-    display[2] = getGridHeight();
+    display[1] = getGridHeight();
+    display[2] = getGridWidth();
     int i = 3;
     for (int j = 0; j < gridHeight; j++) {
       for (int k = 0; k < gridWidth; k++) {
         if (grid[j][k] != null) {
-          int curr = Integer.parseInt(cellDecoder.get(grid[j][k].toString()));
+          int curr;
+          try{
+            curr = Integer.parseInt(cellDecoder.get(grid[j][k].toString()));
+          }catch (Exception e){
+            throw new ErrorHandler("InvalidCellMapping");
+          }
           display[i] = curr;
         } else {
           display[i] = 0;
@@ -302,6 +309,23 @@ public class Grid {
       }
     }
     return display;
+  }
+
+  /**
+   * Calculate the distribution of each type of cell.
+   * @return
+   */
+  public Map<Integer, Integer> getCellDistribution() {
+    Map<Integer, Integer> map = new HashMap<>();
+    for (Coordinate coordinate : getCoordinateUpdateList()){
+      int row = coordinate.getFirst();
+      int col = coordinate.getSecond();
+      Cell cell = getCell(row, col);
+      int curr = cell == null ? 0 : Integer.parseInt(cellDecoder.get(cell.toString()));
+      map.putIfAbsent(curr, 0);
+      map.put(curr, map.get(curr) + 1);
+    }
+    return map;
   }
 
   /**
