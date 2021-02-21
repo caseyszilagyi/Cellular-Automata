@@ -11,6 +11,7 @@ import cell_society.backend.automata.Neighbors;
  */
 public class TreeCell extends Cell {
 
+  public static final String PROB_CATCH = "probcatch";
   private double probCatch;
 
   public TreeCell() {
@@ -24,7 +25,7 @@ public class TreeCell extends Cell {
 
   @Override
   public void initializeParams(CellParameters parameters) {
-    probCatch = parameters.getAsDouble("probcatch");
+    probCatch = parameters.getAsDouble(PROB_CATCH);
   }
 
   /**

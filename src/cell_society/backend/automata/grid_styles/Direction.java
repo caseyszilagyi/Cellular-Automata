@@ -21,6 +21,18 @@ public interface Direction {
   Coordinate getResultingCoordinate(int row, int col);
 
   /**
+   * Convenience method to compute the coordinate of the point pointed to by a given direction, in
+   * the neighborhood centered at (row, col), but scaled further away
+   *
+   * @param row
+   * @param col
+   * @param scale distance to travel in the selected direction.  scale = 1 defaults the function to
+   *              getResultingCoordinate(row, col)
+   * @return
+   */
+  //Coordinate getResultingCoordinate(int row, int col, int scale);
+
+  /**
    * Allows the implementing class to quickly obtain all cardinal directions.  For a square grid,
    * this would include spots to the North, East, South, and West.
    *

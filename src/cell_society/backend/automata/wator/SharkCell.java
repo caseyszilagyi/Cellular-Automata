@@ -10,6 +10,9 @@ import java.util.List;
 
 public class SharkCell extends Cell {
 
+  public static final String ENERGY = "energy";
+  public static final String REPRODUCE_THRESH = "reproducethresh";
+  public static final String ENERGY_GAIN = "energygain";
   private int energy;
   private int reproduceThresh;
   private int energyGain;
@@ -40,9 +43,9 @@ public class SharkCell extends Cell {
   @Override
   public void initializeParams(CellParameters parameters) {
     super.initializeParams(parameters);
-    energy = parameters.getAsInt("energy");
-    reproduceThresh = parameters.getAsInt("reproducethresh");
-    energyGain = parameters.getAsInt("energygain");
+    energy = parameters.getAsInt(ENERGY);
+    reproduceThresh = parameters.getAsInt(REPRODUCE_THRESH);
+    energyGain = parameters.getAsInt(ENERGY_GAIN);
   }
 
   @Override
