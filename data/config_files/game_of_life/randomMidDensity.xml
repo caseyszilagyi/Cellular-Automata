@@ -18,57 +18,13 @@
     <grid>
       <type>Grid</type>
       <gridState>
-        xoxxoxxxxxoxxxoxooxoxoxoxxxooxooxxxoxxoxxoxooxxoxo
-        xxoxoxxxxxxoxxxxxxxxxooooxxoxxoxxxoxoooxooxoxxooxo
-        xxoxxxxxxxooxxoxxxxxxxxoxxxxoxxoxoxxxxxoxooxxxxxxo
-        xxoxxoxxxoxxxooxoxxoxxxxxxxoxxooxxxxxooxoxoxxxxxox
-        oxxxxxxxxxxxoxxxxxxxoxxxxooxxxoxxxxoxoxxoxxxxxxxox
-        xxoxooxoxoxoxoxxxxxxxxxxxxoxoxxoxxoxxoxxoxxxxxxoox
-        ooxxooxoxoxooooooxooxoxooxxxxoxxxooxxxxxxxxxxoxxxo
-        xxxxoxxxxxxxoxoxoooxxxxxxoxxxxxxooxxxxoxxxxxxxxxxx
-        ooxxxxxxxxxxoxoxoxxoxxoxxoxxoxxxxxoxxxoxoooxxoxxoo
-        xxxoxoooooxxxxxxxoxxxxoxxxxxxxxxxxxxxxoxxxxxoxxxoo
-        oooxoxxxooxxxxxoxoxxxoxoxxxxooxxxxxxxooxxoxxxoooxx
-        xoxxxxxxooxxxxxoxxxoxxxxoxxoxxxxooxoxxxxoxxoxxooxo
-        xoxoxxxxoxxoxxxxxxoxxxxxxoxoxxxxxxoxxxxxooxxooxoxx
-        xoxoxxxxoxoxxxxxxooxxxxxoxoxooxoxxooxxoooxoooxxxxx
-        xoxoxxxxxxoxoxxxxxoxooxxxxoxxoxxxxooxxoxxoxooxxoxo
-        xxxxoxoooxxxxxxooxxxxooxxoxxxxxoxxxxxxxoxxxxxoxxox
-        xxxooxoxooxoxxoxxooooxxxxoxxxxooxooxxooxxxoxxxxxoo
-        xxxxxoxxxxxxxxxoxoxxooxxxxxoxxooxxooxxoxxxxoxoxxxo
-        oxxoxxooxxxxxxxxxxoxxooxxoxxxoxoxxxxxxxxoooxxoxoxx
-        xoxoxxoxoxxoxoxoxxoxoxxxxxxooxxxxxxxxxoxxoxxxxxxxx
-        xooxxxxxxxoxoxxxoxxxxxxxxoxxxxxxxooxxooxxoooooooox
-        xxxxoxooxxxxxxxoxxxxoxxxxxxxoooxxxxxxoxoxxxoxoxxox
-        xxoxoxxxxxxxxxxxxooxxxxxooxooxoxxxxxxoxxoxxoxxxoxo
-        ooxooxoxxxxxxoxxxoxxoxxoxxxxoxxoxoxxxoxooxxxoxxxxx
-        xoxxxxxoooxxxoxooxxxoxxxoxoxxoxoxxooxxooxxooxoxoox
-        oxxxxxxxxooxxxxoxxxxoxxxooxxxoxoxxoxxxoooxxoxoxoox
-        xxoxxxxoxxooxxoxoxoxoxxxooxxxxxooxxxoxxxooxoxxxxxx
-        xxxxxxxxxxoxoxxxoxxxxxxoxxxxxxoxoxoxxxxxxxxxxxxoxo
-        oxxxooxxxxxxxxxxxxxxxxxoxoxxxxoxxoxoxxxoxxxoxoooxx
-        oxoxxoxxoxooxxoxoxxoooxxxxxxxxxxxxxxxoxxxxoxxxxxxx
-        xxxoxooxxoxxxxxoxooxxxoxxxxxxxxxxxoxoxoxxxooooxxxx
-        oxooxxxxxxxxooooxooxooxxxxxxxxoxxxxxxoxooxooxoxoox
-        oxxoxxooxooxxxxoxxxxxxxxxxooxoxxxxxxxxxxoxoxxoxxoo
-        xxxxxxxxxoxoxxoxxxxoxoxxxxxxxxoxxxxooooxxxxxoxxxox
-        xxxxxxooxoxxoxoxoxxoxxxxxxxxxxxxxxoxxxoxoxoxxxooxo
-        oxxxxxxxxxoooxoooxxoxxxoxxooxxoxxxoxoxxxoxxxxoxxxx
-        xxooxxxxooxxxxxxxxxoxxxxxxoxoooxxxxxxooxxxxxooxxxo
-        xxooxoxxoxxoxxxxxxoxxxxoxxxoxxxxxxxoxxxxxxoxooxxxx
-        ooxxoxooxxxoxxxxoxoxxxxoxxooxxoooxxoxxooxxxoxxooxx
-        oooxxxooxxoxxxxoxxxoxoxxoxxxxoxxxxoxxoxooxoxxoxoxx
-        xxooxxxoxoxxxxxxoxxoxxxoxoxxxoxxoxxxxoxxxxoxxxoxxx
-        xoxxxxxxxoxooxoxxxxoxoxoxxxxxxxxxxxoxxxxooxxxxxxxx
-        xooxxxxxoxoxxxxooxxxoxoxooxxxxxxxxxxooxoxxxxoxxxxx
-        xoxxoooooxoxxxoxxxoxxxxxxxoooxxoxxxxxxoxxxxxxxoxxx
-        xxoxoxxxoooxxooxxxoxoxxoxoxxoxoxoxxxxxooxxoxxoxoxo
-        xxxxxxooooxxxooxxxoxxooxoxxxxxxxxxxooxooxxxooxxxxx
-        xxooxxoxxxxxxxxxxooxoxoxxxxoxxoxxxxoxoxxooxooxxxxx
-        ooxoxxxoxxxxxoxxxxxooxxoxxoxxxxxxxxxxxoxxoxxxxoxxo
-        xxoxoxoxoxxxxxxoxxxoxoooooxoxxxoooxoxoxooxxoxxxxox
-        xxxxxxoxoxxxxxxxxxxoxoxoxxoxxxooxooooxoooxxxxxxxxx
+        Random
       </gridState>
+
+      <randomProbs>
+        <key x='0.5'></key>
+        <key o='0.5'></key>
+      </randomProbs>
 
       <codes>
         <key x='DeadCell'></key>
