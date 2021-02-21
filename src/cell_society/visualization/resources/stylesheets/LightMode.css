@@ -4,7 +4,7 @@
   -fx-font-weight: bold;
 }
 
-.button {
+.button, .combo-box {
   -fx-border-radius: 10px;
   -fx-background-radius: 10px;
   -fx-border-width: 0px;
@@ -15,7 +15,7 @@
   -fx-font-size: 10;
 }
 
-.button:hover {
+.button:hover, .combo-box:hover {
   -fx-background-color: #e6e6e6;
 }
 
