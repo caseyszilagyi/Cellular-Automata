@@ -42,7 +42,7 @@ public interface Direction {
    */
   List<Direction> getAdjacentDirections(int row, int col);
 
-  Direction rotateLeft(Direction direction);
+  Direction rotateCW();
 
-  Direction rotateRight(Direction direction);
+  Direction rotateCCW();
 }
