@@ -30,7 +30,8 @@ public class DisplayManager {
   private final GridDisplay gridDisplay;
   private final GraphDisplay graphDisplay;
   private final AnimationManager animationManager;
-  private final Pane pane;
+  private final Pane gridPane;
+  private final Pane graphPane;
 
   private final String VISUALIZATION_RESOURCE_PACKAGE = "cell_society/visualization/resources/";
   private final String VISUALIZATION_RESOURCE_FOLDER = "/" + VISUALIZATION_RESOURCE_PACKAGE;
@@ -58,11 +59,15 @@ public class DisplayManager {
     this.root = root;
     this.scene = scene;
 
-    pane = new Pane();
-    root.getChildren().add(pane);
+    gridPane = new Pane();
+    graphPane = new Pane();
+    root.getChildren().add(gridPane);
+    root.getChildren().add(graphPane);
 
-    gridDisplay = new GridDisplay(scene, pane);
-    graphDisplay = new GraphDisplay(scene, pane);
+    //graphPane.setVisible(false);
+
+    gridDisplay = new GridDisplay(scene, gridPane);
+    graphDisplay = new GraphDisplay(scene, graphPane);
 
     animationManager = new AnimationManager(this);
 
@@ -84,7 +89,7 @@ public class DisplayManager {
       animationManager.setSimulation(currentSim);
 
       updateDisplayGraph();
-      //updateDisplayGrid();
+      updateDisplayGrid();
       animationManager.pauseSimulation();
     }
   }

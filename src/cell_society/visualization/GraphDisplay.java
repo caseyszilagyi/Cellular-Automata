@@ -49,6 +49,8 @@ public class GraphDisplay {
     double screenWidth = scene.getWidth() - HORIZONTAL_BORDER_LENGTH * 2.0;
     double screenHeight = scene.getHeight() - (VERTICAL_BORDER_LENGTH + HORIZONTAL_BORDER_LENGTH);
 
+    screenWidth = screenWidth / 2.0;
+
     Map<Integer, Integer> cellTypesMap = currentSim.getCellDistribution();
 
     chart.getData().clear();
@@ -62,9 +64,8 @@ public class GraphDisplay {
       slice.setName(slice.getName() + ": " + (int) slice.getPieValue());
     }
 
-    chart.setPrefWidth(screenWidth);
-    chart.setPrefHeight(screenHeight);
-    chart.setLayoutX(HORIZONTAL_BORDER_LENGTH);
+    chart.setPrefSize(screenWidth, screenHeight);
+    chart.setLayoutX(scene.getWidth() - HORIZONTAL_BORDER_LENGTH / 2.0 - screenWidth);
     chart.setLayoutY(VERTICAL_BORDER_LENGTH);
 
     pane.getChildren().add(chart);

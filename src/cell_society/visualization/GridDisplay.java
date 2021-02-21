@@ -52,6 +52,8 @@ public class GridDisplay {
     double screenWidth = scene.getWidth() - HORIZONTAL_BORDER_LENGTH * 2.0;
     double screenHeight = scene.getHeight() - (VERTICAL_BORDER_LENGTH + HORIZONTAL_BORDER_LENGTH);
 
+    screenWidth = screenWidth / 2.0;
+
     int cellShapeKey = cellColorSheet[0];
     gridHeight = cellColorSheet[1];
     gridWidth = cellColorSheet[2];
