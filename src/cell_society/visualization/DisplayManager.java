@@ -170,26 +170,10 @@ public class DisplayManager {
 
   public void updateDisplayGrid(Simulation currentSim){
     gridDisplay.setGridDimensions(currentSim.getGridWidth(), currentSim.getGridHeight());
-    gridDisplay.updateGrid(getCellColorSheet(currentSim));
+    gridDisplay.updateGrid(getCellColorSheet(currentSim), "rectangle");
   }
 
   private String[] getCellColorSheet(Simulation currentSim){
     return convertCharSheetToColors(currentSim.getGrid(), currentSim.getColorMapping());
-  }
-
-  private void addResizeWindowEventListeners(Simulation currentSim){
-    // update grid every time window WIDTH is resized
-    scene.widthProperty().addListener((currentWidth, oldWidth, newWidth) -> {
-      animationManager.pauseSimulation();
-      //gridDisplay.setCurrentScreenWidth(newWidth.doubleValue());
-      gridDisplay.updateGrid(getCellColorSheet(currentSim));
-    });
-
-    // update grid every time window HEIGHT is resized
-    scene.heightProperty().addListener((currentHeight, oldHeight, newHeight) -> {
-      animationManager.pauseSimulation();
-      //gridDisplay.setCurrentScreenHeight(newHeight.doubleValue());
-      gridDisplay.updateGrid(getCellColorSheet(currentSim));
-    });
   }
 }

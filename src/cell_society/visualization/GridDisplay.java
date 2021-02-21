@@ -1,5 +1,6 @@
 package cell_society.visualization;
 
+import java.util.ResourceBundle;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -16,16 +17,20 @@ public class GridDisplay {
   private final Scene scene;
   private final Pane pane;
 
-  private int gridWidth, gridHeight;
-  private double cellWidth, cellHeight;
-
   private final int HORIZONTAL_BORDER_LENGTH = 50;
   private final int VERTICAL_BORDER_LENGTH = 50;
 
-  private final String HEXAGON = "hexagon";
+  private final String VISUALIZATION_RESOURCE_PACKAGE = "cell_society/visualization/resources/";
+  private final ResourceBundle resourceBundle = ResourceBundle.getBundle(VISUALIZATION_RESOURCE_PACKAGE + "properties/GridType");
+
   private final String RECTANGLE = "rectangle";
-  private final String TRIANGLE_UP = "triangleUp";
-  private final String TRIANGLE_DOWN = "triangleDown";
+  private final String HEXAGON = "hexagon";
+  private final String TRIANGLE = "triangle";
+  private final String TRIANGLE_UP = "triangle_up";
+  private final String TRIANGLE_DOWN = "triangle_down";
+
+  private int gridWidth, gridHeight;
+  private double cellWidth, cellHeight;
 
   public GridDisplay(Scene scene, Pane pane) {
     this.scene = scene;
@@ -40,7 +45,7 @@ public class GridDisplay {
   /**
    * @param cellColorSheet Array of integers for the cell colors
    */
-  public void updateGrid(String[] cellColorSheet) {
+  public void updateGrid(String[] cellColorSheet, String gridShapeType) {
     pane.getChildren().clear();
 
     double screenWidth = scene.getWidth() - HORIZONTAL_BORDER_LENGTH * 2.0;
@@ -49,7 +54,11 @@ public class GridDisplay {
     cellWidth =  screenWidth / gridWidth;
     cellHeight = screenHeight / gridHeight;
 
-    createTriangleGrid(cellWidth, cellHeight, cellColorSheet);
+    switch(gridShapeType){
+      case RECTANGLE -> createRectangleGrid(cellWidth, cellHeight, cellColorSheet);
+      case HEXAGON -> createHexagonalGrid(cellWidth, cellHeight, cellColorSheet);
+      case TRIANGLE -> createTriangleGrid(cellWidth, cellHeight, cellColorSheet);
+    }
   }
 
   private void createRectangleGrid(double cellWidth, double cellHeight, String[] cellColorSheet){
@@ -82,45 +91,46 @@ public class GridDisplay {
   }
 
   private void createTriangleGrid(double cellWidth, double cellHeight, String[] cellColorSheet){
-    String triangleType;
+    String trianglePointingDirection;
 
     for(int row = 0; row < gridHeight; row++){
       if (row % 2 == 0){
-        triangleType = TRIANGLE_UP;
+        trianglePointingDirection = TRIANGLE_UP;
       } else {
-        triangleType = TRIANGLE_DOWN;
+        trianglePointingDirection = TRIANGLE_DOWN;
       }
       for(int col = 0; col < gridWidth; col++){
         createCell(
             col * cellWidth + HORIZONTAL_BORDER_LENGTH,
             row * cellHeight + VERTICAL_BORDER_LENGTH,
             cellColorSheet[row * gridHeight + col],
-            triangleType
+            trianglePointingDirection
         );
-        if (triangleType.equals(TRIANGLE_UP)){
-          triangleType = TRIANGLE_DOWN;
+        if (trianglePointingDirection.equals(TRIANGLE_UP)){
+          trianglePointingDirection = TRIANGLE_DOWN;
         } else {
-          triangleType = TRIANGLE_UP;
+          trianglePointingDirection = TRIANGLE_UP;
         }
       }
     }
   }
 
   private void createCell(double x, double y, String colorHex, String cellShape) {
+    Color defaultCellColor = Color.AZURE;
+
     Polygon cell = new Polygon();
 
-    // how to not use this switch statement..?
     switch (cellShape) {
       case RECTANGLE -> drawRectangleCell(cell, x, y);
       case HEXAGON -> drawHexagonCell(cell, x, y);
-      case TRIANGLE_UP -> drawTriangleCellUp(cell, x, y);
-      case TRIANGLE_DOWN -> drawTriangleCellDown(cell, x, y);
+      case TRIANGLE_UP -> drawTriangleCellPointingUp(cell, x, y);
+      case TRIANGLE_DOWN -> drawTriangleCellPointingDown(cell, x, y);
     }
 
-    if (colorHex != null) {
+    if (colorHex != null) { // if the cell is empty
       cell.setFill(Color.web(colorHex));
     } else {
-      cell.setFill(Color.AZURE);
+      cell.setFill(defaultCellColor);
     }
 
     cell.setStroke(Color.GAINSBORO); // border color (can be changed by user)
@@ -149,7 +159,7 @@ public class GridDisplay {
     );
   }
 
-  private void drawTriangleCellUp(Polygon cell, double x, double y) {
+  private void drawTriangleCellPointingUp(Polygon cell, double x, double y) {
     cell.getPoints().addAll(
         x + cellWidth / 2.0, y,
         x + cellWidth * 1.5, y + cellHeight,
@@ -157,7 +167,7 @@ public class GridDisplay {
     );
   }
 
-  private void drawTriangleCellDown(Polygon cell, double x, double y) {
+  private void drawTriangleCellPointingDown(Polygon cell, double x, double y) {
     cell.getPoints().addAll(
         x - cellWidth / 2.0, y,
         x + cellWidth * 1.5, y,
