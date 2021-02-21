@@ -1,5 +1,6 @@
 package cell_society.backend.automata;
 
+import cell_society.backend.automata.grid_styles.Direction;
 import java.util.List;
 
 /**
@@ -31,6 +32,9 @@ public abstract class CellStructure {
    */
   public abstract List<Coordinate> getAllAdjacentCoordinates(int row, int col);
 
+  public abstract Direction getRandomDirection(int row, int col);
+
+
   /**
    * This method is used in order to get a code to pass to the front end so that it knows what shape
    * it is dealing with
@@ -38,6 +42,8 @@ public abstract class CellStructure {
    * @return The int representing the cell structure
    */
   public abstract int getCode();
+
+
 
 
 }
