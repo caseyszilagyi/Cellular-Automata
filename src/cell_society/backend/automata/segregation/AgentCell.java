@@ -13,6 +13,7 @@ import cell_society.backend.simulation_initializer.CellParameters;
  */
 public class AgentCell extends Cell {
 
+  public static final String SATISFACTION_PROP = "satisfactionprop";
   private double satisfactionProp;
 
   public AgentCell(int row, int col, double satisfactionProp) {
@@ -30,7 +31,7 @@ public class AgentCell extends Cell {
 
   @Override
   public void initializeParams(CellParameters parameters) {
-    this.satisfactionProp = parameters.getAsDouble("satisfactionprop");
+    this.satisfactionProp = parameters.getAsDouble(SATISFACTION_PROP);
   }
 
   /**

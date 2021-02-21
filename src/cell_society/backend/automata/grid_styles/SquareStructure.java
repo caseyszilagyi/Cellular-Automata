@@ -25,4 +25,8 @@ public class SquareStructure extends CellStructure {
     return allAdjacentCoordinates;
   }
 
+  public int getCode(){
+    return 0;
+  }
+
 }

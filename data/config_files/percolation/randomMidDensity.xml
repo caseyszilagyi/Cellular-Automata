@@ -1,83 +1,96 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation type="percolation">
-  <cellPackage>percolation</cellPackage>
   <title>Percolation</title>
-  <author></author>
+  <author>Thomas Schelling</author>
   <desc>Percolation Simulation from CS 201</desc>
 
-  <cellPackage>percolation</cellPackage>
-  <gridType>Grid</gridType>
-  <stepperType>SimulationStepper</stepperType>
+  <coreSpecifications>
+    <type cellPackage ="percolation"></type>
+    <type gridType = "Grid"></type>
+    <type stepperType = "SimulationStepper"></type>
+    <type structureType = "Square"></type>
+  </coreSpecifications>
 
-  <rows>50</rows>
-  <columns>50</columns>
-  <grid>
-    oboobboobboobobobbobobbobboobbooobobobobbobooobooo
-    ooobbbobobooboboobbbobobobooooobbbooobobbobboboooo
-    boobbbbobobbobbbbooobooobbobbobobooooboboobbobooob
-    obobobooobobboobobbobobbbbbbobobbbboboboboboboboob
-    bbbobbboobbbobbbboooobbboobbbbbobbooooboobbbbooboo
-    obbooboooobooboboooobbooboboobboobobbbbooobooobbbb
-    bobbooboboooooobobbbbobbboobbobbboobbbooboobbobboo
-    booobobooboboooboooobbbobbobbbbobobbobobbboobbobob
-    bobboobboboobobbbooobooooobobobbbooobboooobooobboo
-    bobbboobbboboobboobbbbbobobbooboobobbobboooobooboo
-    obobooooboooobbobbobbbbbbobobbobboooobbooobboobbbo
-    oobbbooboooooooobobbbbobooboobbbbbooobbbobbbobbobb
-    obbboooooooooobobobobbbbobbooobobbobbobbbobbbooooo
-    bbbbobbbobobooobbbobooboooobbbbboooobobobooooobooo
-    bobboooobboobbbobbobobbbooobbbboobobboobobobbbbobb
-    boooobboobbooooobbbbobbbbobbooooobbbooobobooooobob
-    oboobbbbbboobbbooobobobbbooooobbooooboooooobobobbo
-    bbbooobbbbbbboobboobbbooooooobbbbbooobbobbobbobobo
-    bbobobbobbbboobbooooobboobobboooooooobboooobboobbb
-    bobboooooboooboobbbobobbbbpoooooooobbboobboobbbbob
-    bbboobobobboobbooooooobbobboobboooobboboobobbbbbbo
-    oooooobbobbbobbbooobobooooobooobobbbbobooboobobboo
-    bboboobbboobbobboobooboobbboboooobbobbbbbboobooboo
-    bbobooobooboooboboboooobbooooobbobobooooobobbbooob
-    oboobbbboooooooooooobbobbbobooooboobobbobbobooobbb
-    bobbboboboobbboobooobbooboobbboboboooobbobobbooobb
-    oobobobbbobbobbooboooooobbobbbobboboobobbbbobbboob
-    oboobobobbbobbboooooobbobooobooobbooooboobbbboobbo
-    oobbbbbboobbboobbbooooooobbbbooobbobbbooobbobbobob
-    ooboobboobobbboobooboboboobobboboobbboobboboobobob
-    bobbobbbbbbbbboboobobbbbboooobbooobbbbobobbobboboo
-    ooobbbbobooobboooobbbobbboobboooobbbbboobooboooboo
-    bobbobbbooobbbobobbooooooobobobbobbooooobbbbbboobb
-    ooboboobooobooobbobbobbobbobbobooobboooooboobooobb
-    oobbooobobobobobobooboboboobbboooooooobooooobobbob
-    bboobobboobooooooobbobbooooooooobooobboboobbobobbb
-    obbooooboobbbbbbbboboobobbbobbbobbbbobooboobobooob
-    oobbobobobbbboooboobbbboooboobbobobbbbobbbobbobobb
-    booboobboooboobobobbobbobobobooobobbbbooooooobbbbb
-    ooboboobooboobbobboooobobbboooobbbbobobboboobobbbb
-    oobbbbobbbbobboobooobbooobboobboobooboobbbbboobobb
-    obbbooboobboobooboooobobboobbbobobobbbbbboooboobbo
-    obbboobobboobbooboboboboobbbbobooobbooooobbbobbobo
-    obbobboooobboobboobboobbbobobobobobboooobbbbobobob
-    oobooobbobobbboooooboooobbbboboobbobbbobbboobooboo
-    booobobobobboobobbboobobboobbboobbbbooobbbobobbbbo
-    oooobobbbobobobbbobbbobbooooooooobobobboboobobbobb
-    bobobbbbboobbooooboooobbooobbooobboboboooboobbbbbo
-    boobboooobobobobbbbbboooobbbbooooboobboboobbbbbooo
-    boobbbbobbboboobobbbbbbbbbbobobboboobbbobbbobooobo
-  </grid>
+  <gridInfo>
+    <rows>50</rows>
+    <columns>50</columns>
 
-  <codes>
-    <key b='BlockedCell'></key>
-    <key o='OpenCell'></key>
-    <key p='PercolatedCell'></key>
-  </codes>
+    <grid>
+      <type>Grid</type>
+      <gridState>
+        oboobboobboobobobbobobbobboobbooobobobobbobooobooo
+        ooobbbobobooboboobbbobobobooooobbbooobobbobboboooo
+        boobbbbobobbobbbbooobooobbobbobobooooboboobbobooob
+        obobobooobobboobobbobobbbbbbobobbbboboboboboboboob
+        bbbobbboobbbobbbboooobbboobbbbbobbooooboobbbbooboo
+        obbooboooobooboboooobbooboboobboobobbbbooobooobbbb
+        bobbooboboooooobobbbbobbboobbobbboobbbooboobbobboo
+        booobobooboboooboooobbbobbobbbbobobbobobbboobbobob
+        bobboobboboobobbbooobooooobobobbbooobboooobooobboo
+        bobbboobbboboobboobbbbbobobbooboobobbobboooobooboo
+        obobooooboooobbobbobbbbbbobobbobboooobbooobboobbbo
+        oobbbooboooooooobobbbbobooboobbbbbooobbbobbbobbobb
+        obbboooooooooobobobobbbbobbooobobbobbobbbobbbooooo
+        bbbbobbbobobooobbbobooboooobbbbboooobobobooooobooo
+        bobboooobboobbbobbobobbbooobbbboobobboobobobbbbobb
+        boooobboobbooooobbbbobbbbobbooooobbbooobobooooobob
+        oboobbbbbboobbbooobobobbbooooobbooooboooooobobobbo
+        bbbooobbbbbbboobboobbbooooooobbbbbooobbobbobbobobo
+        bbobobbobbbboobbooooobboobobboooooooobboooobboobbb
+        bobboooooboooboobbbobobbbbpoooooooobbboobboobbbbob
+        bbboobobobboobbooooooobbobboobboooobboboobobbbbbbo
+        oooooobbobbbobbbooobobooooobooobobbbbobooboobobboo
+        bboboobbboobbobboobooboobbboboooobbobbbbbboobooboo
+        bbobooobooboooboboboooobbooooobbobobooooobobbbooob
+        oboobbbboooooooooooobbobbbobooooboobobbobbobooobbb
+        bobbboboboobbboobooobbooboobbboboboooobbobobbooobb
+        oobobobbbobbobbooboooooobbobbbobboboobobbbbobbboob
+        oboobobobbbobbboooooobbobooobooobbooooboobbbboobbo
+        oobbbbbboobbboobbbooooooobbbbooobbobbbooobbobbobob
+        ooboobboobobbboobooboboboobobboboobbboobboboobobob
+        bobbobbbbbbbbboboobobbbbboooobbooobbbbobobbobboboo
+        ooobbbbobooobboooobbbobbboobboooobbbbboobooboooboo
+        bobbobbbooobbbobobbooooooobobobbobbooooobbbbbboobb
+        ooboboobooobooobbobbobbobbobbobooobboooooboobooobb
+        oobbooobobobobobobooboboboobbboooooooobooooobobbob
+        bboobobboobooooooobbobbooooooooobooobboboobbobobbb
+        obbooooboobbbbbbbboboobobbbobbbobbbbobooboobobooob
+        oobbobobobbbboooboobbbboooboobbobobbbbobbbobbobobb
+        booboobboooboobobobbobbobobobooobobbbbooooooobbbbb
+        ooboboobooboobbobboooobobbboooobbbbobobboboobobbbb
+        oobbbbobbbbobboobooobbooobboobboobooboobbbbboobobb
+        obbbooboobboobooboooobobboobbbobobobbbbbboooboobbo
+        obbboobobboobbooboboboboobbbbobooobbooooobbbobbobo
+        obbobboooobboobboobboobbbobobobobobboooobbbbobobob
+        oobooobbobobbboooooboooobbbboboobbobbbobbboobooboo
+        booobobobobboobobbboobobboobbboobbbbooobbbobobbbbo
+        oooobobbbobobobbbobbbobbooooooooobobobboboobobbobb
+        bobobbbbboobbooooboooobbooobbooobboboboooboobbbbbo
+        boobboooobobobobbbbbboooobbbbooooboobboboobbbbbooo
+        boobbbbobbboboobobbbbbbbbbbobobboboobbbobbbobooobo
+      </gridState>
+
+      <codes>
+        <key b='BlockedCell'></key>
+        <key o='OpenCell'></key>
+        <key p='PercolatedCell'></key>
+      </codes>
+
+      <decoder>
+        <key BlockedCell = '1'></key>
+        <key OpenCell = '2'></key>
+        <key PercolatedCell = '3'></key>
+      </decoder>
+
+      <parameters>
+      </parameters>
+    </grid>
+  </gridInfo>
 
   <colors>
     <key b = '272929'></key>
     <key o = 'EDF7F7'></key>
     <key p = '0099F0'></key>
   </colors>
-
-  <parameters>
-  </parameters>
-
 
 </simulation>

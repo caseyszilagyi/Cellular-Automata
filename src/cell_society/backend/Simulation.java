@@ -52,9 +52,11 @@ public class Simulation {
   }
 
 
-  public char[] getGrid(){
+  public char[] getOldGrid(){
     return simulationGrid.getDisplay();
   }
+
+  public int[] getNewGrid(){ return simulationGrid.getIntDisplay(); }
 
   //only for testing
   public Grid getRealGrid(){

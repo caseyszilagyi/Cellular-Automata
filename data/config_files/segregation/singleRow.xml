@@ -4,35 +4,44 @@
   <author>Thomas Schelling</author>
   <desc>Segregation simulation that is inspired by the Schelling model of segregation</desc>
 
-  <cellPackage>segregation</cellPackage>
-  <gridType>Grid</gridType>
-  <stepperType>SegregationStepper</stepperType>
+  <coreSpecifications>
+    <type cellPackage ="segregation"></type>
+    <type gridType = "Grid"></type>
+    <type stepperType = "SegregationStepper"></type>
+    <type structureType = "Square"></type>
+  </coreSpecifications>
 
-  <rows>1</rows>
-  <columns>20</columns>
-  <grid>
-    eeeeexoxoxoxoxoxoxoxoxoxo
-  </grid>
+  <gridInfo>
+    <rows>1</rows>
+    <columns>25</columns>
 
-  <cellPackage>segregation</cellPackage>
-  <gridType>Grid</gridType>
-  <stepperType>SimulationStepper</stepperType>
+    <grid>
+      <type>Grid</type>
+      <gridState>
+        eeeeexoxoxoxoxoxoxoxoxoxo
+      </gridState>
 
-  <codes>
-    <key x='AgentCellA'></key>
-    <key o='AgentCellB'></key>
-    <key e='Empty'></key>
-  </codes>
+      <codes>
+        <key x='AgentCellA'></key>
+        <key o='AgentCellB'></key>
+        <key e ='Empty'></key>
+      </codes>
+
+      <decoder>
+        <key AgentCellA = '1'></key>
+        <key AgentCellB = '2'></key>
+      </decoder>
+
+      <parameters>
+        <parameter satisfactionprop='0.67'/>
+      </parameters>
+    </grid>
+  </gridInfo>
 
   <colors>
     <key x = 'FA6034'></key>
     <key o = '69FA56'></key>
     <key e = 'FFFFFF'></key>
   </colors>
-
-  <parameters>
-    <parameter satisfactionprop='0.67'/>
-  </parameters>
-
 
 </simulation>

@@ -1,42 +1,54 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation type="game_of_life">
-  <cellPackage>game_of_life</cellPackage>
   <title>Game of Life</title>
   <author>John Horton Conway</author>
   <desc>The Game of Life Simulation</desc>
 
-  <cellPackage>game_of_life</cellPackage>
-  <gridType>Grid</gridType>
-  <stepperType>SimulationStepper</stepperType>
+  <coreSpecifications>
+    <type cellPackage ="game_of_life"></type>
+    <type gridType = "Grid"></type>
+    <type stepperType = "SimulationStepper"></type>
+    <type structureType = "Square"></type>
+  </coreSpecifications>
 
-  <rows>11</rows>
-  <columns>18</columns>
-  <grid>
-    xxxxxxxxxxxxxxxxxx
-    xxxxxxxxxxxxxxxxxx
-    xxxxxxxxxxxxxxxxxx
-    xxxxxxxxxxxxxxxxxx
-    xxxxxxoxxxxoxxxxxx
-    xxxxooxooooxooxxxx
-    xxxxxxoxxxxoxxxxxx
-    xxxxxxxxxxxxxxxxxx
-    xxxxxxxxxxxxxxxxxx
-    xxxxxxxxxxxxxxxxxx
-    xxxxxxxxxxxxxxxxxx
-  </grid>
+  <gridInfo>
+    <rows>11</rows>
+    <columns>18</columns>
 
+    <grid>
+      <type>Grid</type>
+      <gridState>
+        xxxxxxxxxxxxxxxxxx
+        xxxxxxxxxxxxxxxxxx
+        xxxxxxxxxxxxxxxxxx
+        xxxxxxxxxxxxxxxxxx
+        xxxxxxoxxxxoxxxxxx
+        xxxxooxooooxooxxxx
+        xxxxxxoxxxxoxxxxxx
+        xxxxxxxxxxxxxxxxxx
+        xxxxxxxxxxxxxxxxxx
+        xxxxxxxxxxxxxxxxxx
+        xxxxxxxxxxxxxxxxxx
+      </gridState>
 
-  <codes>
-    <key x='DeadCell'></key>
-    <key o='AliveCell'></key>
-  </codes>
+      <codes>
+        <key x='DeadCell'></key>
+        <key o='AliveCell'></key>
+      </codes>
+
+      <decoder>
+        <key AliveCell = '1'></key>
+        <key DeadCell = '2'></key>
+      </decoder>
+
+      <parameters>
+      </parameters>
+    </grid>
+  </gridInfo>
 
   <colors>
     <key x= 'FFFFFF'></key>
-    <key o= '000000'></key>
+    <key O= '000000'></key>
   </colors>
-
-  <parameters>
-  </parameters>
 
 </simulation>

@@ -31,5 +31,13 @@ public abstract class CellStructure {
    */
   public abstract List<Coordinate> getAllAdjacentCoordinates(int row, int col);
 
+  /**
+   * This method is used in order to get a code to pass to the front end so that it knows what shape
+   * it is dealing with
+   *
+   * @return The int representing the cell structure
+   */
+  public abstract int getCode();
+
 
 }

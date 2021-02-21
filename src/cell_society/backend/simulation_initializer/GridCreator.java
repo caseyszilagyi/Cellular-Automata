@@ -15,22 +15,20 @@ public class GridCreator {
   private Grid simulationGrid;
   private final String PACKAGE_LOCATION = "cell_society.backend.automata.";
   private final String SIMULATION_TYPE;
-  private final CellCreator CELL_CREATOR;
+  private final CellParameters CELL_PARAMETERS;
+  private final SimulationClassLoader CLASS_LOADER;
 
   /**
    * Calls a method to make the grid, and sets up the simulation type so that the cells/grid can be
    * found in the correct package
-   *
-   * @param row            Number of rows
-   * @param col            Number of columns
-   * @param simulationType A string representing the type of simulation so that the package can be
-   *                       found
-   * @param gridType       A string representing the grid used to make the game
+   * @param simulationType The type of simulation
+   * @param cellParameters The parameters that define each cell
+   * @param classLoader The classloader that is used to make cell and grid objects
    */
-  public GridCreator(int row, int col, String simulationType, String gridType, CellCreator cellCreator) {
+  public GridCreator(String simulationType, CellParameters cellParameters, SimulationClassLoader classLoader) {
     SIMULATION_TYPE = simulationType;
-    simulationGrid = makeGrid(row, col, gridType);
-    CELL_CREATOR = cellCreator;
+    CLASS_LOADER = classLoader;
+    CELL_PARAMETERS = cellParameters;
   }
 
   /**
@@ -41,32 +39,10 @@ public class GridCreator {
    * @param gridType the string representing the class name of the grid
    * @return The initialized grid, completely empty
    */
-  public Grid makeGrid(int row, int col, String gridType) {
-    // Basic grid
-    if (gridType.equals("Grid")) {
-      return new Grid(row, col);
-    }
-
-    String gridFileLocation = PACKAGE_LOCATION + SIMULATION_TYPE + "." + gridType;
-    Class classGrid = null;
-    try {
-      classGrid = Class.forName(gridFileLocation);
-    } catch (ClassNotFoundException e) {
-      System.out
-          .println("Error: Grid class name does not exist or is placed in the wrong location");
-    }
-
-    //Casting the generic class to a grid object
-    Grid newGrid = null;
-    try {
-      newGrid = (Grid) classGrid.newInstance();
-    } catch (Exception e) {
-      System.out.println("Error: Grid casting");
-    }
-
+  public void makeGrid(int row, int col, String gridType) {
+    Grid newGrid = CLASS_LOADER.makeGrid(gridType);
     newGrid.makeGrid(col, row);
-
-    return newGrid;
+    simulationGrid = newGrid;
   }
 
 
@@ -85,7 +61,7 @@ public class GridCreator {
     int i = 0;
     for (int r = 0; r < simulationGrid.getGridHeight(); r++) {
       for (int c = 0; c < simulationGrid.getGridWidth(); c++) {
-        Cell newCell = CELL_CREATOR.makeCell(cellCodes.get(Character.toString(grid.charAt(i))));
+        Cell newCell = CLASS_LOADER.makeCell(cellCodes.get(Character.toString(grid.charAt(i))), CELL_PARAMETERS);
         if(newCell != null) {
           newCell.setPosition(r, c);
           simulationGrid.placeCell(r, c, newCell);

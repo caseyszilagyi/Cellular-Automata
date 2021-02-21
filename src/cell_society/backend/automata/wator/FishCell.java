@@ -10,6 +10,8 @@ import java.util.List;
 
 public class FishCell extends Cell {
 
+  public static final String BREED_TIME_COUNTER = "breedtimecounter";
+  public static final String BREED_TIME_THRESH = "breedtimethresh";
   private int breedTimeCounter;
   private int breedTimeThresh;
 
@@ -34,8 +36,8 @@ public class FishCell extends Cell {
   @Override
   public void initializeParams(CellParameters parameters) {
     super.initializeParams(parameters);
-    breedTimeCounter = parameters.getAsInt("breedtimecounter");
-    breedTimeThresh = parameters.getAsInt("breedtimethresh");
+    breedTimeCounter = parameters.getAsInt(BREED_TIME_COUNTER);
+    breedTimeThresh = parameters.getAsInt(BREED_TIME_THRESH);
   }
 
   @Override

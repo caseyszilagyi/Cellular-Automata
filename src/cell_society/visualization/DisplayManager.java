@@ -171,6 +171,6 @@ public class DisplayManager {
   }
 
   private String[] getCellColorSheet(Simulation currentSim){
-    return convertCharSheetToColors(currentSim.getGrid(), currentSim.getColorMapping());
+    return convertCharSheetToColors(currentSim.getOldGrid(), currentSim.getColorMapping());
   }
 }

@@ -2,17 +2,18 @@ package cell_society.backend.automata.grid_styles;
 
 import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.Coordinate;
+import cell_society.backend.automata.Patch;
 
 /**
- * The toroidal grid is connected from sides, following a slightly different set of rules.
+ * The toroidal grid is connected from sides, following a slightly different set of rules.  Cells can leave any side of the Grid, and appear on the opposite side.
  */
 public class ToroidalGrid extends Grid {
 
   /**
    * Makes a grid with the given width/height
    *
-   * @param gridHeight
-   * @param gridWidth
+   * @param gridHeight initial height of the Toroidal Grid
+   * @param gridWidth initial width of the Toroidal Grid
    */
   public ToroidalGrid(int gridHeight, int gridWidth) {
     super(gridHeight, gridWidth);
@@ -40,7 +41,8 @@ public class ToroidalGrid extends Grid {
 
 
   /**
-   * Always in boundaries due to the toroidal nature.
+   * Always in boundaries due to the toroid-warp property.
+   *
    * @param row
    * @param col
    * @return
@@ -66,11 +68,25 @@ public class ToroidalGrid extends Grid {
     super.placeCell(modifiedRow, modifiedCol, cell);
   }
 
+  public void placePatch(int row, int col, Patch patch) {
+    Coordinate newCoordinates = getModifiedCoordinates(row, col);
+    int modifiedRow = newCoordinates.getFirst();
+    int modifiedCol = newCoordinates.getSecond();
+    super.placePatch(modifiedRow, modifiedCol, patch);
+  }
+
   public Cell getCell(int row, int col) {
     Coordinate newCoordinates = getModifiedCoordinates(row, col);
     int modifiedRow = newCoordinates.getFirst();
     int modifiedCol = newCoordinates.getSecond();
     return super.getCell(modifiedRow, modifiedCol);
+  }
+
+  public Patch getPatch(int row, int col) {
+    Coordinate newCoordinates = getModifiedCoordinates(row, col);
+    int modifiedRow = newCoordinates.getFirst();
+    int modifiedCol = newCoordinates.getSecond();
+    return super.getPatch(modifiedRow, modifiedCol);
   }
 
   /**

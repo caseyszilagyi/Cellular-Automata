@@ -1,53 +1,66 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation type="percolation">
-  <cellPackage>percolation</cellPackage>
   <title>Percolation</title>
-  <author></author>
+  <author>Thomas Schelling</author>
   <desc>Percolation Simulation from CS 201</desc>
 
-  <cellPackage>percolation</cellPackage>
-  <gridType>Grid</gridType>
-  <stepperType>SimulationStepper</stepperType>
+  <coreSpecifications>
+    <type cellPackage ="percolation"></type>
+    <type gridType = "Grid"></type>
+    <type stepperType = "SimulationStepper"></type>
+    <type structureType = "Square"></type>
+  </coreSpecifications>
 
-  <rows>20</rows>
-  <columns>20</columns>
-  <grid>
-    oooooooooooooooooooo
-    oooooooooooooooooooo
-    oooooooooooooooooooo
-    oooooooooooooooooooo
-    oooooooooooooooooooo
-    oooooooooooooooooooo
-    oooooooooooooooooooo
-    oooooooooooooooooooo
-    ooooobbbbbbbbbbooooo
-    ooooooooopoooooooooo
-    ooooobbbbbbbbbbooooo
-    oooooooooooooooooooo
-    bbbbbbbbbobbbbbbbbbb
-    oooooooooooooooooooo
-    oooooooooooooooooooo
-    oooooooooooooooooooo
-    oooooooooooooooooooo
-    oooooooooooooooooooo
-    oooooooooooooooooooo
-    oooooooooooooooooooo
-  </grid>
+  <gridInfo>
+    <rows>20</rows>
+    <columns>20</columns>
 
-  <codes>
-    <key b='BlockedCell'></key>
-    <key o='OpenCell'></key>
-    <key p='PercolatedCell'></key>
-  </codes>
+    <grid>
+      <type>Grid</type>
+      <gridState>
+        oooooooooooooooooooo
+        oooooooooooooooooooo
+        oooooooooooooooooooo
+        oooooooooooooooooooo
+        oooooooooooooooooooo
+        oooooooooooooooooooo
+        oooooooooooooooooooo
+        oooooooooooooooooooo
+        ooooobbbbbbbbbbooooo
+        ooooooooopoooooooooo
+        ooooobbbbbbbbbbooooo
+        oooooooooooooooooooo
+        bbbbbbbbbobbbbbbbbbb
+        oooooooooooooooooooo
+        oooooooooooooooooooo
+        oooooooooooooooooooo
+        oooooooooooooooooooo
+        oooooooooooooooooooo
+        oooooooooooooooooooo
+        oooooooooooooooooooo
+      </gridState>
+
+      <codes>
+        <key b='BlockedCell'></key>
+        <key o='OpenCell'></key>
+        <key p='PercolatedCell'></key>
+      </codes>
+
+      <decoder>
+        <key BlockedCell = '1'></key>
+        <key OpenCell = '2'></key>
+        <key PercolatedCell = '3'></key>
+      </decoder>
+
+      <parameters>
+      </parameters>
+    </grid>
+  </gridInfo>
 
   <colors>
     <key b = '272929'></key>
     <key o = 'EDF7F7'></key>
     <key p = '0099F0'></key>
   </colors>
-
-  <parameters>
-  </parameters>
-
 
 </simulation>
