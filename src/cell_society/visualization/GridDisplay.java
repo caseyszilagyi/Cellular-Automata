@@ -4,8 +4,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
-import javafx.scene.transform.Rotate;
-import javafx.stage.Stage;
 
 /**
  * The GridDisplay class is responsible for creating and updating the main display grid that is
@@ -21,7 +19,8 @@ public class GridDisplay {
   private int gridWidth, gridHeight;
   private double cellWidth, cellHeight;
 
-  private final int BORDER_LENGTH = 50;
+  private final int HORIZONTAL_BORDER_LENGTH = 50;
+  private final int VERTICAL_BORDER_LENGTH = 50;
 
   private final String HEXAGON = "hexagon";
   private final String RECTANGLE = "rectangle";
@@ -44,81 +43,68 @@ public class GridDisplay {
   public void updateGrid(String[] cellColorSheet) {
     pane.getChildren().clear();
 
-    double screenWidth = scene.getWidth() - BORDER_LENGTH * 2.0;
-    double screenHeight = scene.getHeight() - BORDER_LENGTH * 2.0;
+    double screenWidth = scene.getWidth() - HORIZONTAL_BORDER_LENGTH * 2.0;
+    double screenHeight = scene.getHeight() - VERTICAL_BORDER_LENGTH * 2.0;
 
     cellWidth =  screenWidth / gridWidth;
     cellHeight = screenHeight / gridHeight;
 
-    createRectangleGrid(cellWidth, cellHeight, cellColorSheet);
+    createTriangleGrid(cellWidth, cellHeight, cellColorSheet);
   }
 
   private void createRectangleGrid(double cellWidth, double cellHeight, String[] cellColorSheet){
-    int colorSheetIndex = 0;
-
     for (int row = 0; row < gridHeight; row++) {
       for (int col = 0; col < gridWidth; col++) {
         createCell(
-            col * cellWidth + BORDER_LENGTH,
-            row * cellHeight + BORDER_LENGTH,
-            cellColorSheet[colorSheetIndex],
+            col * cellWidth + HORIZONTAL_BORDER_LENGTH,
+            row * cellHeight + VERTICAL_BORDER_LENGTH,
+            cellColorSheet[row * gridHeight + col],
             RECTANGLE
         );
-        colorSheetIndex++;
       }
     }
   }
 
-  /*
-  private void createHexagonGrid(double whiteSpaceX, double whiteSpaceY, String[] cellColorSheet){
-    int colorSheetIndex = 0;
-    double hexagonWidth = -1 * cellSideLength / 4;
-    double hexagonHeightMultiplier = 2.0 / 3;
+  private void createHexagonalGrid(double cellWidth, double cellHeight, String[] cellColorSheet){
+    double horizontalBorderLength = -1 * cellWidth / 4;
 
-    for (int row = 0; row < height; row++) {
-      for (int col = 0; col < width; col++) {
+    for(int row = 0; row < gridHeight; row++){
+      for(int col = 0; col < gridWidth; col++){
         createCell(
-            col * cellSideLength + whiteSpaceX + hexagonWidth,
-            row * cellSideLength * hexagonHeightMultiplier + whiteSpaceY,
-            cellColorSheet[colorSheetIndex],
+            col * cellWidth + HORIZONTAL_BORDER_LENGTH + horizontalBorderLength,
+            row * cellHeight + VERTICAL_BORDER_LENGTH,
+            cellColorSheet[row * gridHeight + col],
             HEXAGON
         );
-        colorSheetIndex++;
       }
-      hexagonWidth = -1 * hexagonWidth;
+      horizontalBorderLength = -1 * horizontalBorderLength;
     }
   }
 
-  private void createTriangleGrid(double whiteSpaceX, double whiteSpaceY, String[] cellColorSheet) {
-    int colorSheetIndex = 0;
-    boolean triangleDirectionUp;
+  private void createTriangleGrid(double cellWidth, double cellHeight, String[] cellColorSheet){
+    String triangleType;
 
-    for (int row = 0; row < height; row++) {
+    for(int row = 0; row < gridHeight; row++){
       if (row % 2 == 0){
-        triangleDirectionUp = true;
+        triangleType = TRIANGLE_UP;
       } else {
-        triangleDirectionUp = false;
+        triangleType = TRIANGLE_DOWN;
       }
-      for (int col = 0; col < width; col++) {
-        String triangleDirection;
-        if(triangleDirectionUp){
-          triangleDirection = TRIANGLE_UP;
-        } else {
-          triangleDirection = TRIANGLE_DOWN;
-        }
-        triangleDirectionUp = !triangleDirectionUp;
+      for(int col = 0; col < gridWidth; col++){
         createCell(
-            col * cellSideLength + whiteSpaceX / 2.0,
-            row * cellSideLength + whiteSpaceY,
-            cellColorSheet[colorSheetIndex],
-            triangleDirection
+            col * cellWidth + HORIZONTAL_BORDER_LENGTH,
+            row * cellHeight + VERTICAL_BORDER_LENGTH,
+            cellColorSheet[row * gridHeight + col],
+            triangleType
         );
-        colorSheetIndex++;
+        if (triangleType.equals(TRIANGLE_UP)){
+          triangleType = TRIANGLE_DOWN;
+        } else {
+          triangleType = TRIANGLE_UP;
+        }
       }
     }
   }
-
-   */
 
   private void createCell(double x, double y, String colorHex, String cellShape) {
     Polygon cell = new Polygon();
@@ -126,9 +112,9 @@ public class GridDisplay {
     // how to not use this switch statement..?
     switch (cellShape) {
       case RECTANGLE -> drawRectangleCell(cell, x, y);
-      //case HEXAGON -> drawHexagonCell(cell, x, y);
-      //case TRIANGLE_UP -> drawTriangleCellUp(cell, x, y);
-      //case TRIANGLE_DOWN -> drawTriangleCellDown(cell, x, y);
+      case HEXAGON -> drawHexagonCell(cell, x, y);
+      case TRIANGLE_UP -> drawTriangleCellUp(cell, x, y);
+      case TRIANGLE_DOWN -> drawTriangleCellDown(cell, x, y);
     }
 
     if (colorHex != null) {
@@ -151,33 +137,32 @@ public class GridDisplay {
     );
   }
 
-  /*
+
   private void drawHexagonCell(Polygon cell, double x, double y) {
     cell.getPoints().addAll(
-        x + cellSideLength * 0.5, y,
-        x + cellSideLength, y + cellSideLength / 3.0,
-        x + cellSideLength, y + cellSideLength * (2.0 / 3.0),
-        x + cellSideLength * 0.5, y + cellSideLength,
-        x, y + cellSideLength * (2.0 / 3.0),
-        x, y + cellSideLength / 3.0
+        x, y + cellHeight * (1.0 / 3),
+        x + cellWidth / 2.0, y - cellHeight * (1.0 / 3),
+        x + cellWidth, y + cellHeight * (1.0 / 3),
+        x + cellWidth, y + cellHeight * (2.0 / 3),
+        x + cellWidth / 2.0, y + cellHeight * (4.0 / 3),
+        x, y + cellHeight * (2.0 / 3)
     );
   }
 
   private void drawTriangleCellUp(Polygon cell, double x, double y) {
     cell.getPoints().addAll(
-        x, y + cellSideLength,
-        x + cellSideLength, y,
-        x + cellSideLength * 2.0, y + cellSideLength
+        x + cellWidth / 2.0, y,
+        x + cellWidth * 1.5, y + cellHeight,
+        x - cellWidth / 2.0, y + cellHeight
     );
   }
 
   private void drawTriangleCellDown(Polygon cell, double x, double y) {
     cell.getPoints().addAll(
-        x, y,
-        x + cellSideLength * 2.0, y,
-        x + cellSideLength, y + cellSideLength
+        x - cellWidth / 2.0, y,
+        x + cellWidth * 1.5, y,
+        x + cellWidth / 2.0, y + cellHeight
     );
   }
 
-   */
 }
