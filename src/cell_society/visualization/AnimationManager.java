@@ -63,9 +63,9 @@ public class AnimationManager {
   }
 
   public double setNextFPS(){
-    double speedInterval = 0.25;
+    double speedInterval = 0.20;
     double maxSpeedScale = 2.0;
-    double minSpeedScale = 0.5;
+    double minSpeedScale = 0.20;
     double speedScale = animation.getRate() - speedInterval;
     if (speedScale < minSpeedScale) {
       speedScale = maxSpeedScale;

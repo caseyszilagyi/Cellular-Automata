@@ -48,16 +48,21 @@ public class DisplayManager {
     this.stage = stage;
     this.root = root;
     this.scene = scene;
+
     pane = new Pane();
     root.getChildren().add(pane);
 
-    gridDisplay = new GridDisplay(pane, scene);
+    gridDisplay = new GridDisplay(scene, pane);
 
     animationManager = new AnimationManager(this);
 
     makeAllButtons();
 
     changeStylesheet(colorModes[currentColorMode]);
+  }
+
+  public void printWindowSize(){
+    System.out.println("WINDOW WIDTH: " + stage.getWidth());
   }
 
   private void changeStylesheet(String fileName){
@@ -80,7 +85,7 @@ public class DisplayManager {
       animationManager.setSimulation(currentSim);
 
       updateDisplayGrid(currentSim);
-      addResizeWindowEventListeners(currentSim);
+      //addResizeWindowEventListeners(currentSim);
     }
   }
 
@@ -176,14 +181,14 @@ public class DisplayManager {
     // update grid every time window WIDTH is resized
     scene.widthProperty().addListener((currentWidth, oldWidth, newWidth) -> {
       animationManager.pauseSimulation();
-      gridDisplay.setCurrentScreenWidth(newWidth.doubleValue());
+      //gridDisplay.setCurrentScreenWidth(newWidth.doubleValue());
       gridDisplay.updateGrid(getCellColorSheet(currentSim));
     });
 
     // update grid every time window HEIGHT is resized
     scene.heightProperty().addListener((currentHeight, oldHeight, newHeight) -> {
       animationManager.pauseSimulation();
-      gridDisplay.setCurrentScreenHeight(newHeight.doubleValue());
+      //gridDisplay.setCurrentScreenHeight(newHeight.doubleValue());
       gridDisplay.updateGrid(getCellColorSheet(currentSim));
     });
   }

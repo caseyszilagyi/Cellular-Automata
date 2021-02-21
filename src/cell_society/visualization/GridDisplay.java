@@ -5,6 +5,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.transform.Rotate;
+import javafx.stage.Stage;
 
 /**
  * The GridDisplay class is responsible for creating and updating the main display grid that is
@@ -14,10 +15,11 @@ import javafx.scene.transform.Rotate;
  */
 public class GridDisplay {
 
-  private final Pane root;
-  private double cellSideLength, currentScreenWidth, currentScreenHeight;
+  private final Scene scene;
+  private final Pane pane;
 
-  private int width, height;
+  private int gridWidth, gridHeight;
+  private double cellWidth, cellHeight;
 
   private final int BORDER_LENGTH = 50;
 
@@ -26,55 +28,39 @@ public class GridDisplay {
   private final String TRIANGLE_UP = "triangleUp";
   private final String TRIANGLE_DOWN = "triangleDown";
 
-  public GridDisplay(Pane root, Scene scene) {
-    this.root = root;
-    currentScreenWidth = scene.getWidth() - BORDER_LENGTH * 2;
-    currentScreenHeight = scene.getHeight() - BORDER_LENGTH * 2;
+  public GridDisplay(Scene scene, Pane pane) {
+    this.scene = scene;
+    this.pane = pane;
   }
 
-  public void setCurrentScreenWidth(double width) {
-    currentScreenWidth = width - BORDER_LENGTH * 2;
-  }
-
-  public void setCurrentScreenHeight(double height) {
-    currentScreenHeight = height - BORDER_LENGTH * 2;
-  }
-
-  public void setGridDimensions(int width, int height) {
-    this.width = width;
-    this.height = height;
+  public void setGridDimensions(int gridWidth, int gridHeight) {
+    this.gridWidth = gridWidth;
+    this.gridHeight = gridHeight;
   }
 
   /**
    * @param cellColorSheet Array of integers for the cell colors
    */
   public void updateGrid(String[] cellColorSheet) {
-    root.getChildren().clear();
+    pane.getChildren().clear();
 
-    double maxPossibleCellWidth = currentScreenWidth / width;
-    double maxPossibleCellHeight = currentScreenHeight / height;
+    double screenWidth = scene.getWidth() - BORDER_LENGTH * 2.0;
+    double screenHeight = scene.getHeight() - BORDER_LENGTH * 2.0;
 
-    if (maxPossibleCellHeight >= maxPossibleCellWidth) {
-      cellSideLength = maxPossibleCellWidth;
-    } else {
-      cellSideLength = maxPossibleCellHeight;
-    }
+    cellWidth =  screenWidth / gridWidth;
+    cellHeight = screenHeight / gridHeight;
 
-    // for centering horizontally
-    double whiteSpaceX = (currentScreenWidth - (width * cellSideLength)) / 2.0 + BORDER_LENGTH;
-    double whiteSpaceY = (currentScreenHeight - (height * cellSideLength)) / 2.0 + BORDER_LENGTH;
-
-    createRectangleGrid(whiteSpaceX, whiteSpaceY, cellColorSheet);
+    createRectangleGrid(cellWidth, cellHeight, cellColorSheet);
   }
 
-  private void createRectangleGrid(double whiteSpaceX, double whiteSpaceY, String[] cellColorSheet){
+  private void createRectangleGrid(double cellWidth, double cellHeight, String[] cellColorSheet){
     int colorSheetIndex = 0;
 
-    for (int row = 0; row < height; row++) {
-      for (int col = 0; col < width; col++) {
+    for (int row = 0; row < gridHeight; row++) {
+      for (int col = 0; col < gridWidth; col++) {
         createCell(
-            col * cellSideLength + whiteSpaceX,
-            row * cellSideLength + whiteSpaceY,
+            col * cellWidth + BORDER_LENGTH,
+            row * cellHeight + BORDER_LENGTH,
             cellColorSheet[colorSheetIndex],
             RECTANGLE
         );
@@ -83,6 +69,7 @@ public class GridDisplay {
     }
   }
 
+  /*
   private void createHexagonGrid(double whiteSpaceX, double whiteSpaceY, String[] cellColorSheet){
     int colorSheetIndex = 0;
     double hexagonWidth = -1 * cellSideLength / 4;
@@ -131,15 +118,17 @@ public class GridDisplay {
     }
   }
 
+   */
+
   private void createCell(double x, double y, String colorHex, String cellShape) {
     Polygon cell = new Polygon();
 
     // how to not use this switch statement..?
     switch (cellShape) {
       case RECTANGLE -> drawRectangleCell(cell, x, y);
-      case HEXAGON -> drawHexagonCell(cell, x, y);
-      case TRIANGLE_UP -> drawTriangleCellUp(cell, x, y);
-      case TRIANGLE_DOWN -> drawTriangleCellDown(cell, x, y);
+      //case HEXAGON -> drawHexagonCell(cell, x, y);
+      //case TRIANGLE_UP -> drawTriangleCellUp(cell, x, y);
+      //case TRIANGLE_DOWN -> drawTriangleCellDown(cell, x, y);
     }
 
     if (colorHex != null) {
@@ -149,19 +138,20 @@ public class GridDisplay {
     }
 
     cell.setStroke(Color.GAINSBORO); // border color (can be changed by user)
-    root.getChildren().add(cell);
+    pane.getChildren().add(cell);
   }
 
 
   private void drawRectangleCell(Polygon cell, double x, double y) {
     cell.getPoints().addAll(
         x, y,
-        x + cellSideLength, y,
-        x + cellSideLength, y + cellSideLength,
-        x, y + cellSideLength
+        x + cellWidth, y,
+        x + cellWidth, y + cellHeight,
+        x, y + cellHeight
     );
   }
 
+  /*
   private void drawHexagonCell(Polygon cell, double x, double y) {
     cell.getPoints().addAll(
         x + cellSideLength * 0.5, y,
@@ -188,4 +178,6 @@ public class GridDisplay {
         x + cellSideLength, y + cellSideLength
     );
   }
+
+   */
 }

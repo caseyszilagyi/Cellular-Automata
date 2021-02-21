@@ -1,12 +1,9 @@
 package cell_society;
 
 import cell_society.visualization.DisplayManager;
-import java.util.ResourceBundle;
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -29,5 +26,7 @@ public class Main extends Application {
     stage.show();
 
     new DisplayManager(this, stage, root, scene);
+
+    //new GraphDisplay(root, scene);
   }
 }
