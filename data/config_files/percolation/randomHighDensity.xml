@@ -8,6 +8,7 @@
     <type cellPackage ="percolation"></type>
     <type gridType = "Grid"></type>
     <type stepperType = "SimulationStepper"></type>
+    <type structureType = "Square"></type>
   </coreSpecifications>
 
   <gridInfo>
@@ -74,6 +75,12 @@
         <key o='OpenCell'></key>
         <key p='PercolatedCell'></key>
       </codes>
+
+      <decoder>
+        <key BlockedCell = '1'></key>
+        <key OpenCell = '2'></key>
+        <key PercolatedCell = '3'></key>
+      </decoder>
 
       <parameters>
       </parameters>

@@ -24,4 +24,8 @@ public class HexagonStructure extends CellStructure {
     }
     return allAdjacentCoordinates;
   }
+
+  public int getCode(){
+    return 2;
+  }
 }

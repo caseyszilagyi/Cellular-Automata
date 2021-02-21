@@ -76,6 +76,9 @@ public class SimulationClassLoader {
    * @return The cell
    */
   public Cell makeCell(String cellType, CellParameters cellParameters) {
+    if(cellType == null){
+      throw new ErrorHandler("InvalidCellMapping");
+    }
     if(cellType.equals("Empty")){
       return null;
     }

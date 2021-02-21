@@ -120,8 +120,9 @@ public class XMLFileReader {
       String type = getTextValue(currentGridOrPatch, "type");
       String grid = getTextValue(currentGridOrPatch, "gridState");
       Map<String, String> codes = getSubAttributeMap("codes",currentGridOrPatch);
+      Map<String, String> decoder = getSubAttributeMap("decoder",currentGridOrPatch);
       Map<String, String> parameters = getSubAttributeMap("parameters",currentGridOrPatch);
-      details.add(new GridOrPatchDetails(type, cols, rows, grid, parameters, codes));
+      details.add(new GridOrPatchDetails(type, cols, rows, grid, parameters, codes, decoder));
     }
 
     return details;
@@ -139,8 +140,9 @@ public class XMLFileReader {
       String type = getTextValue(currentGridOrPatch, "type");
       String grid = getTextValue(currentGridOrPatch, "gridState");
       Map<String, String> codes = getSubAttributeMap("codes",currentGridOrPatch);
+      Map<String, String> decoder = getSubAttributeMap("decoder",currentGridOrPatch);
       Map<String, String> parameters = getSubAttributeMap("parameters",currentGridOrPatch);
-      newGrid = new GridOrPatchDetails(type, cols, rows, grid, parameters, codes);
+      newGrid = new GridOrPatchDetails(type, cols, rows, grid, parameters, codes, decoder);
     }
 
     return newGrid;

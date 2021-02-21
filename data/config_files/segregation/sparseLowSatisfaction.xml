@@ -8,6 +8,7 @@
     <type cellPackage ="segregation"></type>
     <type gridType = "Grid"></type>
     <type stepperType = "SegregationStepper"></type>
+    <type structureType = "Square"></type>
   </coreSpecifications>
 
   <gridInfo>
@@ -44,6 +45,11 @@
         <key o='AgentCellB'></key>
         <key e ='Empty'></key>
       </codes>
+
+      <decoder>
+        <key AgentCellA = '1'></key>
+        <key AgentCellB = '2'></key>
+      </decoder>
 
       <parameters>
         <parameter satisfactionprop='0.40'/>

@@ -56,7 +56,7 @@ public class Simulation {
     return simulationGrid.getDisplay();
   }
 
-  public int[] getNewGrid(){ return null; }
+  public int[] getNewGrid(){ return simulationGrid.getIntDisplay(); }
 
   //only for testing
   public Grid getRealGrid(){

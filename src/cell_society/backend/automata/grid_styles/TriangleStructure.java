@@ -30,4 +30,8 @@ public class TriangleStructure extends CellStructure {
     }
     return allAdjacentCoordinates;
   }
+
+  public int getCode(){
+    return 1;
+  }
 }
