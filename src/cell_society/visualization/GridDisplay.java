@@ -94,7 +94,7 @@ public class GridDisplay {
     String trianglePointingDirection;
 
     for(int row = 0; row < gridHeight; row++){
-      if (row % 2 == 0){
+      if (row % 2 != 0){
         trianglePointingDirection = TRIANGLE_UP;
       } else {
         trianglePointingDirection = TRIANGLE_DOWN;

@@ -73,6 +73,7 @@ public class DisplayManager {
       animationManager.setSimulation(currentSim);
 
       updateDisplayGrid(currentSim);
+      animationManager.pauseSimulation();
       //addResizeWindowEventListeners(currentSim);
     }
   }
@@ -167,7 +168,7 @@ public class DisplayManager {
 
   public void updateDisplayGrid(Simulation currentSim){
     gridDisplay.setGridDimensions(currentSim.getGridWidth(), currentSim.getGridHeight());
-    gridDisplay.updateGrid(getCellColorSheet(currentSim), "rectangle");
+    gridDisplay.updateGrid(getCellColorSheet(currentSim), "hexagon");
   }
 
   private String[] getCellColorSheet(Simulation currentSim){
