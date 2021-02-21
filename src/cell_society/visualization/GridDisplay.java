@@ -67,7 +67,7 @@ public class GridDisplay {
         createCell(
             col * cellWidth + HORIZONTAL_BORDER_LENGTH,
             row * cellHeight + VERTICAL_BORDER_LENGTH,
-            cellColorSheet[row * gridHeight + col],
+            cellColorSheet[row * gridWidth + col],
             RECTANGLE
         );
       }
@@ -82,7 +82,7 @@ public class GridDisplay {
         createCell(
             col * cellWidth + HORIZONTAL_BORDER_LENGTH + horizontalBorderLength,
             row * cellHeight + VERTICAL_BORDER_LENGTH,
-            cellColorSheet[row * gridHeight + col],
+            cellColorSheet[row * gridWidth + col],
             HEXAGON
         );
       }
@@ -103,7 +103,7 @@ public class GridDisplay {
         createCell(
             col * cellWidth + HORIZONTAL_BORDER_LENGTH,
             row * cellHeight + VERTICAL_BORDER_LENGTH,
-            cellColorSheet[row * gridHeight + col],
+            cellColorSheet[row * gridWidth + col],
             trianglePointingDirection
         );
         if (trianglePointingDirection.equals(TRIANGLE_UP)){
