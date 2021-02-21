@@ -90,12 +90,12 @@ public enum TriangularDirection implements Direction {
   }
 
   @Override
-  public Direction rotateLeft(Direction direction) {
+  public Direction rotateCW() {
     return null;
   }
 
   @Override
-  public Direction rotateRight(Direction direction) {
+  public Direction rotateCCW() {
     return null;
   }
 }

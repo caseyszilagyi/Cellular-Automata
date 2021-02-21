@@ -172,6 +172,10 @@ public class Grid {
     return grid[row][col] == null;
   }
 
+  public boolean isEmpty(Coordinate coord){
+    return isEmpty(coord.getFirst(), coord.getSecond());
+  }
+
   /**
    * This method provides a quick check that a provided coordinate is within the bounds of the
    * Grid.
@@ -182,6 +186,12 @@ public class Grid {
    */
   public boolean inBoundaries(int row, int col) {
     return !(row >= gridHeight || row < 0 || col >= gridWidth || col < 0);
+  }
+
+  public boolean inBoundaries(Coordinate coord){
+    int row = coord.getFirst();
+    int col = coord.getSecond();
+    return inBoundaries(row, col);
   }
 
   /**
