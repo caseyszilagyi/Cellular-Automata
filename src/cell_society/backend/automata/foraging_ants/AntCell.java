@@ -6,11 +6,12 @@ import cell_society.backend.automata.Neighbors;
 import cell_society.backend.automata.Patch;
 import cell_society.backend.automata.grid_styles.Direction;
 import cell_society.backend.automata.grid_styles.Grid;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class AntCell extends Cell {
 
-  private Direction antDirection;
   private final int food;
+  private Direction antDirection;
 
   public AntCell(int row, int col, AntCell antCell) {
     super(row, col);
@@ -22,6 +23,13 @@ public class AntCell extends Cell {
     super(row, col);
     food = 0;
     antDirection = grid.getGridCellStructure().getRandomDirection(row, col);
+  }
+
+  private static boolean weightedRandom(int weight1, int weight2) {
+    // Returns true for option1, false for option2
+    int sum = weight1 + weight2;
+    int randInt = ThreadLocalRandom.current().nextInt(1, sum + 1);
+    return randInt <= weight1;
   }
 
   @Override
@@ -36,14 +44,52 @@ public class AntCell extends Cell {
       int row = getRow();
       int col = getCol();
       // Assess movement options
+      Patch patchCW = null;
+      Coordinate coordCW = null;
+      Patch patchCCW = null;
+      Coordinate coordCCW = null;
+
+      // Check valid direction to move to.
+      if (validDirection(row, col, antDirection.rotateCW(), currentGrid, nextGrid)) {
+        coordCW = antDirection.rotateCW().getResultingCoordinate(row, col);
+        patchCW = nextGrid.getPatch(coordCW.getFirst(), coordCW.getSecond());
+      }
+      if (validDirection(row, col, antDirection.rotateCCW(), currentGrid, nextGrid)) {
+        coordCCW = antDirection.rotateCW().getResultingCoordinate(row, col);
+        patchCCW = nextGrid.getPatch(coordCCW.getFirst(), coordCCW.getSecond());
+      }
+      int newRow;
+      int newCol;
+      if (coordCW == null && coordCCW == null) {
+        // Ant stays in place, rotates slightly
+        AntCell antCell = new AntCell(row, col, this);
+        antCell.antDirection = antDirection.rotateCW();
+      }
+      if (coordCCW == null ^ coordCW == null) {
+        newRow = coordCCW == null ? coordCW.getFirst() : coordCCW.getFirst();
+        newCol = coordCCW == null ? coordCW.getSecond() : coordCCW.getSecond();
+        AntCell antCell = new AntCell(newRow, newCol, this);
+        nextGrid.placeCell(newRow, newCol, antCell);
+        return;
+      }
+      int foodPheromoneCW = patchCW.getState(AntPatch.FOOD_PHEROMONE_LEVEL);
+      int foodPheromoneCCW = patchCCW.getState(AntPatch.FOOD_PHEROMONE_LEVEL);
+      newRow = weightedRandom(foodPheromoneCW, foodPheromoneCCW) ? coordCW.getFirst()
+          : coordCCW.getFirst();
+      newCol = weightedRandom(foodPheromoneCW, foodPheromoneCCW) ? coordCW.getSecond()
+          : coordCCW.getSecond();
+      AntCell antCell = new AntCell(newRow, newCol, this);
+      nextGrid.placeCell(newRow, newCol, antCell);
 
 
     } else {
+      // Return home mode
 
     }
   }
 
-  private boolean validDirection(int row, int col, Direction direction, Grid currentGrid, Grid nextGrid) {
+  private boolean validDirection(int row, int col, Direction direction, Grid currentGrid,
+      Grid nextGrid) {
     // A valid cell direction choice if a cell can move to it.
     Coordinate result = direction.getResultingCoordinate(row, col);
     return nextGrid.inBoundaries(result) && currentGrid.isEmpty(result) && nextGrid.isEmpty(result);
