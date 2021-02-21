@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-  private final int SCREEN_WIDTH = 800;
+  private final int SCREEN_WIDTH = 1600;
   private final int SCREEN_HEIGHT = 800;
 
   @Override
@@ -19,6 +19,9 @@ public class Main extends Application {
   public void createNewWindow(String stageTitle){
     Stage stage = new Stage();
     stage.setTitle(stageTitle);
+    stage.setMinWidth(480);
+    stage.setMinHeight(500);
+
     Pane root = new Pane();
 
     Scene scene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -26,7 +29,5 @@ public class Main extends Application {
     stage.show();
 
     new DisplayManager(this, stage, root, scene);
-
-    //new GraphDisplay(root, scene);
   }
 }
