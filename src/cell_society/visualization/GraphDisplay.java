@@ -1,5 +1,6 @@
 package cell_society.visualization;
 
+import java.util.Map;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -19,6 +20,13 @@ public class GraphDisplay {
 
     createGraph("yes", "no");
   }
+
+//  private void mapforstuff(){
+//    Map<Integer, Integer> distMap = currentSim.getCellDistribution();
+//    for(Map.Entry<Integer, Integer> entry : distMap.entrySet()){
+//      System.out.println(entry.getKey() + ": " + entry.getValue());
+//    }
+//  }
 
   private void createGraph(String xLabel, String yLabel){
 //    CategoryAxis xAxis = new CategoryAxis();

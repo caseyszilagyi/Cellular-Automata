@@ -21,7 +21,7 @@ public class GridDisplay {
   private final int VERTICAL_BORDER_LENGTH = 90;
 
   private final String VISUALIZATION_RESOURCE_PACKAGE = "cell_society/visualization/resources/";
-  private final ResourceBundle resourceBundle = ResourceBundle.getBundle(VISUALIZATION_RESOURCE_PACKAGE + "properties/GridType");
+  private ResourceBundle resourceBundle;
 
   private final String RECTANGLE = "rectangle";
   private final String HEXAGON = "hexagon";
@@ -32,49 +32,59 @@ public class GridDisplay {
   private int gridWidth, gridHeight;
   private double cellWidth, cellHeight;
 
+  private String currentSimulationType;
+
   public GridDisplay(Scene scene, Pane pane) {
     this.scene = scene;
     this.pane = pane;
   }
 
-  public void setGridDimensions(int gridWidth, int gridHeight) {
-    this.gridWidth = gridWidth;
+  public void setGridDimensions(int gridHeight, int gridWidth) {
     this.gridHeight = gridHeight;
+    this.gridWidth = gridWidth;
+  }
+
+  public void setSimulationType(String simulationType){
+    currentSimulationType = simulationType;
   }
 
   /**
    * @param cellColorSheet Array of integers for the cell colors
    */
-  public void updateGrid(String[] cellColorSheet, String gridShapeType) {
+  public void updateGrid(int[] cellColorSheet) {
     pane.getChildren().clear();
 
     double screenWidth = scene.getWidth() - HORIZONTAL_BORDER_LENGTH * 2.0;
     double screenHeight = scene.getHeight() - (VERTICAL_BORDER_LENGTH + HORIZONTAL_BORDER_LENGTH);
 
+    int cellShapeKey = cellColorSheet[0];
+    gridHeight = cellColorSheet[1];
+    gridWidth = cellColorSheet[2];
+
     cellWidth =  screenWidth / gridWidth;
     cellHeight = screenHeight / gridHeight;
 
-    switch(gridShapeType){
-      case RECTANGLE -> createRectangleGrid(cellWidth, cellHeight, cellColorSheet);
-      case HEXAGON -> createHexagonalGrid(cellWidth, cellHeight, cellColorSheet);
-      case TRIANGLE -> createTriangleGrid(cellWidth, cellHeight, cellColorSheet);
+    switch(cellShapeKey){
+      case 0 -> createRectangleGrid(cellWidth, cellHeight, cellColorSheet);
+      case 1 -> createTriangleGrid(cellWidth, cellHeight, cellColorSheet);
+      case 2 -> createHexagonalGrid(cellWidth, cellHeight, cellColorSheet);
     }
   }
 
-  private void createRectangleGrid(double cellWidth, double cellHeight, String[] cellColorSheet){
+  private void createRectangleGrid(double cellWidth, double cellHeight, int[] cellColorSheet){
     for (int row = 0; row < gridHeight; row++) {
       for (int col = 0; col < gridWidth; col++) {
         createCell(
             col * cellWidth + HORIZONTAL_BORDER_LENGTH,
             row * cellHeight + VERTICAL_BORDER_LENGTH,
-            cellColorSheet[row * gridWidth + col],
+            cellColorSheet[3 + row * gridWidth + col],
             RECTANGLE
         );
       }
     }
   }
 
-  private void createHexagonalGrid(double cellWidth, double cellHeight, String[] cellColorSheet){
+  private void createHexagonalGrid(double cellWidth, double cellHeight, int[] cellColorSheet){
     double horizontalBorderLength = -1 * cellWidth / 4;
 
     for(int row = 0; row < gridHeight; row++){
@@ -82,7 +92,7 @@ public class GridDisplay {
         createCell(
             col * cellWidth + HORIZONTAL_BORDER_LENGTH + horizontalBorderLength,
             row * cellHeight + VERTICAL_BORDER_LENGTH,
-            cellColorSheet[row * gridWidth + col],
+            cellColorSheet[3 + row * gridWidth + col],
             HEXAGON
         );
       }
@@ -90,7 +100,7 @@ public class GridDisplay {
     }
   }
 
-  private void createTriangleGrid(double cellWidth, double cellHeight, String[] cellColorSheet){
+  private void createTriangleGrid(double cellWidth, double cellHeight, int[] cellColorSheet){
     String trianglePointingDirection;
 
     for(int row = 0; row < gridHeight; row++){
@@ -103,7 +113,7 @@ public class GridDisplay {
         createCell(
             col * cellWidth + HORIZONTAL_BORDER_LENGTH,
             row * cellHeight + VERTICAL_BORDER_LENGTH,
-            cellColorSheet[row * gridWidth + col],
+            cellColorSheet[3 + row * gridWidth + col],
             trianglePointingDirection
         );
         if (trianglePointingDirection.equals(TRIANGLE_UP)){
@@ -115,8 +125,8 @@ public class GridDisplay {
     }
   }
 
-  private void createCell(double x, double y, String colorHex, String cellShape) {
-    Color defaultCellColor = Color.AZURE;
+  private void createCell(double x, double y, int colorCode, String cellShape) {
+    resourceBundle = ResourceBundle.getBundle(VISUALIZATION_RESOURCE_PACKAGE + "properties/simulationColorCodes/" + currentSimulationType);
 
     Polygon cell = new Polygon();
 
@@ -127,14 +137,8 @@ public class GridDisplay {
       case TRIANGLE_DOWN -> drawTriangleCellPointingDown(cell, x, y);
     }
 
-    if (colorHex != null) { // if the cell is empty
-      cell.setFill(Color.web(colorHex));
-      cell.setStroke(Color.BLACK);
-      //cell.setStroke(Color.web(colorHex)); // <-- this is no border since it's the same fill
-    } else {
-      cell.setFill(defaultCellColor);
-      //cell.setStroke(Color.GAINSBORO);
-    }
+    cell.setFill(Color.web(resourceBundle.getString(Integer.toString(colorCode))));
+    cell.setStroke(Color.BLACK);
 
     pane.getChildren().add(cell);
   }

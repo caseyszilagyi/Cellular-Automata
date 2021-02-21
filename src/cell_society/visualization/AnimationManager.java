@@ -49,7 +49,7 @@ public class AnimationManager {
     if(currentSim != null){
       currentSim.makeStep();
       //This gets the chars that represent the cells
-      displayManager.updateDisplayGrid(currentSim);
+      displayManager.updateDisplayGrid();
     }
   }
 

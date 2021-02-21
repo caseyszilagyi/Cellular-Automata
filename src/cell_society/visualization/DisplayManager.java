@@ -32,10 +32,11 @@ public class DisplayManager {
   private final AnimationManager animationManager;
   private final Pane pane;
 
-  private int currentColorMode = 0;
-
   private final String VISUALIZATION_RESOURCE_PACKAGE = "cell_society/visualization/resources/";
   private final String VISUALIZATION_RESOURCE_FOLDER = "/" + VISUALIZATION_RESOURCE_PACKAGE;
+
+  private Simulation currentSim;
+  private String currentSimulationType;
 
   /**
    * Constructor that creates an instance of the DisplayManager
@@ -44,7 +45,7 @@ public class DisplayManager {
    */
   public DisplayManager(Main main, Stage stage, Pane root, Scene scene) {
     this.main = main;
-    resourceBundle = ResourceBundle.getBundle(VISUALIZATION_RESOURCE_PACKAGE + "properties/English");
+    resourceBundle = ResourceBundle.getBundle(VISUALIZATION_RESOURCE_PACKAGE + "properties/languages/English");
     this.stage = stage;
     this.root = root;
     this.scene = scene;
@@ -68,13 +69,13 @@ public class DisplayManager {
 
   private void loadNewSimulation(String simulationType, String fileName){
     if (!simulationType.equals("") && !fileName.equals("")){
-      Simulation currentSim = new Simulation(simulationType, fileName);
+      currentSim = new Simulation(simulationType, fileName);
+      currentSimulationType = simulationType;
       currentSim.initializeSimulation();
       animationManager.setSimulation(currentSim);
 
-      updateDisplayGrid(currentSim);
+      updateDisplayGrid();
       animationManager.pauseSimulation();
-      //addResizeWindowEventListeners(currentSim);
     }
   }
 
@@ -156,22 +157,24 @@ public class DisplayManager {
     return comboBox;
   }
 
-  private String[] convertCharSheetToColors(char[] charSheet, Map<Character, String> charToColorMap){
-    String[] colorSheet = new String[charSheet.length];
+//  private String[] convertCharSheetToColors(char[] charSheet, Map<Character, String> charToColorMap){
+//    String[] colorSheet = new String[charSheet.length];
+//
+//    for(int i = 0; i < colorSheet.length; i++){
+//        colorSheet[i] = charToColorMap.get(charSheet[i]);
+//    }
+//
+//    return colorSheet;
+//  }
 
-    for(int i = 0; i < colorSheet.length; i++){
-        colorSheet[i] = charToColorMap.get(charSheet[i]);
-    }
-
-    return colorSheet;
+  public void updateDisplayGrid(){
+    gridDisplay.setSimulationType(currentSimulationType);
+    gridDisplay.updateGrid(currentSim.getNewGrid());
   }
 
-  public void updateDisplayGrid(Simulation currentSim){
-    gridDisplay.setGridDimensions(currentSim.getGridWidth(), currentSim.getGridHeight());
-    gridDisplay.updateGrid(getCellColorSheet(currentSim), "hexagon");
-  }
-
-  private String[] getCellColorSheet(Simulation currentSim){
-    return convertCharSheetToColors(currentSim.getOldGrid(), currentSim.getColorMapping());
-  }
+//  private String[] getCellColorSheet(Simulation currentSim){
+//    int[] yey = currentSim.getNewGrid();
+//    System.out.println(yey.length);
+//    return convertCharSheetToColors(currentSim.getOldGrid(), currentSim.getColorMapping());
+//  }
 }
