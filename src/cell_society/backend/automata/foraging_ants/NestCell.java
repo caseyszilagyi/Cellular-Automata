@@ -75,4 +75,9 @@ public class NestCell extends Cell {
       }
     }
   }
+
+  @Override
+  public String getGridRepresentation() {
+    return "N";
+  }
 }

@@ -61,6 +61,8 @@ public enum HexagonalDirection implements Direction {
   public Direction rotateCCW() {
     List<HexagonalDirection> directions = Arrays.asList(HexagonalDirection.values());
     int size = directions.size();
-    return directions.get((directions.indexOf(this) - 1) % size);
+    int dex = (directions.indexOf(this) - 1) % size;
+    if (dex < 0) dex = size + dex;
+    return directions.get(dex);
   }
 }
