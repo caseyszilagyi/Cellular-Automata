@@ -51,9 +51,14 @@ public class GraphDisplay extends ViewDisplay {
     ResourceBundle resourceBundle = getColorSheetResourceBundle();
 
     for(Map.Entry<Integer, Integer> entry : cellTypesMap.entrySet()){
-      PieChart.Data slice = new PieChart.Data(resourceBundle.getString(String.format("%dname", entry.getKey())), entry.getValue());
+      String cellLabelName = resourceBundle.getString(String.format("%dname", entry.getKey()));
+      int cellPopulation = entry.getValue();
+
+      PieChart.Data slice = new PieChart.Data(cellLabelName, cellPopulation);
       chart.getData().add(slice);
-      slice.getNode().setStyle(String.format("-fx-pie-color: #%s;" , resourceBundle.getString(Integer.toString(entry.getKey()))));
+
+      String colorHexValue = resourceBundle.getString(Integer.toString(entry.getKey()));
+      slice.getNode().setStyle(String.format("-fx-pie-color: #%s;" , colorHexValue));
       slice.setName(String.format("%s: %d", slice.getName(), (int) slice.getPieValue()));
     }
 

@@ -15,9 +15,12 @@ public class AnimationManager {
 
   private final DisplayManager displayManager;
 
+  private final double SPEED_INTERVAL = 0.25;
+  private final double MIN_SPEED_SCALE = 0.25;
+  private final double MAX_SPEED_SCALE = 2.0;
+
   private Simulation currentSim;
   private Timeline animation;
-
   private boolean animationRunning;
 
   /**
@@ -86,12 +89,9 @@ public class AnimationManager {
   }
 
   public double setNextFPS(){
-    double speedInterval = 0.25;
-    double maxSpeedScale = 2.0;
-    double minSpeedScale = 0.25;
-    double speedScale = animation.getRate() - speedInterval;
-    if (speedScale < minSpeedScale) {
-      speedScale = maxSpeedScale;
+    double speedScale = animation.getRate() - SPEED_INTERVAL;
+    if (speedScale < MIN_SPEED_SCALE) {
+      speedScale = MAX_SPEED_SCALE;
     }
     animation.setRate(speedScale);
 
