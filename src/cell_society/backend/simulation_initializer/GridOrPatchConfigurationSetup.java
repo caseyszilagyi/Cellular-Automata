@@ -6,6 +6,9 @@ import java.util.NavigableMap;
 import java.util.Random;
 import java.util.TreeMap;
 
+/** Contains the details of a grid or patch. Sets up the data before it is passed to the gridCreator
+ * @author Casey Szilagyi
+ */
 public class GridOrPatchConfigurationSetup {
 
   private String SIMULATION_TYPE;

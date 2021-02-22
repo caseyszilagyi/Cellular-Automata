@@ -81,19 +81,30 @@ public class GridCreator {
     }
   }
 
+  /**
+   *
+   * @param allPatches
+   * @param patchType
+   */
   public void placePatches(Set<GridOrPatchConfigurationSetup> allPatches, String patchType){
     for (int r = 0; r < simulationGrid.getGridHeight(); r++) {
       for (int c = 0; c < simulationGrid.getGridWidth(); c++) {
-        Map<String, String> currentPatch = new HashMap<>();
-        Patch newPatch = CLASS_LOADER.makePatch(patchType);
-        for(GridOrPatchConfigurationSetup g: allPatches){
-          currentPatch.put(g.getType(), Character.toString(g.getGrid().charAt(r*c)));
-        }
-        CellParameters params = new CellParameters(currentPatch);
-        newPatch.initializeParams(params);
-        simulationGrid.placePatch(r,c, newPatch);
+        placePatch(allPatches, patchType, r, c);
       }
     }
+  }
+
+  //places a single Patch
+  private void placePatch(Set<GridOrPatchConfigurationSetup> allPatches, String patchType, int r,
+      int c) {
+    Map<String, String> currentPatch = new HashMap<>();
+    Patch newPatch = CLASS_LOADER.makePatch(patchType);
+    for(GridOrPatchConfigurationSetup g: allPatches){
+      currentPatch.put(g.getType(), Character.toString(g.getGrid().charAt(r * c)));
+    }
+    CellParameters params = new CellParameters(currentPatch);
+    newPatch.initializeParams(params);
+    simulationGrid.placePatch(r, c, newPatch);
   }
 
   //Parses the grid to get a string that only has the necessary characters

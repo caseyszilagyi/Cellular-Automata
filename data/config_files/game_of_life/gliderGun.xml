@@ -8,7 +8,7 @@
     <type cellPackage ="game_of_life"></type>
     <type gridType = "Grid"></type>
     <type stepperType = "SimulationStepper"></type>
-    <type structureType = "Hexagon"></type>
+    <type structureType = "Square"></type>
   </coreSpecifications>
 
   <gridInfo>

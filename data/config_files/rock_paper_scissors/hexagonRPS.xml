@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation type="rock_paper_scissors">
+  <title>Rock Paper Scissors</title>
+  <author>The beginning of time</author>
+  <desc>Extendable rock paper scissors simulation</desc>
+
+  <coreSpecifications>
+    <type cellPackage ="rock_paper_scissors"></type>
+    <type gridType = "Grid"></type>
+    <type stepperType = "SimulationStepper"></type>
+    <type structureType = "Hexagon"></type>
+  </coreSpecifications>
+
+  <gridInfo>
+    <rows>40</rows>
+    <columns>40</columns>
+
+    <grid>
+      <type>Grid</type>
+      <gridState>
+        Random
+      </gridState>
+
+      <randomProbs>
+        <key r = "0.33"></key>
+        <key p = "0.33"></key>
+        <key x = "0.33"></key>
+      </randomProbs>
+
+      <codes>
+        <key r = "RockCell"></key>
+        <key p = "PaperCell"></key>
+        <key x = "ScissorCell"></key>
+      </codes>
+
+      <decoder>
+        <key RockCell = '1'></key>
+        <key PaperCell = '2'></key>
+        <key ScissorCell = '3'></key>
+      </decoder>
+
+      <parameters>
+        <parameter threshold="3"></parameter>
+      </parameters>
+
+    </grid>
+  </gridInfo>
+
+</simulation>
