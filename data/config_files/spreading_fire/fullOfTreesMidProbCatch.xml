@@ -75,7 +75,7 @@
       </decoder>
 
       <parameters>
-        <parameter probcatch='0.5'/>
+
       </parameters>
     </grid>
   </gridInfo>
