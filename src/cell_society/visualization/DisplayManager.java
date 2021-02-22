@@ -40,6 +40,13 @@ public class DisplayManager {
 
   private final String VISUALIZATION_RESOURCE_PACKAGE = "cell_society/visualization/resources";
 
+  private final String LIGHT_MODE_LABEL = "LightModeLabel";
+  private final String DARK_MODE_LABEL = "DarkModeLabel";
+  private final String COLORFUL_MODE_LABEL = "ColorfulModeLabel";
+  private final String ENGLISH_LABEL = "EnglishLabel";
+  private final String SPANISH_LABEL = "SpanishLabel";
+  private final String FRENCH_LABEL = "FrenchLabel";
+
   private final String COLOR_BUTTON_PROPERTY = "ColorModeButton";
   private final String LOAD_SIM_BUTTON_PROPERTY = "LoadNewSimulationButton";
   private final String OPEN_NEW_BUTTON_PROPERTY = "OpenNewWindowButton";
@@ -84,10 +91,11 @@ public class DisplayManager {
   private String[] COLOR_MODES_LIST;
   private String[] LANGUAGES_LIST;
 
-
   private Simulation currentSim;
   private String currentSimulationType;
   private ResourceBundle resourceBundle;
+
+  private Map<String, String> returnMap;
 
   /**
    * Constructor that creates an instance of the DisplayManager
@@ -99,9 +107,6 @@ public class DisplayManager {
     this.stage = stage;
     this.root = root;
     this.scene = scene;
-
-    resourceBundle = ResourceBundle.getBundle(String.format("%s/properties/languages/English", VISUALIZATION_RESOURCE_PACKAGE));
-    updateDropdownLabelsAfterLanguageChange();
 
     gridPane = new Pane();
     graphPane = new Pane();
@@ -118,22 +123,17 @@ public class DisplayManager {
 
     gridDisplay = new GridDisplay(scene, gridPane);
     graphDisplay = new GraphDisplay(scene, graphPane);
-
     animationManager = new AnimationManager(this);
+    returnMap = new HashMap<>();
+
+    // default to English
+    resourceBundle = ResourceBundle.getBundle(String.format("%s/properties/languages/English", VISUALIZATION_RESOURCE_PACKAGE));
+    updateDropdownLabelsAfterLanguageChange();
+
+    //default to light mode
+    changeStylesheet("LightMode.css");
 
     makeAllButtons();
-
-    changeStylesheet("LightMode.css");
-  }
-
-  private void updateDropdownLabelsAfterLanguageChange(){
-    COLOR_MODES_LIST = new String[] {resourceBundle.getString("LightModeLabel"), resourceBundle.getString("DarkModeLabel"), resourceBundle.getString("ColorfulModeLabel")};
-    LANGUAGES_LIST = new String[] {resourceBundle.getString("EnglishLabel"), resourceBundle.getString("SpanishLabel"), resourceBundle.getString("FrenchLabel")};
-  }
-
-  private void changeStylesheet(String fileName){
-    scene.getStylesheets().clear();
-    scene.getStylesheets().add(getClass().getResource(String.format("/%s/stylesheets/%s", VISUALIZATION_RESOURCE_PACKAGE, fileName)).toExternalForm());
   }
 
   private String[] loadNewFile(){
@@ -173,8 +173,6 @@ public class DisplayManager {
     }
   }
 
-  Map<String, String> returnMap = new HashMap<String, String>();
-
   private void makeSimParameterSliders(Map<String, double[]> parameterMap){
     parameterPane.getChildren().clear();
     returnMap.clear();
@@ -208,10 +206,12 @@ public class DisplayManager {
     parameterPane.getChildren().add(slider);
     parameterPane.getChildren().add(label);
 
+    // display current value when dragging slider (only frontend)
     slider.setOnMouseDragged(e -> {
       label.setText(String.format("%s: %.2f", parameterName, slider.getValue()));
     });
 
+    // send info to backend only once when mouse is released (prevents lag)
     slider.setOnMouseReleased(e -> {
       String newValue = Double.toString(Math.floor(slider.getValue() * 100) / 100);
       returnMap.replace(parameterName, newValue);
@@ -291,6 +291,7 @@ public class DisplayManager {
   private void togglePaneVisibility(Pane pane){
     pane.setVisible(!pane.isVisible());
 
+    // minimize views to half the screen size if both views are turned on
     boolean isMinimized = gridPane.isVisible() && graphPane.isVisible();
     gridDisplay.setIsMinimized(isMinimized);
     graphDisplay.setIsMinimized(isMinimized);
@@ -347,15 +348,25 @@ public class DisplayManager {
     });
   }
 
+  private void updateDropdownLabelsAfterLanguageChange(){
+    COLOR_MODES_LIST = new String[] {resourceBundle.getString(LIGHT_MODE_LABEL), resourceBundle.getString(DARK_MODE_LABEL), resourceBundle.getString(COLORFUL_MODE_LABEL)};
+    LANGUAGES_LIST = new String[] {resourceBundle.getString(ENGLISH_LABEL), resourceBundle.getString(SPANISH_LABEL), resourceBundle.getString(FRENCH_LABEL)};
+  }
+
+  private void changeStylesheet(String fileName){
+    scene.getStylesheets().clear();
+    scene.getStylesheets().add(getClass().getResource(String.format("/%s/stylesheets/%s", VISUALIZATION_RESOURCE_PACKAGE, fileName)).toExternalForm());
+  }
+
   /**
-   *
+   * updates the grid view for frontend
    */
   public void updateDisplayGrid(){
     gridDisplay.updateGrid(currentSim.getGridDisplay());
   }
 
   /**
-   *
+   * updates the graph view for frontend
    */
   public void updateDisplayGraph(){
     graphDisplay.updateGraph(currentSim.getCellDistribution());

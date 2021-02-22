@@ -3,15 +3,18 @@ package cell_society.visualization;
 import java.util.ResourceBundle;
 
 /**
+ * The ViewDisplay class is the superclass of both display view classes,
+ * and contains methods that are shared between the grid & graph views
+ *
  * @author Donghan Park
  */
 public class ViewDisplay {
 
-  private String currentSimType;
-  private boolean isMinimized;
-
   private final int HORIZONTAL_BORDER_LENGTH = 40;
   private final int VERTICAL_BORDER_LENGTH = 125;
+
+  private String currentSimType;
+  private boolean isMinimized;
 
   public ViewDisplay(){
     currentSimType = null;
