@@ -270,8 +270,8 @@ public class Grid {
 
   protected List<Coordinate> getPatchUpdateList() {
     List<Coordinate> coordinateList = new ArrayList<>();
-    for (int j = 0; j < gridHeight; j++){
-      for (int k = 0; k < gridWidth; k++){
+    for (int j = 0; j < gridHeight; j++) {
+      for (int k = 0; k < gridWidth; k++) {
         coordinateList.add(new Coordinate(j, k));
       }
     }
@@ -343,75 +343,20 @@ public class Grid {
     return map;
   }
 
-  /** Updates the cell parameters
+  /**
+   * Updates the cell parameters
    *
    * @param paramMap The map of the cell parameters
    */
-  public void updateCellParameters(Map<String, String> paramMap){
+  public void updateCellParameters(Map<String, String> paramMap) {
     CellParameters cellParameters = new CellParameters(paramMap);
-    for(Coordinate c: getCoordinateUpdateList()){
+    for (Coordinate c : getCoordinateUpdateList()) {
       Cell current = getCell(c.getFirst(), c.getSecond());
-      if (current == null) continue;
+      if (current == null) {
+        continue;
+      }
       current.initializeParams(cellParameters);
     }
-  }
-
-  /**
-   * @Deprecated, please use printCurrentState for a more general debug function. Used for
-   * debugging
-   */
-  public void printCurrentState() {
-    for (int j = 0; j < gridHeight; j++) {
-      for (int k = 0; k < gridWidth; k++) {
-        String token = isEmpty(j, k) ? "_" : grid[j][k].getGridRepresentation();
-        System.out.print("." + token + ".");
-      }
-      System.out.println();
-    }
-    System.out.println();
-  }
-
-  /**
-   * Updated print debugger.  Slices into the grid and accepts negative coordinates
-   *
-   * @param rowIndex row index of the top-left bounding corner
-   * @param colIndex column index of the top-left bounding corner
-   * @param height   height of the grid slice
-   * @param width    width of the grid slice
-   */
-  public void printCurrentState(int rowIndex, int colIndex, int height, int width) {
-    for (int j = rowIndex; j < rowIndex + height; j++) {
-      for (int k = colIndex; k < colIndex + width; k++) {
-        String token =
-            !inBoundaries(j, k) || isEmpty(j, k) ? "_" : getCell(j, k).getGridRepresentation();
-        System.out.print("." + token + ".");
-      }
-      System.out.println();
-    }
-    System.out.println();
-  }
-
-  /**
-   * Print debugger for displaying the Patch state.  Slices into the grid and accepts negative
-   * coordiantes.
-   *
-   * @param rowIndex row index of the top-left bounding corner
-   * @param colIndex column index of the top-left bounding corner
-   * @param height   height of the grid slice
-   * @param width    width of the grid slice
-   */
-  public void printCurrentPatchState(int rowIndex, int colIndex, int height, int width) {
-    for (int j = rowIndex; j < rowIndex + height; j++) {
-      for (int k = colIndex; k < colIndex + width; k++) {
-        String token =
-            // Printing of Patches
-            !inBoundaries(j, k) || getPatch(j, k) == null ? "_"
-                : getPatch(j, k).getGridRepresentation();
-        System.out.print("." + token + ".");
-      }
-      System.out.println();
-    }
-    System.out.println();
   }
 
 }
