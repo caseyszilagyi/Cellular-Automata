@@ -88,7 +88,7 @@ public class DisplayManager {
   }
 
   private void updateListLanguages(){
-    COLOR_MODES_LIST = new String[] {resourceBundle.getString("DarkModeLabel"), resourceBundle.getString("LightModeLabel"), resourceBundle.getString("ColorfulModeLabel")};
+    COLOR_MODES_LIST = new String[] {resourceBundle.getString("LightModeLabel"), resourceBundle.getString("DarkModeLabel"), resourceBundle.getString("ColorfulModeLabel")};
     LANGUAGES_LIST = new String[] {resourceBundle.getString("English"), resourceBundle.getString("Spanish"), resourceBundle.getString("French")};
   }
 
@@ -154,7 +154,7 @@ public class DisplayManager {
     Button graphButton = makeButton(GRAPH_BUTTON_PROPERTY, scene.getWidth() - 130, 40, 120);
 
     ChoiceBox<String> colorModeButton = makeDropdownButton(COLOR_MODE_BUTTON_PROPERTY, 10 + 10 + 80 + 10 + 80 + 10 + 120, 40, 120, COLOR_MODES_LIST);
-    ChoiceBox<String> languageButton = makeDropdownButton(LANGUAGE_BUTTON_PROPERTY, 300, 10, 120, LANGUAGES_LIST);
+    ChoiceBox<String> languageButton = makeDropdownButton(LANGUAGE_BUTTON_PROPERTY, 310, 10, 120, LANGUAGES_LIST);
 
     applyLoadSimButtonLogic(loadSimButton);
     applyOpenNewSimButtonLogic(openNewSimButton);
