@@ -9,6 +9,7 @@ import cell_society.backend.automata.grid_styles.Grid;
 import cell_society.backend.automata.grid_styles.ToroidalGrid;
 import cell_society.backend.automata.sugar_scape.SugarAgentCell;
 import cell_society.backend.automata.sugar_scape.SugarPatch;
+import cell_society.backend.simulation_stepper.ForagingStepper;
 import java.util.List;
 
 public class AntSample {
@@ -67,24 +68,7 @@ public class AntSample {
     nextGrid.updateRemainingPatches(grid);
 
     List<Coordinate> coordinateList = grid.getCoordinateUpdateList();
-    for (Coordinate coordinate : coordinateList) {
-      int j = coordinate.getFirst();
-      int k = coordinate.getSecond();
-      Cell cell = grid.getCell(j, k);
-      if (cell != null) {
-        cell.performPrimaryAction(null, grid, nextGrid);
-      }
-    }
-
-    for (Coordinate coordinate : coordinateList) {
-      int j = coordinate.getFirst();
-      int k = coordinate.getSecond();
-      // Adjusts Ant and Nest Cells
-      Cell cell = nextGrid.getCell(j, k);
-      if (cell != null) {
-        cell.performSecondaryAction(null, nextGrid, null);
-      }
-    }
+    ForagingStepper.doublePass(nextGrid, coordinateList, grid);
     return nextGrid;
   }
 
