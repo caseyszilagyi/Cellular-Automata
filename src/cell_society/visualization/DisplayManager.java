@@ -112,8 +112,6 @@ public class DisplayManager {
         gridDisplay.setCurrentSimInfo(currentSim, currentSimulationType);
         graphDisplay.setCurrentSimInfo(currentSim, currentSimulationType);
 
-        animationManager.pauseSimulation();
-
         updateDisplayGraph();
         updateDisplayGrid();
       }
