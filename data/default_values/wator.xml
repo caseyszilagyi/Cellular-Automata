@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<simulation>
+<simulation type="wator">
+
   <parameters>
-    <parameter breedtimecounter='0'/>
-    <parameter breedtimethresh='3'/>
-    <parameter energy='10'/>
-    <parameter energygain = '3'/>
-    <parameter reproducethresh='15'/>
+    <parameter breedtimecounter='0,10,0'></parameter>
+    <parameter breedtimethresh='0,15,10'></parameter>
+    <parameter energy='0,20,10'/>
+    <parameter energygain = '0,10,3'/>
+    <parameter reproducethresh='0,30,15'/>
   </parameters>
+
 </simulation>

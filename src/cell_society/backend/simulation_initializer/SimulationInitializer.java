@@ -21,11 +21,15 @@ public class SimulationInitializer {
   // creates the grid
   private GridCreator gridCreator;
 
+  private Map<String, double[]> parameterInformation;
+
   private String simulationType;
   private Grid simulationGrid;
   private SimulationClassLoader classLoader;
 
-  private Set<GridOrPatchDetails> patchDetails;
+  private Set<GridOrPatchConfigurationSetup> patchDetails;
+
+  private String defaultParametersPath;
 
   /**
    * Initializes the file reader.
@@ -70,7 +74,7 @@ public class SimulationInitializer {
    * @return The grid
    */
   public Grid makeGrid() {
-    GridOrPatchDetails gridDetails = xmlFileReader.getGridDetails();
+    GridOrPatchConfigurationSetup gridDetails = xmlFileReader.getGridDetails();
     gridCreator = new GridCreator(coreSpecifications.get("cellPackage"),
         new CellParameters(gridDetails.getParameters()), classLoader);
     gridCreator.makeGrid(gridDetails.getGridHeight(), gridDetails.getGridWidth(), coreSpecifications.get("gridType"));
@@ -78,6 +82,7 @@ public class SimulationInitializer {
     gridCreator.setCellDecoder(gridDetails.getDecoder());
     gridCreator.setCellStructure(coreSpecifications.get("structureType"));
     simulationGrid = gridCreator.getGrid();
+    parameterInformation = gridDetails.getFrontEndParameterSpecifications();
     return simulationGrid;
   }
 
@@ -89,6 +94,10 @@ public class SimulationInitializer {
     SimulationStepper myStepper = classLoader.makeStepper(coreSpecifications.get("stepperType"));
     myStepper.setGrid(simulationGrid);
     return myStepper;
+  }
+
+  public Map getFrontEndParameterSpecifications(){
+    return parameterInformation;
   }
 
 }

@@ -4,6 +4,7 @@ import cell_society.backend.automata.grid_styles.Grid;
 import cell_society.backend.simulation_initializer.SimulationInitializer;
 import cell_society.backend.simulation_stepper.SimulationStepper;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * This class contains the game loop to run the simulation. It initializes the simulation, and
@@ -20,6 +21,7 @@ public class Simulation {
   private SimulationInitializer simulationInitializer;
   private SimulationStepper simulationStepper;
   private Grid simulationGrid;
+  private Map<String, double[]> simulationParameters;
 
 
   public Simulation(String simulationType, String fileName) {
@@ -66,6 +68,13 @@ public class Simulation {
   }
 
   public void storeAsXMLFile(){
+
+  }
+
+  //public Set getParameters(){
+  //}
+
+  public void setParameters(){
 
   }
 
