@@ -347,7 +347,7 @@ public class Grid {
    *
    * @param paramMap The map of the cell parameters
    */
-  public void updateCellParameters(HashMap<String, String> paramMap){
+  public void updateCellParameters(Map<String, String> paramMap){
     CellParameters cellParameters = new CellParameters(paramMap);
     for(Coordinate c: getCoordinateUpdateList()){
       Cell current = getCell(c.getFirst(), c.getSecond());

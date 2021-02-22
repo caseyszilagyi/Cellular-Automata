@@ -24,7 +24,7 @@ public class GraphDisplay extends ViewDisplay {
     this.pane = pane;
   }
 
-  public void updateGraph(){
+  public void updateGraph(Map<Integer, Integer> cellTypesMap){
     pane.getChildren().clear();
 
     PieChart chart = new PieChart();
@@ -39,8 +39,6 @@ public class GraphDisplay extends ViewDisplay {
       xPosition = scene.getWidth() - getHorizontalBorderLength() / 2.0 - screenWidth;
     }
 
-    Map<Integer, Integer> cellTypesMap = getCurrentSim().getCellDistribution();
-
     chart.getData().clear();
 
     ResourceBundle resourceBundle = getColorSheetResourceBundle();
@@ -48,7 +46,7 @@ public class GraphDisplay extends ViewDisplay {
     for(Map.Entry<Integer, Integer> entry : cellTypesMap.entrySet()){
       PieChart.Data slice = new PieChart.Data(resourceBundle.getString(String.format("%dname", entry.getKey())), entry.getValue());
       chart.getData().add(slice);
-      slice.getNode().setStyle(String.format("-fx-pie-color: #%s;" ,resourceBundle.getString(Integer.toString(entry.getKey()))));
+      slice.getNode().setStyle(String.format("-fx-pie-color: #%s;" , resourceBundle.getString(Integer.toString(entry.getKey()))));
       slice.setName(String.format("%s: %d", slice.getName(), (int) slice.getPieValue()));
     }
 

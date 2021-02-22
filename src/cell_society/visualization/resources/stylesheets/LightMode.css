@@ -32,3 +32,7 @@
 .button:pressed {
   -fx-background-color: #878787;
 }
+
+.chart-pie-label {
+  -fx-fill: #3b3b3b;
+}

@@ -3,12 +3,16 @@ package cell_society.visualization;
 import cell_society.Main;
 import cell_society.backend.Simulation;
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -35,6 +39,7 @@ public class DisplayManager {
   private final Pane gridPane;
   private final Pane graphPane;
   private final Pane buttonPane;
+  private final Pane parameterPane;
 
   private final String VISUALIZATION_RESOURCE_PACKAGE = "cell_society/visualization/resources";
 
@@ -73,9 +78,11 @@ public class DisplayManager {
     gridPane = new Pane();
     graphPane = new Pane();
     buttonPane = new Pane();
+    parameterPane = new Pane();
     root.getChildren().add(gridPane);
     root.getChildren().add(graphPane);
     root.getChildren().add(buttonPane);
+    root.getChildren().add(parameterPane);
 
     gridDisplay = new GridDisplay(scene, gridPane);
     graphDisplay = new GraphDisplay(scene, graphPane);
@@ -88,7 +95,7 @@ public class DisplayManager {
   }
 
   private void updateListLanguages(){
-    COLOR_MODES_LIST = new String[] {resourceBundle.getString("DarkModeLabel"), resourceBundle.getString("LightModeLabel"), resourceBundle.getString("ColorfulModeLabel")};
+    COLOR_MODES_LIST = new String[] {resourceBundle.getString("LightModeLabel"), resourceBundle.getString("DarkModeLabel"), resourceBundle.getString("ColorfulModeLabel")};
     LANGUAGES_LIST = new String[] {resourceBundle.getString("English"), resourceBundle.getString("Spanish"), resourceBundle.getString("French")};
   }
 
@@ -120,15 +127,64 @@ public class DisplayManager {
         currentSim.initializeSimulation(); //initialize backend sim
 
         animationManager.setSimulation(currentSim);
-        gridDisplay.setCurrentSimInfo(currentSim, currentSimulationType);
-        graphDisplay.setCurrentSimInfo(currentSim, currentSimulationType);
+        gridDisplay.setCurrentSimType(currentSimulationType);
+        graphDisplay.setCurrentSimType(currentSimulationType);
 
         updateDisplayGraph();
         updateDisplayGrid();
+
+        makeSimParameterSliders(currentSim.getParameters());
       }
       catch (Exception error){
         createErrorDialog(error);
       }
+    }
+  }
+
+  Map<String, String> returnMap = new HashMap<String, String>();
+
+  private void makeSimParameterSliders(Map<String, double[]> parameterMap){
+    parameterPane.getChildren().clear();
+    returnMap.clear();
+
+    double initialXPos = 10;
+    double initialYPos = 10;
+
+    int index = 0;
+    for(Map.Entry<String, double[]> entry : parameterMap.entrySet()){
+      String parameterName = entry.getKey();
+      double min = entry.getValue()[0];
+      double max = entry.getValue()[1];
+      double current = entry.getValue()[2];
+      returnMap.put(parameterName, Double.toString(current));
+
+      makeSlider(parameterName, min, max, current, initialXPos, initialYPos + 30 * index);
+
+      index++;
+    }
+  }
+
+  private void makeSlider(String parameterName, double min, double max, double current, double xPos, double yPos){
+    Slider slider = new Slider(min, max, current);
+
+    slider.setPrefSize(100, 20);
+
+    slider.setTranslateX(xPos);
+    slider.setTranslateY(yPos);
+
+    parameterPane.getChildren().add(slider);
+
+    slider.setOnMouseReleased(e -> {
+      String newValue = Double.toString(Math.floor(slider.getValue() * 100) / 100);
+      returnMap.replace(parameterName, newValue);
+      currentSim.setParameters(returnMap);
+    });
+  }
+
+  //for testing
+  private void printReturnMap(){
+    for(Map.Entry<String, String> entry : returnMap.entrySet()){
+      System.out.println(entry.getKey() + ": " + entry.getValue());
     }
   }
 
@@ -154,7 +210,7 @@ public class DisplayManager {
     Button graphButton = makeButton(GRAPH_BUTTON_PROPERTY, scene.getWidth() - 130, 40, 120);
 
     ChoiceBox<String> colorModeButton = makeDropdownButton(COLOR_MODE_BUTTON_PROPERTY, 10 + 10 + 80 + 10 + 80 + 10 + 120, 40, 120, COLOR_MODES_LIST);
-    ChoiceBox<String> languageButton = makeDropdownButton(LANGUAGE_BUTTON_PROPERTY, 300, 10, 120, LANGUAGES_LIST);
+    ChoiceBox<String> languageButton = makeDropdownButton(LANGUAGE_BUTTON_PROPERTY, 310, 10, 120, LANGUAGES_LIST);
 
     applyLoadSimButtonLogic(loadSimButton);
     applyOpenNewSimButtonLogic(openNewSimButton);
@@ -263,14 +319,14 @@ public class DisplayManager {
    *
    */
   public void updateDisplayGrid(){
-    gridDisplay.updateGrid(currentSim.getGridDisplay()); //convert backend grid into frontend grid
+    gridDisplay.updateGrid(currentSim.getGridDisplay());
   }
 
   /**
    *
    */
   public void updateDisplayGraph(){
-    graphDisplay.updateGraph();
+    graphDisplay.updateGraph(currentSim.getCellDistribution());
   }
 
 }

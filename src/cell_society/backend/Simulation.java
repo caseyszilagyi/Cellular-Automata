@@ -73,12 +73,12 @@ public class Simulation {
 
   }
 
-  public Map getParameters(){
+  public Map<String, double[]> getParameters(){
     return simulationInitializer.getFrontEndParameterSpecifications();
   }
 
-  public void setParameters(HashMap<String, String> userValues){
-
+  public void setParameters(Map<String, String> userValues){
+    simulationGrid.updateCellParameters(userValues);
   }
 
 }
