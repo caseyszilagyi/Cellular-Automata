@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation type="percolation">
+  <title>Percolation</title>
+  <author>Thomas Schelling</author>
+  <desc>Percolation Simulation from CS 201</desc>
+
+  <coreSpecifications>
+    <type cellPackage ="percolation"></type>
+    <type gridType = "Grid"></type>
+    <type stepperType = "SimulationStepper"></type>
+    <type structureType = "Square"></type>
+  </coreSpecifications>
+
+  <gridInfo>
+    <rows>50</rows>
+    <columns>50</columns>
+
+    <grid>
+      <type>Grid</type>
+      <gridState>
+        oboobboobboobobobbobobbobboobbooobobobobbobooobooo
+        ooobbbobobooboboobbbobobobooooobbbooobobbobboboooo
+        boobbbbobobbobbbbooobooobbobbobobooooboboobbobooob
+        obobobooobobboobobbobobbbbbbobobbbboboboboboboboob
+        bbbobbboobbbobbbboooobbboobbbbbobbooooboobbbbooboo
+        obbooboooobooboboooobbooboboobboobobbbbooobooobbbb
+        bobbooboboooooobobbbbobbboobbobbboobbbooboobbobboo
+        booobobooboboooboooobbbobbobbbbobobbobobbboobbobob
+        bobboobboboobobbbooobooooobobobbbooobboooobooobboo
+        bobbboobbboboobboobbbbbobobbooboobobbobboooobooboo
+        obobooooboooobbobbobbbbbbobobbobboooobbooobboobbbo
+        oobbbooboooooooobobbbbobooboobbbbbooobbbobbbobbobb
+        obbboooooooooobobobobbbbobbooobobbobbobbbobbbooooo
+        bbbbobbbobobooobbbobooboooobbbbboooobobobooooobooo
+        bobboooobboobbbobbobobbbooobbbboobobboobobobbbbobb
+        boooobboobbooooobbbbobbbbobbooooobbbooobobooooobob
+        oboobbbbbboobbbooobobobbbooooobbooooboooooobobobbo
+        bbbooobbbbbbboobboobbbooooooobbbbbooobbobbobbobobo
+        bbobobbobbbboobbooooobboobobboooooooobboooobboobbb
+        bobboooooboooboobbbobobbbbpoooooooobbboobboobbbbob
+        bbboobobobboobbooooooobbobboobboooobboboobobbbbbbo
+        oooooobbobbbobbbooobobooooobooobobbbbobooboobobboo
+        bboboobbboobbobboobooboobbboboooobbobbbbbboobooboo
+        bbobooobooboooboboboooobbooooobbobobooooobobbbooob
+        oboobbbboooooooooooobbobbbobooooboobobbobbobooobbb
+        bobbboboboobbboobooobbooboobbboboboooobbobobbooobb
+        oobobobbbobbobbooboooooobbobbbobboboobobbbbobbboob
+        oboobobobbbobbboooooobbobooobooobbooooboobbbboobbo
+        oobbbbbboobbboobbbooooooobbbbooobbobbbooobbobbobob
+        ooboobboobobbboobooboboboobobboboobbboobboboobobob
+        bobbobbbbbbbbboboobobbbbboooobbooobbbbobobbobboboo
+        ooobbbbobooobboooobbbobbboobboooobbbbboobooboooboo
+        bobbobbbooobbbobobbooooooobobobbobbooooobbbbbboobb
+        ooboboobooobooobbobbobbobbobbobooobboooooboobooobb
+        oobbooobobobobobobooboboboobbboooooooobooooobobbob
+        bboobobboobooooooobbobbooooooooobooobboboobbobobbb
+        obbooooboobbbbbbbboboobobbbobbbobbbbobooboobobooob
+        oobbobobobbbboooboobbbboooboobbobobbbbobbbobbobobb
+        booboobboooboobobobbobbobobobooobobbbbooooooobbbbb
+        ooboboobooboobbobboooobobbboooobbbbobobboboobobbbb
+        oobbbbobbbbobboobooobbooobboobboobooboobbbbboobobb
+        obbbooboobboobooboooobobboobbbobobobbbbbboooboobbo
+        obbboobobboobbooboboboboobbbbobooobbooooobbbobbobo
+        obbobboooobboobboobboobbbobobobobobboooobbbbobobob
+        oobooobbobobbboooooboooobbbboboobbobbbobbboobooboo
+        booobobobobboobobbboobobboobbboobbbbooobbbobobbbbo
+        oooobobbbobobobbbobbbobbooooooooobobobboboobobbobb
+        bobobbbbboobbooooboooobbooobbooobboboboooboobbbbbo
+        boobboooobobobobbbbbboooobbbbooooboobboboobbbbbooo
+        boobbbbobbboboobobbbbbbbbbbobobboboobbbobbbobooobo
+      </gridState>
+
+      <randomProbs>
+      </randomProbs>
+
+      <codes>
+        <key b='BlockedCell'></key>
+        <key o='OpenCell'></key>
+        <key p='PercolatedCell'></key>
+      </codes>
+
+      <decoder>
+        <key BlockedCell = '1'></key>
+        <key OpenCell = '2'></key>
+        <key PercolatedCell = '3'></key>
+      </decoder>
+
+      <parameters>
+      </parameters>
+    </grid>
+  </gridInfo>
+
+</simulation>

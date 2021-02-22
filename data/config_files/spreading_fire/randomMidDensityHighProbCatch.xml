@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation type="spreading_fire">
+  <title>Spreading Fire</title>
+  <author></author>
+  <desc>Simulation designed to show the spread of wildfire in a forest</desc>
+
+  <coreSpecifications>
+    <type cellPackage ="spreading_fire"></type>
+    <type gridType = "Grid"></type>
+    <type stepperType = "SimulationStepper"></type>
+    <type structureType = "Square"></type>
+  </coreSpecifications>
+
+  <gridInfo>
+    <rows>40</rows>
+    <columns>40</columns>
+
+    <grid>
+      <type>Grid</type>
+      <gridState>
+        Random
+      </gridState>
+
+      <randomProbs>
+        <key t='0.7'></key>
+        <key f='0.01'></key>
+        <key e ='0.29'></key>
+      </randomProbs>
+
+      <codes>
+        <key t='TreeCell'></key>
+        <key f='FireCell'></key>
+        <key e ='Empty'></key>
+      </codes>
+
+      <decoder>
+        <key TreeCell = '1'></key>
+        <key FireCell = '2'></key>
+      </decoder>
+
+      <parameters>
+        <parameter probcatch='0.8'/>
+      </parameters>
+    </grid>
+  </gridInfo>
+
+</simulation>
