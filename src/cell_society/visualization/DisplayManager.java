@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -45,10 +45,10 @@ public class DisplayManager {
   private final String SPEED_BUTTON_PROPERTY = "SpeedButton";
   private final String GRID_BUTTON_PROPERTY = "GridButton";
   private final String GRAPH_BUTTON_PROPERTY = "GraphButton";
-  private final String[] COLOR_MODES_LIST = {"Dark Mode", "Light Mode", "Colorful Mode"};
-
   private final String LANGUAGE_BUTTON_PROPERTY = "LanguageButton";
-  private final String[] LANGUAGES_LIST = {"English", "Spanish", "French"};
+
+  private String[] COLOR_MODES_LIST;
+  private String[] LANGUAGES_LIST;
 
   private final String ERROR_TITLE = "ErrorTitle";
 
@@ -67,6 +67,7 @@ public class DisplayManager {
     this.scene = scene;
 
     resourceBundle = ResourceBundle.getBundle(String.format("%s/properties/languages/English", VISUALIZATION_RESOURCE_PACKAGE));
+    updateListLanguages();
 
     gridPane = new Pane();
     graphPane = new Pane();
@@ -81,6 +82,11 @@ public class DisplayManager {
     makeAllButtons();
 
     changeStylesheet("LightMode.css");
+  }
+
+  private void updateListLanguages(){
+    COLOR_MODES_LIST = new String[] {resourceBundle.getString("DarkModeLabel"), resourceBundle.getString("LightModeLabel"), resourceBundle.getString("ColorfulModeLabel")};
+    LANGUAGES_LIST = new String[] {resourceBundle.getString("English"), resourceBundle.getString("Spanish"), resourceBundle.getString("French")};
   }
 
   private void changeStylesheet(String fileName){
@@ -136,14 +142,16 @@ public class DisplayManager {
 
     Button loadSimButton = makeButton(LOAD_NEW_SIMULATION_BUTTON_PROPERTY, 10, 10, 120);
     Button openNewSimButton = makeButton(OPEN_NEW_WINDOW_BUTTON_PROPERTY, 10 + 10 + 120, 10, 160);
+
     Button playPauseButton = makeButton(PLAY_PAUSE_BUTTON_PROPERTY, 10, 40, 80);
     Button stepButton = makeButton(STEP_BUTTON_PROPERTY, 10 + 10 + 80, 40, 80);
     Button speedButton = makeButton(SPEED_BUTTON_PROPERTY, 10 + 10 + 80 + 10 + 80, 40, 120);
-    ComboBox<String> colorModeButton = makeDropdownButton(COLOR_MODE_BUTTON_PROPERTY, 10 + 10 + 80 + 10 + 80 + 10 + 120, 40, 120, COLOR_MODES_LIST);
+
     Button gridButton = makeButton(GRID_BUTTON_PROPERTY, scene.getWidth() - 130, 10, 120);
     Button graphButton = makeButton(GRAPH_BUTTON_PROPERTY, scene.getWidth() - 130, 40, 120);
 
-    ComboBox<String> languageButton = makeDropdownButton(LANGUAGE_BUTTON_PROPERTY, 300, 10, 120, LANGUAGES_LIST);
+    ChoiceBox<String> colorModeButton = makeDropdownButton(COLOR_MODE_BUTTON_PROPERTY, 10 + 10 + 80 + 10 + 80 + 10 + 120, 40, 120, COLOR_MODES_LIST);
+    ChoiceBox<String> languageButton = makeDropdownButton(LANGUAGE_BUTTON_PROPERTY, 300, 10, 120, LANGUAGES_LIST);
 
     applyLoadSimButtonLogic(loadSimButton);
     applyOpenNewSimButtonLogic(openNewSimButton);
@@ -165,16 +173,16 @@ public class DisplayManager {
     return button;
   }
 
-  private ComboBox<String> makeDropdownButton(String property, double x, double y, double buttonWidth, String[] choices){
-    ComboBox<String> comboBox = new ComboBox<>();
-    comboBox.setPromptText(resourceBundle.getString(property));
-    comboBox.setLayoutX(x);
-    comboBox.setLayoutY(y);
+  private ChoiceBox<String> makeDropdownButton(String property, double x, double y, double buttonWidth, String[] choices){
+    ChoiceBox<String> choiceBox = new ChoiceBox<>();
+    choiceBox.setValue(resourceBundle.getString(property));
+    choiceBox.setLayoutX(x);
+    choiceBox.setLayoutY(y);
     for (String choice : choices) {
-      comboBox.getItems().add(choice);
+      choiceBox.getItems().add(choice);
     }
-    root.getChildren().add(comboBox);
-    return comboBox;
+    root.getChildren().add(choiceBox);
+    return choiceBox;
   }
 
   private void applyGridButtonLogic(Button button){
@@ -231,18 +239,19 @@ public class DisplayManager {
     });
   }
 
-  private void applyColorModeButtonLogic(ComboBox<String> button){
+  private void applyColorModeButtonLogic(ChoiceBox<String> button){
     button.setOnAction(e -> {
-      String selected = button.getSelectionModel().getSelectedItem();
-      String fileName = String.format("%s.css", selected.replace(" ", ""));
+      String selectedMode = button.getSelectionModel().getSelectedItem();
+      String fileName = String.format("%s.css", resourceBundle.getString(selectedMode.replace(" ", "")));
       changeStylesheet(fileName);
     });
   }
 
-  private void applyLanguageButtonLogic(ComboBox<String> button){
+  private void applyLanguageButtonLogic(ChoiceBox<String> button){
     button.setOnAction(e -> {
       String selectedLanguage = button.getSelectionModel().getSelectedItem();
       resourceBundle = ResourceBundle.getBundle(String.format("%s/properties/languages/%s", VISUALIZATION_RESOURCE_PACKAGE, selectedLanguage));
+      updateListLanguages();
       makeAllButtons();
     });
   }
@@ -260,4 +269,5 @@ public class DisplayManager {
   public void updateDisplayGraph(){
     graphDisplay.updateGraph();
   }
+
 }
