@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -43,15 +42,45 @@ public class DisplayManager {
 
   private final String VISUALIZATION_RESOURCE_PACKAGE = "cell_society/visualization/resources";
 
-  private final String COLOR_MODE_BUTTON_PROPERTY = "ColorModeButton";
-  private final String LOAD_NEW_SIMULATION_BUTTON_PROPERTY = "LoadNewSimulationButton";
-  private final String OPEN_NEW_WINDOW_BUTTON_PROPERTY = "OpenNewWindowButton";
-  private final String PLAY_PAUSE_BUTTON_PROPERTY = "PlayPauseButton";
-  private final String STEP_BUTTON_PROPERTY = "StepButton";
-  private final String SPEED_BUTTON_PROPERTY = "SpeedButton";
-  private final String GRID_BUTTON_PROPERTY = "GridButton";
-  private final String GRAPH_BUTTON_PROPERTY = "GraphButton";
-  private final String LANGUAGE_BUTTON_PROPERTY = "LanguageButton";
+  private final String COLOR_BUTTON_PROP = "ColorModeButton";
+  private final String LOAD_SIM_BUTTON_PROP = "LoadNewSimulationButton";
+  private final String OPEN_NEW_BUTTON_PROP = "OpenNewWindowButton";
+  private final String PLAY_BUTTON_PROP = "PlayPauseButton";
+  private final String STEP_BUTTON_PROP = "StepButton";
+  private final String SPEED_BUTTON_PROP = "SpeedButton";
+  private final String GRID_BUTTON_PROP = "GridButton";
+  private final String GRAPH_BUTTON_PROP = "GraphButton";
+  private final String LANG_BUTTON_PROP = "LanguageButton";
+
+  private final int LOAD_SIM_BUTTON_WIDTH = 160;
+  private final int OPEN_NEW_BUTTON_WIDTH = 160;
+  private final int LANG_BUTTON_WIDTH = 160;
+  private final int COLOR_BUTTON_WIDTH = 160;
+  private final int PLAY_BUTTON_WIDTH = 120;
+  private final int STEP_BUTTON_WIDTH = 120;
+  private final int SPEED_BUTTON_WIDTH = 120;
+  private final int GRID_BUTTON_WIDTH = 120;
+  private final int GRAPH_BUTTON_WIDTH = 120;
+  private final int BUTTON_HEIGHT = 20;
+
+  private final int SLIDER_WIDTH = 120;
+
+  private final int PADDING_X = 10;
+  private final int PADDING_Y = 15;
+
+  private final int ROW1_Y = PADDING_Y;
+  private final int ROW2_Y = PADDING_Y + ROW1_Y + BUTTON_HEIGHT;
+  private final int ROW3_Y = PADDING_Y + ROW2_Y + BUTTON_HEIGHT;
+
+  private final int LOAD_SIM_BUTTON_X = PADDING_X;
+  private final int OPEN_NEW_BUTTON_X = PADDING_X + LOAD_SIM_BUTTON_X + LOAD_SIM_BUTTON_WIDTH;
+  private final int LANG_BUTTON_X = PADDING_X + OPEN_NEW_BUTTON_X + OPEN_NEW_BUTTON_WIDTH;
+  private final int COLOR_BUTTON_X = PADDING_X + LANG_BUTTON_X + LANG_BUTTON_WIDTH;
+  private final int PLAY_BUTTON_X = PADDING_X * 2;
+  private final int STEP_BUTTON_X = PADDING_X + PLAY_BUTTON_X + PLAY_BUTTON_WIDTH;
+  private final int SPEED_BUTTON_X = PADDING_X + STEP_BUTTON_X + STEP_BUTTON_WIDTH;
+  private final int GRID_BUTTON_X = PADDING_X + SPEED_BUTTON_X + SPEED_BUTTON_WIDTH;
+  private final int GRAPH_BUTTON_X = PADDING_X + GRID_BUTTON_X + GRID_BUTTON_WIDTH;
 
   private String[] COLOR_MODES_LIST;
   private String[] LANGUAGES_LIST;
@@ -79,6 +108,10 @@ public class DisplayManager {
     graphPane = new Pane();
     buttonPane = new Pane();
     parameterPane = new Pane();
+
+    parameterPane.setLayoutX(PADDING_X * 3);
+    parameterPane.setLayoutY(ROW3_Y);
+
     root.getChildren().add(gridPane);
     root.getChildren().add(graphPane);
     root.getChildren().add(buttonPane);
@@ -147,10 +180,8 @@ public class DisplayManager {
     parameterPane.getChildren().clear();
     returnMap.clear();
 
-    double initialXPos = 10;
-    double initialYPos = 10;
-
     int index = 0;
+
     for(Map.Entry<String, double[]> entry : parameterMap.entrySet()){
       String parameterName = entry.getKey();
       double min = entry.getValue()[0];
@@ -158,7 +189,7 @@ public class DisplayManager {
       double current = entry.getValue()[2];
       returnMap.put(parameterName, Double.toString(current));
 
-      makeSlider(parameterName, min, max, current, initialXPos, initialYPos + 30 * index);
+      makeSlider(parameterName, min, max, current, SLIDER_WIDTH * index + PADDING_X * (index - 1), 0);
 
       index++;
     }
@@ -167,7 +198,7 @@ public class DisplayManager {
   private void makeSlider(String parameterName, double min, double max, double current, double xPos, double yPos){
     Slider slider = new Slider(min, max, current);
 
-    slider.setPrefSize(100, 20);
+    slider.setPrefWidth(SLIDER_WIDTH);
 
     slider.setTranslateX(xPos);
     slider.setTranslateY(yPos);
@@ -181,13 +212,6 @@ public class DisplayManager {
     });
   }
 
-  //for testing
-  private void printReturnMap(){
-    for(Map.Entry<String, String> entry : returnMap.entrySet()){
-      System.out.println(entry.getKey() + ": " + entry.getValue());
-    }
-  }
-
   private void createErrorDialog(Exception error){
     Alert newAlert = new Alert(AlertType.ERROR);
     newAlert.setTitle(resourceBundle.getString(ERROR_TITLE));
@@ -199,18 +223,16 @@ public class DisplayManager {
   private void makeAllButtons() {
     buttonPane.getChildren().clear();
 
-    Button loadSimButton = makeButton(LOAD_NEW_SIMULATION_BUTTON_PROPERTY, 10, 10, 120);
-    Button openNewSimButton = makeButton(OPEN_NEW_WINDOW_BUTTON_PROPERTY, 10 + 10 + 120, 10, 160);
+    Button loadSimButton = makeButton(LOAD_SIM_BUTTON_PROP, LOAD_SIM_BUTTON_X, ROW1_Y, LOAD_SIM_BUTTON_WIDTH, BUTTON_HEIGHT);
+    Button openNewSimButton = makeButton(OPEN_NEW_BUTTON_PROP, OPEN_NEW_BUTTON_X, ROW1_Y, OPEN_NEW_BUTTON_WIDTH, BUTTON_HEIGHT);
+    ChoiceBox<String> languageButton = makeDropdownButton(LANG_BUTTON_PROP, LANG_BUTTON_X, ROW1_Y, LANG_BUTTON_WIDTH, BUTTON_HEIGHT, LANGUAGES_LIST);
+    ChoiceBox<String> colorModeButton = makeDropdownButton(COLOR_BUTTON_PROP, COLOR_BUTTON_X, ROW1_Y, COLOR_BUTTON_WIDTH, BUTTON_HEIGHT, COLOR_MODES_LIST);
 
-    Button playPauseButton = makeButton(PLAY_PAUSE_BUTTON_PROPERTY, 10, 40, 80);
-    Button stepButton = makeButton(STEP_BUTTON_PROPERTY, 10 + 10 + 80, 40, 80);
-    Button speedButton = makeButton(SPEED_BUTTON_PROPERTY, 10 + 10 + 80 + 10 + 80, 40, 120);
-
-    Button gridButton = makeButton(GRID_BUTTON_PROPERTY, scene.getWidth() - 130, 10, 120);
-    Button graphButton = makeButton(GRAPH_BUTTON_PROPERTY, scene.getWidth() - 130, 40, 120);
-
-    ChoiceBox<String> colorModeButton = makeDropdownButton(COLOR_MODE_BUTTON_PROPERTY, 10 + 10 + 80 + 10 + 80 + 10 + 120, 40, 120, COLOR_MODES_LIST);
-    ChoiceBox<String> languageButton = makeDropdownButton(LANGUAGE_BUTTON_PROPERTY, 310, 10, 120, LANGUAGES_LIST);
+    Button playPauseButton = makeButton(PLAY_BUTTON_PROP, PLAY_BUTTON_X, ROW2_Y, PLAY_BUTTON_WIDTH, BUTTON_HEIGHT);
+    Button stepButton = makeButton(STEP_BUTTON_PROP, STEP_BUTTON_X, ROW2_Y, STEP_BUTTON_WIDTH, BUTTON_HEIGHT);
+    Button speedButton = makeButton(SPEED_BUTTON_PROP, SPEED_BUTTON_X, ROW2_Y, SPEED_BUTTON_WIDTH, BUTTON_HEIGHT);
+    Button gridButton = makeButton(GRID_BUTTON_PROP, GRID_BUTTON_X, ROW2_Y, GRID_BUTTON_WIDTH, BUTTON_HEIGHT);
+    Button graphButton = makeButton(GRAPH_BUTTON_PROP, GRAPH_BUTTON_X, ROW2_Y, GRAPH_BUTTON_WIDTH, BUTTON_HEIGHT);
 
     applyLoadSimButtonLogic(loadSimButton);
     applyOpenNewSimButtonLogic(openNewSimButton);
@@ -223,20 +245,23 @@ public class DisplayManager {
     applyLanguageButtonLogic(languageButton);
   }
 
-  private Button makeButton(String property, double x, double y, double buttonWidth){
+  private Button makeButton(String property, double x, double y, double buttonWidth, double buttonHeight){
     Button button = new Button(resourceBundle.getString(property));
     button.setLayoutX(x);
     button.setLayoutY(y);
     button.setPrefWidth(buttonWidth);
+    button.setPrefHeight(buttonHeight);
     buttonPane.getChildren().add(button);
     return button;
   }
 
-  private ChoiceBox<String> makeDropdownButton(String property, double x, double y, double buttonWidth, String[] choices){
+  private ChoiceBox<String> makeDropdownButton(String property, double x, double y, double buttonWidth, double buttonHeight, String[] choices){
     ChoiceBox<String> choiceBox = new ChoiceBox<>();
     choiceBox.setValue(resourceBundle.getString(property));
     choiceBox.setLayoutX(x);
     choiceBox.setLayoutY(y);
+    choiceBox.setPrefWidth(buttonWidth);
+    choiceBox.setPrefHeight(buttonHeight);
     for (String choice : choices) {
       choiceBox.getItems().add(choice);
     }
@@ -293,7 +318,7 @@ public class DisplayManager {
 
   private void applySpeedButtonLogic(Button button){
     button.setOnMouseClicked(e -> {
-      String newText = String.format("%s: x%.2f", resourceBundle.getString(SPEED_BUTTON_PROPERTY), animationManager.setNextFPS());
+      String newText = String.format("%s: x%.2f", resourceBundle.getString(SPEED_BUTTON_PROP), animationManager.setNextFPS());
       button.setText(newText);
     });
   }
