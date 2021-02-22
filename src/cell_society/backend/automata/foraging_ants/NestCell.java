@@ -7,6 +7,9 @@ import cell_society.backend.automata.grid_styles.Grid;
 import cell_society.backend.simulation_initializer.CellParameters;
 import java.util.List;
 
+/**
+ * @author George Hong
+ */
 public class NestCell extends Cell {
 
   public static final String SPAWN_RATE = "spawnrate";

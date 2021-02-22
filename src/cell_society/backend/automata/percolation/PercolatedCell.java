@@ -6,6 +6,7 @@ import cell_society.backend.automata.Neighbors;
 
 /**
  * Represents a percolated cell object from the Percolation Simulation
+ * @author George Hong
  */
 public class PercolatedCell extends Cell {
 

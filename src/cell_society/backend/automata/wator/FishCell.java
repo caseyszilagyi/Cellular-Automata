@@ -8,6 +8,9 @@ import cell_society.backend.simulation_initializer.CellParameters;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author George Hong
+ */
 public class FishCell extends Cell {
 
   public static final String BREED_TIME_COUNTER = "breedtimecounter";

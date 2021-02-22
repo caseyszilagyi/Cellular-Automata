@@ -3,6 +3,9 @@ package cell_society.backend.automata.foraging_ants;
 import cell_society.backend.automata.Patch;
 import cell_society.backend.simulation_initializer.CellParameters;
 
+/**
+ * @author George Hong
+ */
 public class AntPatch extends Patch {
 
   public static final String FOOD_PHEROMONE_LEVEL = "foodpheromonelevel";
