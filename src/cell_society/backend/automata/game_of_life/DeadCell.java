@@ -11,6 +11,7 @@ import java.util.List;
  * The DeadCell represents the dead cell in Conway's Game of Life subject to the following rule:
  * <p>
  * 1. Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+ * @author George Hong
  */
 public class DeadCell extends Cell {
 

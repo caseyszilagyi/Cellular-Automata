@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation type="foraging_ants">
+  <title>Foraging Ants</title>
+  <author></author>
+  <desc>Foraging Ants Simulation</desc>
+
+  <coreSpecifications>
+    <type cellPackage ="foraging_ants"></type>
+    <type gridType = "Grid"></type>
+    <type stepperType = "ForagingStepper"></type>
+    <type structureType = "Square"></type>
+    <type patchType = "AntPatch"></type>
+  </coreSpecifications>
+
+  <gridInfo>
+    <rows>25</rows>
+    <columns>30</columns>
+
+    <grid>
+      <type>Grid</type>
+      <gridState>
+        neeeeeeeeeeeeeeeeeeeeeeeeeeeen
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+      </gridState>
+
+      <randomProbs>
+      </randomProbs>
+
+      <codes>
+        <key a='AntCell'></key>
+        <key n='NestCell'></key>
+        <key e = "Empty"></key>
+      </codes>
+
+      <decoder>
+        <key AntCell = '1'></key>
+        <key NestCell = '2'></key>
+      </decoder>
+
+      <parameters>
+      </parameters>
+    </grid>
+
+    <patch>
+      <type>foodlevel</type>
+      <gridState>
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000001111111000000000000000
+        000000000001111000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000011111000000000
+        000000000000000111111000000000
+        000000000111111111111100000000
+        000000001111111111100000000000
+        000000000011111111100000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+      </gridState>
+
+      <randomProbs>
+      </randomProbs>
+
+      <codes>
+        <key f='foodlevel'></key>
+        <key e = "Empty"></key>
+      </codes>
+
+      <decoder>
+      </decoder>
+
+      <parameters>
+      </parameters>
+
+    </patch>
+
+    <patch>
+      <type>foodpheromonelevel</type>
+      <gridState>
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+      </gridState>
+
+      <randomProbs>
+      </randomProbs>
+
+      <codes>
+        <key f='foodpheromonelevel'></key>
+        <key e = "Empty"></key>
+      </codes>
+
+      <decoder>
+      </decoder>
+
+      <parameters>
+      </parameters>
+
+    </patch>
+
+
+  </gridInfo>
+
+</simulation>

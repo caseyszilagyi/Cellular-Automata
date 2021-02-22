@@ -8,6 +8,7 @@ import cell_society.backend.automata.Neighbors;
 /**
  * The TreeCell represents a Tree in the spreading of fire simulation, with a probCatch probability
  * of catching on fire.
+ * @author George Hong
  */
 public class TreeCell extends Cell {
 

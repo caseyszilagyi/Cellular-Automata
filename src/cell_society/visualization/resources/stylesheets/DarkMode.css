@@ -36,3 +36,8 @@
 .chart-pie-label {
   -fx-fill: #d6d6d6;
 }
+
+.label {
+  -fx-font-size: 9;
+  -fx-text-fill: #d6d6d6;
+}

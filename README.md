@@ -48,6 +48,8 @@ Data files needed:
   - Default values stored in data/default_values
   - src/cell_society/visualization/resources has all the properties and stylesheets for styling
 
+- Frontend: 
+
 Features implemented:
   - Implemented the 5 basic simulation types and 3 of the complete. All of these are able
 to have different shapes so that they behave differently

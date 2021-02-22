@@ -9,6 +9,9 @@ import cell_society.backend.automata.grid_styles.Grid;
 import cell_society.backend.simulation_initializer.CellParameters;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * @author George Hong
+ */
 public class AntCell extends Cell {
 
   public static final String FOOD = "food";
