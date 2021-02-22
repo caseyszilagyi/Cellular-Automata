@@ -11,8 +11,8 @@ public class ViewDisplay {
   private String currentSimType;
   private boolean isMinimized;
 
-  private final int HORIZONTAL_BORDER_LENGTH = 50;
-  private final int VERTICAL_BORDER_LENGTH = 90;
+  private final int HORIZONTAL_BORDER_LENGTH = 40;
+  private final int VERTICAL_BORDER_LENGTH = 110;
 
   public ViewDisplay(){
     currentSimType = null;

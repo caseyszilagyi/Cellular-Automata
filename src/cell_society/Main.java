@@ -13,7 +13,7 @@ public class Main extends Application {
 
   private final int SCREEN_WIDTH = 1000;
   private final int SCREEN_HEIGHT = 800;
-  private final int MIN_SCREEN_WIDTH = 800;
+  private final int MIN_SCREEN_WIDTH = 710;
   private final int MIN_SCREEN_HEIGHT = 600;
   private final String STAGE_TITLE = "Cell Society Simulation";
 
