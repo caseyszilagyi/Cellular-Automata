@@ -65,7 +65,7 @@ public class SimulationInitializer {
   private void getMaps() {
     simulationParameters = xmlFileReader.getSimulationParameters();
     coreSpecifications = xmlFileReader.getAttributeMap("coreSpecifications");
-    //patchDetails = makePatchDetails();
+    patchDetails = makePatchDetails();
   }
 
   /**
@@ -81,6 +81,9 @@ public class SimulationInitializer {
     gridCreator.populateGrid(gridDetails.getGrid(), gridDetails.getCodes());
     gridCreator.setCellDecoder(gridDetails.getDecoder());
     gridCreator.setCellStructure(coreSpecifications.get("structureType"));
+    if(patchDetails.size() != 0) {
+      gridCreator.placePatches(patchDetails, coreSpecifications.get("patchType"));
+    }
     simulationGrid = gridCreator.getGrid();
     parameterInformation = gridDetails.getFrontEndParameterSpecifications();
     return simulationGrid;

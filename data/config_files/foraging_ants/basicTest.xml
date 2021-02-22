@@ -9,11 +9,12 @@
     <type gridType = "Grid"></type>
     <type stepperType = "ForagingStepper"></type>
     <type structureType = "Square"></type>
+    <type patchType = "AntPatch"></type>
   </coreSpecifications>
 
   <gridInfo>
-    <rows>4</rows>
-    <columns>4</columns>
+    <rows>6</rows>
+    <columns>6</columns>
 
     <grid>
       <type>Grid</type>
@@ -31,7 +32,7 @@
 
       <codes>
         <key a='AntCell'></key>
-        <key n='Nestcell'></key>
+        <key n='NestCell'></key>
         <key e = "Empty"></key>
       </codes>
 
@@ -45,14 +46,14 @@
     </grid>
 
     <patch>
-      <type>Patch</type>
+      <type>foodlevel</type>
       <gridState>
-        feeeee
-        ffeeee
-        eeeeee
-        eeeeee
-        eeeeee
-        eeeeee
+        100000
+        110000
+        000000
+        000000
+        000000
+        000000
       </gridState>
 
       <randomProbs>
@@ -72,14 +73,14 @@
     </patch>
 
     <patch>
-      <type>Patch</type>
+      <type>foodpheromonelevel</type>
       <gridState>
-        eeeeee
-        eeeeee
-        eeeeee
-        eeeeee
-        eeeeee
-        eeeeee
+        000000
+        000000
+        000000
+        000000
+        000000
+        000000
       </gridState>
 
       <randomProbs>

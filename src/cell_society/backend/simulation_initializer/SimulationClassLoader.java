@@ -125,7 +125,7 @@ public class SimulationClassLoader {
     Patch myPatch = null;
     try {
       Object patch = classLoader
-          .loadClass(PATCH_LOCATION)
+          .loadClass(CELL_LOCATION + patchType)
           .getDeclaredConstructor().newInstance();
       myPatch = (Patch) patch;
     } catch (Exception e) {
