@@ -3,6 +3,9 @@ package cell_society.backend.automata.sugar_scape;
 import cell_society.backend.automata.Patch;
 import cell_society.backend.simulation_initializer.CellParameters;
 
+/**
+ * @author George Hong
+ */
 public class SugarPatch extends Patch {
 
   public static final String SUGAR = "sugar";

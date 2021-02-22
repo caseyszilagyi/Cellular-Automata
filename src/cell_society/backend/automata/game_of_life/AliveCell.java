@@ -8,6 +8,7 @@ import cell_society.backend.automata.Neighbors;
 /**
  * The AliveCell represents the live cell in Conway's Game of Life subject to the following rules:
  * <p>
+ * @author George Hong
  */
 public class AliveCell extends Cell {
 

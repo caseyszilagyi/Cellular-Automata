@@ -8,6 +8,9 @@ import cell_society.backend.simulation_initializer.CellParameters;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author George Hong
+ */
 public class SharkCell extends Cell {
 
   public static final String ENERGY = "energy";

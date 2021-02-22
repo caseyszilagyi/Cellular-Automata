@@ -6,6 +6,7 @@ import cell_society.backend.automata.Neighbors;
 
 /**
  * Represents a blocked cell in the percolation simulation.
+ * @author George Hong
  */
 public class BlockedCell extends Cell {
 
