@@ -3,6 +3,7 @@ package cell_society.backend.automata.rock_paper_scissors;
 import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.Neighbors;
 import cell_society.backend.automata.grid_styles.Grid;
+import cell_society.backend.simulation_initializer.CellParameters;
 import java.util.TreeMap;
 
 /**
@@ -13,6 +14,7 @@ import java.util.TreeMap;
  */
 public class RPSCell extends Cell {
 
+  public static final String THRESHOLD = "threshold";
   private int threshold;
 
   public RPSCell() {
@@ -22,6 +24,11 @@ public class RPSCell extends Cell {
   public RPSCell(int row, int col, int threshold) {
     super(row, col);
     this.threshold = threshold;
+  }
+
+  @Override
+  public void initializeParams(CellParameters parameters) {
+    threshold = parameters.getAsInt(THRESHOLD);
   }
 
   @Override
