@@ -5,6 +5,7 @@ import cell_society.backend.automata.CellStructure;
 import cell_society.backend.automata.Coordinate;
 import cell_society.backend.automata.Neighbors;
 import cell_society.backend.automata.Patch;
+import cell_society.backend.simulation_initializer.CellParameters;
 import cell_society.controller.ErrorHandler;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -299,28 +300,6 @@ public class Grid {
    *
    * @return A 2D array of string codes.
    */
-  public char[] getDisplay() {
-    char[] display = new char[gridHeight * gridWidth];
-    int i = 0;
-    for (int j = 0; j < gridHeight; j++) {
-      for (int k = 0; k < gridWidth; k++) {
-        if (grid[j][k] != null) {
-          char curr = cellDecoder.get(grid[j][k].toString()).charAt(0);
-          display[i] = curr;
-        } else {
-          display[i] = 'e';
-        }
-        i++;
-      }
-    }
-    return display;
-  }
-
-  /**
-   * Gets the string code representation of the cells to pass to the display
-   *
-   * @return A 2D array of string codes.
-   */
   public int[] getIntDisplay() {
     int[] display = new int[gridHeight * gridWidth + 3];
     display[0] = gridCellStructure.getCode();
@@ -362,6 +341,18 @@ public class Grid {
       map.put(curr, map.get(curr) + 1);
     }
     return map;
+  }
+
+  /** Updates the cell parameters
+   *
+   * @param paramMap The map of the cell parameters
+   */
+  public void updateCellParameters(HashMap<String, String> paramMap){
+    CellParameters cellParameters = new CellParameters(paramMap);
+    for(Coordinate c: getCoordinateUpdateList()){
+      Cell current = getCell(c.getFirst(), c.getSecond());
+      current.initializeParams(cellParameters);
+    }
   }
 
   /**

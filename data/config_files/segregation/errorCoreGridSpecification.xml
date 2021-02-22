@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation type="segregation">
+  <title>Segregation</title>
+  <author>Thomas Schelling</author>
+  <desc>Segregation simulation that is inspired by the Schelling model of segregation</desc>
+
+  <coreSpecifications>
+    <type cellPackage ="segregation"></type>
+    <type gridType = "Grid"></type>
+    <type stepperType = "SegregationStepper"></type>
+    <type structureType = "Square"></type>
+  </coreSpecifications>
+
+  <gridInfo>
+
+    <grid>
+      <type>Grid</type>
+      <gridState>
+        xeoxxxexxxoeoxeexoxo
+        xoeeooxxoxxeooeeoxox
+        eoxxexxoxooxxxxexxxo
+        xxxoeeoxeoexxxxeoooe
+        exexxooxxoooxxeeooee
+        exexoxxxoxoexxooooxx
+        ooxxexoxooooooxeoxoo
+        oooxeoxoooxoxxoooxxo
+        xxoexexoxxeooxoooxxe
+        ooxooooxxooexxexooox
+        exoxexooxxeoxexxoexx
+        xxxoxoxxexxxooxoeoex
+        xoeeexxoxoxxoooexxxo
+        oooxoooxoexxoxxoxxeo
+        xxxooxxxxooxeooxxxox
+        oeooxoxoxoxxxexxoxox
+        exoxexoooxxoxoeooexe
+        eexxoxxxoxoxoxxoxeoo
+        oooxeeooxoxxxooxeeoo
+        xexxoxoxxexooxxoxeeo
+      </gridState>
+
+      <randomProbs>
+      </randomProbs>
+
+      <codes>
+        <key x='AgentCellA'></key>
+        <key o='AgentCellB'></key>
+        <key e ='Empty'></key>
+      </codes>
+
+      <decoder>
+        <key AgentCellA = '1'></key>
+        <key AgentCellB = '2'></key>
+      </decoder>
+
+      <parameters>
+        <parameter satisfactionprop='0.67'/>
+      </parameters>
+    </grid>
+  </gridInfo>
+
+</simulation>

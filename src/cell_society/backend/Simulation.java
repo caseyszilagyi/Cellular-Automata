@@ -49,6 +49,7 @@ public class Simulation {
   public void makeStep() {
     simulationStepper.makeStep();
     simulationGrid = simulationStepper.getGrid();
+    getParameters();
   }
 
   /**
@@ -76,7 +77,7 @@ public class Simulation {
     return simulationInitializer.getFrontEndParameterSpecifications();
   }
 
-  public void setParameters(HashMap<String, Double> userValues){
+  public void setParameters(HashMap<String, String> userValues){
 
   }
 
