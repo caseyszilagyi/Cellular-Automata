@@ -21,11 +21,10 @@ public class GridDisplay extends ViewDisplay {
   private final String HEXAGON = "hexagon";
   private final String TRIANGLE_UP = "triangle_up";
   private final String TRIANGLE_DOWN = "triangle_down";
+  private final String OUTLINES = "Outlines";
 
   private int gridWidth, gridHeight;
   private double cellWidth, cellHeight;
-
-  private final boolean isOutlinesOn;
 
   /**
    *
@@ -36,7 +35,6 @@ public class GridDisplay extends ViewDisplay {
     super();
     this.scene = scene;
     this.pane = pane;
-    isOutlinesOn = true; // change this to toggle cell outlines on/off
   }
 
   /**
@@ -80,18 +78,18 @@ public class GridDisplay extends ViewDisplay {
   }
 
   private void createHexagonalGrid(double cellWidth, double cellHeight, int[] cellColorSheet){
-    double horizontalBorderLength = -1 * cellWidth / 4;
+    double rowIndentLength = -1 * cellWidth / 4;
 
     for(int row = 0; row < gridHeight; row++){
       for(int col = 0; col < gridWidth; col++){
         createCell(
-            col * cellWidth + getHorizontalBorderLength() + horizontalBorderLength,
+            col * cellWidth + getHorizontalBorderLength() + rowIndentLength,
             row * cellHeight + getVerticalBorderLength(),
             cellColorSheet[3 + row * gridWidth + col],
             HEXAGON
         );
       }
-      horizontalBorderLength = -1 * horizontalBorderLength;
+      rowIndentLength = -1 * rowIndentLength;
     }
   }
 
@@ -135,7 +133,8 @@ public class GridDisplay extends ViewDisplay {
     Color cellColor = Color.web(resourceBundle.getString(Integer.toString(colorCode)));
     cell.setFill(cellColor);
 
-    if (Boolean.parseBoolean(resourceBundle.getString("Outlines"))) {
+    boolean isOutlines = Boolean.parseBoolean(resourceBundle.getString(OUTLINES));
+    if (isOutlines) {
       cell.setStroke(Color.BLACK);
     } else {
       cell.setStroke(cellColor);
