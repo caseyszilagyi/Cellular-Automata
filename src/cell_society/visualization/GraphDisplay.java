@@ -48,7 +48,7 @@ public class GraphDisplay extends ViewDisplay {
     for(Map.Entry<Integer, Integer> entry : cellTypesMap.entrySet()){
       PieChart.Data slice = new PieChart.Data(resourceBundle.getString(String.format("%dname", entry.getKey())), entry.getValue());
       chart.getData().add(slice);
-      slice.getNode().setStyle(String.format("-fx-pie-color: #%s;" ,resourceBundle.getString(Integer.toString(entry.getKey()))));
+      slice.getNode().setStyle(String.format("-fx-pie-color: #%s;" , resourceBundle.getString(Integer.toString(entry.getKey()))));
       slice.setName(String.format("%s: %d", slice.getName(), (int) slice.getPieValue()));
     }
 
