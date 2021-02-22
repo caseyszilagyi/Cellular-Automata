@@ -76,7 +76,7 @@ public class Simulation {
     return simulationInitializer.getFrontEndParameterSpecifications();
   }
 
-  public void setParameters(HashMap<String, Double> userValues){
+  public void setParameters(Map<String, String> userValues){
 
   }
 
