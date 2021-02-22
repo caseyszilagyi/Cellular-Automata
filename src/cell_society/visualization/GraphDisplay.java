@@ -33,7 +33,11 @@ public class GraphDisplay extends ViewDisplay {
     double screenWidth = scene.getWidth() - getHorizontalBorderLength() * 2.0;
     double screenHeight = scene.getHeight() - (getVerticalBorderLength() + getHorizontalBorderLength());
 
-    //screenWidth = screenWidth / 2.0;
+    double xPosition = getHorizontalBorderLength();
+    if(getIsMinimized()){
+      screenWidth = screenWidth / 2.0;
+      xPosition = scene.getWidth() - getHorizontalBorderLength() / 2.0 - screenWidth;
+    }
 
     Map<Integer, Integer> cellTypesMap = getCurrentSim().getCellDistribution();
 
@@ -49,7 +53,7 @@ public class GraphDisplay extends ViewDisplay {
     }
 
     chart.setPrefSize(screenWidth, screenHeight);
-    chart.setLayoutX(scene.getWidth() - getHorizontalBorderLength() / 2.0 - screenWidth);
+    chart.setLayoutX(xPosition);
     chart.setLayoutY(getVerticalBorderLength());
 
     pane.getChildren().add(chart);

@@ -186,6 +186,10 @@ public class DisplayManager {
 
   private void togglePaneVisibility(Pane pane){
     pane.setVisible(!pane.isVisible());
+
+    boolean isMinimized = gridPane.isVisible() && graphPane.isVisible();
+    gridDisplay.setIsMinimized(isMinimized);
+    graphDisplay.setIsMinimized(isMinimized);
   }
 
   private void applyLoadSimButtonLogic(Button button){

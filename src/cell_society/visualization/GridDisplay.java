@@ -45,7 +45,9 @@ public class GridDisplay extends ViewDisplay {
     double screenWidth = scene.getWidth() - getHorizontalBorderLength() * 2.0;
     double screenHeight = scene.getHeight() - (getVerticalBorderLength() + getHorizontalBorderLength());
 
-    //screenWidth = screenWidth / 2.0;
+    if(getIsMinimized()){
+      screenWidth = screenWidth / 2.0;
+    }
 
     int cellShapeKey = cellColorSheet[0];
     gridHeight = cellColorSheet[1];

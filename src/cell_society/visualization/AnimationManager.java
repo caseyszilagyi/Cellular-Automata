@@ -52,7 +52,6 @@ public class AnimationManager {
   public void stepSimulation(){
     if(currentSim != null){
       currentSim.makeStep();
-      //This gets the chars that represent the cells
       displayManager.updateDisplayGrid();
       displayManager.updateDisplayGraph();
     }
