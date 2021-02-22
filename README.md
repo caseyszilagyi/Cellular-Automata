@@ -12,7 +12,7 @@ Start Date: 2/8/2021
 Finish Date: 2/22/2021
 
 Hours Spent:
-- Casey: 25 
+- Casey: 25
 - George: 25
 - Donghan: 41
 

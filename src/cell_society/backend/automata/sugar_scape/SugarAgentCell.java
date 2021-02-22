@@ -93,5 +93,5 @@ public class SugarAgentCell extends Cell {
     return "@";
   }
 
-
+  public String toString(){ return "SugarAgentCell"; }
 }

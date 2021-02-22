@@ -5,6 +5,8 @@ import cell_society.backend.automata.CellStructure;
 import cell_society.backend.automata.Patch;
 import cell_society.backend.automata.grid_styles.Grid;
 import cell_society.controller.ErrorHandler;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -79,14 +81,17 @@ public class GridCreator {
     }
   }
 
-  public void placePatches(Set<GridOrPatchConfigurationSetup> allPatches){
+  public void placePatches(Set<GridOrPatchConfigurationSetup> allPatches, String patchType){
     for (int r = 0; r < simulationGrid.getGridHeight(); r++) {
       for (int c = 0; c < simulationGrid.getGridWidth(); c++) {
+        Map<String, String> currentPatch = new HashMap<>();
+        Patch newPatch = CLASS_LOADER.makePatch(patchType);
         for(GridOrPatchConfigurationSetup g: allPatches){
-
+          currentPatch.put(g.getType(), Character.toString(g.getGrid().charAt(r*c)));
         }
-        Patch newPatch = CLASS_LOADER.makePatch("test");
-
+        CellParameters params = new CellParameters(currentPatch);
+        newPatch.initializeParams(params);
+        simulationGrid.placePatch(r,c, newPatch);
       }
     }
   }
