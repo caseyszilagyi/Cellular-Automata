@@ -72,7 +72,7 @@ public class Simulation {
 
   }
 
-  public Map getParameters(){
+  public Map<String, double[]> getParameters(){
     return simulationInitializer.getFrontEndParameterSpecifications();
   }
 

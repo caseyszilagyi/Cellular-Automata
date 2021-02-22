@@ -24,7 +24,7 @@ public class GraphDisplay extends ViewDisplay {
     this.pane = pane;
   }
 
-  public void updateGraph(){
+  public void updateGraph(Map<Integer, Integer> cellTypesMap){
     pane.getChildren().clear();
 
     PieChart chart = new PieChart();
@@ -38,8 +38,6 @@ public class GraphDisplay extends ViewDisplay {
       screenWidth = screenWidth / 2.0;
       xPosition = scene.getWidth() - getHorizontalBorderLength() / 2.0 - screenWidth;
     }
-
-    Map<Integer, Integer> cellTypesMap = getCurrentSim().getCellDistribution();
 
     chart.getData().clear();
 

@@ -3,8 +3,10 @@ package cell_society.visualization;
 import cell_society.Main;
 import cell_society.backend.Simulation;
 import java.io.File;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -120,15 +122,23 @@ public class DisplayManager {
         currentSim.initializeSimulation(); //initialize backend sim
 
         animationManager.setSimulation(currentSim);
-        gridDisplay.setCurrentSimInfo(currentSim, currentSimulationType);
-        graphDisplay.setCurrentSimInfo(currentSim, currentSimulationType);
+        gridDisplay.setCurrentSimType(currentSimulationType);
+        graphDisplay.setCurrentSimType(currentSimulationType);
 
         updateDisplayGraph();
         updateDisplayGrid();
+
+        makeSimParameterSliders(currentSim.getParameters());
       }
       catch (Exception error){
         createErrorDialog(error);
       }
+    }
+  }
+
+  private void makeSimParameterSliders(Map<String, double[]> parameterMap){
+    for(Map.Entry<String, double[]> entry : parameterMap.entrySet()){
+      System.out.println(entry.getKey());
     }
   }
 
@@ -263,14 +273,14 @@ public class DisplayManager {
    *
    */
   public void updateDisplayGrid(){
-    gridDisplay.updateGrid(currentSim.getGridDisplay()); //convert backend grid into frontend grid
+    gridDisplay.updateGrid(currentSim.getGridDisplay());
   }
 
   /**
    *
    */
   public void updateDisplayGraph(){
-    graphDisplay.updateGraph();
+    graphDisplay.updateGraph(currentSim.getCellDistribution());
   }
 
 }
