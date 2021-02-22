@@ -126,6 +126,7 @@ public class XMLFileReader {
     Element root = getRootElement(currentFile);
     NodeList current = ((Element) root.getElementsByTagName("gridInfo").item(0)).getElementsByTagName("patch");
     Set<GridOrPatchConfigurationSetup> allPatches = new HashSet<>();
+    int length = current.getLength();
     for(int i = 0; i<current.getLength(); i++){
       allPatches.add(getGridOrPatchDetails((Element) current.item(i)));
     }
