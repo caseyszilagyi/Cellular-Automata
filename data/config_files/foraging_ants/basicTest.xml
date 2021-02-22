@@ -13,18 +13,42 @@
   </coreSpecifications>
 
   <gridInfo>
-    <rows>6</rows>
-    <columns>6</columns>
+    <rows>30</rows>
+    <columns>30</columns>
 
     <grid>
       <type>Grid</type>
       <gridState>
-        eeeeee
-        eeeeee
-        neeeee
-        eeeeee
-        eeeeee
-        eeeeee
+        neeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        eeeeeeeeeeeeeeeeeeeeeeeeeeeeee
       </gridState>
 
       <randomProbs>
@@ -48,12 +72,36 @@
     <patch>
       <type>foodlevel</type>
       <gridState>
-        100000
-        110000
-        000000
-        000000
-        000000
-        000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000001111111111111
+        000000000000000001111111111111
+        000000000000000001111111111111
       </gridState>
 
       <randomProbs>
@@ -75,12 +123,36 @@
     <patch>
       <type>foodpheromonelevel</type>
       <gridState>
-        000000
-        000000
-        000000
-        000000
-        000000
-        000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
+        000000000000000000000000000000
       </gridState>
 
       <randomProbs>
