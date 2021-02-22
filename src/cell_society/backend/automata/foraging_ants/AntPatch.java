@@ -1,11 +1,22 @@
 package cell_society.backend.automata.foraging_ants;
 
 import cell_society.backend.automata.Patch;
+import cell_society.backend.simulation_initializer.CellParameters;
 
 public class AntPatch extends Patch {
 
   public static final String FOOD_PHEROMONE_LEVEL = "foodpheromonelevel";
   public static final String FOOD_LEVEL = "foodlevel";
+
+  public AntPatch() {
+
+  }
+
+  @Override
+  public void initializeParams(CellParameters parameters) {
+    super.setState(FOOD_PHEROMONE_LEVEL, parameters.getAsInt(FOOD_PHEROMONE_LEVEL));
+    super.setState(FOOD_LEVEL, parameters.getAsInt(FOOD_LEVEL));
+  }
 
   public AntPatch(int food, int foodPheromoneLevel) {
     super.setState(FOOD_LEVEL, food);
