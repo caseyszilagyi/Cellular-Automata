@@ -14,7 +14,7 @@ Finish Date:
 Hours Spent:
 - Casey: 25
 - George: 25
-- Donghan: 10
+- Donghan: 41
 
 ### Primary Roles
 - Casey:
