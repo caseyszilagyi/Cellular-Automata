@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
@@ -199,11 +200,19 @@ public class DisplayManager {
     Slider slider = new Slider(min, max, current);
 
     slider.setPrefWidth(SLIDER_WIDTH);
+    slider.setLayoutX(xPos);
+    slider.setLayoutY(yPos);
 
-    slider.setTranslateX(xPos);
-    slider.setTranslateY(yPos);
+    Label label = new Label(String.format("%s%s: %.2f", parameterName.substring(0, 1).toUpperCase(), parameterName.substring(1), current));
+    label.setLayoutX(xPos + PADDING_X / 2.0);
+    label.setLayoutY(yPos + PADDING_Y * 1.2);
 
     parameterPane.getChildren().add(slider);
+    parameterPane.getChildren().add(label);
+
+    slider.setOnMouseDragged(e -> {
+      label.setText(String.format("%s: %.2f", parameterName, slider.getValue()));
+    });
 
     slider.setOnMouseReleased(e -> {
       String newValue = Double.toString(Math.floor(slider.getValue() * 100) / 100);

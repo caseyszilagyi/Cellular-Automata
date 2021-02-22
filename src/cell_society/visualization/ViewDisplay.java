@@ -12,7 +12,7 @@ public class ViewDisplay {
   private boolean isMinimized;
 
   private final int HORIZONTAL_BORDER_LENGTH = 40;
-  private final int VERTICAL_BORDER_LENGTH = 110;
+  private final int VERTICAL_BORDER_LENGTH = 125;
 
   public ViewDisplay(){
     currentSimType = null;
