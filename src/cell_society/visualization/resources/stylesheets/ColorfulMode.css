@@ -4,18 +4,28 @@
   -fx-font-weight: bold;
 }
 
-.button, .combo-box {
+.choice-box .label {
+  -fx-text-fill: #3b3b3b;
+}
+
+.button, .choice-box, .choice-box .context-menu{
   -fx-border-radius: 10px;
   -fx-background-radius: 10px;
   -fx-border-width: 0px;
-
-  -fx-background-color: #e3887f;
-  -fx-text-fill: #3b3b3b;
-
+  -fx-background-color: #ffd8d4;
   -fx-font-size: 10;
+  -fx-text-fill: #3b3b3b;
 }
 
-.button:hover, .combo-box:hover {
+.choice-box .menu-item > .label {
+  -fx-text-fill: #3b3b3b;
+}
+
+.choice-box .menu-item:focused {
+  -fx-background-color: #f0aea8;
+}
+
+.button:hover, .choice-box:hover {
   -fx-background-color: #f0aea8;
 }
 
