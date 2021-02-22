@@ -26,12 +26,9 @@ import javafx.stage.Stage;
 public class DisplayManager {
 
   private final Main main;
-
   private final Stage stage;
   private final Pane root;
   private final Scene scene;
-
-  private ResourceBundle resourceBundle;
 
   private final GridDisplay gridDisplay;
   private final GraphDisplay graphDisplay;
@@ -43,15 +40,16 @@ public class DisplayManager {
 
   private final String VISUALIZATION_RESOURCE_PACKAGE = "cell_society/visualization/resources";
 
-  private final String COLOR_BUTTON_PROP = "ColorModeButton";
-  private final String LOAD_SIM_BUTTON_PROP = "LoadNewSimulationButton";
-  private final String OPEN_NEW_BUTTON_PROP = "OpenNewWindowButton";
-  private final String PLAY_BUTTON_PROP = "PlayPauseButton";
-  private final String STEP_BUTTON_PROP = "StepButton";
-  private final String SPEED_BUTTON_PROP = "SpeedButton";
-  private final String GRID_BUTTON_PROP = "GridButton";
-  private final String GRAPH_BUTTON_PROP = "GraphButton";
-  private final String LANG_BUTTON_PROP = "LanguageButton";
+  private final String COLOR_BUTTON_PROPERTY = "ColorModeButton";
+  private final String LOAD_SIM_BUTTON_PROPERTY = "LoadNewSimulationButton";
+  private final String OPEN_NEW_BUTTON_PROPERTY = "OpenNewWindowButton";
+  private final String PLAY_BUTTON_PROPERTY = "PlayPauseButton";
+  private final String STEP_BUTTON_PROPERTY = "StepButton";
+  private final String SPEED_BUTTON_PROPERTY = "SpeedButton";
+  private final String GRID_BUTTON_PROPERTY = "GridButton";
+  private final String GRAPH_BUTTON_PROPERTY = "GraphButton";
+  private final String LANG_BUTTON_PROPERTY = "LanguageButton";
+  private final String ERROR_TITLE_PROPERTY = "ErrorTitle";
 
   private final int LOAD_SIM_BUTTON_WIDTH = 160;
   private final int OPEN_NEW_BUTTON_WIDTH = 160;
@@ -86,10 +84,10 @@ public class DisplayManager {
   private String[] COLOR_MODES_LIST;
   private String[] LANGUAGES_LIST;
 
-  private final String ERROR_TITLE = "ErrorTitle";
 
   private Simulation currentSim;
   private String currentSimulationType;
+  private ResourceBundle resourceBundle;
 
   /**
    * Constructor that creates an instance of the DisplayManager
@@ -103,7 +101,7 @@ public class DisplayManager {
     this.scene = scene;
 
     resourceBundle = ResourceBundle.getBundle(String.format("%s/properties/languages/English", VISUALIZATION_RESOURCE_PACKAGE));
-    updateListLanguages();
+    updateDropdownLabelsAfterLanguageChange();
 
     gridPane = new Pane();
     graphPane = new Pane();
@@ -128,9 +126,9 @@ public class DisplayManager {
     changeStylesheet("LightMode.css");
   }
 
-  private void updateListLanguages(){
+  private void updateDropdownLabelsAfterLanguageChange(){
     COLOR_MODES_LIST = new String[] {resourceBundle.getString("LightModeLabel"), resourceBundle.getString("DarkModeLabel"), resourceBundle.getString("ColorfulModeLabel")};
-    LANGUAGES_LIST = new String[] {resourceBundle.getString("English"), resourceBundle.getString("Spanish"), resourceBundle.getString("French")};
+    LANGUAGES_LIST = new String[] {resourceBundle.getString("EnglishLabel"), resourceBundle.getString("SpanishLabel"), resourceBundle.getString("FrenchLabel")};
   }
 
   private void changeStylesheet(String fileName){
@@ -223,7 +221,7 @@ public class DisplayManager {
 
   private void createErrorDialog(Exception error){
     Alert newAlert = new Alert(AlertType.ERROR);
-    newAlert.setTitle(resourceBundle.getString(ERROR_TITLE));
+    newAlert.setTitle(resourceBundle.getString(ERROR_TITLE_PROPERTY));
     newAlert.setHeaderText(null);
     newAlert.setContentText(resourceBundle.getString(error.getMessage()));
     newAlert.showAndWait();
@@ -232,16 +230,16 @@ public class DisplayManager {
   private void makeAllButtons() {
     buttonPane.getChildren().clear();
 
-    Button loadSimButton = makeButton(LOAD_SIM_BUTTON_PROP, LOAD_SIM_BUTTON_X, ROW1_Y, LOAD_SIM_BUTTON_WIDTH, BUTTON_HEIGHT);
-    Button openNewSimButton = makeButton(OPEN_NEW_BUTTON_PROP, OPEN_NEW_BUTTON_X, ROW1_Y, OPEN_NEW_BUTTON_WIDTH, BUTTON_HEIGHT);
-    ChoiceBox<String> languageButton = makeDropdownButton(LANG_BUTTON_PROP, LANG_BUTTON_X, ROW1_Y, LANG_BUTTON_WIDTH, BUTTON_HEIGHT, LANGUAGES_LIST);
-    ChoiceBox<String> colorModeButton = makeDropdownButton(COLOR_BUTTON_PROP, COLOR_BUTTON_X, ROW1_Y, COLOR_BUTTON_WIDTH, BUTTON_HEIGHT, COLOR_MODES_LIST);
+    Button loadSimButton = makeButton(LOAD_SIM_BUTTON_PROPERTY, LOAD_SIM_BUTTON_X, ROW1_Y, LOAD_SIM_BUTTON_WIDTH, BUTTON_HEIGHT);
+    Button openNewSimButton = makeButton(OPEN_NEW_BUTTON_PROPERTY, OPEN_NEW_BUTTON_X, ROW1_Y, OPEN_NEW_BUTTON_WIDTH, BUTTON_HEIGHT);
+    ChoiceBox<String> languageButton = makeDropdownButton(LANG_BUTTON_PROPERTY, LANG_BUTTON_X, ROW1_Y, LANG_BUTTON_WIDTH, BUTTON_HEIGHT, LANGUAGES_LIST);
+    ChoiceBox<String> colorModeButton = makeDropdownButton(COLOR_BUTTON_PROPERTY, COLOR_BUTTON_X, ROW1_Y, COLOR_BUTTON_WIDTH, BUTTON_HEIGHT, COLOR_MODES_LIST);
 
-    Button playPauseButton = makeButton(PLAY_BUTTON_PROP, PLAY_BUTTON_X, ROW2_Y, PLAY_BUTTON_WIDTH, BUTTON_HEIGHT);
-    Button stepButton = makeButton(STEP_BUTTON_PROP, STEP_BUTTON_X, ROW2_Y, STEP_BUTTON_WIDTH, BUTTON_HEIGHT);
-    Button speedButton = makeButton(SPEED_BUTTON_PROP, SPEED_BUTTON_X, ROW2_Y, SPEED_BUTTON_WIDTH, BUTTON_HEIGHT);
-    Button gridButton = makeButton(GRID_BUTTON_PROP, GRID_BUTTON_X, ROW2_Y, GRID_BUTTON_WIDTH, BUTTON_HEIGHT);
-    Button graphButton = makeButton(GRAPH_BUTTON_PROP, GRAPH_BUTTON_X, ROW2_Y, GRAPH_BUTTON_WIDTH, BUTTON_HEIGHT);
+    Button playPauseButton = makeButton(PLAY_BUTTON_PROPERTY, PLAY_BUTTON_X, ROW2_Y, PLAY_BUTTON_WIDTH, BUTTON_HEIGHT);
+    Button stepButton = makeButton(STEP_BUTTON_PROPERTY, STEP_BUTTON_X, ROW2_Y, STEP_BUTTON_WIDTH, BUTTON_HEIGHT);
+    Button speedButton = makeButton(SPEED_BUTTON_PROPERTY, SPEED_BUTTON_X, ROW2_Y, SPEED_BUTTON_WIDTH, BUTTON_HEIGHT);
+    Button gridButton = makeButton(GRID_BUTTON_PROPERTY, GRID_BUTTON_X, ROW2_Y, GRID_BUTTON_WIDTH, BUTTON_HEIGHT);
+    Button graphButton = makeButton(GRAPH_BUTTON_PROPERTY, GRAPH_BUTTON_X, ROW2_Y, GRAPH_BUTTON_WIDTH, BUTTON_HEIGHT);
 
     applyLoadSimButtonLogic(loadSimButton);
     applyOpenNewSimButtonLogic(openNewSimButton);
@@ -327,7 +325,7 @@ public class DisplayManager {
 
   private void applySpeedButtonLogic(Button button){
     button.setOnMouseClicked(e -> {
-      String newText = String.format("%s: x%.2f", resourceBundle.getString(SPEED_BUTTON_PROP), animationManager.setNextFPS());
+      String newText = String.format("%s: x%.2f", resourceBundle.getString(SPEED_BUTTON_PROPERTY), animationManager.setNextFPS());
       button.setText(newText);
     });
   }
@@ -344,7 +342,7 @@ public class DisplayManager {
     button.setOnAction(e -> {
       String selectedLanguage = button.getSelectionModel().getSelectedItem();
       resourceBundle = ResourceBundle.getBundle(String.format("%s/properties/languages/%s", VISUALIZATION_RESOURCE_PACKAGE, selectedLanguage));
-      updateListLanguages();
+      updateDropdownLabelsAfterLanguageChange();
       makeAllButtons();
     });
   }

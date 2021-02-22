@@ -39,4 +39,5 @@
 
 .label {
   -fx-font-size: 9;
+  -fx-text-fill: #3b3b3b;
 }
