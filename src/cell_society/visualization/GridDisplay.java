@@ -12,35 +12,23 @@ import javafx.scene.shape.Polygon;
  *
  * @author Donghan Park
  */
-public class GridDisplay {
+public class GridDisplay extends ViewDisplay {
 
   private final Scene scene;
   private final Pane pane;
 
-  private final int HORIZONTAL_BORDER_LENGTH = 50;
-  private final int VERTICAL_BORDER_LENGTH = 90;
-
-  private final String VISUALIZATION_RESOURCE_PACKAGE = "cell_society/visualization/resources/";
-  private ResourceBundle resourceBundle;
-
   private final String RECTANGLE = "rectangle";
   private final String HEXAGON = "hexagon";
-  private final String TRIANGLE = "triangle";
   private final String TRIANGLE_UP = "triangle_up";
   private final String TRIANGLE_DOWN = "triangle_down";
 
   private int gridWidth, gridHeight;
   private double cellWidth, cellHeight;
 
-  private String currentSimulationType;
-
   public GridDisplay(Scene scene, Pane pane) {
+    super();
     this.scene = scene;
     this.pane = pane;
-  }
-
-  public void setSimulationType(String simulationType){
-    currentSimulationType = simulationType;
   }
 
   /**
@@ -49,8 +37,8 @@ public class GridDisplay {
   public void updateGrid(int[] cellColorSheet) {
     pane.getChildren().clear();
 
-    double screenWidth = scene.getWidth() - HORIZONTAL_BORDER_LENGTH * 2.0;
-    double screenHeight = scene.getHeight() - (VERTICAL_BORDER_LENGTH + HORIZONTAL_BORDER_LENGTH);
+    double screenWidth = scene.getWidth() - getHorizontalBorderLength() * 2.0;
+    double screenHeight = scene.getHeight() - (getVERTICAL_BORDER_LENGTH() + getHorizontalBorderLength());
 
     screenWidth = screenWidth / 2.0;
 
@@ -72,8 +60,8 @@ public class GridDisplay {
     for (int row = 0; row < gridHeight; row++) {
       for (int col = 0; col < gridWidth; col++) {
         createCell(
-            col * cellWidth + HORIZONTAL_BORDER_LENGTH,
-            row * cellHeight + VERTICAL_BORDER_LENGTH,
+            col * cellWidth + getHorizontalBorderLength(),
+            row * cellHeight + getVERTICAL_BORDER_LENGTH(),
             cellColorSheet[3 + row * gridWidth + col],
             RECTANGLE
         );
@@ -87,8 +75,8 @@ public class GridDisplay {
     for(int row = 0; row < gridHeight; row++){
       for(int col = 0; col < gridWidth; col++){
         createCell(
-            col * cellWidth + HORIZONTAL_BORDER_LENGTH + horizontalBorderLength,
-            row * cellHeight + VERTICAL_BORDER_LENGTH,
+            col * cellWidth + getHorizontalBorderLength() + horizontalBorderLength,
+            row * cellHeight + getVERTICAL_BORDER_LENGTH(),
             cellColorSheet[3 + row * gridWidth + col],
             HEXAGON
         );
@@ -108,8 +96,8 @@ public class GridDisplay {
       }
       for(int col = 0; col < gridWidth; col++){
         createCell(
-            col * cellWidth + HORIZONTAL_BORDER_LENGTH,
-            row * cellHeight + VERTICAL_BORDER_LENGTH,
+            col * cellWidth + getHorizontalBorderLength(),
+            row * cellHeight + getVERTICAL_BORDER_LENGTH(),
             cellColorSheet[3 + row * gridWidth + col],
             trianglePointingDirection
         );
@@ -123,7 +111,7 @@ public class GridDisplay {
   }
 
   private void createCell(double x, double y, int colorCode, String cellShape) {
-    resourceBundle = ResourceBundle.getBundle(VISUALIZATION_RESOURCE_PACKAGE + "properties/simulationColorCodes/" + currentSimulationType);
+    ResourceBundle resourceBundle = getColorSheetResourceBundle();
 
     Polygon cell = new Polygon();
 

@@ -31,6 +31,9 @@
         eeeeeeeeee
       </gridState>
 
+      <randomProbs>
+      </randomProbs>
+
       <codes>
         <key f='FishCell'></key>
         <key s='SharkCell'></key>
@@ -52,11 +55,4 @@
     </grid>
 
   </gridInfo>
-
-  <colors>
-    <key f = 'CCAA00'></key>
-    <key s = 'AAAAAA'></key>
-    <key e = '0000FF'></key>
-  </colors>
-
 </simulation>

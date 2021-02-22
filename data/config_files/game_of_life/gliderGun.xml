@@ -8,7 +8,7 @@
     <type cellPackage ="game_of_life"></type>
     <type gridType = "Grid"></type>
     <type stepperType = "SimulationStepper"></type>
-    <type structureType = "Square"></type>
+    <type structureType = "Hexagon"></type>
   </coreSpecifications>
 
   <gridInfo>
@@ -61,8 +61,6 @@
       </gridState>
 
       <randomProbs>
-        <key x='0.5'></key>
-        <key O='0.5'></key>
       </randomProbs>
 
       <codes>

@@ -3,6 +3,7 @@ package cell_society.backend;
 import cell_society.backend.automata.grid_styles.Grid;
 import cell_society.backend.simulation_initializer.SimulationInitializer;
 import cell_society.backend.simulation_stepper.SimulationStepper;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -71,10 +72,11 @@ public class Simulation {
 
   }
 
-  //public Set getParameters(){
-  //}
+  public Map getParameters(){
+    return simulationInitializer.getFrontEndParameterSpecifications();
+  }
 
-  public void setParameters(){
+  public void setParameters(HashMap<String, Double> userValues){
 
   }
 

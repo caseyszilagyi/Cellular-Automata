@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
   <parameters>
-    <parameter probcatch='1.0'/>
+    <parameter probcatch='0,1,1'/>
   </parameters>
 </simulation>

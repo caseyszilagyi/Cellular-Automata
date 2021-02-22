@@ -21,6 +21,9 @@
         eeeeexoxoxoxoxoxoxoxoxoxo
       </gridState>
 
+      <randomProbs>
+      </randomProbs>
+
       <codes>
         <key x='AgentCellA'></key>
         <key o='AgentCellB'></key>
@@ -37,11 +40,5 @@
       </parameters>
     </grid>
   </gridInfo>
-
-  <colors>
-    <key x = 'FA6034'></key>
-    <key o = '69FA56'></key>
-    <key e = 'FFFFFF'></key>
-  </colors>
 
 </simulation>

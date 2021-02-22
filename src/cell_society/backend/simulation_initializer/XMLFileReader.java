@@ -100,8 +100,7 @@ public class XMLFileReader {
       Map<String, String> codes = getSubAttributeMap("codes", gridOrPatch);
       Map<String, String> decoder = getSubAttributeMap("decoder", gridOrPatch);
       Map<String, String> parameters = getSubAttributeMap("parameters", gridOrPatch);
-      Map<String,String> probabilities = null;
-      //Map<String, String> probabilities = getSubAttributeMap("randomProbs", gridOrPatch);
+      Map<String, String> probabilities = getSubAttributeMap("randomProbs", gridOrPatch);
       GridOrPatchConfigurationSetup details = new GridOrPatchConfigurationSetup(simulationType, type, cols, rows, grid, parameters, codes, decoder, probabilities);
       return details;
     } catch(Exception e){

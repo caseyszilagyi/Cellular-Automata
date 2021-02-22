@@ -60,6 +60,9 @@
         tttttttttttttttttttttttttttttttttttttttt
       </gridState>
 
+      <randomProbs>
+      </randomProbs>
+
       <codes>
         <key t='TreeCell'></key>
         <key f='FireCell'></key>
@@ -76,11 +79,5 @@
       </parameters>
     </grid>
   </gridInfo>
-
-  <colors>
-    <key t = '00AA00'></key>
-    <key f = 'CC3300'></key>
-    <key e = '000000'></key>
-  </colors>
 
 </simulation>
