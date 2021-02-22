@@ -74,7 +74,6 @@ public class XMLFileReader {
    * Getting all the parameters that are needed in a map format to run the simulation
    *
    * @return The map that links the specific parameters to their values
-   * @throws XMLErrorHandler Error that is thrown if the file is not valid
    */
   public Map getSimulationParameters(){
     Element root = getRootElement(currentFile);
@@ -91,7 +90,7 @@ public class XMLFileReader {
   }
 
   // gets the details of a grid or patch and returns it. Throws an error if a core grid specification is missing
-  private GridOrPatchDetails getGridOrPatchDetails(Element gridOrPatch){
+  private GridOrPatchConfigurationSetup getGridOrPatchDetails(Element gridOrPatch){
     Element root = getRootElement(currentFile);
     try {
       int rows = Integer.parseInt(getTextValue(root, "rows"));
@@ -101,9 +100,8 @@ public class XMLFileReader {
       Map<String, String> codes = getSubAttributeMap("codes", gridOrPatch);
       Map<String, String> decoder = getSubAttributeMap("decoder", gridOrPatch);
       Map<String, String> parameters = getSubAttributeMap("parameters", gridOrPatch);
-      Map<String,String> probabilities = null;
-      //Map<String, String> probabilities = getSubAttributeMap("randomProbs", gridOrPatch);
-      GridOrPatchDetails details = new GridOrPatchDetails(type, cols, rows, grid, parameters, codes, decoder, probabilities);
+      Map<String, String> probabilities = getSubAttributeMap("randomProbs", gridOrPatch);
+      GridOrPatchConfigurationSetup details = new GridOrPatchConfigurationSetup(simulationType, type, cols, rows, grid, parameters, codes, decoder, probabilities);
       return details;
     } catch(Exception e){
       throw new ErrorHandler("CoreGridSpecification");
@@ -113,9 +111,8 @@ public class XMLFileReader {
   /**
    * Gets the details of the simulation grid
    * @return The grid details
-   * @throws XMLErrorHandler
    */
-  public GridOrPatchDetails getGridDetails() {
+  public GridOrPatchConfigurationSetup getGridDetails(){
     Element root = getRootElement(currentFile);
     Element current = (Element) ((Element) root.getElementsByTagName("gridInfo").item(0)).getElementsByTagName("grid").item(0);
     return getGridOrPatchDetails(current);
@@ -128,7 +125,7 @@ public class XMLFileReader {
   public Set getPatchDetails(){
     Element root = getRootElement(currentFile);
     NodeList current = ((Element) root.getElementsByTagName("gridInfo").item(0)).getElementsByTagName("patch");
-    Set<GridOrPatchDetails> allPatches = new HashSet<>();
+    Set<GridOrPatchConfigurationSetup> allPatches = new HashSet<>();
     for(int i = 0; i<current.getLength(); i++){
       allPatches.add(getGridOrPatchDetails((Element) current.item(i)));
     }
@@ -214,23 +211,23 @@ public class XMLFileReader {
 
 
   // get root element of an XML file
-  private Element getRootElement(File xmlFile) throws XMLErrorHandler {
+  private Element getRootElement(File xmlFile){
     try {
       DOCUMENT_BUILDER.reset();
       Document xmlDocument = DOCUMENT_BUILDER.parse(xmlFile);
       return xmlDocument.getDocumentElement();
     } catch (SAXException | IOException e) {
-      throw new XMLErrorHandler(e);
+      throw new ErrorHandler("RootElementError");
     }
   }
 
 
   // boilerplate code needed to make a documentBuilder
-  private DocumentBuilder getDocumentBuilder() throws XMLErrorHandler {
+  private DocumentBuilder getDocumentBuilder(){
     try {
       return DocumentBuilderFactory.newInstance().newDocumentBuilder();
     } catch (ParserConfigurationException e) {
-      throw new XMLErrorHandler(e);
+      throw new ErrorHandler("ParserConfigurationException");
     }
   }
 

@@ -40,6 +40,9 @@
         oooooooooooooooooooo
       </gridState>
 
+      <randomProbs>
+      </randomProbs>
+
       <codes>
         <key b='BlockedCell'></key>
         <key o='OpenCell'></key>
@@ -56,11 +59,5 @@
       </parameters>
     </grid>
   </gridInfo>
-
-  <colors>
-    <key b = '272929'></key>
-    <key o = 'EDF7F7'></key>
-    <key p = '0099F0'></key>
-  </colors>
 
 </simulation>

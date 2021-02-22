@@ -30,6 +30,9 @@
         d d d d d d d d d d
       </gridState>
 
+      <randomProbs>
+      </randomProbs>
+
       <codes>
         <key a='DeadCell'></key>
         <key d='AliveCell'></key>
@@ -44,10 +47,5 @@
       </parameters>
     </grid>
   </gridInfo>
-
-  <colors>
-    <key x= 'FFFFFF'></key>
-    <key O= '000000'></key>
-  </colors>
 
 </simulation>
