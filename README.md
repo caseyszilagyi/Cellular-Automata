@@ -7,9 +7,9 @@ Names: Donghan Park (dp239), George Hong (grh17), Casey Szilagyi (crs79)
 
 ### Timeline
 
-Start Date: 2/8/2020
+Start Date: 2/8/2021
 
-Finish Date: 
+Finish Date: 2/22/2021
 
 Hours Spent:
 - Casey: 25 
@@ -44,6 +44,8 @@ https://stackoverflow.com/questions/363681/how-do-i-generate-random-integers-wit
 Main class: `Main`
 
 Data files needed: 
+
+- Frontend: 
 
 Features implemented:
 
