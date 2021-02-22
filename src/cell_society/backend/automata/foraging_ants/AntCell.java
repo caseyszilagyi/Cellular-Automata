@@ -6,10 +6,12 @@ import cell_society.backend.automata.Neighbors;
 import cell_society.backend.automata.Patch;
 import cell_society.backend.automata.grid_styles.Direction;
 import cell_society.backend.automata.grid_styles.Grid;
+import cell_society.backend.simulation_initializer.CellParameters;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class AntCell extends Cell {
 
+  public static final String FOOD = "food";
   private int food;
   private Direction antDirection;
 
@@ -104,6 +106,7 @@ public class AntCell extends Cell {
 
   /**
    * Once the ant is on a new patch, the new patch has the ability to influence the ant's behavior.
+   *
    * @param neighbors   Cells that this cell uses to make its decisions
    * @param currentGrid Grid containing the current configuration of cells
    * @param nextGrid    Grid to contain the next configuration of cells

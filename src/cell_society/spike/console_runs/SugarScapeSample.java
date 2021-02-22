@@ -4,6 +4,7 @@ import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.Coordinate;
 import cell_society.backend.automata.Patch;
 import cell_society.backend.automata.grid_styles.Grid;
+import cell_society.backend.automata.grid_styles.InfiniteGrid;
 import cell_society.backend.automata.grid_styles.ToroidalGrid;
 import cell_society.backend.automata.sugar_scape.SugarAgentCell;
 import cell_society.backend.automata.sugar_scape.SugarPatch;
@@ -54,7 +55,7 @@ public class SugarScapeSample {
    * @param width
    */
   public static Grid step(Grid grid, int height, int width) {
-    Grid nextGrid = new ToroidalGrid(height, width);
+    Grid nextGrid = new InfiniteGrid(height, width);
     // Transfer Patch States
     nextGrid.updateRemainingPatches(grid);
     // Uncomment Following for standard procedures
@@ -106,7 +107,7 @@ public class SugarScapeSample {
    */
   public static Grid initGrid(int[][] cellConfig, int[][] patchConfig, int height, int width) {
     // Initialize myGrid
-    Grid grid = new ToroidalGrid(height, width);
+    Grid grid = new InfiniteGrid(height, width);
     for (int j = 0; j < height; j++) {
       for (int k = 0; k < width; k++) {
         if (!(cellConfig[j][k] == 0)) {

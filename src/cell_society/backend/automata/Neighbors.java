@@ -2,15 +2,19 @@ package cell_society.backend.automata;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * This class represents the neighbors cells a Cell object will use to make decisions.
+ *
+ * @author George Hong
  */
 public class Neighbors {
 
-  private List<Cell> neighborCells;
+  private final List<Cell> neighborCells;
 
+  /**
+   * Construct an empty instance of Neighbors
+   */
   public Neighbors() {
     neighborCells = new ArrayList<>();
   }
@@ -24,12 +28,22 @@ public class Neighbors {
     return neighborCells.size();
   }
 
+  /**
+   * Adds neighbor cell to Neighbors, automatically filtering out null candidates
+   *
+   * @param cell cell to be added to neighbors, can be null but will be filtered out.
+   */
   public void add(Cell cell) {
     if (cell != null) {
       neighborCells.add(cell);
     }
   }
 
+  /**
+   * Get neighbor from this neighbors object
+   * @param index index of neighbors in neighbors object.
+   * @return
+   */
   public Cell get(int index) {
     return neighborCells.get(index);
   }
@@ -49,8 +63,5 @@ public class Neighbors {
       }
     }
     return count;
-  }
-  public void removeNull(){
-    neighborCells.removeIf(Objects::isNull);
   }
 }

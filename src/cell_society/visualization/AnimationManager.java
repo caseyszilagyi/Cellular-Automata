@@ -20,6 +20,10 @@ public class AnimationManager {
 
   private boolean animationRunning;
 
+  /**
+   *
+   * @param displayManager
+   */
   public AnimationManager(DisplayManager displayManager){
     this.displayManager = displayManager;
     setupTimeline();
@@ -32,23 +36,30 @@ public class AnimationManager {
     double secondDelay = 1.0 / FPS;
 
     KeyFrame keyframe = new KeyFrame(Duration.seconds(secondDelay), e -> {
-      stepSimulation();
+      if(animationRunning){
+        stepSimulation();
+      }
+      updateDisplays();
     });
 
     animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(keyframe);
+    animation.play();
   }
 
   public void setSimulation(Simulation currentSim){
     this.currentSim = currentSim;
-    playSimulation();
   }
 
   public void stepSimulation(){
     if(currentSim != null){
       currentSim.makeStep();
-      //This gets the chars that represent the cells
+    }
+  }
+
+  private void updateDisplays(){
+    if(currentSim != null){
       displayManager.updateDisplayGrid();
       displayManager.updateDisplayGraph();
     }
@@ -62,16 +73,14 @@ public class AnimationManager {
     }
   }
 
-  public void playSimulation(){
+  private void playSimulation(){
     if(currentSim != null){
-      animation.play();
       animationRunning = true;
     }
   }
 
   public void pauseSimulation(){
     if(currentSim != null){
-      animation.pause();
       animationRunning = false;
     }
   }

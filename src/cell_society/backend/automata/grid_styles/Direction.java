@@ -7,6 +7,8 @@ import java.util.List;
  * This interface allows the programmer to define the discrete set of directions relevant in each
  * type of cell grid.  It provides many helper methods to the CellStructure class and centralizes
  * definitions for adjacent directions and neighborhoods.
+ *
+ * @author George Hong
  */
 public interface Direction {
 
@@ -21,18 +23,6 @@ public interface Direction {
   Coordinate getResultingCoordinate(int row, int col);
 
   /**
-   * Convenience method to compute the coordinate of the point pointed to by a given direction, in
-   * the neighborhood centered at (row, col), but scaled further away
-   *
-   * @param row
-   * @param col
-   * @param scale distance to travel in the selected direction.  scale = 1 defaults the function to
-   *              getResultingCoordinate(row, col)
-   * @return
-   */
-  //Coordinate getResultingCoordinate(int row, int col, int scale);
-
-  /**
    * Allows the implementing class to quickly obtain all cardinal directions.  For a square grid,
    * this would include spots to the North, East, South, and West.
    *
@@ -42,7 +32,15 @@ public interface Direction {
    */
   List<Direction> getAdjacentDirections(int row, int col);
 
+  /**
+   * Gets the Direction clockwise of this direction
+   * @return Direction clockwise of this direction
+   */
   Direction rotateCW();
 
+  /**
+   * Gets the Direction counterclockwise of this direction
+   * @return Direction clockwise of this direction
+   */
   Direction rotateCCW();
 }

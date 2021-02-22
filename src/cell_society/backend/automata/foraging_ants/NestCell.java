@@ -4,17 +4,30 @@ import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.Coordinate;
 import cell_society.backend.automata.Neighbors;
 import cell_society.backend.automata.grid_styles.Grid;
+import cell_society.backend.simulation_initializer.CellParameters;
 import java.util.List;
 
 public class NestCell extends Cell {
 
-  private final int spawnRate;
+  public static final String SPAWN_RATE = "spawnrate";
+  public static final String SPAWN_TIMER = "spawntimer";
+  private int spawnRate;
   private int spawnTimer;
 
   public NestCell(int row, int col, int spawnRate) {
     super(row, col);
     this.spawnTimer = 0;
     this.spawnRate = spawnRate;
+  }
+
+  public NestCell() {
+
+  }
+
+  @Override
+  public void initializeParams(CellParameters parameters) {
+    spawnRate = parameters.getAsInt(SPAWN_RATE);
+    spawnTimer = parameters.getAsInt(SPAWN_TIMER);
   }
 
   @Override

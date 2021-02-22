@@ -33,9 +33,15 @@ For window resize listeners: https://blog.idrsolutions.com/2012/11/adding-a-wind
 
 For weighted random generation: https://stackoverflow.com/questions/6409652/random-weighted-selection-in-java
 
+For using a Pair-like object with HashMaps:
+https://stackoverflow.com/questions/14677993/how-to-create-a-hashmap-with-two-keys-key-pair-value
+
+Generating Random integers:
+https://stackoverflow.com/questions/363681/how-do-i-generate-random-integers-within-a-specific-range-in-java
+
 ### Running the Program
 
-Main class: Main
+Main class: `Main`
 
 Data files needed: 
 

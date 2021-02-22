@@ -1,6 +1,5 @@
 package cell_society.backend.automata.rock_paper_scissors;
 
-import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.grid_styles.Grid;
 
 public class LizardCell extends RPSCell {
@@ -9,7 +8,7 @@ public class LizardCell extends RPSCell {
 
   }
 
-  public LizardCell(int row, int col, int threshold){
+  public LizardCell(int row, int col, int threshold) {
     super(row, col, threshold);
   }
 

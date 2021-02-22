@@ -4,6 +4,10 @@ import cell_society.backend.automata.Coordinate;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Enumerates Square Directions with a 2D grid representation.
+ * @author George Hong
+ */
 public enum SquareDirection implements Direction {
   TOP(-1, 0),
   TOP_RIGHT(-1, 1),

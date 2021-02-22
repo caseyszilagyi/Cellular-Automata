@@ -1,22 +1,32 @@
 package cell_society.backend.automata;
 
+/**
+ * Object representing a pair of Cartesian Coordinates
+ *
+ * @author George Hong
+ */
 public class Coordinate {
 
-  // immutable instance variables
-  // NOTE: these can be any two types, same or different
   private final int first;
   private final int second;
 
   /**
    * Create a pair directly from the given values
-   * @param first
-   * @param second
+   *
+   * @param first  first coordinate
+   * @param second second coordinate
    */
   public Coordinate(int first, int second) {
     this.first = first;
     this.second = second;
   }
-  public Coordinate(Coordinate coordinate){
+
+  /**
+   * Copy a coordiante object
+   *
+   * @param coordinate coordinate object to copy
+   */
+  public Coordinate(Coordinate coordinate) {
     this.first = coordinate.first;
     this.second = coordinate.second;
   }
@@ -44,6 +54,10 @@ public class Coordinate {
     return "(" + first + ", " + second + ")";
   }
 
+  /**
+   * @return int hashcode
+   * @see Object#hashCode()
+   */
   @Override
   public int hashCode() {
     // https://stackoverflow.com/questions/14677993/how-to-create-a-hashmap-with-two-keys-key-pair-value
@@ -52,10 +66,20 @@ public class Coordinate {
     return result;
   }
 
+  /**
+   * @param obj other coordinate object to compare to
+   * @return boolean representing whether the two objects are considered equal
+   * @see Object#equals(Object)
+   */
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) return true;
-    if (!(obj instanceof Coordinate)) return false;
+    // https://stackoverflow.com/questions/14677993/how-to-create-a-hashmap-with-two-keys-key-pair-value
+    if (this == obj) {
+      return true;
+    }
+    if (!(obj instanceof Coordinate)) {
+      return false;
+    }
     Coordinate coordinate = (Coordinate) obj;
     return first == coordinate.first && second == coordinate.second;
   }
