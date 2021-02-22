@@ -25,6 +25,8 @@ public class GridDisplay extends ViewDisplay {
   private int gridWidth, gridHeight;
   private double cellWidth, cellHeight;
 
+  private final boolean isOutlinesOn;
+
   /**
    *
    * @param scene
@@ -34,6 +36,7 @@ public class GridDisplay extends ViewDisplay {
     super();
     this.scene = scene;
     this.pane = pane;
+    isOutlinesOn = true; // change this to toggle cell outlines on/off
   }
 
   /**
@@ -129,8 +132,14 @@ public class GridDisplay extends ViewDisplay {
       case TRIANGLE_DOWN -> drawTriangleCellPointingDown(cell, x, y);
     }
 
-    cell.setFill(Color.web(resourceBundle.getString(Integer.toString(colorCode))));
-    cell.setStroke(Color.BLACK);
+    Color cellColor = Color.web(resourceBundle.getString(Integer.toString(colorCode)));
+    cell.setFill(cellColor);
+
+    if (Boolean.parseBoolean(resourceBundle.getString("Outlines"))) {
+      cell.setStroke(Color.BLACK);
+    } else {
+      cell.setStroke(cellColor);
+    }
 
     pane.getChildren().add(cell);
   }
