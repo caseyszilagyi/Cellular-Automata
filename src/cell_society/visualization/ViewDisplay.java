@@ -1,6 +1,5 @@
 package cell_society.visualization;
 
-import cell_society.backend.Simulation;
 import java.util.ResourceBundle;
 
 /**
