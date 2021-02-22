@@ -33,4 +33,6 @@ public class RockCell extends RPSCell {
   public String getGridRepresentation() {
     return "R";
   }
+
+  public String toString(){ return "RockCell"; }
 }

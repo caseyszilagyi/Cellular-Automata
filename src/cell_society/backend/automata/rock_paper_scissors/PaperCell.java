@@ -33,4 +33,6 @@ public class PaperCell extends RPSCell {
   public String getGridRepresentation() {
     return "P";
   }
+
+  public String toString(){ return "PaperCell"; }
 }

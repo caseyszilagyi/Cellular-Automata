@@ -56,10 +56,10 @@ public class SimulationInitializer {
   }
 
 
-  //private Set<GridOrPatchDetails> makePatchDetails(){
-    //Set<GridOrPatchDetails> details = xmlFileReader.getPatchDetails();
-    //return details;
-  //}
+  private Set<GridOrPatchConfigurationSetup> makePatchDetails(){
+    Set<GridOrPatchConfigurationSetup> details = xmlFileReader.getPatchDetails();
+    return details;
+  }
 
   // Gets all of the maps that are used for various different purposes
   private void getMaps() {

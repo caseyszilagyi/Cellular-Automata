@@ -2,6 +2,7 @@ package cell_society.backend.simulation_initializer;
 
 import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.CellStructure;
+import cell_society.backend.automata.Patch;
 import cell_society.backend.automata.grid_styles.Grid;
 import cell_society.backend.simulation_stepper.SimulationStepper;
 import cell_society.controller.ErrorHandler;
@@ -20,6 +21,7 @@ public class SimulationClassLoader {
   private String GRID_LOCATION = "cell_society.backend.automata.grid_styles.";
   private String CELL_LOCATION;
   private String PACKAGE_LOCATION = "cell_society.backend.automata.";
+  private String PATCH_LOCATION = "cell_society.backend.automata.foraging_ants.AntPatch";
 
   private ClassLoader classLoader = new ClassLoader() {
   };
@@ -112,6 +114,24 @@ public class SimulationClassLoader {
       throw new ErrorHandler("InvalidStructureType");
     }
     return myStructure;
+  }
+
+  /**
+   * Makes a patch of the specified type
+   * @param patchType The patch type
+   * @return The Patch
+   */
+  public Patch makePatch(String patchType) {
+    Patch myPatch = null;
+    try {
+      Object patch = classLoader
+          .loadClass(PATCH_LOCATION)
+          .getDeclaredConstructor().newInstance();
+      myPatch = (Patch) patch;
+    } catch (Exception e) {
+      throw new ErrorHandler("InvalidPatchType");
+    }
+    return myPatch;
   }
 
 

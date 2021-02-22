@@ -28,4 +28,6 @@ public class SpockCell extends RPSCell {
   public String getGridRepresentation() {
     return "S";
   }
+
+  public String toString() { return "SpockCell"; }
 }
