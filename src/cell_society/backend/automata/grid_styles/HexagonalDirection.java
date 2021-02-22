@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Enumerates Hexagonal Directions with a 2D grid representation.
+ * @author George Hong
+ */
 public enum HexagonalDirection implements Direction {
 
   // rows with odd indices are shifted to the right and have alternative indices to apply

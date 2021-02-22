@@ -12,6 +12,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Holds all Cells in a simulation.  By default, the Grid has square cells.
+ */
 public class Grid {
 
   private Cell[][] grid;
@@ -31,7 +34,8 @@ public class Grid {
   }
 
   /**
-   * Copy constructor for the stepper to use to make a new grid with ease
+   * Copy constructor for the stepper to use to make a new grid with ease, transferring tools for
+   * communication with frontend.
    *
    * @param grid The last grid
    */
@@ -49,6 +53,12 @@ public class Grid {
   public Grid() {
   }
 
+  /**
+   * Gets the current Grid Cell Structure.  The gridCellStructure has no instance variables to
+   * modify and is provided as a utility to compute points and obtain directions.
+   *
+   * @return cell structure of this Grid
+   */
   public CellStructure getGridCellStructure() {
     return gridCellStructure;
   }
@@ -103,7 +113,7 @@ public class Grid {
 
   /**
    * Returns All cells neighboring the selected position, within one block, on the Grid.  This
-   * produces a maximum of 8 neighbors.
+   * produces a maximum of 8 neighbors for a square cell structure.
    *
    * @param row row index of grid to identify surrounding neighbors
    * @param col column index of grid to identify surrounding neighbors
@@ -124,7 +134,8 @@ public class Grid {
 
   /**
    * Returns all cells adjacent to the selected position, within one block, on the Grid.  This has
-   * the potential to result in a cross search pattern, producing a maximum of 4 neighbors.
+   * the potential to result in a cross search pattern, producing a maximum of 4 neighbors for a
+   * square grid.
    *
    * @param row row index of grid to identify surrounding neighbors
    * @param col column index of grid to identify surrounding neighbors
@@ -144,9 +155,10 @@ public class Grid {
   }
 
   /**
-   * Gets a list of all spots in the grid, unoccupied by other cells
+   * Gets a list of all spots in the grid, unoccupied by other cells.  This is useful for mass Cell
+   * relocations.  The returned list can be mutated as desired.
    *
-   * @return
+   * @return List of Coordinates currently unoccupied by other cells.
    */
   public List<Coordinate> getAllVacantSpots() {
     List<Coordinate> vacantCoordinates = new LinkedList<>();
@@ -172,7 +184,13 @@ public class Grid {
     return grid[row][col] == null;
   }
 
-  public boolean isEmpty(Coordinate coord){
+  /**
+   * Determines whether the specified coordinate contains a cell
+   *
+   * @param coord
+   * @return
+   */
+  public boolean isEmpty(Coordinate coord) {
     return isEmpty(coord.getFirst(), coord.getSecond());
   }
 
@@ -180,15 +198,16 @@ public class Grid {
    * This method provides a quick check that a provided coordinate is within the bounds of the
    * Grid.
    *
-   * @param row
-   * @param col
-   * @return
+   * @param row row index of the coordinate to check
+   * @param col column index of the coordinate to check
+   * @return boolean representing whether the provided row and column indexes are within the bounds
+   * of the grid.
    */
   public boolean inBoundaries(int row, int col) {
     return !(row >= gridHeight || row < 0 || col >= gridWidth || col < 0);
   }
 
-  public boolean inBoundaries(Coordinate coord){
+  public boolean inBoundaries(Coordinate coord) {
     int row = coord.getFirst();
     int col = coord.getSecond();
     return inBoundaries(row, col);
@@ -234,7 +253,7 @@ public class Grid {
   }
 
   /**
-   * Uniform list of coordinates to update through.
+   * List of coordinates to update through.
    *
    * @return
    */
@@ -249,7 +268,13 @@ public class Grid {
   }
 
   protected List<Coordinate> getPatchUpdateList() {
-    return null;
+    List<Coordinate> coordinateList = new ArrayList<>();
+    for (int j = 0; j < gridHeight; j++){
+      for (int k = 0; k < gridWidth; k++){
+        coordinateList.add(new Coordinate(j, k));
+      }
+    }
+    return coordinateList;
   }
 
   /**
@@ -297,7 +322,7 @@ public class Grid {
    * @return A 2D array of string codes.
    */
   public int[] getIntDisplay() {
-    int[] display = new int[gridHeight * gridWidth+3];
+    int[] display = new int[gridHeight * gridWidth + 3];
     display[0] = gridCellStructure.getCode();
     display[1] = getGridHeight();
     display[2] = getGridWidth();
@@ -306,9 +331,9 @@ public class Grid {
       for (int k = 0; k < gridWidth; k++) {
         if (grid[j][k] != null) {
           int curr;
-          try{
+          try {
             curr = Integer.parseInt(cellDecoder.get(grid[j][k].toString()));
-          }catch (Exception e){
+          } catch (Exception e) {
             throw new ErrorHandler("InvalidCellMapping");
           }
           display[i] = curr;
@@ -323,11 +348,12 @@ public class Grid {
 
   /**
    * Calculate the distribution of each type of cell.
+   *
    * @return
    */
   public Map<Integer, Integer> getCellDistribution() {
     Map<Integer, Integer> map = new HashMap<>();
-    for (Coordinate coordinate : getCoordinateUpdateList()){
+    for (Coordinate coordinate : getCoordinateUpdateList()) {
       int row = coordinate.getFirst();
       int col = coordinate.getSecond();
       Cell cell = getCell(row, col);
@@ -339,8 +365,8 @@ public class Grid {
   }
 
   /**
-   * @Deprecated, please use printCurrentState for a more general debug function.
-   * Used for debugging
+   * @Deprecated, please use printCurrentState for a more general debug function. Used for
+   * debugging
    */
   public void printCurrentState() {
     for (int j = 0; j < gridHeight; j++) {
@@ -358,8 +384,8 @@ public class Grid {
    *
    * @param rowIndex row index of the top-left bounding corner
    * @param colIndex column index of the top-left bounding corner
-   * @param height height of the grid slice
-   * @param width width of the grid slice
+   * @param height   height of the grid slice
+   * @param width    width of the grid slice
    */
   public void printCurrentState(int rowIndex, int colIndex, int height, int width) {
     for (int j = rowIndex; j < rowIndex + height; j++) {
@@ -374,18 +400,21 @@ public class Grid {
   }
 
   /**
-   * Print debugger for displaying the Patch state.  Slices into the grid and accepts negative coordiantes.
+   * Print debugger for displaying the Patch state.  Slices into the grid and accepts negative
+   * coordiantes.
+   *
    * @param rowIndex row index of the top-left bounding corner
    * @param colIndex column index of the top-left bounding corner
-   * @param height height of the grid slice
-   * @param width width of the grid slice
+   * @param height   height of the grid slice
+   * @param width    width of the grid slice
    */
   public void printCurrentPatchState(int rowIndex, int colIndex, int height, int width) {
     for (int j = rowIndex; j < rowIndex + height; j++) {
       for (int k = colIndex; k < colIndex + width; k++) {
         String token =
             // Printing of Patches
-            !inBoundaries(j, k) || getPatch(j, k) == null ? "_" : getPatch(j, k).getGridRepresentation();
+            !inBoundaries(j, k) || getPatch(j, k) == null ? "_"
+                : getPatch(j, k).getGridRepresentation();
         System.out.print("." + token + ".");
       }
       System.out.println();

@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * @author George Hong
+ */
+
 public class HexagonStructure extends CellStructure {
 
   @Override
@@ -33,7 +37,7 @@ public class HexagonStructure extends CellStructure {
     return directions[ThreadLocalRandom.current().nextInt(0, length)];
   }
 
-  public int getCode(){
+  public int getCode() {
     return 2;
   }
 }

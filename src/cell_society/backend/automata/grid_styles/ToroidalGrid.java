@@ -5,7 +5,10 @@ import cell_society.backend.automata.Coordinate;
 import cell_society.backend.automata.Patch;
 
 /**
- * The toroidal grid is connected from sides, following a slightly different set of rules.  Cells can leave any side of the Grid, and appear on the opposite side.
+ * The toroidal grid is connected from sides, following a slightly different set of rules.  Cells
+ * can leave any side of the Grid, and appear on the opposite side.
+ *
+ * @author George Hong
  */
 public class ToroidalGrid extends Grid {
 
@@ -13,7 +16,7 @@ public class ToroidalGrid extends Grid {
    * Makes a grid with the given width/height
    *
    * @param gridHeight initial height of the Toroidal Grid
-   * @param gridWidth initial width of the Toroidal Grid
+   * @param gridWidth  initial width of the Toroidal Grid
    */
   public ToroidalGrid(int gridHeight, int gridWidth) {
     super(gridHeight, gridWidth);
