@@ -119,7 +119,6 @@ public class InfiniteGrid extends Grid {
    */
   @Override
   public void updateRemainingPatches(Grid otherGrid) {
-    //List<Coordinate> coordinateList = getCoordinateUpdateList();
     List<Coordinate> coordinateList = otherGrid.getPatchUpdateList();
     for (Coordinate coord : coordinateList) {
       if (gridStates.get(coord) == null) {
