@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation>
+  <parameters>
+    <parameter threshold="0,8,2"></parameter>
+  </parameters>
+</simulation>

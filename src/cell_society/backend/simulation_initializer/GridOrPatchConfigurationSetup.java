@@ -61,7 +61,12 @@ public class GridOrPatchConfigurationSetup {
     }
   }
 
+  private void parseGrid(){
+    grid = grid.replace("\n", "").replace(" ", "");
+  }
+
   private void setUpGrid(){
+    parseGrid();
     if(grid.replace("\n", "").replace(" ", "").equals("Random")){
       StringBuilder sb = new StringBuilder();
       RandomCollection<String> weights = populateWeights();

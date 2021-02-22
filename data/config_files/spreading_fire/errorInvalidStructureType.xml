@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation type="spreading_fire">
+  <title>Spreading Fire</title>
+  <author></author>
+  <desc>Simulation designed to show the spread of wildfire in a forest</desc>
+
+  <coreSpecifications>
+    <type cellPackage ="spreading_fire"></type>
+    <type gridType = "Grid"></type>
+    <type stepperType = "SimulationStepper"></type>
+    <type structureType = "Octagon"></type>
+  </coreSpecifications>
+
+  <gridInfo>
+    <rows>40</rows>
+    <columns>40</columns>
+
+    <grid>
+      <type>Grid</type>
+      <gridState>
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttftttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+        tttttttttttttttttttttttttttttttttttttttt
+      </gridState>
+
+      <randomProbs>
+      </randomProbs>
+
+      <codes>
+        <key t='TreeCell'></key>
+        <key f='FireCell'></key>
+        <key e ='Empty'></key>
+      </codes>
+
+      <decoder>
+        <key TreeCell = '1'></key>
+        <key FireCell = '2'></key>
+      </decoder>
+
+      <parameters>
+        <parameter probcatch='1.0'/>
+      </parameters>
+    </grid>
+
+  </gridInfo>
+
+</simulation>

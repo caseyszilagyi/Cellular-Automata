@@ -2,9 +2,11 @@ package cell_society.backend.simulation_initializer;
 
 import cell_society.backend.automata.Cell;
 import cell_society.backend.automata.CellStructure;
+import cell_society.backend.automata.Patch;
 import cell_society.backend.automata.grid_styles.Grid;
 import cell_society.controller.ErrorHandler;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Makes and populates the grid that is used to hold all of the cells present in the simulation.
@@ -62,12 +64,29 @@ public class GridCreator {
     int i = 0;
     for (int r = 0; r < simulationGrid.getGridHeight(); r++) {
       for (int c = 0; c < simulationGrid.getGridWidth(); c++) {
-        Cell newCell = CLASS_LOADER.makeCell(cellCodes.get(Character.toString(grid.charAt(i))), CELL_PARAMETERS);
-        if(newCell != null) {
-          newCell.setPosition(r, c);
-          simulationGrid.placeCell(r, c, newCell);
-        }
+        makeCell(grid, cellCodes, i, r, c);
         i++;
+      }
+    }
+  }
+
+  //Makes a single cell
+  private void makeCell(String grid, Map<String, String> cellCodes, int i, int r, int c) {
+    Cell newCell = CLASS_LOADER.makeCell(cellCodes.get(Character.toString(grid.charAt(i))), CELL_PARAMETERS);
+    if(newCell != null) {
+      newCell.setPosition(r, c);
+      simulationGrid.placeCell(r, c, newCell);
+    }
+  }
+
+  public void placePatches(Set<GridOrPatchConfigurationSetup> allPatches){
+    for (int r = 0; r < simulationGrid.getGridHeight(); r++) {
+      for (int c = 0; c < simulationGrid.getGridWidth(); c++) {
+        for(GridOrPatchConfigurationSetup g: allPatches){
+
+        }
+        Patch newPatch = CLASS_LOADER.makePatch("test");
+
       }
     }
   }

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
   <parameters>
+    <parameter spawnrate = "1,10,5"></parameter>
+    <parameter spawntimer = "1,10,5"></parameter>
   </parameters>
 </simulation>

@@ -93,4 +93,10 @@ public class NestCell extends Cell {
   public String getGridRepresentation() {
     return "N";
   }
+
+  @Override
+  public String toString() {
+    return "NestCell";
+  }
+
 }

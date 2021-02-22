@@ -33,4 +33,6 @@ public class ScissorCell extends RPSCell {
   public String getGridRepresentation() {
     return "X";
   }
+
+  public String toString(){ return "ScissorCell"; }
 }

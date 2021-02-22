@@ -141,4 +141,9 @@ public class AntCell extends Cell {
   public String getGridRepresentation() {
     return "A";
   }
+
+  @Override
+  public String toString() {
+    return "AntCell";
+  }
 }

@@ -49,6 +49,7 @@ public class Simulation {
   public void makeStep() {
     simulationStepper.makeStep();
     simulationGrid = simulationStepper.getGrid();
+    getParameters();
   }
 
   /**
@@ -77,7 +78,7 @@ public class Simulation {
   }
 
   public void setParameters(Map<String, String> userValues){
-
+    simulationGrid.updateCellParameters(userValues);
   }
 
 }
