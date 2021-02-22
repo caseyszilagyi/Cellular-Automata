@@ -34,6 +34,7 @@ public class DisplayManager {
   private final AnimationManager animationManager;
   private final Pane gridPane;
   private final Pane graphPane;
+  private final Pane buttonPane;
 
   private final String VISUALIZATION_RESOURCE_PACKAGE = "cell_society/visualization/resources";
 
@@ -71,8 +72,10 @@ public class DisplayManager {
 
     gridPane = new Pane();
     graphPane = new Pane();
+    buttonPane = new Pane();
     root.getChildren().add(gridPane);
     root.getChildren().add(graphPane);
+    root.getChildren().add(buttonPane);
 
     gridDisplay = new GridDisplay(scene, gridPane);
     graphDisplay = new GraphDisplay(scene, graphPane);
@@ -138,7 +141,7 @@ public class DisplayManager {
   }
 
   private void makeAllButtons() {
-    root.getChildren().clear();
+    buttonPane.getChildren().clear();
 
     Button loadSimButton = makeButton(LOAD_NEW_SIMULATION_BUTTON_PROPERTY, 10, 10, 120);
     Button openNewSimButton = makeButton(OPEN_NEW_WINDOW_BUTTON_PROPERTY, 10 + 10 + 120, 10, 160);
@@ -169,7 +172,7 @@ public class DisplayManager {
     button.setLayoutX(x);
     button.setLayoutY(y);
     button.setPrefWidth(buttonWidth);
-    root.getChildren().add(button);
+    buttonPane.getChildren().add(button);
     return button;
   }
 
@@ -181,7 +184,7 @@ public class DisplayManager {
     for (String choice : choices) {
       choiceBox.getItems().add(choice);
     }
-    root.getChildren().add(choiceBox);
+    buttonPane.getChildren().add(choiceBox);
     return choiceBox;
   }
 
