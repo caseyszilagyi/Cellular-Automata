@@ -10,6 +10,7 @@ public class ViewDisplay {
 
   private Simulation currentSim;
   private String currentSimType;
+  private boolean isMinimized;
 
   private final int HORIZONTAL_BORDER_LENGTH = 50;
   private final int VERTICAL_BORDER_LENGTH = 90;
@@ -17,6 +18,7 @@ public class ViewDisplay {
   public ViewDisplay(){
     currentSim = null;
     currentSimType = null;
+    isMinimized = true;
   }
 
   public void setCurrentSimInfo(Simulation currentSim, String currentSimType){
@@ -33,11 +35,17 @@ public class ViewDisplay {
     return ResourceBundle.getBundle(String.format("%s/%s", simColorCodesPackage, currentSimType));
   }
 
+  public void setIsMinimized(boolean isMinimized){
+    this.isMinimized = isMinimized;
+  }
+
+  public boolean getIsMinimized() { return isMinimized; }
+
   public int getHorizontalBorderLength(){
     return HORIZONTAL_BORDER_LENGTH;
   }
 
-  public int getVERTICAL_BORDER_LENGTH(){
+  public int getVerticalBorderLength(){
     return VERTICAL_BORDER_LENGTH;
   }
 }
