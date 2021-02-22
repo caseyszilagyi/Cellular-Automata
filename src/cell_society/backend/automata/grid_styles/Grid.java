@@ -351,9 +351,8 @@ public class Grid {
     CellParameters cellParameters = new CellParameters(paramMap);
     for(Coordinate c: getCoordinateUpdateList()){
       Cell current = getCell(c.getFirst(), c.getSecond());
-      if(current != null) {
-        current.initializeParams(cellParameters);
-      }
+      if (current == null) continue;
+      current.initializeParams(cellParameters);
     }
   }
 

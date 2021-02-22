@@ -12,7 +12,7 @@ Start Date: 2/8/2020
 Finish Date: 
 
 Hours Spent:
-- Casey: 25 
+- Casey: 25
 - George: 25
 - Donghan: 10
 
