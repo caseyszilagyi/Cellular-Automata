@@ -1,13 +1,28 @@
 package cell_society.backend.automata.sugar_scape;
 
 import cell_society.backend.automata.Patch;
+import cell_society.backend.simulation_initializer.CellParameters;
 
 public class SugarPatch extends Patch {
 
   public static final String SUGAR = "sugar";
-  private final int sugarGrowBackRate;
-  private final int sugarGrowBackInterval;
+  public static final String SUGAR_GROWBACK_RATE = "sugargrowbackrate";
+  public static final String SUGAR_GROW_BACK_INTERVAL = "sugargrowbackinterval";
+  private int sugarGrowBackRate;
+  private int sugarGrowBackInterval;
   private int sugarGrowBackCounter;
+
+  public SugarPatch(){
+
+  }
+
+  @Override
+  public void initializeParams(CellParameters parameters) {
+    sugarGrowBackRate = parameters.getAsInt(SUGAR_GROWBACK_RATE);
+    sugarGrowBackInterval = parameters.getAsInt(SUGAR_GROW_BACK_INTERVAL);
+    super.setState(SUGAR, parameters.getAsInt(SUGAR));
+    sugarGrowBackCounter = 0;
+  }
 
   public SugarPatch(int sugar, int sugarGrowBackRate, int sugarGrowBackInterval) {
     sugarGrowBackCounter = 0;

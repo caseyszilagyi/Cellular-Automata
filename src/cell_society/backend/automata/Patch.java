@@ -1,5 +1,6 @@
 package cell_society.backend.automata;
 
+import cell_society.backend.simulation_initializer.CellParameters;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +19,10 @@ public class Patch {
    * Initialize a Patch
    */
   public Patch() {
+
+  }
+
+  public void initializeParams(CellParameters parameters) {
 
   }
 

@@ -92,4 +92,6 @@ public class SugarAgentCell extends Cell {
   public String getGridRepresentation() {
     return "@";
   }
+
+
 }
