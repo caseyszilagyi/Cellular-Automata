@@ -37,7 +37,7 @@ public class ViewDisplay {
     return HORIZONTAL_BORDER_LENGTH;
   }
 
-  public int getVERTICAL_BORDER_LENGTH(){
+  public int getVerticalBorderLength(){
     return VERTICAL_BORDER_LENGTH;
   }
 }

@@ -43,9 +43,9 @@ public class GridDisplay extends ViewDisplay {
     pane.getChildren().clear();
 
     double screenWidth = scene.getWidth() - getHorizontalBorderLength() * 2.0;
-    double screenHeight = scene.getHeight() - (getVERTICAL_BORDER_LENGTH() + getHorizontalBorderLength());
+    double screenHeight = scene.getHeight() - (getVerticalBorderLength() + getHorizontalBorderLength());
 
-    screenWidth = screenWidth / 2.0;
+    //screenWidth = screenWidth / 2.0;
 
     int cellShapeKey = cellColorSheet[0];
     gridHeight = cellColorSheet[1];
@@ -66,7 +66,7 @@ public class GridDisplay extends ViewDisplay {
       for (int col = 0; col < gridWidth; col++) {
         createCell(
             col * cellWidth + getHorizontalBorderLength(),
-            row * cellHeight + getVERTICAL_BORDER_LENGTH(),
+            row * cellHeight + getVerticalBorderLength(),
             cellColorSheet[3 + row * gridWidth + col],
             RECTANGLE
         );
@@ -81,7 +81,7 @@ public class GridDisplay extends ViewDisplay {
       for(int col = 0; col < gridWidth; col++){
         createCell(
             col * cellWidth + getHorizontalBorderLength() + horizontalBorderLength,
-            row * cellHeight + getVERTICAL_BORDER_LENGTH(),
+            row * cellHeight + getVerticalBorderLength(),
             cellColorSheet[3 + row * gridWidth + col],
             HEXAGON
         );
@@ -102,7 +102,7 @@ public class GridDisplay extends ViewDisplay {
       for(int col = 0; col < gridWidth; col++){
         createCell(
             col * cellWidth + getHorizontalBorderLength(),
-            row * cellHeight + getVERTICAL_BORDER_LENGTH(),
+            row * cellHeight + getVerticalBorderLength(),
             cellColorSheet[3 + row * gridWidth + col],
             trianglePointingDirection
         );

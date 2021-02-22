@@ -17,12 +17,12 @@ public class Main extends Application {
 
   @Override
   public void start(Stage stage) {
-    createNewWindow(STAGE_TITLE);
+    createNewWindow();
   }
 
-  public void createNewWindow(String stageTitle){
+  public void createNewWindow(){
     Stage stage = new Stage();
-    stage.setTitle(stageTitle);
+    stage.setTitle(STAGE_TITLE);
     stage.setMinWidth(800);
     stage.setMinHeight(600);
 

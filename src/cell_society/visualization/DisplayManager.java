@@ -47,6 +47,8 @@ public class DisplayManager {
   private final String GRAPH_BUTTON_PROPERTY = "GraphButton";
   private final String[] COLOR_MODES_LIST = {"Dark Mode", "Light Mode", "Colorful Mode"};
 
+  private final String ERROR_TITLE = "ErrorTitle";
+
   private Simulation currentSim;
   private String currentSimulationType;
 
@@ -84,31 +86,6 @@ public class DisplayManager {
     scene.getStylesheets().add(getClass().getResource(String.format("/%s/stylesheets/%s", VISUALIZATION_RESOURCE_PACKAGE, fileName)).toExternalForm());
   }
 
-  private void loadNewSimulation(String simulationType, String fileName){
-    if (!simulationType.equals("") && !fileName.equals("")){
-      try {
-        currentSim = new Simulation(simulationType, fileName);
-        currentSimulationType = simulationType;
-        currentSim.initializeSimulation();
-        animationManager.setSimulation(currentSim);
-
-        gridDisplay.setCurrentSimInfo(currentSim, currentSimulationType);
-        graphDisplay.setCurrentSimInfo(currentSim, currentSimulationType);
-        updateDisplayGraph();
-        updateDisplayGrid();
-
-        animationManager.pauseSimulation();
-      } catch (Exception error){
-        Alert newAlert = new Alert(AlertType.ERROR);
-        newAlert.setTitle(resourceBundle.getString("ErrorTitle"));
-        newAlert.setHeaderText(null);
-        newAlert.setContentText(resourceBundle.getString(error.getMessage()));
-
-        newAlert.showAndWait();
-      }
-    }
-  }
-
   private String[] loadNewFile(){
     FileChooser fileChooser = new FileChooser();
     fileChooser.setInitialDirectory(new File("data/config_files"));
@@ -123,67 +100,55 @@ public class DisplayManager {
     return new String[] {"", ""};
   }
 
-  private void openNewWindow(){
-    main.createNewWindow("Test stage");
+  private void loadNewSimulation(String simulationType, String fileName){
+    if (!simulationType.equals("") && !fileName.equals("")){
+      try {
+        currentSim = new Simulation(simulationType, fileName);
+        currentSimulationType = simulationType;
+
+        currentSim.initializeSimulation(); //initialize backend sim
+
+        animationManager.setSimulation(currentSim);
+        gridDisplay.setCurrentSimInfo(currentSim, currentSimulationType);
+        graphDisplay.setCurrentSimInfo(currentSim, currentSimulationType);
+
+        animationManager.pauseSimulation();
+
+        updateDisplayGraph();
+        updateDisplayGrid();
+      }
+      catch (Exception error){
+        createErrorDialog(error);
+      }
+    }
   }
 
-  private void makeAllButtons(){
-    ComboBox<String> colorModeButton = makeDropdownButton(COLOR_MODE_BUTTON_PROPERTY, 10+10+80+10+80+10+120, 40, 120, COLOR_MODES_LIST);
+  private void createErrorDialog(Exception error){
+    Alert newAlert = new Alert(AlertType.ERROR);
+    newAlert.setTitle(resourceBundle.getString(ERROR_TITLE));
+    newAlert.setHeaderText(null);
+    newAlert.setContentText(resourceBundle.getString(error.getMessage()));
+    newAlert.showAndWait();
+  }
+
+  private void makeAllButtons() {
     Button loadSimButton = makeButton(LOAD_NEW_SIMULATION_BUTTON_PROPERTY, 10, 10, 120);
-    Button addNewSimButton = makeButton(OPEN_NEW_WINDOW_BUTTON_PROPERTY, 10+10+120, 10, 160);
-
+    Button openNewSimButton = makeButton(OPEN_NEW_WINDOW_BUTTON_PROPERTY, 10 + 10 + 120, 10, 160);
     Button playPauseButton = makeButton(PLAY_PAUSE_BUTTON_PROPERTY, 10, 40, 80);
-    Button stepButton = makeButton(STEP_BUTTON_PROPERTY, 10+10+80, 40, 80);
-    Button speedButton = makeButton(SPEED_BUTTON_PROPERTY, 10+10+80+10+80, 40, 120);
-
+    Button stepButton = makeButton(STEP_BUTTON_PROPERTY, 10 + 10 + 80, 40, 80);
+    Button speedButton = makeButton(SPEED_BUTTON_PROPERTY, 10 + 10 + 80 + 10 + 80, 40, 120);
+    ComboBox<String> colorModeButton = makeDropdownButton(COLOR_MODE_BUTTON_PROPERTY, 10 + 10 + 80 + 10 + 80 + 10 + 120, 40, 120, COLOR_MODES_LIST);
     Button gridButton = makeButton(GRID_BUTTON_PROPERTY, scene.getWidth() - 130, 10, 120);
-    Button graphButton = makeButton(GRAPH_BUTTON_PROPERTY, scene.getWidth()- 130, 40, 120);
+    Button graphButton = makeButton(GRAPH_BUTTON_PROPERTY, scene.getWidth() - 130, 40, 120);
 
-    gridButton.setOnMouseClicked(e -> {
-      if(gridPane.isVisible()){
-        gridPane.setVisible(false);
-      } else {
-        gridPane.setVisible(true);
-      }
-    });
-
-    graphButton.setOnMouseClicked(e -> {
-      if(graphPane.isVisible()){
-        graphPane.setVisible(false);
-      } else {
-        graphPane.setVisible(true);
-      }
-    });
-
-    loadSimButton.setOnMouseClicked(e -> {
-      animationManager.pauseSimulation();
-      String[] simulationInfo = loadNewFile();
-      loadNewSimulation(simulationInfo[0], simulationInfo[1]);
-    });
-
-    addNewSimButton.setOnMouseClicked(e -> {
-      openNewWindow();
-    });
-
-    playPauseButton.setOnMouseClicked(e -> {
-      animationManager.playPauseSimulation();
-    });
-
-    stepButton.setOnMouseClicked(e -> {
-      animationManager.pauseSimulation();
-      animationManager.stepSimulation();
-    });
-
-    speedButton.setOnMouseClicked(e -> {
-      String newText = String.format("%s: x%.2f", resourceBundle.getString("SpeedButton"), animationManager.setNextFPS());
-      speedButton.setText(newText);
-    });
-
-    colorModeButton.setOnAction(e -> {
-      String selected = colorModeButton.getSelectionModel().getSelectedItem();
-      String fileName = String.format("%s.css", selected.replace(" ", ""));
-      changeStylesheet(fileName);
-    });
+    applyLoadSimButtonLogic(loadSimButton);
+    applyOpenNewSimButtonLogic(openNewSimButton);
+    applyPlayPauseButtonLogic(playPauseButton);
+    applyStepButtonLogic(stepButton);
+    applySpeedButtonLogic(speedButton);
+    applyColorModeButton(colorModeButton);
+    applyGridButtonLogic(gridButton);
+    applyGraphButtonLogic(graphButton);
   }
 
   private Button makeButton(String property, double x, double y, double buttonWidth){
@@ -205,6 +170,64 @@ public class DisplayManager {
     }
     root.getChildren().add(comboBox);
     return comboBox;
+  }
+
+  private void applyGridButtonLogic(Button button){
+    button.setOnMouseClicked(e ->
+        togglePaneVisibility(gridPane)
+    );
+  }
+
+  private void applyGraphButtonLogic(Button button){
+    button.setOnMouseClicked(e ->
+        togglePaneVisibility(graphPane)
+    );
+  }
+
+  private void togglePaneVisibility(Pane pane){
+    pane.setVisible(!pane.isVisible());
+  }
+
+  private void applyLoadSimButtonLogic(Button button){
+    button.setOnMouseClicked(e -> {
+      animationManager.pauseSimulation();
+      String[] simulationInfo = loadNewFile();
+      loadNewSimulation(simulationInfo[0], simulationInfo[1]);
+    });
+  }
+
+  private void applyOpenNewSimButtonLogic(Button button){
+    button.setOnMouseClicked(e ->
+        main.createNewWindow()
+    );
+  }
+
+  private void applyPlayPauseButtonLogic(Button button){
+    button.setOnMouseClicked(e ->
+        animationManager.playPauseSimulation()
+    );
+  }
+
+  private void applyStepButtonLogic(Button button){
+    button.setOnMouseClicked(e -> {
+      animationManager.pauseSimulation();
+      animationManager.stepSimulation();
+    });
+  }
+
+  private void applySpeedButtonLogic(Button button){
+    button.setOnMouseClicked(e -> {
+      String newText = String.format("%s: x%.2f", resourceBundle.getString("SpeedButton"), animationManager.setNextFPS());
+      button.setText(newText);
+    });
+  }
+
+  private void applyColorModeButton(ComboBox<String> button){
+    button.setOnAction(e -> {
+      String selected = button.getSelectionModel().getSelectedItem();
+      String fileName = String.format("%s.css", selected.replace(" ", ""));
+      changeStylesheet(fileName);
+    });
   }
 
   /**
