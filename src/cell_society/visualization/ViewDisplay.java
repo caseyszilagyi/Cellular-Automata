@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
  */
 public class ViewDisplay {
 
-  private Simulation currentSim;
   private String currentSimType;
   private boolean isMinimized;
 
@@ -16,18 +15,12 @@ public class ViewDisplay {
   private final int VERTICAL_BORDER_LENGTH = 90;
 
   public ViewDisplay(){
-    currentSim = null;
     currentSimType = null;
     isMinimized = true;
   }
 
-  public void setCurrentSimInfo(Simulation currentSim, String currentSimType){
-    this.currentSim = currentSim;
+  public void setCurrentSimType(String currentSimType){
     this.currentSimType = currentSimType;
-  }
-
-  public Simulation getCurrentSim(){
-    return currentSim;
   }
 
   public ResourceBundle getColorSheetResourceBundle(){

@@ -1,13 +1,15 @@
 package cell_society.backend.simulation_initializer;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.Random;
 import java.util.TreeMap;
 
-public class GridOrPatchDetails {
+public class GridOrPatchConfigurationSetup {
 
-  private String TYPE;
+  private String SIMULATION_TYPE;
+  private String GRID_OR_PATCH;
   private int GRID_HEIGHT;
   private int GRID_WIDTH;
   private String grid;
@@ -15,12 +17,15 @@ public class GridOrPatchDetails {
   private Map<String, String> CODES;
   private Map<String, String> DECODER;
   private Map<String, String> PROBABILITIES;
+  private Map<String, double[]> frontEndParameterSpecifications = new HashMap<>();
+  private XMLFileReader xmlFileReader=new XMLFileReader();
 
   private String DEFAULT_PATH = "data/default_values/";
 
-  public GridOrPatchDetails(String type, int width, int height, String userGrid,
+  public GridOrPatchConfigurationSetup(String simType, String type, int width, int height, String userGrid,
       Map<String, String> parameters, Map<String, String> codes, Map<String, String> decoder, Map<String, String> probabilities) {
-    TYPE = type;
+    SIMULATION_TYPE = simType;
+    GRID_OR_PATCH = type;
     GRID_WIDTH = width;
     GRID_HEIGHT = height;
     grid = userGrid;
@@ -29,6 +34,31 @@ public class GridOrPatchDetails {
     DECODER = decoder;
     PROBABILITIES = probabilities;
     setUpGrid();
+    setupFrontEndParameters();
+  }
+
+  private void setupFrontEndParameters(){
+    xmlFileReader.setFile(DEFAULT_PATH + SIMULATION_TYPE + ".xml");
+    xmlFileReader.setSimulationType(SIMULATION_TYPE);
+    Map<String, String> defaultValues = xmlFileReader.getAttributeMap("parameters");
+
+    for(String s: defaultValues.keySet()){
+      String[] stringOfParameters = defaultValues.get(s).split(",");
+      double[] parameters = new double[stringOfParameters.length];
+      for(int i = 0; i<parameters.length; i++){
+        parameters[i] = Double.parseDouble(stringOfParameters[i]);
+      }
+      frontEndParameterSpecifications.put(s, parameters);
+    }
+
+    for(String s:frontEndParameterSpecifications.keySet()){
+      if(!PARAMETERS.containsKey(s)){
+        PARAMETERS.put(s, Double.toString(frontEndParameterSpecifications.get(s)[2]));
+      }
+      else{
+        frontEndParameterSpecifications.get(s)[2] = Double.parseDouble(PARAMETERS.get(s));
+      }
+    }
   }
 
   private void setUpGrid(){
@@ -51,7 +81,7 @@ public class GridOrPatchDetails {
   }
 
   public String getType() {
-    return TYPE;
+    return GRID_OR_PATCH;
   }
 
   public int getGridHeight() {
@@ -76,6 +106,10 @@ public class GridOrPatchDetails {
 
   public Map<String, String> getDecoder() {
     return DECODER;
+  }
+
+  public Map getFrontEndParameterSpecifications(){
+    return frontEndParameterSpecifications;
   }
 
 
