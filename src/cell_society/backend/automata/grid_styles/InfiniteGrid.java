@@ -12,6 +12,8 @@ import java.util.Map;
  * The infinite grid allows cells to move to whatever coordinate they desire.  The grid initially
  * has a fixed size, but expands as cells move out of the initial boundaries.  To view the grid,
  * slices of the grid can be observed, with (0, 0) as the reference point.
+ *
+ * @author George Hong
  */
 public class InfiniteGrid extends Grid {
 

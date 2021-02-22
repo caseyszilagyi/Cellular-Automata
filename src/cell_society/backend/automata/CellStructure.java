@@ -8,6 +8,8 @@ import java.util.List;
  * Structure class, a corresponding enum that implements Direction must be created to encode the
  * directions.  This class is designed to be used in conjunction with the bounds-checking
  * functionality of the Grid class.
+ *
+ * @author George Hong
  */
 public abstract class CellStructure {
 
@@ -42,8 +44,5 @@ public abstract class CellStructure {
    * @return The int representing the cell structure
    */
   public abstract int getCode();
-
-
-
 
 }

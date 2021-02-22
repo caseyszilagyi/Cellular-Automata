@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * @author George Hong
+ */
 public class SquareStructure extends CellStructure {
 
   @Override
@@ -33,7 +36,7 @@ public class SquareStructure extends CellStructure {
     return directions[ThreadLocalRandom.current().nextInt(0, length)];
   }
 
-  public int getCode(){
+  public int getCode() {
     return 0;
   }
 

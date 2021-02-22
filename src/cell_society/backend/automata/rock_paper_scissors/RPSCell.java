@@ -5,6 +5,12 @@ import cell_society.backend.automata.Neighbors;
 import cell_society.backend.automata.grid_styles.Grid;
 import java.util.TreeMap;
 
+/**
+ * Encodes the basic structure of the Rock-Paper-Scissors Cell.  Cells define their own threshold
+ * and weaknesses, but the PrimaryAction encoding the update is the same between all of them.
+ *
+ * @author George Hong
+ */
 public class RPSCell extends Cell {
 
   private int threshold;
@@ -33,12 +39,12 @@ public class RPSCell extends Cell {
     }
   }
 
-  protected void setThreshold(int threshold){
-    this.threshold = threshold;
-  }
-
   protected int getThreshold() {
     return threshold;
+  }
+
+  protected void setThreshold(int threshold) {
+    this.threshold = threshold;
   }
 
   protected RPSCell[] defineWeaknesses() {

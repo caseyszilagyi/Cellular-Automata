@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Enumerates Triangular Directions with a 2D grid representation.
+ * @author George Hong
+ */
 public enum TriangularDirection implements Direction {
   // Due to the number of possible coordinates, we define directions 1-12, and sorted between EVEN and ODD
   EVEN_1(-1, 0, false),
