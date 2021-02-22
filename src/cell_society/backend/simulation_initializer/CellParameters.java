@@ -39,7 +39,7 @@ public class CellParameters {
    * @return The mapped value as a integer
    */
   public Integer getAsInt(String key) {
-    return Integer.parseInt(SIMULATION_MAP.get(key));
+    return (int) Double.parseDouble(SIMULATION_MAP.get(key));
   }
 
   /**
