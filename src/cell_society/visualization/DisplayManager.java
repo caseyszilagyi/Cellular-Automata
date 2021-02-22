@@ -27,7 +27,7 @@ public class DisplayManager {
   private final Pane root;
   private final Scene scene;
 
-  private final ResourceBundle resourceBundle;
+  private ResourceBundle resourceBundle;
 
   private final GridDisplay gridDisplay;
   private final GraphDisplay graphDisplay;
@@ -47,6 +47,9 @@ public class DisplayManager {
   private final String GRAPH_BUTTON_PROPERTY = "GraphButton";
   private final String[] COLOR_MODES_LIST = {"Dark Mode", "Light Mode", "Colorful Mode"};
 
+  private final String LANGUAGE_BUTTON_PROPERTY = "LanguageButton";
+  private final String[] LANGUAGES_LIST = {"English", "Spanish", "French"};
+
   private final String ERROR_TITLE = "ErrorTitle";
 
   private Simulation currentSim;
@@ -59,17 +62,16 @@ public class DisplayManager {
    */
   public DisplayManager(Main main, Stage stage, Pane root, Scene scene) {
     this.main = main;
-    resourceBundle = ResourceBundle.getBundle(String.format("%s/properties/languages/English", VISUALIZATION_RESOURCE_PACKAGE));
     this.stage = stage;
     this.root = root;
     this.scene = scene;
+
+    resourceBundle = ResourceBundle.getBundle(String.format("%s/properties/languages/English", VISUALIZATION_RESOURCE_PACKAGE));
 
     gridPane = new Pane();
     graphPane = new Pane();
     root.getChildren().add(gridPane);
     root.getChildren().add(graphPane);
-
-    //graphPane.setVisible(false);
 
     gridDisplay = new GridDisplay(scene, gridPane);
     graphDisplay = new GraphDisplay(scene, graphPane);
@@ -130,6 +132,8 @@ public class DisplayManager {
   }
 
   private void makeAllButtons() {
+    root.getChildren().clear();
+
     Button loadSimButton = makeButton(LOAD_NEW_SIMULATION_BUTTON_PROPERTY, 10, 10, 120);
     Button openNewSimButton = makeButton(OPEN_NEW_WINDOW_BUTTON_PROPERTY, 10 + 10 + 120, 10, 160);
     Button playPauseButton = makeButton(PLAY_PAUSE_BUTTON_PROPERTY, 10, 40, 80);
@@ -139,14 +143,17 @@ public class DisplayManager {
     Button gridButton = makeButton(GRID_BUTTON_PROPERTY, scene.getWidth() - 130, 10, 120);
     Button graphButton = makeButton(GRAPH_BUTTON_PROPERTY, scene.getWidth() - 130, 40, 120);
 
+    ComboBox<String> languageButton = makeDropdownButton(LANGUAGE_BUTTON_PROPERTY, 300, 10, 120, LANGUAGES_LIST);
+
     applyLoadSimButtonLogic(loadSimButton);
     applyOpenNewSimButtonLogic(openNewSimButton);
     applyPlayPauseButtonLogic(playPauseButton);
     applyStepButtonLogic(stepButton);
     applySpeedButtonLogic(speedButton);
-    applyColorModeButton(colorModeButton);
+    applyColorModeButtonLogic(colorModeButton);
     applyGridButtonLogic(gridButton);
     applyGraphButtonLogic(graphButton);
+    applyLanguageButtonLogic(languageButton);
   }
 
   private Button makeButton(String property, double x, double y, double buttonWidth){
@@ -219,16 +226,24 @@ public class DisplayManager {
 
   private void applySpeedButtonLogic(Button button){
     button.setOnMouseClicked(e -> {
-      String newText = String.format("%s: x%.2f", resourceBundle.getString("SpeedButton"), animationManager.setNextFPS());
+      String newText = String.format("%s: x%.2f", resourceBundle.getString(SPEED_BUTTON_PROPERTY), animationManager.setNextFPS());
       button.setText(newText);
     });
   }
 
-  private void applyColorModeButton(ComboBox<String> button){
+  private void applyColorModeButtonLogic(ComboBox<String> button){
     button.setOnAction(e -> {
       String selected = button.getSelectionModel().getSelectedItem();
       String fileName = String.format("%s.css", selected.replace(" ", ""));
       changeStylesheet(fileName);
+    });
+  }
+
+  private void applyLanguageButtonLogic(ComboBox<String> button){
+    button.setOnAction(e -> {
+      String selectedLanguage = button.getSelectionModel().getSelectedItem();
+      resourceBundle = ResourceBundle.getBundle(String.format("%s/properties/languages/%s", VISUALIZATION_RESOURCE_PACKAGE, selectedLanguage));
+      makeAllButtons();
     });
   }
 
