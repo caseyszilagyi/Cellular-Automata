@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation type="foraging_ants">
+  <title>Foraging Ants</title>
+  <author></author>
+  <desc>Foraging Ants Simulation</desc>
+
+  <coreSpecifications>
+    <type cellPackage ="foraging_ants"></type>
+    <type gridType = "Grid"></type>
+    <type stepperType = "ForagingStepper"></type>
+    <type structureType = "Square"></type>
+  </coreSpecifications>
+
+  <gridInfo>
+    <rows>4</rows>
+    <columns>4</columns>
+
+    <grid>
+      <type>Grid</type>
+      <gridState>
+        eeeeee
+        eeeeee
+        neeeee
+        eeeeee
+        eeeeee
+        eeeeee
+      </gridState>
+
+      <randomProbs>
+      </randomProbs>
+
+      <codes>
+        <key a='AntCell'></key>
+        <key n='Nestcell'></key>
+        <key e = "Empty"></key>
+      </codes>
+
+      <decoder>
+        <key AntCell = '1'></key>
+        <key NestCell = '2'></key>
+      </decoder>
+
+      <parameters>
+      </parameters>
+    </grid>
+
+    <patch>
+      <type>Patch</type>
+      <gridState>
+        feeeee
+        ffeeee
+        eeeeee
+        eeeeee
+        eeeeee
+        eeeeee
+      </gridState>
+
+      <randomProbs>
+      </randomProbs>
+
+      <codes>
+        <key f='foodlevel'></key>
+        <key e = "Empty"></key>
+      </codes>
+
+      <decoder>
+      </decoder>
+
+      <parameters>
+      </parameters>
+
+    </patch>
+
+    <patch>
+      <type>Patch</type>
+      <gridState>
+        eeeeee
+        eeeeee
+        eeeeee
+        eeeeee
+        eeeeee
+        eeeeee
+      </gridState>
+
+      <randomProbs>
+      </randomProbs>
+
+      <codes>
+        <key f='foodpheromonelevel'></key>
+        <key e = "Empty"></key>
+      </codes>
+
+      <decoder>
+      </decoder>
+
+      <parameters>
+      </parameters>
+
+    </patch>
+
+
+  </gridInfo>
+
+</simulation>

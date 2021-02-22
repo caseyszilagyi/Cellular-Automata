@@ -26,4 +26,6 @@ public class LizardCell extends RPSCell {
   public String getGridRepresentation() {
     return "L";
   }
+
+  public String toString() { return "LizardCell"; }
 }
