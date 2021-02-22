@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation type="sugar_scape">
+  <title>Sugar Scape</title>
+  <author></author>
+  <desc>Sugar Scape</desc>
+
+  <coreSpecifications>
+    <type cellPackage ="sugar_scape"></type>
+    <type gridType = "Grid"></type>
+    <type stepperType = "SugarStepper"></type>
+    <type structureType = "Square"></type>
+    <type patchType = "SugarPatch"></type>
+  </coreSpecifications>
+
+  <gridInfo>
+    <rows>20</rows>
+    <columns>20</columns>
+
+    <grid>
+      <type>Grid</type>
+      <gridState>
+        Random
+      </gridState>
+
+      <randomProbs>
+        <key a='0.05'></key>
+        <key e = "0.95"></key>
+      </randomProbs>
+
+      <codes>
+        <key a='SugarAgentCell'></key>
+        <key e = "Empty"></key>
+      </codes>
+
+      <decoder>
+        <key SugarAgentCell ='1'></key>
+      </decoder>
+
+      <parameters>
+        <parameter sugarmetabolism="5"></parameter>
+        <parameter sugar="25"></parameter>
+        <parameter vision="1"></parameter>
+      </parameters>
+    </grid>
+
+    <patch>
+      <type>sugar</type>
+      <gridState>
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        99999999999999999999
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+      </gridState>
+
+      <randomProbs>
+      </randomProbs>
+
+      <codes>
+      </codes>
+
+      <decoder>
+      </decoder>
+
+      <parameters>
+      </parameters>
+
+    </patch>
+
+    <patch>
+      <type>sugargrowbackrate</type>
+      <gridState>
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+        11111111111111111111
+        11111111111111111111
+        00000000000000000000
+        00000000000000000000
+        00000000000000000000
+      </gridState>
+
+      <randomProbs>
+      </randomProbs>
+
+      <codes>
+      </codes>
+
+      <decoder>
+      </decoder>
+
+      <parameters>
+      </parameters>
+
+    </patch>
+
+    <patch>
+      <type>sugargrowbackinterval</type>
+      <gridState>
+        11111111111111111111
+        11111111111111111111
+        11111111111111111111
+        11111111111111111111
+        11111111111111111111
+        11111111111111111111
+        11111111111111111111
+        11111111111111111111
+        11111111111111111111
+        11111111111111111111
+        11111111111111111111
+        11111111111111111111
+        11111111111111111111
+        11111111111111111111
+        11111111111111111111
+        11111111111111111111
+        11111111111111111111
+        11111111111111111111
+        11111111111111111111
+        11111111111111111111
+      </gridState>
+
+      <randomProbs>
+      </randomProbs>
+
+      <codes>
+      </codes>
+
+      <decoder>
+      </decoder>
+
+      <parameters>
+      </parameters>
+
+    </patch>
+
+  </gridInfo>
+
+</simulation>
