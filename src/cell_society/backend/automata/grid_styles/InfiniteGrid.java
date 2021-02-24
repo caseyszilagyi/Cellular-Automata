@@ -57,21 +57,49 @@ public class InfiniteGrid extends Grid {
     super.makeGrid(width, height);
   }
 
+  /**
+   * Gets the cell located at (row, col) from the InfiniteGrid
+   *
+   * @param row desired row index of grid
+   * @param col desired column index of grid
+   * @return Cell object at the desired location
+   */
   @Override
   public Cell getCell(int row, int col) {
     return grid.get(new Coordinate(row, col));
   }
 
+  /**
+   * Places a cell at (row, col) onto the InfiniteGrid.
+   *
+   * @param row  row index of where to place the cell
+   * @param col  column index of where to place the cell
+   * @param cell cell object to be placed.
+   */
   @Override
   public void placeCell(int row, int col, Cell cell) {
     grid.put(new Coordinate(row, col), cell);
   }
 
+  /**
+   * Gets the Patch located at (row, col) from the InfiniteGrid
+   *
+   * @param row row index of Patch to inspect
+   * @param col column index of Patch to inspect
+   * @return Patch object at the desired location
+   */
   @Override
   public Patch getPatch(int row, int col) {
     return gridStates.get(new Coordinate(row, col));
   }
 
+  /**
+   * Places a patch at (row, col) onto the InfiniteGrid
+   *
+   * @param row   row index of where to place the Patch
+   * @param col   column index of where to place the Patch
+   * @param patch Patch object to be placed
+   */
   @Override
   public void placePatch(int row, int col, Patch patch) {
     gridStates.put(new Coordinate(row, col), patch);
@@ -81,15 +109,21 @@ public class InfiniteGrid extends Grid {
    * Checks that a (row, col) coordinate pair is within boundaries.  This is always true because the
    * Infinite Grid can accommodate any coordinate pair.
    *
-   * @param row
-   * @param col
-   * @return
+   * @param row row index to check in bounds
+   * @param col column index to check in bounds
+   * @return true, coordinates are always within bounds of an infinite grid
    */
   @Override
   public boolean inBoundaries(int row, int col) {
     return true;
   }
 
+  /**
+   * Check whether (row, col) is currently occupied by a cell.
+   * @param row row index of the position on the grid to check
+   * @param col column index of the position on the grid to check
+   * @return boolean representing whether a cell is currently occupying (row, col).
+   */
   @Override
   public boolean isEmpty(int row, int col) {
     return grid.get(new Coordinate(row, col)) == null;

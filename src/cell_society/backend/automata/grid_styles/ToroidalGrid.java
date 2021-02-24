@@ -6,7 +6,8 @@ import cell_society.backend.automata.Patch;
 
 /**
  * The toroidal grid is connected from sides, following a slightly different set of rules.  Cells
- * can leave any side of the Grid, and appear on the opposite side.
+ * can leave any side of the Grid, and appear on the opposite side.  The grid supports the use of
+ * coordinates (row, col) that are larger than the height and width of the grid.
  *
  * @author George Hong
  */
@@ -71,6 +72,14 @@ public class ToroidalGrid extends Grid {
     super.placeCell(modifiedRow, modifiedCol, cell);
   }
 
+  /**
+   * Place a patch into the desired coordinates of this grid.  This method supports wrapping-around,
+   * so specified row and column indices can be greater or smaller than the Grid dimensions.
+   *
+   * @param row   row index of where to place the Patch
+   * @param col   column index of where to place the Patch
+   * @param patch Patch object to be placed
+   */
   public void placePatch(int row, int col, Patch patch) {
     Coordinate newCoordinates = getModifiedCoordinates(row, col);
     int modifiedRow = newCoordinates.getFirst();
@@ -78,6 +87,14 @@ public class ToroidalGrid extends Grid {
     super.placePatch(modifiedRow, modifiedCol, patch);
   }
 
+  /**
+   * Get the cell specified by (row, col).  This method supports the wrap-around behavior of the
+   * Toroidal Grid.
+   *
+   * @param row desired row index of grid
+   * @param col desired column index of grid
+   * @return Cell cell object in location (row, col)
+   */
   public Cell getCell(int row, int col) {
     Coordinate newCoordinates = getModifiedCoordinates(row, col);
     int modifiedRow = newCoordinates.getFirst();
@@ -85,6 +102,14 @@ public class ToroidalGrid extends Grid {
     return super.getCell(modifiedRow, modifiedCol);
   }
 
+  /**
+   * Get the patch specified by (row, col).  This method supports the wrap-around behavior of the
+   * Toroidal Grid.
+   *
+   * @param row row index of Patch to inspect
+   * @param col column index of Patch to inspect
+   * @return
+   */
   public Patch getPatch(int row, int col) {
     Coordinate newCoordinates = getModifiedCoordinates(row, col);
     int modifiedRow = newCoordinates.getFirst();
@@ -98,7 +123,7 @@ public class ToroidalGrid extends Grid {
    *
    * @param row row index of the position on the grid to check
    * @param col column index of the position on the grid to check
-   * @return
+   * @return boolean representing whether (row, col) is occupied by a cell.
    */
   @Override
   public boolean isEmpty(int row, int col) {

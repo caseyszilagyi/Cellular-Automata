@@ -40,7 +40,7 @@ public interface Direction {
 
   /**
    * Gets the Direction counterclockwise of this direction
-   * @return Direction clockwise of this direction
+   * @return Direction counterclockwise of this direction
    */
   Direction rotateCCW();
 }
