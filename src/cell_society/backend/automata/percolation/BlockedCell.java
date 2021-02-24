@@ -10,10 +10,18 @@ import cell_society.backend.automata.Neighbors;
  */
 public class BlockedCell extends Cell {
 
+  /**
+   * Parameter-less constructor for initialization of the Cell with the XML reader.
+   */
   public BlockedCell() {
 
   }
 
+  /**
+   * Initializes an instance of a Blocked Cell.
+   * @param row row index of where this BlockedCell resides
+   * @param col column index of where this BlockedCell resides
+   */
   public BlockedCell(int row, int col) {
     super(row, col);
   }
@@ -45,11 +53,20 @@ public class BlockedCell extends Cell {
     nextGrid.placeCell(r, c, blockedCell);
   }
 
+  /**
+   * Used by the CellDecoder to generate an int representation of this Cell for the frontend
+   * @return String "BlockedCell"
+   */
   @Override
   public String toString() {
     return "BlockedCell";
   }
 
+  /**
+   * @Deprecated
+   * Used with the early spike code console stepper for debugging
+   * @return length 1 string to identify BlockedCells in the Grid.
+   */
   @Override
   public String getGridRepresentation() {
     return "X";
