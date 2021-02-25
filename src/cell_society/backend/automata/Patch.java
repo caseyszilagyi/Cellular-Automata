@@ -22,6 +22,10 @@ public class Patch {
 
   }
 
+  /**
+   * Initialize Patch with parameters
+   * @param parameters initial states of the Patch
+   */
   public void initializeParams(CellParameters parameters) {
 
   }
