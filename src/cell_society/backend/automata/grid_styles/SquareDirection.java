@@ -5,7 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Enumerates Square Directions with a 2D grid representation.
+ * Enumerates Square Directions with a 2D grid representation.  The directions in clockwise order
+ * are given by: TOP, TOP_RIGHT, RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, LEFT, TOP_LEFT
+ *
  * @author George Hong
  */
 public enum SquareDirection implements Direction {
@@ -26,6 +28,32 @@ public enum SquareDirection implements Direction {
     this.colDelta = colDelta;
   }
 
+  /**
+   * Used to test for presence of bugs of rotation methods
+   *
+   * @param args additional arguments, not used
+   * @Deprecated
+   */
+  public static void main(String[] args) {
+    Direction d = SquareDirection.BOTTOM;
+    for (int k = 0; k < 20; k++) {
+      d = d.rotateCCW();
+      System.out.println(d);
+    }
+    System.out.println();
+    for (int k = 0; k < 20; k++) {
+      d = d.rotateCW();
+      System.out.println(d);
+    }
+  }
+
+  /**
+   * Computes new coordinates by moving in this direction by one spot, while centered at (row, col)
+   *
+   * @param row row index where the neighborhood is centered
+   * @param col column index where the neighborhood is centered
+   * @return Coordinate object containing the new row, column index
+   */
   @Override
   public Coordinate getResultingCoordinate(int row, int col) {
     Coordinate coordinate = new Coordinate(row + rowDelta, col + colDelta);
@@ -34,9 +62,11 @@ public enum SquareDirection implements Direction {
 
   /**
    * Adjacent directions are considered North, East, South, West
+   *
    * @param row row index where the neighborhood is centered
    * @param col column index where the neighborhood is centered
-   * @return
+   * @return List of Directions considered adjacent to the hexagon.  Can be modified as desired by
+   * the receiver.
    */
   @Override
   public List<Direction> getAdjacentDirections(int row, int col) {
@@ -50,6 +80,11 @@ public enum SquareDirection implements Direction {
     return adjacentDirections;
   }
 
+  /**
+   * Gets the Direction enum directly clockwise of this Direction
+   *
+   * @return Direction enum
+   */
   @Override
   public Direction rotateCW() {
     List<SquareDirection> directions = Arrays.asList(SquareDirection.values());
@@ -57,25 +92,19 @@ public enum SquareDirection implements Direction {
     return directions.get((directions.indexOf(this) + 1) % size);
   }
 
+  /**
+   * Gets the Direction enum directly counterclockwise of this Direction
+   *
+   * @return Direction enum
+   */
   @Override
   public Direction rotateCCW() {
     List<SquareDirection> directions = Arrays.asList(SquareDirection.values());
     int size = directions.size();
     int dex = (directions.indexOf(this) - 1) % size;
-    if (dex < 0) dex = size + dex;
+    if (dex < 0) {
+      dex = size + dex;
+    }
     return directions.get(dex);
-  }
-
-  public static void main(String[] args){
-    Direction d = SquareDirection.BOTTOM;
-    for (int k = 0; k < 20; k++){
-      d = d.rotateCCW();
-      System.out.println(d);
-    }
-    System.out.println();
-    for (int k = 0; k < 20; k++){
-      d = d.rotateCW();
-      System.out.println(d);
-    }
   }
 }

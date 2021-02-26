@@ -6,7 +6,11 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Enumerates Triangular Directions with a 2D grid representation.
+ * Enumerates Triangular Directions with a 2D grid representation.  There exists two possible
+ * configurations of directions, due to the alternating position of the triangles in order to
+ * tesselate.  These directions are coded EVEN and ODD, with 12 possible direction for each
+ * configuration.
+ *
  * @author George Hong
  */
 public enum TriangularDirection implements Direction {
@@ -47,6 +51,11 @@ public enum TriangularDirection implements Direction {
     this.oddConfig = oddConfig;
   }
 
+  /**
+   * Gets the complete List of odd configuration directions, freely modifiable to the user's needs.
+   *
+   * @return List of odd configuration directions.
+   */
   public List<TriangularDirection> getOddConfigurationDirections() {
     List<TriangularDirection> oddConfigurationDirections = new ArrayList<>();
     for (TriangularDirection d : TriangularDirection.values()) {
@@ -57,6 +66,12 @@ public enum TriangularDirection implements Direction {
     return oddConfigurationDirections;
   }
 
+  /**
+   * Gets the complete List of even configuration directions, freely modifiable to the user's
+   * needs.
+   *
+   * @return List of even configuration directions.
+   */
   public List<TriangularDirection> getEvenConfigurationDirections() {
     List<TriangularDirection> evenConfigurationDirections = new ArrayList<>();
     for (TriangularDirection d : TriangularDirection.values()) {
@@ -67,12 +82,27 @@ public enum TriangularDirection implements Direction {
     return evenConfigurationDirections;
   }
 
+  /**
+   * Computes new coordinates by moving in this direction by one spot, while centered at (row, col)
+   *
+   * @param row row index where the neighborhood is centered
+   * @param col column index where the neighborhood is centered
+   * @return Coordinate object containing the new (row, col)
+   */
   @Override
   public Coordinate getResultingCoordinate(int row, int col) {
     Coordinate coordinate = new Coordinate(row + rowDelta, col + colDelta);
     return coordinate;
   }
 
+  /**
+   * Assumes the adjacent neighbors of a triangle are the 3 in direct contact.
+   *
+   * @param row row index where the neighborhood is centered
+   * @param col column index where the neighborhood is centered
+   * @return List of Directions considered adjacent to the triangle.  Can be modified as desired by
+   * the receiver.
+   */
   @Override
   public List<Direction> getAdjacentDirections(int row, int col) {
     Direction[] adjacentDirectionsArray;
@@ -93,11 +123,21 @@ public enum TriangularDirection implements Direction {
     return adjacentDirections;
   }
 
+  /**
+   * Gets the Direction enum directly clockwise of this Direction
+   *
+   * @return Direction enum
+   */
   @Override
   public Direction rotateCW() {
     return null;
   }
 
+  /**
+   * Gets the Direction enum directly counterclockwise of this Direction.
+   *
+   * @return Direction enum
+   */
   @Override
   public Direction rotateCCW() {
     return null;

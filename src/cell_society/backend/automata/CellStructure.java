@@ -34,6 +34,12 @@ public abstract class CellStructure {
    */
   public abstract List<Coordinate> getAllAdjacentCoordinates(int row, int col);
 
+  /**
+   * Returns a random direction of this CellStructure
+   * @param row row index to help distinguish valid directions
+   * @param col column index to help distinguish valid directions
+   * @return random valid Direction at a position
+   */
   public abstract Direction getRandomDirection(int row, int col);
 
 

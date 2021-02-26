@@ -14,10 +14,19 @@ public abstract class Cell {
   private int row;
   private int col;
 
+  /**
+   * Constructs a Cell with no parameters, illustrating use with the XML grid and cell initializer
+   */
   public Cell() {
 
   }
 
+  /**
+   * Constructs a Cell with references to its current position
+   *
+   * @param row row index where this cell is located
+   * @param col column index where this cell is located
+   */
   public Cell(int row, int col) {
     this.row = row;
     this.col = col;
@@ -110,6 +119,7 @@ public abstract class Cell {
 
   /**
    * Helper method to graphically display this cell in the console
+   *
    * @return question mark, representing a cell with no behavior.
    */
   public String getGridRepresentation() {
