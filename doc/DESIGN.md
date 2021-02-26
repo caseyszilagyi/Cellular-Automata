@@ -7,12 +7,13 @@
     - George Hong, Backend
 
  * Team Member #2
+    - Casey Szilagyi, XML/Configuration
 
  * Team Member #3
 
 
 ## Design goals
-
+  
 #### What Features are Easy to Add
 - **New simulations** where cells directly *update down* are often very straightforward to write with this system.  Some examples of this include *Spreading Fire*, *Game of Life*, *Rock-Paper-Scissors*, and *Percolation*.  Within all these simulations, cells are directly responsible for influencing the type of `Cell` only in its `(row, col)` for the next step.  These simulations only rely on a single pass update loop.  
    - Encode the desired Cell-types as subclasses of `Cell`.  The `getNeighbors` method is responsible for determining consideration of neighbors.  `performPrimaryAction` is intended to encapsulate all behaviors during the single pass update loop, producing the `Cell`'s next state.
@@ -20,6 +21,29 @@
 - **Cell shape and neighbor definitions:** `CellStructure` global treatment of cell Moore neighbors with different shapes and considerations for adjacent neighbors can be introduced fairly quickly.  Support for square, triangular, and hexagonal already exists.  The introduction of a new shape is through a `CellStructure` and corresponding `Direction` enum, defined as an abstract class and interface, respectively.  Within the `Direction` enum, definitions of adjacent neighbors can be quickly updated.  
 
 ## High-level Design
+- We tried to keep the details of how cells behave as deep in the project
+  as possible (in cell classes) so that higher level classes could be reused
+
+- Wanted the grid to be the same for all simulation types so that the only
+  thing varying was the cell types (we ended up having different stepper types
+  as well, due to some oversight earlier in the project)
+
+- The XML file has all the details for the cells that populate the grid.
+  Additionally, the file has the grid type, grid shape, and simulation stepper
+  type that need to be used
+
+- The simulation initializer uses the XMLFileReader to parse through this data
+  and initialize the grid, populate the grid with cells and patches, and give
+  the grid to the simulation class along with the simulation stepper.
+
+- The simulation class uses the stepper to make singular steps in the simulation.
+  The details for performing a step is done within each cell type for the given
+  simulation, as well as in the simultion stepper class.
+
+- The displayManager class is what is calling the makeStep function in
+  the simulation class. Each time this is done, the front end can call
+  the getGridDisplay method to get an integer array that has all of the
+  details to display the grid (including shape)
 
 #### Core Classes
 - `Grid` holds configuration of all `Cell` and `Patch` objects in a simulation.  Can be queried to provide an encoding of Object placements.
@@ -27,12 +51,23 @@
 - `Cell` can represent moving Agents in a simulation or more static positions on the `Grid`.  `Cell`s are able to hold individual information and are directly called to determine their next state on the board.
 - `Patch` represent static positions on the board, similar to an immovable plot of land.  They can be constructed Parallel to `Cell`s and also support their own set of update rules.
 - `SimulationStepper` manages the update of the `Grid` and communication with the frontend.
-
+- `Main` Is ran in order to initialize the displayManager
+- `Simulation` This class has an instance of a simulation initializer that
+  deals with configuring the simulation through the XMLReader. It also has 
+  an instance of the simulation stepper used to step through the simulation   
+- `SimulationStepper` Steps through each cell and updates it, copying it
+  to the new grid. Ended up extending this class due to some tricky
+  design details that were overlooked
+- `DisplayManager` This class has most of the implementation details for the
+  display
 
 ## Assumptions that Affect the Design
 1. A spot on the `Grid` can only be occupied by one `Cell` at a time
 2. The `Direction` enum only transforms a coordinate one unit in any given direction.
 3. The `SimulationStepper` class declares the `Grid` inside the `makeStep` function, and the current update loop uses a double for-loop.
+4. It is assumed that the user will declare the correct stepper type in the XML file, or else the program will break due to downcasting
+
+
 #### Features Affected by Assumptions
 1. In the ant simulation, only one `AntCell` can occupy an `AntPatch` at a time.
 2. `SugarAgents` of *Sugar Scape* are limited to a vision of 1 for now.
@@ -41,7 +76,15 @@
 ## Significant differences from Original Plan
 - Patches were introduced to complement `Cell` objects when those `Cell` objects have a more dynamic agent role, where they move across the `Grid`.
 - `Cell`s now have a `performSecondaryAction`, `probeState`, and `relocate` method for more complex simulations with the `Stepper`.
-
+- We didn't really end up implementing a controller and instead just had a display
+  that initialized a simulation and called the step method
+- We didn't anticipate the XML file having such a large role in configuring the
+  simulation. This wasn't necessarily deviating from the plan, it's just that
+  the amount of data to be read in through the XML file was unexpected
+- Had simulation steppers that were different for each simulation type. We
+  thought that we could include all of the implementation details for each simulation
+  within the different cell types but this proved more difficult than we originally
+  anticipated
 
 ## New Features HowTo
 
@@ -77,7 +120,18 @@
     simulationGrid = nextGrid;
     ```
 
+- Adding more variables to the patch (which deals with non-moving variables) is
+  pretty easy. To add a new patch variable, all the user has to do is add a new patch
+  and all the relevant details under the gridInfo tag in the XML file. The
+  initializer will take care of transferring that data into a patch
+  object
+
+- Very easy to add new shapes/neighbor types. Simply make a new cellStructure
+  type, and decide whatever neighbor configuration is desired. The display details
+  have to be implemented in the front end through math
+
 #### Other Features not yet Done
+
 - **Infinite Grid-compatible Stepper**
 - **Scrolling view with Infinite Grid**
     - The `InfiniteGrid` can rely on an adjusted `getIntDisplay` method that enables the frontend to specify the bounding corner and provide a rectangular slice of the `Cell` states from there.  The frontend can then call on this method with sliders to navigate the `InfiniteGrid` that would otherwise not fit on the screen.
@@ -85,5 +139,6 @@
     - Not complete due to the amount of transition rules.  These transition rules can be directly encoded into the `performPrimaryAction` method of the `Cell`s.
 - **Different Arrangements of Neighbors**
     - All `Cell`s have a `performPrimaryAction` method which have access to the `Neighbors` containing neighboring `Cell`s.  Additionally, all location information is present.  This allows the encoding of specific configurations to be done within the `Cell` or as a private helper method.  This requires careful encoding of the relationships between `row, col` of the different `Cell`s.
-
-
+- **Store the current simulation configuration as an XML file**
+    - There was simply not enough time for implementation
+- **Alter a single cell state by clicking on it**
