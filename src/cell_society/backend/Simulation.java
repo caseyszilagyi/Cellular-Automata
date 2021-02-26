@@ -69,10 +69,6 @@ public class Simulation {
     return simulationGrid.getCellDistribution();
   }
 
-  public void storeAsXMLFile(){
-
-  }
-
   public Map<String, double[]> getParameters(){
     return simulationInitializer.getFrontEndParameterSpecifications();
   }

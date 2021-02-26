@@ -18,8 +18,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
- * The DisplayManager class is responsible for maintaining and updating the display grid
- * and various buttons for controlling visualization.
+ * The DisplayManager class is responsible for maintaining and updating the two display
+ * views and applying logic to the various buttons for controlling visualization. It
+ * includes methods to update the display grid and graph, as well as create all UI
+ * components and apply logic to them.
  *
  * @author Donghan Park
  */
@@ -98,9 +100,11 @@ public class DisplayManager {
   private Map<String, String> returnMap;
 
   /**
-   * Constructor that creates an instance of the DisplayManager
-   * @param root The root node of the main scene graph
-   * @param scene The container for the main scene graph
+   * Constructor that creates an instance of the DisplayManager object
+   * @param main Reference to the main class
+   * @param stage Stage of the window
+   * @param root Root node of the stage
+   * @param scene Main scene of the stage
    */
   public DisplayManager(Main main, Stage stage, Pane root, Scene scene) {
     this.main = main;
@@ -359,14 +363,14 @@ public class DisplayManager {
   }
 
   /**
-   * updates the grid view for frontend
+   * Updates the display grid view
    */
   public void updateDisplayGrid(){
     gridDisplay.updateGrid(currentSim.getGridDisplay());
   }
 
   /**
-   * updates the graph view for frontend
+   * Updates the display graph view
    */
   public void updateDisplayGraph(){
     graphDisplay.updateGraph(currentSim.getCellDistribution());

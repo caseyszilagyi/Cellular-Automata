@@ -6,8 +6,9 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 
 /**
- * The AnimationManager class handles main simulation
- * loop by calling the backend update method.
+ * The AnimationManager class handles the main simulation loop by updating the
+ * display views at a certain FPS. It includes methods to play/pause the
+ * simulation, as well as step or change the speed.
  *
  * @author Donghan Park
  */
@@ -24,8 +25,8 @@ public class AnimationManager {
   private boolean animationRunning;
 
   /**
-   *
-   * @param displayManager
+   * Constructor that creates an instance of the AnimationManager object
+   * @param displayManager Reference to the DisplayManager object for the current simulation window
    */
   public AnimationManager(DisplayManager displayManager){
     this.displayManager = displayManager;
@@ -51,10 +52,17 @@ public class AnimationManager {
     animation.play();
   }
 
+  /**
+   * Sets the reference to the current Simulation object with a new Simulation object
+   * @param currentSim Reference to the current Simulation object in the backend
+   */
   public void setSimulation(Simulation currentSim){
     this.currentSim = currentSim;
   }
 
+  /**
+   *
+   */
   public void stepSimulation(){
     if(currentSim != null){
       currentSim.makeStep();
@@ -68,6 +76,9 @@ public class AnimationManager {
     }
   }
 
+  /**
+   * Toggles the animation loop to play/pause
+   */
   public void playPauseSimulation(){
     if(animationRunning){
       pauseSimulation();
@@ -82,12 +93,21 @@ public class AnimationManager {
     }
   }
 
+  /**
+   * Pauses the animation loop
+   */
   public void pauseSimulation(){
     if(currentSim != null){
       animationRunning = false;
     }
   }
 
+  /**
+   * Toggles the speed of the animation loop by decreasing the animation rate
+   * by a certain increment. If the new rate is below the minimum required,
+   * the rate is set to the maximum allowed.
+   * @return New rate of the animation
+   */
   public double setNextFPS(){
     double speedScale = animation.getRate() - SPEED_INTERVAL;
     if (speedScale < MIN_SPEED_SCALE) {

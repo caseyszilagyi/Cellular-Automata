@@ -7,8 +7,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
 /**
- * The GridDisplay class is responsible for creating and updating the main display grid that is
- * viewed by the user.
+ * The GridDisplay class is responsible for creating and updating
+ * the main display grid that is viewed by the user. It includes
+ * methods to create a grid of various cell shapes and draw cells
+ * of various cell shapes.
  *
  * @author Donghan Park
  */
@@ -27,9 +29,9 @@ public class GridDisplay extends ViewDisplay {
   private double cellWidth, cellHeight;
 
   /**
-   *
-   * @param scene
-   * @param pane
+   * Constructor that creates an instance of the GridDisplay object
+   * @param scene Main scene of the stage
+   * @param pane Pane of where the graph components will be stored
    */
   public GridDisplay(Scene scene, Pane pane) {
     super();
@@ -38,7 +40,9 @@ public class GridDisplay extends ViewDisplay {
   }
 
   /**
-   * @param cellColorSheet Array of integers for the cell colors
+   * Updates the display grid view with the most up-to-date cell location information
+   * @param cellColorSheet Array of integers corresponding to the appropriate colors for
+   *                       the cells of the grid
    */
   public void updateGrid(int[] cellColorSheet) {
     pane.getChildren().clear();
