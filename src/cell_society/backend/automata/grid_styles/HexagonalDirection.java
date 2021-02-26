@@ -6,7 +6,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Enumerates Hexagonal Directions with a 2D grid representation.
+ * Enumerates Hexagonal Directions with a 2D grid representation. The directions, in clockwise
+ * order, are given by: TOP_LEFT, TOP_RIGHT, RIGHT, BOTTOM_RIGHT, BOTTOM_LEFT, LEFT
+ *
  * @author George Hong
  */
 public enum HexagonalDirection implements Direction {
@@ -31,6 +33,13 @@ public enum HexagonalDirection implements Direction {
     this.colDeltaShift = colDeltaShift;
   }
 
+  /**
+   * Computes new coordinates by moving in this direction by one spot, while centered at (row, col)
+   *
+   * @param row row index where the neighborhood is centered
+   * @param col column index where the neighborhood is centered
+   * @return Coordinate object containing the new row, col
+   */
   @Override
   public Coordinate getResultingCoordinate(int row, int col) {
     int rowChange = row % 2 == 0 ? rowDelta : rowDeltaShift;
@@ -41,9 +50,11 @@ public enum HexagonalDirection implements Direction {
 
   /**
    * Assume all neighbors bordering a hexagon are adjacent.
+   *
    * @param row row index where the neighborhood is centered
    * @param col column index where the neighborhood is centered
-   * @return
+   * @return List of Directions considered adjacent to the hexagon.  Can be modified as desired by
+   * the receiver.
    */
   @Override
   public List<Direction> getAdjacentDirections(int row, int col) {
@@ -54,6 +65,11 @@ public enum HexagonalDirection implements Direction {
     return allAdjacentDirections;
   }
 
+  /**
+   * Gets the Direction enum directly clockwise of this Direction
+   *
+   * @return Direction enum
+   */
   @Override
   public Direction rotateCW() {
     List<HexagonalDirection> directions = Arrays.asList(HexagonalDirection.values());
@@ -61,12 +77,19 @@ public enum HexagonalDirection implements Direction {
     return directions.get((directions.indexOf(this) + 1) % size);
   }
 
+  /**
+   * Gets the Direction enum directly counterclockwise of this Direction
+   *
+   * @return Direction enum
+   */
   @Override
   public Direction rotateCCW() {
     List<HexagonalDirection> directions = Arrays.asList(HexagonalDirection.values());
     int size = directions.size();
     int dex = (directions.indexOf(this) - 1) % size;
-    if (dex < 0) dex = size + dex;
+    if (dex < 0) {
+      dex = size + dex;
+    }
     return directions.get(dex);
   }
 }

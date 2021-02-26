@@ -9,6 +9,8 @@ import cell_society.backend.simulation_initializer.CellParameters;
 import java.util.List;
 
 /**
+ * Represents an Agent in the SugarScape simulation.
+ *
  * @author George Hong
  */
 public class SugarAgentCell extends Cell {
@@ -20,6 +22,16 @@ public class SugarAgentCell extends Cell {
   private int sugar;
   private int vision;
 
+  /**
+   * Initializes an instance of SugarAgent
+   *
+   * @param row             row index resided in by the SugarAgent
+   * @param col             column index resided in by the SugarAgent
+   * @param sugarMetabolism amount of sugar automatically consumed each step by the SugarAgent
+   * @param sugar           starting amount of sugar possessed by the SugarAgent
+   * @param vision          (not used), intended to increase the line of sight of possible patches
+   *                        for the SugarAgent to relocate to.
+   */
   public SugarAgentCell(int row, int col, int sugarMetabolism, int sugar, int vision) {
     super(row, col);
     this.sugar = sugar;
@@ -27,10 +39,19 @@ public class SugarAgentCell extends Cell {
     this.vision = 1;
   }
 
+  /**
+   * Initializes an instance of SugarAgent with no parameters, intended for use with the XML Grid
+   * initializer.
+   */
   public SugarAgentCell() {
 
   }
 
+  /**
+   * Intended for use with the parameter-less constructor to set the Agent properties.
+   *
+   * @param parameters parameters object containing Agent properties
+   */
   @Override
   public void initializeParams(CellParameters parameters) {
     sugarMetabolism = parameters.getAsInt(SUGAR_METABOLISM);
@@ -38,6 +59,12 @@ public class SugarAgentCell extends Cell {
     vision = parameters.getAsInt(VISION);
   }
 
+  /**
+   * The SugarAgent considers all adjacent locations to be a neighbor.
+   *
+   * @param grid grid holding the current configuration of cells
+   * @return Neighbors object containing all neighbors to the SugarAgent
+   */
   @Override
   public Neighbors getNeighbors(Grid grid) {
     int row = getRow();
@@ -45,6 +72,16 @@ public class SugarAgentCell extends Cell {
     return grid.getAdjacentNeighbors(row, col);
   }
 
+  /**
+   * The SugarAgent considers all adjacent coordinates to move to, and selects the unoccupied
+   * position with the most Sugar available.  It obtains all sugar contained in the patch it moves
+   * to, before applying its metabolism rules.  If its metabolism drops to zero, the SugarAgent
+   * dies.
+   *
+   * @param neighbors   Cells that this cell uses to make its decision
+   * @param currentGrid Grid containing the current configuration of cells
+   * @param nextGrid    Grid to contain the next configuration of cells
+   */
   @Override
   public void performPrimaryAction(Neighbors neighbors, Grid currentGrid, Grid nextGrid) {
     // Doesn't need neighbors.  Coordinates are more significant.
@@ -91,10 +128,21 @@ public class SugarAgentCell extends Cell {
     return maxPatch;
   }
 
+  /**
+   * @return String "@" for agent, sugar
+   * @Deprecated Returns the length 1 string representation of this SugarAgent
+   */
   @Override
   public String getGridRepresentation() {
     return "@";
   }
 
-  public String toString(){ return "SugarAgentCell"; }
+  /**
+   * Returns the String representation of this class, for use with the CellDecoder
+   *
+   * @return String "SugarAgentCell"
+   */
+  public String toString() {
+    return "SugarAgentCell";
+  }
 }

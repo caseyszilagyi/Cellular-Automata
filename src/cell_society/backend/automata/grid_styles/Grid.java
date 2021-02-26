@@ -27,6 +27,12 @@ public class Grid {
   private Map<Character, String> colorCodes;
   private Map<String, String> cellDecoder;
 
+  /**
+   * Constructs an instance of the Grid class
+   *
+   * @param gridHeight number of rows in the Grid
+   * @param gridWidth  number of columns in the Grid
+   */
   public Grid(int gridHeight, int gridWidth) {
     grid = new Cell[gridHeight][gridWidth];
     gridStates = new Patch[gridHeight][gridWidth];
@@ -67,7 +73,7 @@ public class Grid {
   /**
    * Alter how neighbors are determined
    *
-   * @param structure CellStructure to use (Hex, Square, Triangular)
+   * @param structure CellStructure to use (HexagonStructure, SquareStructure, TriangularStructure)
    */
   public void setGridCellStructure(CellStructure structure) {
     gridCellStructure = structure;
@@ -208,6 +214,12 @@ public class Grid {
     return !(row >= gridHeight || row < 0 || col >= gridWidth || col < 0);
   }
 
+  /**
+   * Checks that the provided coordinate object is within the bounds of the Grid.
+   *
+   * @param coord coordinate object
+   * @return boolean representing whether coordinate is within the bounds of the grid.
+   */
   public boolean inBoundaries(Coordinate coord) {
     int row = coord.getFirst();
     int col = coord.getSecond();
@@ -237,6 +249,13 @@ public class Grid {
     grid[row][col] = cell;
   }
 
+  /**
+   * Returns the Patch object currently contained at the Grid.
+   *
+   * @param row row index of Patch to inspect
+   * @param col column index of Patch to inspect
+   * @return Patch object
+   */
   public Patch getPatch(int row, int col) {
     return gridStates[row][col];
   }
@@ -254,9 +273,9 @@ public class Grid {
   }
 
   /**
-   * List of coordinates to update through.
+   * List of coordinates containing cells that should be updated.
    *
-   * @return
+   * @return List of coordinate objects
    */
   public List<Coordinate> getCoordinateUpdateList() {
     List<Coordinate> coordinateList = new ArrayList<>();
@@ -268,6 +287,11 @@ public class Grid {
     return coordinateList;
   }
 
+  /**
+   * List of coordinates containing patches that should be updated
+   *
+   * @return List of coordinate objects
+   */
   protected List<Coordinate> getPatchUpdateList() {
     List<Coordinate> coordinateList = new ArrayList<>();
     for (int j = 0; j < gridHeight; j++) {
@@ -328,7 +352,7 @@ public class Grid {
   /**
    * Calculate the distribution of each type of cell.
    *
-   * @return
+   * @return integer code representing each cell type and the frequency of those cells in this grid.
    */
   public Map<Integer, Integer> getCellDistribution() {
     Map<Integer, Integer> map = new HashMap<>();

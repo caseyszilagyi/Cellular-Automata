@@ -1,19 +1,29 @@
 package cell_society.backend.automata.percolation;
 
 import cell_society.backend.automata.Cell;
-import cell_society.backend.automata.grid_styles.Grid;
 import cell_society.backend.automata.Neighbors;
+import cell_society.backend.automata.grid_styles.Grid;
 
 /**
  * Represents a percolated cell object from the Percolation Simulation
+ *
  * @author George Hong
  */
 public class PercolatedCell extends Cell {
 
+  /**
+   * Parameter-less constructor for use with the XML Reader to place initial configuration of
+   * Cells.
+   */
   public PercolatedCell() {
 
   }
 
+  /**
+   * Creates an instance of a Percolated Cell
+   * @param row row index where Percolated Cell resides
+   * @param col column index where Percolated Cell resides
+   */
   public PercolatedCell(int row, int col) {
     super(row, col);
   }
@@ -23,7 +33,7 @@ public class PercolatedCell extends Cell {
    * this can be called on for uniformity.
    *
    * @param grid grid holding the current configuration of cells
-   * @return
+   * @return Neighbors object of all directly neighboring cells.
    */
   @Override
   public Neighbors getNeighbors(Grid grid) {
@@ -33,7 +43,8 @@ public class PercolatedCell extends Cell {
   /**
    * If a cell is percolated, it will always be percolated.  Therefore, update the nextGrid by
    * placing an identical, percolated cell.
-   *  @param neighbors   Cells that this cell uses to make its decision
+   *
+   * @param neighbors   Cells that this cell uses to make its decision
    * @param currentGrid
    * @param nextGrid    grid to hold the next configuration of cells.
    */
@@ -50,6 +61,11 @@ public class PercolatedCell extends Cell {
     return "PercolatedCell";
   }
 
+  /**
+   * @Deprecated
+   * Used in conjunction with the now defunct Grid console-debugger.
+   * @return length-1 String representation of a percolated cell
+   */
   @Override
   public String getGridRepresentation() {
     return "O";

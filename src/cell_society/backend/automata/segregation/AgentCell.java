@@ -10,6 +10,7 @@ import cell_society.backend.simulation_initializer.CellParameters;
  * <p>
  * Primary Action: a satisfied agent will place a copy of itself in the same place, on the next
  * grid. Secondary Action: N/A Probe State: probe whether the cell is satisfied
+ *
  * @author George Hong
  */
 public class AgentCell extends Cell {
@@ -17,19 +18,40 @@ public class AgentCell extends Cell {
   public static final String SATISFACTION_PROP = "satisfactionprop";
   private double satisfactionProp;
 
+  /**
+   * Initializes an AgentCell
+   *
+   * @param row              row index occupied by this AgentCell
+   * @param col              column index occupied by this AgentCell
+   * @param satisfactionProp minimum proportion of neighbors that need to be like this AgentCell for
+   *                         it to remain in its current position.
+   */
   public AgentCell(int row, int col, double satisfactionProp) {
     super(row, col);
     this.satisfactionProp = satisfactionProp;
   }
 
+  /**
+   * Parameter-less constructor for use with the XML cell reader
+   */
   public AgentCell() {
 
   }
 
+  /**
+   * Returns the satisfactionProportion
+   *
+   * @return minimum proportion of neighbors that need to be of the same type as this AgentCell.
+   */
   public double getSatisfactionProp() {
     return satisfactionProp;
   }
 
+  /**
+   * Used in conjunction with the parameter-less constructor to initialize the Cell.
+   *
+   * @param parameters parameters object containing Agent properties
+   */
   @Override
   public void initializeParams(CellParameters parameters) {
     this.satisfactionProp = parameters.getAsDouble(SATISFACTION_PROP);
@@ -39,7 +61,7 @@ public class AgentCell extends Cell {
    * The AgentCell considers all neighbors in its direct vicinity to make its decisions.
    *
    * @param grid grid holding the current configuration of cells
-   * @return
+   * @return Neighbors object containing all Cells that this object considers its neighbors.
    */
   @Override
   public Neighbors getNeighbors(Grid grid) {
@@ -55,7 +77,7 @@ public class AgentCell extends Cell {
    * nextState. Handling the movement of the neighbors is dealt with elsewhere.
    *
    * @param neighbors   Cells that this cell uses to make its decision
-   * @param currentGrid
+   * @param currentGrid grid that currently holds the cell configuration
    * @param nextGrid    grid to hold the next configuration of cells.
    */
   @Override
@@ -72,7 +94,8 @@ public class AgentCell extends Cell {
    * @param neighbors   Cells that this cell uses to make its decisions
    * @param currentGrid Grid containing the current configuration of cells
    * @param nextGrid    Grid to contain the next configuration of cells
-   * @return
+   * @return boolean representing whether the AgentCell is satisfied with the proportion of its
+   * neighbors.
    */
   public boolean probeState(Neighbors neighbors, Grid currentGrid,
       Grid nextGrid) {
@@ -84,6 +107,11 @@ public class AgentCell extends Cell {
     return numSameNeighbors / totalNeighbors >= satisfactionProp;
   }
 
+  /**
+   * @return length 1 string representing an Agent
+   * @Deprecated Used in conjunction with the Grid console debugger for quick inspection of
+   * consistent grid states.
+   */
   @Override
   public String toString() {
     return "+";
