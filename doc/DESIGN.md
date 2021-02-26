@@ -4,13 +4,13 @@
 ## Team Roles and Responsibilities
 
  * Team Member #1
-    - George Hong, Backend
+    - George Hong (grh17), Backend
 
  * Team Member #2
-    - Casey Szilagyi, XML/Configuration
+    - Casey Szilagyi (crs79), XML/Configuration
 
  * Team Member #3
-
+    - Donghan Park (dp239), Frontend
 
 ## Design goals
   
@@ -19,6 +19,7 @@
    - Encode the desired Cell-types as subclasses of `Cell`.  The `getNeighbors` method is responsible for determining consideration of neighbors.  `performPrimaryAction` is intended to encapsulate all behaviors during the single pass update loop, producing the `Cell`'s next state.
 - **More sophisticated update rules:** `Cell` behavior is very localized.  Changes to `Cell` behavior are almost always handled within the `performPrimaryAction` of the cell.  Here, the update rules can be directly changed.  Because all `Cell`s contain knowledge of their location on the grid, even more sophisticated rules can be introduced quickly, such as rules that focus on the relative positioning of `Cell`s.    
 - **Cell shape and neighbor definitions:** `CellStructure` global treatment of cell Moore neighbors with different shapes and considerations for adjacent neighbors can be introduced fairly quickly.  Support for square, triangular, and hexagonal already exists.  The introduction of a new shape is through a `CellStructure` and corresponding `Direction` enum, defined as an abstract class and interface, respectively.  Within the `Direction` enum, definitions of adjacent neighbors can be quickly updated.  
+- **Simulation Cell Colors:** each simulation has a property file associated with it that dictates the colors for each cell type. The colors for the cells in each simulation can be easily changed by modifying these values.
 
 ## High-level Design
 - We tried to keep the details of how cells behave as deep in the project
@@ -38,12 +39,12 @@
 
 - The simulation class uses the stepper to make singular steps in the simulation.
   The details for performing a step is done within each cell type for the given
-  simulation, as well as in the simultion stepper class.
+  simulation, as well as in the simulation stepper class.
 
 - The displayManager class is what is calling the makeStep function in
   the simulation class. Each time this is done, the front end can call
-  the getGridDisplay method to get an integer array that has all of the
-  details to display the grid (including shape)
+  the getGridDisplay method to get an integer array that has all the
+  details to display the grid (including shape).
 
 #### Core Classes
 - `Grid` holds configuration of all `Cell` and `Patch` objects in a simulation.  Can be queried to provide an encoding of Object placements.
@@ -58,8 +59,8 @@
 - `SimulationStepper` Steps through each cell and updates it, copying it
   to the new grid. Ended up extending this class due to some tricky
   design details that were overlooked
-- `DisplayManager` This class has most of the implementation details for the
-  display
+- `DisplayManager` Maintains the two display views and creates all the UI components, as well as apply logic to each UI button for user input
+- `AnimationManager` Handles the main simulation loop by updating the display views at a certain FPS; responsible for logic behind playing/pausing, stepping, and changing the speed of the simulation 
 
 ## Assumptions that Affect the Design
 1. A spot on the `Grid` can only be occupied by one `Cell` at a time
