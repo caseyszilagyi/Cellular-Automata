@@ -7,8 +7,8 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.layout.Pane;
 
 /**
- * The GraphDisplay class is responsible for creating and updating the main display pie graph
- * that is viewed by the user.
+ * The GraphDisplay class is responsible for creating and updating the
+ * main display pie graph that is viewed by the user.
  *
  * @author Donghan Park
  */
@@ -18,9 +18,9 @@ public class GraphDisplay extends ViewDisplay {
   private final Scene scene;
 
   /**
-   *
-   * @param scene
-   * @param pane
+   * Constructor that creates an instance of the GraphDisplay object
+   * @param scene Main scene of the stage
+   * @param pane Pane of where the graph components will be stored
    */
   public GraphDisplay(Scene scene, Pane pane){
     this.scene = scene;
@@ -28,8 +28,9 @@ public class GraphDisplay extends ViewDisplay {
   }
 
   /**
-   *
-   * @param cellTypesMap
+   * Updates the display graph view with the most up-to-date cell population information
+   * @param cellTypesMap Map of entries, with keys being an integer code for the name of cell
+   *                     type, and values being the current population of that cell type
    */
   public void updateGraph(Map<Integer, Integer> cellTypesMap){
     pane.getChildren().clear();
