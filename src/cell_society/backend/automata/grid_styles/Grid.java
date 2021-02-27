@@ -110,10 +110,21 @@ public class Grid {
     return gridWidth;
   }
 
+  /**
+   * Sets the color code for the Cells in the grid
+   *
+   * @param userColorCodes maps each character representation of a Cell to a String of an integer,
+   *                       representing a unique type
+   */
   public void setColorCodes(Map<Character, String> userColorCodes) {
     colorCodes = userColorCodes;
   }
 
+  /**
+   * Sets the map of each Cell name to a corresponding int, saved as a String
+   *
+   * @param userCellDecoder Map to be used to decode Cells
+   */
   public void setCellDecoder(Map<String, String> userCellDecoder) {
     cellDecoder = userCellDecoder;
   }

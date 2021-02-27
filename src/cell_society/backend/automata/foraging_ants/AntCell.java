@@ -35,7 +35,7 @@ public class AntCell extends Cell {
   }
 
   /**
-   * Constructs a new isntance of the ant object, initializing it with a random direction from the
+   * Constructs a new instance of the ant object, initializing it with a random direction from the
    * grid.
    *
    * @param row  row index to be occupied by the ant cell
@@ -61,7 +61,7 @@ public class AntCell extends Cell {
    * on the patch states to determine movement.
    *
    * @param grid grid holding the current configuration of cells
-   * @return
+   * @return Neighbors objects containing all neighbors of the ant
    */
 
   @Override
@@ -179,9 +179,8 @@ public class AntCell extends Cell {
   }
 
   /**
-   * @Deprecated
-   * Returns a length 1 string that is compact to aid in debugging in the console
    * @return String representing an ant, ("A")
+   * @Deprecated Returns a length 1 string that is compact to aid in debugging in the console
    */
   @Override
   public String getGridRepresentation() {
@@ -190,6 +189,7 @@ public class AntCell extends Cell {
 
   /**
    * Helper method to aid in the decoding of cells to the frontend.
+   *
    * @return String containing this AntCell's class name.
    */
   @Override

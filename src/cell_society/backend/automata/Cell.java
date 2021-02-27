@@ -44,8 +44,8 @@ public abstract class Cell {
   /**
    * Allows the cell to track its position on the grid, required to carry out certain actions.
    *
-   * @param row
-   * @param col
+   * @param row desired row index of this cell
+   * @param col desired column index of this cell
    */
   public void setPosition(int row, int col) {
     this.row = row;

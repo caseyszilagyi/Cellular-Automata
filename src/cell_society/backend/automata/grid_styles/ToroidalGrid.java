@@ -47,9 +47,9 @@ public class ToroidalGrid extends Grid {
   /**
    * Always in boundaries due to the toroid-warp property.
    *
-   * @param row
-   * @param col
-   * @return
+   * @param row row index to check boundaries
+   * @param col column index to check boundaries
+   * @return boolean representing whether (row, col) is in boundaries of the toroidal grid
    */
   @Override
   public boolean inBoundaries(int row, int col) {
@@ -108,7 +108,7 @@ public class ToroidalGrid extends Grid {
    *
    * @param row row index of Patch to inspect
    * @param col column index of Patch to inspect
-   * @return
+   * @return Patch object located at the given coordinates
    */
   public Patch getPatch(int row, int col) {
     Coordinate newCoordinates = getModifiedCoordinates(row, col);
