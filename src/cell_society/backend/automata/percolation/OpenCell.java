@@ -57,6 +57,10 @@ public class OpenCell extends Cell {
     }
   }
 
+  /**
+   * Returns the String representation of this Cell's name
+   * @return String "OpenCell"
+   */
   @Override
   public String toString() {
     return "OpenCell";

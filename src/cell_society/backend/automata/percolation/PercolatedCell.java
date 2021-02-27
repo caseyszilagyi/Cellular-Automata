@@ -56,6 +56,10 @@ public class PercolatedCell extends Cell {
     nextGrid.placeCell(r, c, percolatedCell);
   }
 
+  /**
+   * Returns the String representation of this Cell's name, used by the Cell Decoder
+   * @return String "PercolatedCell"
+   */
   @Override
   public String toString() {
     return "PercolatedCell";
