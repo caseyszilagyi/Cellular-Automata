@@ -7,6 +7,8 @@ import cell_society.backend.automata.grid_styles.Grid;
 /**
  * Deals with each "step" of the simulation, which is done every time the simulation loop makes a
  * pass. This is the most basic form, that just loops through each cell once
+ *
+ * @author Casey Szilagyi
  */
 public class SimulationStepper {
 
@@ -16,7 +18,7 @@ public class SimulationStepper {
   }
 
   /**
-   * Sets the grid for the stepper to use
+   * Sets the grid to the specified grid
    * @param grid The grid
    */
   public void setGrid(Grid grid){
@@ -42,6 +44,10 @@ public class SimulationStepper {
     simulationGrid = nextGrid;
   }
 
+  /**
+   * Gets the current Grid
+   * @return the grid
+   */
   public Grid getGrid(){
     return simulationGrid;
   }

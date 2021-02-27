@@ -9,6 +9,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+/**
+ * Stepper used to implement the segregation simulation
+ * @author George Hong
+ */
 public class SegregationStepper extends SimulationStepper {
 
   private Grid simulationGrid;
@@ -19,16 +23,27 @@ public class SegregationStepper extends SimulationStepper {
   public SegregationStepper() {
   }
 
+  /**
+   * Gets the current Grid
+   * @return the grid
+   */
   public Grid getGrid() {
     return simulationGrid;
   }
 
+  /**
+   * Sets the grid to the specified grid
+   * @param grid The grid
+   */
   public void setGrid(Grid grid) {
     simulationGrid = grid;
     gridHeight = grid.getGridHeight();
     gridWidth = grid.getGridWidth();
   }
 
+  /**
+   * Carries out all of the details to make a single step forward in the simulation
+   */
   @Override
   public void makeStep() {
     Grid nextGrid = new Grid(simulationGrid);

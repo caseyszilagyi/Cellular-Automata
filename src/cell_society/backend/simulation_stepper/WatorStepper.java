@@ -7,6 +7,11 @@ import cell_society.backend.automata.wator.FishCell;
 import cell_society.backend.automata.wator.SharkCell;
 import cell_society.backend.automata.grid_styles.ToroidalGrid;
 
+/**
+ * Stepper used to implement the wator simulation
+ *
+ * @author George Hong
+ */
 public class WatorStepper extends SimulationStepper {
 
   private Grid simulationGrid;
@@ -17,6 +22,9 @@ public class WatorStepper extends SimulationStepper {
 
   }
 
+  /**
+   * Carries out all of the details to make a single step forward in the simulation
+   */
   public void makeStep() {
     Grid nextGrid = new ToroidalGrid(simulationGrid);
     // Move Fish first
@@ -32,11 +40,14 @@ public class WatorStepper extends SimulationStepper {
     applyReproduce(nextGrid);
   }
 
+  // Reproduces animals, if necessary
   private void applyReproduce(Grid nextGrid) {
     for (int j = 0; j < gridHeight; j++) {
       for (int k = 0; k < gridWidth; k++) {
         Cell cell = nextGrid.getCell(j, k);
-        if (cell == null) continue;
+        if (cell == null) {
+          continue;
+        }
         cell.performSecondaryAction(null, nextGrid, null);
       }
     }
@@ -62,13 +73,23 @@ public class WatorStepper extends SimulationStepper {
     }
   }
 
+  /**
+   * Sets the grid to the specified grid
+   *
+   * @param grid The grid
+   */
   public void setGrid(Grid grid) {
     simulationGrid = grid;
     gridHeight = grid.getGridHeight();
     gridWidth = grid.getGridWidth();
   }
 
-  public Grid getGrid(){
+  /**
+   * Gets the current Grid
+   *
+   * @return the grid
+   */
+  public Grid getGrid() {
     return simulationGrid;
   }
 

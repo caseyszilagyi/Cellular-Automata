@@ -6,12 +6,20 @@ import cell_society.backend.automata.Patch;
 import cell_society.backend.automata.grid_styles.Grid;
 import java.util.List;
 
+
+/**
+ * Stepper used to implement the sugar simulation
+ * @author George Hong
+ */
 public class SugarStepper extends SimulationStepper {
 
   private Grid simulationGrid;
   private int gridHeight;
   private int gridWidth;
 
+  /**
+   * Carries out all of the details to make a single step forward in the simulation
+   */
   public void makeStep() {
     Grid nextGrid = new Grid(simulationGrid);
     nextGrid.updateRemainingPatches(simulationGrid);
@@ -31,10 +39,18 @@ public class SugarStepper extends SimulationStepper {
     simulationGrid = nextGrid;
   }
 
+  /**
+   * Gets the current Grid
+   * @return the grid
+   */
   public Grid getGrid() {
     return simulationGrid;
   }
 
+  /**
+   * Sets the grid to the specified grid
+   * @param grid The grid
+   */
   public void setGrid(Grid grid) {
     simulationGrid = grid;
     gridHeight = grid.getGridHeight();

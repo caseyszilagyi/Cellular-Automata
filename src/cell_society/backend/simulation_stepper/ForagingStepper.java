@@ -6,12 +6,19 @@ import cell_society.backend.automata.Patch;
 import cell_society.backend.automata.grid_styles.Grid;
 import java.util.List;
 
+/**
+ * Stepper used to implement the foraging ants simulation
+ * @author George Hong
+ */
 public class ForagingStepper extends SimulationStepper {
 
   private Grid simulationGrid;
   private int gridHeight;
   private int gridWidth;
 
+  /**
+   * Carries out all of the details to make a single step forward in the simulation
+   */
   public void makeStep() {
     Grid nextGrid = new Grid(simulationGrid);
     nextGrid.updateRemainingPatches(simulationGrid);
@@ -22,6 +29,12 @@ public class ForagingStepper extends SimulationStepper {
     simulationGrid = nextGrid;
   }
 
+  /**
+   * Passes through the grid twice, applying the logic to each cell
+   * @param nextGrid The next grid that will be used
+   * @param coordinateList The list of coordinates to check
+   * @param simulationGrid The current grid
+   */
   public static void doublePass(Grid nextGrid, List<Coordinate> coordinateList,
       Grid simulationGrid) {
     for (Coordinate coordinate : coordinateList) {
@@ -44,10 +57,19 @@ public class ForagingStepper extends SimulationStepper {
     }
   }
 
+
+  /**
+   * Gets the current Grid
+   * @return the grid
+   */
   public Grid getGrid() {
     return simulationGrid;
   }
 
+  /**
+   * Sets the grid to the specified grid
+   * @param grid The grid
+   */
   public void setGrid(Grid grid) {
     simulationGrid = grid;
     gridHeight = grid.getGridHeight();
